@@ -1,6 +1,6 @@
-package dndCharacterCreator;
+package Core;
 import java.util.Random;
-
+import java.util.HashMap;
 
 public class Actor implements Dice
 {
@@ -154,25 +154,29 @@ public class Actor implements Dice
 	
 	//======================lightly-used methods
 }
+
+
 class Monster extends Actor
 {
 	String name;
 }
 
+
 class PlayerCharacter extends Actor
 {
 	String name;
+	int level;
+	backgrounds background;
+	HashMap <String, Byte> skills = new HashMap <String, Byte>();
+	
 	
 	//======================lightly-used methods
 	public void RollAbilityScores()
 	{
 		Die stat_die = Die.D6;
-		
 		int temp1, temp2, temp3, temp4, temp_total;
-		
 		int[] first_set = {0, 0, 0, 0, 0};
 		int first_total = 0;
-		
 		int[] second_set = {0, 0, 0, 0, 0};
 		int second_total = 0;
 		
@@ -251,11 +255,15 @@ class PlayerCharacter extends Actor
 			wisdom = second_set[3];
 			charisma = second_set[4];
 		}
-	}
-}
+		//setting up map type.
+		// [string, byte] - string to hold the name of the skill, byte to decide expertise, proficiency, disadv, or adv, or flat
+		
+	} // end of rollstats method
+} // end of player character class
 
 
-final class NPC extends PlayerCharacter
+final class NPC extends Actor
 {
 	String name;
 }
+

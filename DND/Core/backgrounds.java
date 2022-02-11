@@ -1,0 +1,38 @@
+package Core;
+
+public enum backgrounds
+{
+	Outlander,
+	Acolyte,
+	Sage,
+	Soldier,
+	Adopted,
+	FarTraveler,
+	Courtier,
+	Criminal,
+	Charlatan,
+	Haunted,
+	Urchin,
+	Entertainer,
+	Gladiator,
+	Investigator,
+	MercenaryVeteran,
+	Hermit,
+	Inheritor,
+	KnightOfTheOrder,
+	Anthropologist,
+	Archaeologist,
+	CityWatch,
+	ClanCrafter,
+	CloisteredScholar,
+	Faceless,
+	FolkHero,
+	HouseAgent,
+	GuildArtisan,
+	Sailor,
+	UrbanBountyHunter,
+	WaterdhavianNoble,
+	NobleKnight,
+	UthgardtTribeMember,
+	FactionAgent
+}
