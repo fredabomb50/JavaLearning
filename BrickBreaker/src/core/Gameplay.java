@@ -1,42 +1,46 @@
+package core;
 import java.util.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
 import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.Timer;
+import java.util.Random;
+
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener 
 {
-	private boolean play = false;
-	private int score = 0;
-	
-	private int totalBricks = 48;
-	
 	private Timer timer;
-	private int delay=8;
-	
-	private int playerX = 310;
-	
-	private int ballposX = 120;
-	private int ballposY = 350;
-	private int ballXdir = -1;
-	private int ballYdir = -2;
-	
 	private MapGenerator map;
 	
+	Random ballXCoord = new Random();
+	
+	private boolean IsPlaying = false;
+	private int score = 0;
+	private int delay = 1;
+	private int playerX = 300;
+	private int ballposX = ballXCoord.nextInt(100, 600);
+	private int ballposY = 350;
+	private int ballXdir = -3;
+	private int ballYdir = ballXdir * 2;
+	private int mapYLimit = 12;
+	private int mapXLimit = 4;
+	private int totalBricks = mapYLimit * mapXLimit;
+	
+	
+	//======================Game Initialization
 	public Gameplay()
 	{		
-		map = new MapGenerator(4, 12);
+		map = new MapGenerator(mapXLimit, mapYLimit);
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-        timer=new Timer(delay,this);
+        timer = new Timer(delay, this);
 		timer.start();
 	}
 	
+	
+	//======================Graphics updating
 	public void paint(Graphics g)
 	{    		
 		// background
@@ -45,7 +49,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		
 		// drawing map
 		map.draw((Graphics2D) g);
-		
+
 		// borders
 		g.setColor(Color.yellow);
 		g.fillRect(0, 0, 3, 592);
@@ -68,10 +72,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		// when you won the game
 		if(totalBricks <= 0)
 		{
-			 play = false;
+			 IsPlaying = false;
              ballXdir = 0;
      		 ballYdir = 0;
-             g.setColor(Color.RED);
+             g.setColor(Color.GREEN);
              g.setFont(new Font("serif",Font.BOLD, 30));
              g.drawString("You Won", 260,300);
              
@@ -83,7 +87,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		// when you lose the game
 		if(ballposY > 570)
         {
-			 play = false;
+			 IsPlaying = false;
              ballXdir = 0;
      		 ballYdir = 0;
              g.setColor(Color.RED);
@@ -98,69 +102,84 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 		g.dispose();
 	}	
 
+	
+	//======================Input processing
 	public void keyPressed(KeyEvent e) 
 	{
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-		{        
-			if(playerX >= 600)
+		switch (e.getKeyCode())
+		{
+			case KeyEvent.VK_RIGHT:
 			{
-				playerX = 600;
-			}
-			else
+				if(playerX >= 600)
+				{
+					playerX = 600;
+				}
+				else
+				{
+					moveRight();
+				}
+			}break;
+			
+			case KeyEvent.VK_LEFT:
 			{
-				moveRight();
-			}
-        }
-		
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-		{          
-			if(playerX < 10)
+				if(playerX < 10)
+				{
+					playerX = 10;
+				}
+				else
+				{
+					moveLeft();
+				}
+			}break;
+			
+			case KeyEvent.VK_ENTER:
 			{
-				playerX = 10;
-			}
-			else
-			{
-				moveLeft();
-			}
-        }		
-		if (e.getKeyCode() == KeyEvent.VK_ENTER)
-		{          
-			if(!play)
-			{
-				play = true;
-				ballposX = 120;
-				ballposY = 350;
-				ballXdir = -1;
-				ballYdir = -2;
-				playerX = 310;
-				score = 0;
-				totalBricks = 21;
-				map = new MapGenerator(3, 7);
-				
-				repaint();
-			}
-        }		
-	}
+				if(!IsPlaying)
+				{
+					IsPlaying = true;
+					ballposX = ballXCoord.nextInt(50, 550);
+					ballposY = 350;
+					ballXdir = -3;
+					ballYdir = -6;
+					playerX = 300;
+					score = 0;
+					totalBricks = 48;
+					map = new MapGenerator(mapXLimit, mapYLimit);
+					
 
-	public void keyReleased(KeyEvent e) {}
-	public void keyTyped(KeyEvent e) {}
+					repaint();
+				}
+			}break;
+			
+			case KeyEvent.VK_ESCAPE:
+			{
+				IsPlaying = false;
+				System.exit(0);
+				
+			}break;
+			
+		} //end of getKeyCode switch
+	}
 	
 	public void moveRight()
 	{
-		play = true;
-		playerX+=20;	
+		IsPlaying = true;
+		playerX+=60;	
 	}
-	
 	public void moveLeft()
+	
+
 	{
-		play = true;
-		playerX-=20;	 	
+		IsPlaying = true;
+		playerX-=60;	 	
 	}
 	
+	
+	//======================Game updates
 	public void actionPerformed(ActionEvent e) 
 	{
-		timer.start();
-		if(play)
+		//timer.start();
+		if(IsPlaying)
 		{			
 			if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX, 550, 30, 8)))
 			{
@@ -236,4 +255,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener
 			repaint();		
 		}
 	}
+	
+	
+	//======================Stub methods
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {}
 }
