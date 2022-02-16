@@ -1,21 +1,19 @@
 package core;
-import java.awt.Color;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-
-public class Main {
-	public static void main(String[] args) {
-		JFrame obj = new JFrame();
-		Gameplay gamePlay = new Gameplay();
+@SuppressWarnings("serial")
+public class Main
+{
+	public static void main(String[] args)
+	{
+		InputHandler input_processor = new InputHandler();
 		
-		obj.setBounds(10, 10, 700, 600);
-		obj.setTitle("Spaz Breaker");		
-		obj.setResizable(false);
-		obj.setVisible(true);
-		obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		obj.add(gamePlay);
-                obj.setVisible(true);
-		
-	}
-
-}
+		SwingUtilities.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				input_processor.createAndShowGui();
+			}
+		}); // end of async GUI display 
+	} //end of main method
+} //end of main class
