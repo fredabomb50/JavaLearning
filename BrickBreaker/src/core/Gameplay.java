@@ -14,24 +14,24 @@ public class Gameplay extends JPanel implements ActionListener
 	//game data
 	Random randomNum = new Random();
 	private boolean IsPlaying = false;
-	private int score = 0;
-	private int startDelay = 3;
+	private int score;
+	private int startDelay;
 	private Timer timer;
 	private MapGenerator map;
 	
 	
 	//map data
-	private int mapYLimit = 12;
-	private int mapXLimit = 4;
-	private int totalBricks = mapYLimit * mapXLimit;
+	private int mapYLimit;
+	private int mapXLimit;
+	private int totalBricks;
 	
 	
 	//ball data
 	Color ballColor = new Color(255, 255, 255);
-	private int ballposX = randomNum.nextInt(100, 600);
-	private int ballposY = 350;
-	private int ballXdir = -2;
-	private int ballYdir = ballXdir * 2;
+	private int ballposX;
+	private int ballposY;
+	private int ballXdir;
+	private int ballYdir;
 	
 	
 	//paddle data
@@ -49,12 +49,28 @@ public class Gameplay extends JPanel implements ActionListener
 	
 	public void newGame()
 	{
+		mapYLimit = 2;
+		mapXLimit = 2;
+		totalBricks = mapYLimit * mapXLimit;
 		map = new MapGenerator(mapXLimit, mapYLimit);
+		score = 0;
+		startDelay = 3;
 		timer = new Timer(startDelay, this);
 		timer.start();
+		
+		resetBall();
+		repaint();
+		IsPlaying = true;
 	}
 	
 	
+	private void resetBall()
+	{
+		ballposX = randomNum.nextInt(100, 600);
+		ballposY = 350;
+		ballXdir = -2;
+		ballYdir = -4;
+	}
 	//======================Graphics updating
 	public void paint(Graphics g)
 	{    		
@@ -74,27 +90,29 @@ public class Gameplay extends JPanel implements ActionListener
 		// the scores 		
 		g.setColor(Color.white);
 		g.setFont(new Font("serif",Font.BOLD, 25));
-		g.drawString(""+score, 590,30);
+		g.drawString("" + score, 590,30);
 		
 		// the paddle
 		g.setColor(playerColor);
 		g.fillRect(playerX, 550, 100, 8);
 		
+		
 		// the ball
 		g.setColor(ballColor);
 		g.fillOval(ballposX, ballposY, 20, 20);
 	
+		
 		// when you won the game
 		if(totalBricks <= 0)
 		{
 			 IsPlaying = false;
-             ballXdir = 0;
-     		 ballYdir = 0;
+             //ballXdir = 0;
+     		 //ballYdir = 0;
              g.setColor(Color.GREEN);
              g.setFont(new Font("serif",Font.BOLD, 30));
              g.drawString("You Won", 260,300);
              
-             g.setColor(Color.RED);
+             g.setColor(Color.GREEN);
              g.setFont(new Font("serif",Font.BOLD, 20));           
              g.drawString("Press (Enter) to Restart", 230,350);  
 		}
@@ -103,15 +121,15 @@ public class Gameplay extends JPanel implements ActionListener
 		if(ballposY > 570)
         {
 			 IsPlaying = false;
-             ballXdir = 0;
-     		 ballYdir = 0;
+             //ballXdir = 0;
+     		 //ballYdir = 0;
              g.setColor(Color.RED);
              g.setFont(new Font("serif",Font.BOLD, 30));
              g.drawString("Game Over, Scores: "+score, 190,300);
              
              g.setColor(Color.RED);
              g.setFont(new Font("serif",Font.BOLD, 20));           
-             g.drawString("Press (Enter) to Restart", 230,350);        
+             g.drawString("Press (Enter) to Restart", 230, 350);        
         }
 		
 		g.dispose();
@@ -130,6 +148,8 @@ public class Gameplay extends JPanel implements ActionListener
 		g.setColor(temp_color);
 		g.fillOval(ballposX, ballposY, 20, 20);
 	}
+	
+	
 	//======================Input processing
 	public void KeysHandler(String key) 
 	{
@@ -137,25 +157,40 @@ public class Gameplay extends JPanel implements ActionListener
 		{
 			case "Right":
 			{
-				if(playerX >= 600)
+				if (IsPlaying)
 				{
-					playerX = 600;
+					if(playerX >= 600)
+					{
+						playerX = 600;
+					}
+					else
+					{
+						moveRight();
+					}
 				}
 				else
 				{
-					moveRight();
+					System.out.println("Game inactive; can't move");
 				}
 			}break;
 			
+			
 			case "Left":
 			{
-				if(playerX < 10)
+				if (IsPlaying)
 				{
-					playerX = 10;
+					if(playerX < 10)
+					{
+						playerX = 10;
+					}
+					else
+					{
+						moveLeft();
+					}
 				}
 				else
 				{
-					moveLeft();
+					System.out.println("Game inactive; can't move");
 				}
 			}break;
 			
@@ -165,7 +200,6 @@ public class Gameplay extends JPanel implements ActionListener
 				{
 					IsPlaying = true;
 					newGame();
-					repaint();
 				}
 				else
 				{
@@ -184,33 +218,30 @@ public class Gameplay extends JPanel implements ActionListener
 	}
 	public void moveRight()
 	{
-		IsPlaying = true;
-		playerX+=60;	
+		playerX += 60;	
 	}
 	public void moveLeft()
 	{
-		IsPlaying = true;
-		playerX-=60;	 	
+
+		playerX -= 60;	 	
 	}
 	
 
 	//======================Game updates
 	public void actionPerformed(ActionEvent e) 
 	{
+		timer.start();
 		if(IsPlaying)
 		{		
-			System.out.println("game is playing");
-			
-			
 			if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX, 550, 30, 8)))
 			{
 				ballYdir = -ballYdir;
-				ballXdir = -2;
+				ballXdir = -ballXdir;
 			}
 			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX + 70, 550, 30, 8)))
 			{
 				ballYdir = -ballYdir;
-				ballXdir = ballXdir + 1;
+				ballXdir = -ballXdir;
 			}
 			else if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX + 30, 550, 40, 8)))
 			{
@@ -219,9 +250,9 @@ public class Gameplay extends JPanel implements ActionListener
 			
 			
 			// check map collision with the ball		
-			A: for(int i = 0; i<map.map.length; i++)
+			A: for(int i = 0; i < map.map.length; i++)
 			{
-				for(int j =0; j<map.map[0].length; j++)
+				for(int j = 0; j < map.map[0].length; j++)
 				{				
 					if(map.map[i][j] > 0)
 					{
@@ -238,7 +269,7 @@ public class Gameplay extends JPanel implements ActionListener
 						if(ballRect.intersects(brickRect))
 						{					
 							map.setBrickValue(0, i, j);
-							score+=5;	
+							score += 5;	
 							totalBricks--;
 							
 							// when ball hit right or left of brick
