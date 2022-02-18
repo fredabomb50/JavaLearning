@@ -46,6 +46,7 @@ public class Gameplay extends JPanel implements ActionListener
 		setFocusTraversalKeysEnabled(false);
 		newGame();	
 	}
+
 	
 	public void newGame()
 	{
@@ -54,7 +55,7 @@ public class Gameplay extends JPanel implements ActionListener
 		totalBricks = mapYLimit * mapXLimit;
 		map = new MapGenerator(mapXLimit, mapYLimit);
 		score = 0;
-		startDelay = 3;
+		startDelay = 25; // in milliseconds between each "frame"
 		timer = new Timer(startDelay, this);
 		timer.start();
 		
@@ -71,6 +72,8 @@ public class Gameplay extends JPanel implements ActionListener
 		ballXdir = -2;
 		ballYdir = -4;
 	}
+	
+	
 	//======================Graphics updating
 	public void paint(Graphics g)
 	{    		
@@ -114,7 +117,8 @@ public class Gameplay extends JPanel implements ActionListener
              
              g.setColor(Color.GREEN);
              g.setFont(new Font("serif",Font.BOLD, 20));           
-             g.drawString("Press (Enter) to Restart", 230,350);  
+             g.drawString("Press (Enter) to Exit", 230,350);
+             //System.exit(0);
 		}
 		
 		// when you lose the game
@@ -129,7 +133,8 @@ public class Gameplay extends JPanel implements ActionListener
              
              g.setColor(Color.RED);
              g.setFont(new Font("serif",Font.BOLD, 20));           
-             g.drawString("Press (Enter) to Restart", 230, 350);        
+             g.drawString("Press (Enter) to Restart", 230, 350);
+             //System.exit(0);
         }
 		
 		g.dispose();
@@ -230,7 +235,10 @@ public class Gameplay extends JPanel implements ActionListener
 	//======================Game updates
 	public void actionPerformed(ActionEvent e) 
 	{
+		//timer = new Timer(startDelay, this);
 		timer.start();
+		//IsPlaying = true;
+		
 		if(IsPlaying)
 		{		
 			if(new Rectangle(ballposX, ballposY, 20, 20).intersects(new Rectangle(playerX, 550, 30, 8)))

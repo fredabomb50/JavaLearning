@@ -50,7 +50,7 @@ public class InputHandler extends JPanel
 		@Override public void actionPerformed(ActionEvent action_event)
 		{
 			String actionCommand = action_event.getActionCommand();
-			System.out.println("Action Peformed: " + actionCommand);
+			//System.out.println("Action Performed: " + actionCommand);
 			gamePlay.KeysHandler(actionCommand);
 			
 		} //end of action performed method
