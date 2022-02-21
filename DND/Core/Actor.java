@@ -30,7 +30,7 @@ public class Actor implements Dice
 	
 	
 	//======================Dice implementations
-	public int Roll_Dice (Die die)
+	public int Roll_Die (Die die)
 	{
 		int result = 0;
 		int MaxDieValue = 0;
@@ -89,7 +89,7 @@ public class Actor implements Dice
 	}
 	
 	
-	public int Roll_Dice(int count, Die die)
+	public int Roll_Die(int count, Die die)
 	{
 		int result = 0;
 		int MaxDieValue = 0;
@@ -156,11 +156,6 @@ public class Actor implements Dice
 }
 
 
-class Monster extends Actor
-{
-	String name;
-}
-
 
 class PlayerCharacter extends Actor
 {
@@ -183,10 +178,10 @@ class PlayerCharacter extends Actor
 		
 		for (int i = 0; i <= 4; i++)
 		{
-			temp1 = Roll_Dice(stat_die);
-			temp2 = Roll_Dice(stat_die);
-			temp3 = Roll_Dice(stat_die);
-			temp4 = Roll_Dice(stat_die);
+			temp1 = Roll_Die(stat_die);
+			temp2 = Roll_Die(stat_die);
+			temp3 = Roll_Die(stat_die);
+			temp4 = Roll_Die(stat_die);
 			temp_total = 0;
 			
 			if (temp4 <= temp3 && temp4 <= temp2 && temp4 <= temp1)
@@ -212,10 +207,10 @@ class PlayerCharacter extends Actor
 		
 		for (int i = 0; i <= 4; i++)
 		{
-			temp1 = Roll_Dice(stat_die);
-			temp2 = Roll_Dice(stat_die);
-			temp3 = Roll_Dice(stat_die);
-			temp4 = Roll_Dice(stat_die);
+			temp1 = Roll_Die(stat_die);
+			temp2 = Roll_Die(stat_die);
+			temp3 = Roll_Die(stat_die);
+			temp4 = Roll_Die(stat_die);
 			temp_total = 0;
 			
 			if (temp4 <= temp3 && temp4 <= temp2 && temp4 <= temp1)
@@ -260,10 +255,4 @@ class PlayerCharacter extends Actor
 		
 	} // end of rollstats method
 } // end of player character class
-
-
-final class NPC extends Actor
-{
-	String name;
-}
 

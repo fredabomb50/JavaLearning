@@ -1,5 +1,4 @@
 package Core;
-import utilities.*;
 
 
 // compile java src with javac from command line. needs java SSE package from oracle: https://www.oracle.com/java/technologies/downloads/#jdk17-windows
@@ -55,12 +54,27 @@ public class Main
 	
 	public static void main(String[] args)
 	{
+		/*
 		logger("Declaring player...");
 		PlayerCharacter test_character = new PlayerCharacter();
-
 		initializePlayer(test_character);
 		
 		logger("Checking player stats...");
 		test_character.print_CoreStats();
+		*/
+		
+		
+		//FOR A BORDERLESS WINDOW
+		/*
+		import java.awt.BorderLayout;
+		JWindow window = new JWindow();
+		-or-
+		JFrame window = new JFrame("title"); // title not visible with no frame
+		frame.setUndecorated(true);
+		*/
+		
+		
+		Gui mainWindow = new Gui();
+			mainWindow.setVisibility(true);
 	}
 }
