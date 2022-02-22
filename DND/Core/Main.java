@@ -11,7 +11,7 @@ public class Main
 {
 	public static void logger(String log)
 	{
-		System.out.println(log);
+		System.out.println(log + ".....");
 	}
 
 	
@@ -54,7 +54,7 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		/*
+/*
 		logger("Declaring player...");
 		PlayerCharacter test_character = new PlayerCharacter();
 		initializePlayer(test_character);
@@ -71,10 +71,20 @@ public class Main
 		-or-
 		JFrame window = new JFrame("title"); // title not visible with no frame
 		frame.setUndecorated(true);
-		*/
+*/
 		
 		
-		Gui mainWindow = new Gui();
-			mainWindow.setVisibility(true);
+		//scheduling for thread safety; more necessary with swing, less with AWT
+		javax.swing.SwingUtilities.invokeLater(new Runnable() 
+		{
+           public void run()
+            {
+        	   logger("Initializing gui");
+        	   Gui mainWindow = new Gui();
+        	   mainWindow.createAndShowGUI();
+            }
+        });
+		
+		
 	}
 }
