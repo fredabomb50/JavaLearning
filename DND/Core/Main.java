@@ -54,26 +54,6 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-/*
-		logger("Declaring player...");
-		PlayerCharacter test_character = new PlayerCharacter();
-		initializePlayer(test_character);
-		
-		logger("Checking player stats...");
-		test_character.print_CoreStats();
-		*/
-		
-		
-		//FOR A BORDERLESS WINDOW
-		/*
-		import java.awt.BorderLayout;
-		JWindow window = new JWindow();
-		-or-
-		JFrame window = new JFrame("title"); // title not visible with no frame
-		frame.setUndecorated(true);
-*/
-		
-		
 		//scheduling for thread safety; more necessary with swing, less with AWT
 		javax.swing.SwingUtilities.invokeLater(new Runnable() 
 		{
@@ -83,8 +63,20 @@ public class Main
         	   Gui mainWindow = new Gui();
         	   mainWindow.createAndShowGUI();
             }
-        });
+        }); // end of invokeLater
+	} // end of main method
+	
+	
+	//holds a comment for later functionality
+	public void stub()
+	{
+		/*
+		logger("Declaring player...");
+		PlayerCharacter test_character = new PlayerCharacter();
+		initializePlayer(test_character);
 		
-		
+		logger("Checking player stats...");
+		test_character.print_CoreStats();
+*/
 	}
 }

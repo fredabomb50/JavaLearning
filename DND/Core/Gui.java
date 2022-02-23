@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-
+import java.awt.Color;
 
 //======================SWING
 import javax.swing.*;
@@ -22,20 +22,35 @@ public class Gui extends JPanel implements ActionListener
 	final static long serialVersionUID = 0;
 	
 	
-	//styling components
-	Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 12);
+	//Fonts
+	final private static Font font_GenericButton = new Font(Font.SERIF, Font.PLAIN, 12);
+	final private static Font font_LargeHeader = new Font(Font.SERIF, Font.BOLD, 36);
+	final private static Font font_MediumHeader = new Font(Font.SERIF, Font.BOLD, 24);
+	final private static Font font_SmallHeader = new Font(Font.SERIF, Font.BOLD, 12);
+	final private static Font font_MenuHeader = new Font(Font.SERIF, Font.ITALIC, 12);
+	
+	//Colors
+	final private static Color color_PanelBackdrop = new Color(191, 179, 148);	// BFB394
+	final private static Color color_PanelBorder = new Color(228, 222, 197);	// E4DEC5
+	final private static Color color_GenericText = new Color(0, 0, 0);	
+	final private static Color color_LogoText = new Color(146, 9, 9);			// 920909
+	final private static Color color_LightBackdrop = new Color(241, 235, 228);	// F1EBE4
+	
+	
+	//Defaults
 	int button_DefaultGridWidth = 1;
 	int button_DefaultGridHeight = 1;
 	int label_DefaultSize = 1;
 	
 	
-	//resources
-	final private static String avatar_Path = "Resources/avatar.png";
+	//Resources
+	final private static String path_AvatarImage = "Resources/avatar.png";
+	final private static String path_WindowIcon = "Resources/window_icon.png";
 	
 	
-	//core components and frame
+	//Core components and frame
 	private JFrame frame = new JFrame("Character Randomizer");
-	private Image icon_Window = Toolkit.getDefaultToolkit().getImage("Resources/window_icon.png");
+	private Image icon_Window = Toolkit.getDefaultToolkit().getImage(path_WindowIcon);
 	
 	
 	//======================CONSTRUCTOR
@@ -45,108 +60,136 @@ public class Gui extends JPanel implements ActionListener
 	} // end of constructor
 
 	
-	//TO START OFF, WE'LL USE A 9X9 GRID; just for core character details (name, age, race, level, etc.)
+
 	//======================Graphics
 	public void createAndShowGUI()
 	{	
 		// set constraints
-		GridBagConstraints bttn1, bttn2, bttn3, bttn4, bttn5, f1;
-		bttn1 = new GridBagConstraints();
-			bttn1.gridx = 0;
-			bttn1.gridy = 0;
-			
-		f1 = new GridBagConstraints();
-			f1.gridx = 1;
-			f1.gridy = 1;
-			
-		bttn3 = new GridBagConstraints();
-			bttn3.gridx = 2;
-			bttn3.gridy = 2;
-			bttn3.ipady = 50;			
-			
-		bttn4 = new GridBagConstraints();
-			bttn4.gridx = 3;
-			bttn4.gridy = 2;
-			
-		bttn5 = new GridBagConstraints();
-			bttn5.gridx = 4;
-			bttn5.gridy = 4;
+		GridBagConstraints cClassLabel, cLevelLabel, cAlignBGPanel, cAvatarPanel, cCharacterDetailsButton;
 		
-			
-		GridBagConstraints constraint_CharacterDetails = new GridBagConstraints();
-			constraint_CharacterDetails.fill = GridBagConstraints.NONE;
-			constraint_CharacterDetails.weightx = 0.5;
-			constraint_CharacterDetails.gridx = 4;
-			constraint_CharacterDetails.gridy = 3;
-			constraint_CharacterDetails.ipady = 60;
-			constraint_CharacterDetails.gridheight = 2;
-			constraint_CharacterDetails.gridwidth= 1;
 		
-		GridBagConstraints constraint_Avatar = new GridBagConstraints();
-			constraint_Avatar.fill = GridBagConstraints.BOTH;
-			constraint_Avatar.weightx = 0.5;
-			constraint_Avatar.weighty = 0.5;
-			constraint_Avatar.gridx = 2;
-			constraint_Avatar.gridy = 2;
-			constraint_Avatar.gridheight = 2;
-			constraint_Avatar.gridwidth= 2;
+		cAvatarPanel = new GridBagConstraints();
+		setConstraintValues(cAvatarPanel, 1, 1, 1, 1, 0, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.EAST);
+
+		
+		cClassLabel = new GridBagConstraints();
+		setConstraintValues(cClassLabel, cAvatarPanel.gridx, (cAvatarPanel.gridy - 1), 1, 1, 0, 0, 0, 0, GridBagConstraints.NONE, GridBagConstraints.SOUTH);
+		//cClassLabel.gridx = cAvatarPanel.gridx;
+		//cClassLabel.gridy = cAvatarPanel.gridy - 1;		
+		//cClassLabel.gridheight = 1;
+		//cClassLabel.gridwidth = 1;
+		//cClassLabel.anchor = GridBagConstraints.SOUTH;
+		
+		cLevelLabel = new GridBagConstraints();
+		cLevelLabel.gridx = cAvatarPanel.gridx - 1;
+		cLevelLabel.gridy = cAvatarPanel.gridy;		
+		cLevelLabel.gridheight = 1;
+		cLevelLabel.gridwidth = 1;
+		cLevelLabel.anchor = GridBagConstraints.NORTH;
+		
+		cAlignBGPanel = new GridBagConstraints();
+		cAlignBGPanel.gridx = cAvatarPanel.gridx;
+		cAlignBGPanel.gridy = cAvatarPanel.gridy + 1;		
+		cAlignBGPanel.gridheight = 1;
+		cAlignBGPanel.gridwidth = 1;
+		cAlignBGPanel.anchor = GridBagConstraints.NORTH;
+		
+		cCharacterDetailsButton = new GridBagConstraints();
+		cCharacterDetailsButton.fill = GridBagConstraints.NONE;
+		cCharacterDetailsButton.weightx = 0.5;
+		cCharacterDetailsButton.gridx = cAvatarPanel.gridx + 1;
+		cCharacterDetailsButton.gridy = cAvatarPanel.gridy;
+		cCharacterDetailsButton.ipady = 60;
+		cCharacterDetailsButton.gridheight = cAvatarPanel.gridheight;
+		cCharacterDetailsButton.gridwidth = 1;
+		cCharacterDetailsButton.anchor = GridBagConstraints.WEST;
 			
 			
 		// set frame and add layout
 		frame.setLayout(new GridBagLayout());
 		frame.setIconImage(icon_Window);
+		frame.setBackground(color_LightBackdrop);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		
 		
-		// set menu bar
-		JMenu fileMenu = new JMenu("File");
-		JMenu printMenu = new JMenu("Print");
+		// set menus and bar
+		JMenu newRandomMenu, newSemiMenu, fileMenu, printMenu;
+		
+		newRandomMenu = new JMenu("New Character (Random)");
+		newSemiMenu = new JMenu("New Character (Configurable)");
+		fileMenu = new JMenu("File");
+		fileMenu.add(newRandomMenu);
+		fileMenu.add(newSemiMenu);
+		printMenu = new JMenu("Print");
 		JMenuBar menuBar = new JMenuBar();
-			menuBar.add(fileMenu);
-			menuBar.add(printMenu);
+		menuBar.add(fileMenu);
+		menuBar.add(printMenu);
 		
 		
-		// set buttons
-		JButton button1, button2, button3, button4, button5, bttn_CharacterDetails;
-		button1 = new JButton("button1");
-		button2 = new JButton("button2");
-		button3 = new JButton("button3");
-		button4 = new JButton("button4");
-		button5 = new JButton("button5");
+		// declare panels
+		JPanel avatarPanel, AlignBGPanel;
+		
+		// declare buttons
+		JButton bttn_CharacterDetails;
+		
+		// declare labels
+		JLabel ClassLabel, LevelLabel, alignmentLabel, backgroundLabel, avatarImage;
 		
 		
 		// SECTION: Character details
-		bttn_CharacterDetails = new JButton("->");
-			bttn_CharacterDetails.setFont(buttonFont);
+		bttn_CharacterDetails = new JButton(">");
+		bttn_CharacterDetails.setFont(font_GenericButton);
+		bttn_CharacterDetails.setRolloverEnabled(false);
+		bttn_CharacterDetails.setToolTipText("click for deets");
+		bttn_CharacterDetails.setBackground(color_PanelBackdrop);
 		
-			
+		
 		// SECTION: Character Avatar
-		JFrame avatarFrame = new JFrame();
-			avatarFrame.setIconImage(loadImage(avatar_Path));
-			
+		avatarPanel = new JPanel();
+		avatarImage = new JLabel(new ImageIcon(loadRescaleImage(path_AvatarImage, 100, 100)));
+		avatarPanel.add(avatarImage);
+		avatarPanel.setBackground(color_PanelBackdrop);
+		
+		ClassLabel = new JLabel("Barbarian");
+		ClassLabel.setFont(font_LargeHeader);
+		ClassLabel.setForeground(color_GenericText);
+		
+		LevelLabel = new JLabel("9");
+		LevelLabel.setFont(font_LargeHeader);
+		LevelLabel.setForeground(color_GenericText);
+		
+		alignmentLabel = new JLabel("Chaotic Good");
+		alignmentLabel.setFont(font_MediumHeader);
+		alignmentLabel.setForeground(color_GenericText);
+		backgroundLabel = new JLabel("Hermit");
+		backgroundLabel.setFont(font_MediumHeader);
+		backgroundLabel.setForeground(color_GenericText);
+		
+		AlignBGPanel = new JPanel();
+		AlignBGPanel.add(alignmentLabel);
+		AlignBGPanel.add(backgroundLabel);
+		AlignBGPanel.setBackground(color_PanelBackdrop);
+		
 		//add all to frame
 		frame.setJMenuBar(menuBar);
-		frame.add(button1, bttn1);
-		frame.add(avatarFrame, f1);
-		frame.add(button3, bttn3);
-		frame.add(button4, bttn4);
-		frame.add(button5, bttn5);
-		
-		
-		//frame.add(bttn_CharacterDetails, constraint_CharacterDetails);
-		//frame.add(avatarPanel, constraint_Avatar);
-		
+		frame.add(bttn_CharacterDetails, cCharacterDetailsButton);
+		frame.add(avatarPanel, cAvatarPanel);
+		frame.add(AlignBGPanel, cAlignBGPanel);
+		frame.add(LevelLabel, cLevelLabel);
+		frame.add(ClassLabel, cClassLabel);
 		
 		// Finalize options
 		setVisibility(true);
 	}
 	
 	
-	public Image loadImage(String path)
+	
+
+	public Image loadRescaleImage(String path, int x, int y)
 	{
 		Image i = Toolkit.getDefaultToolkit().getImage(path);
-		return i.getScaledInstance(100, 100, Image.SCALE_FAST);
+		return i.getScaledInstance(x, y, Image.SCALE_FAST);
 	}
 	
 	
@@ -160,10 +203,27 @@ public class Gui extends JPanel implements ActionListener
 	}
 	
 	
+	//LOOK INTO USING BUILDER OBJECT PATTERNING FOR THIS;
+	public void setConstraintValues (GridBagConstraints constraint, int gX, int gY, int gWidth, int gHeight, int xPad, int yPad, double xWeight, double yWeight, int gFill, int gAnchor)
+	{
+		constraint.gridx = gX;
+		constraint.gridy = gY;
+		constraint.gridwidth = gWidth;
+		constraint.gridheight = gHeight;
+		constraint.ipadx = xPad;
+		constraint.ipady = yPad;
+		constraint.weightx = xWeight;
+		constraint.weighty = yWeight;
+		constraint.fill = gFill;
+		constraint.anchor = gAnchor;
+	}
+	
+	
 	//======================awt.event methods
 	public void actionPerformed(ActionEvent e)
 	{
 		//do nothing for now
+		
 	} // end of action performed method
 	
 	
