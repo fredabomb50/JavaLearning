@@ -1,4 +1,4 @@
-package Core;
+package core;
 
 
 // compile java src with javac from command line. needs java SSE package from oracle: https://www.oracle.com/java/technologies/downloads/#jdk17-windows

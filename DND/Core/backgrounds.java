@@ -1,6 +1,6 @@
-package Core;
+package core;
 
-public enum backgrounds
+public enum Backgrounds
 {
 	Outlander,
 	Acolyte,

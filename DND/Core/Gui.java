@@ -1,4 +1,4 @@
-package Core;
+package core;
 
 
 //======================AWT
@@ -59,7 +59,6 @@ public class Gui extends JPanel implements ActionListener
 		//nothing yet
 	} // end of constructor
 
-	
 
 	//======================Graphics
 	public void createAndShowGUI()
@@ -183,8 +182,6 @@ public class Gui extends JPanel implements ActionListener
 		setVisibility(true);
 	}
 	
-	
-	
 
 	public Image loadRescaleImage(String path, int x, int y)
 	{
@@ -193,10 +190,6 @@ public class Gui extends JPanel implements ActionListener
 	}
 	
 	
-	//======================GET METHODS
-	
-	
-	//======================SET METHODS
 	public void setVisibility(boolean IsVisible)
 	{
 		frame.setVisible(IsVisible);
@@ -225,6 +218,4 @@ public class Gui extends JPanel implements ActionListener
 		//do nothing for now
 		
 	} // end of action performed method
-	
-	
 } // end of Gui class

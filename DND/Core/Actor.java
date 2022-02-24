@@ -1,4 +1,4 @@
-package Core;
+package core;
 import java.util.Random;
 import java.util.HashMap;
 
@@ -161,7 +161,7 @@ class PlayerCharacter extends Actor
 {
 	String name;
 	int level;
-	backgrounds background;
+	Backgrounds background;
 	HashMap <String, Byte> skills = new HashMap <String, Byte>();
 	
 	
@@ -255,3 +255,4 @@ class PlayerCharacter extends Actor
 		
 	} // end of rollstats method
 } // end of player character class
+
