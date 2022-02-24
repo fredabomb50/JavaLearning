@@ -255,4 +255,3 @@ class PlayerCharacter extends Actor
 		
 	} // end of rollstats method
 } // end of player character class
-

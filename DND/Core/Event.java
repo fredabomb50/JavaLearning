@@ -7,14 +7,4 @@ public class Event
 	{
 		
 	}
-	
-	public void Attack(PlayerCharacter player1, NPC npc)
-	{
-		
-	}
-	
-	public void Attack(PlayerCharacter player1, Monster monster)
-	{
-		
-	}
 }
