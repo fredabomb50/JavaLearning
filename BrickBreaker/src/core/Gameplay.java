@@ -7,7 +7,7 @@ import javax.swing.Timer;
 import java.util.Random;
 
 
-
+//can override toString method to display real-time data about ball / paddle position. once they are their own classes.
 
 public class Gameplay extends JPanel implements ActionListener
 {
