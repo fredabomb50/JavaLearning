@@ -36,13 +36,19 @@ public class FrameDesigner extends Gui
 	//======================Variables
 	//JCompnents
 	JMenu newRandomMenu, newSemiMenu, fileMenu, printMenu;
+	
 	JMenuBar menuBar;
 	
+	JButton bttn_CharacterDetails;
+	
+	JPanel panel_Avatar, panel_AlignBG;
+	
+	JLabel lbl_Class, lbl_Level, lbl_Alignment, lbl_Background, lbl_Avatar;
 	
 	
 	//Core
 	public JFrame frame = new JFrame("Character Randomizer");
-	public static Image icon_Avatar = Toolkit.getDefaultToolkit().getImage("Resources/avatar.png");
+	public static Image icon_Avatar = loadImage("Resources/avatar.png");
 	
 	
 	//======================Constructor
@@ -91,7 +97,7 @@ public class FrameDesigner extends Gui
 		menuBar.add(printMenu);
 		
 		
-		frame.add(menuBar);
+		frame.setJMenuBar(menuBar);
 	}
 
 	
@@ -107,28 +113,8 @@ public class FrameDesigner extends Gui
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		
-	
 		
-		
-		newRandomMenu = new JMenu("New Character (Random)");
-		newSemiMenu = new JMenu("New Character (Configurable)");
-		fileMenu = new JMenu("File");
-		fileMenu.add(newRandomMenu);
-		fileMenu.add(newSemiMenu);
-		printMenu = new JMenu("Print");
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(fileMenu);
-		menuBar.add(printMenu);
-		
-		
-		// declare panels
-		JPanel avatarPanel, AlignBGPanel;
-		
-		// declare buttons
-		JButton bttn_CharacterDetails;
-		
-		// declare labels
-		JLabel ClassLabel, LevelLabel, alignmentLabel, backgroundLabel, avatarImage;
+
 		
 		
 		// SECTION: Character details

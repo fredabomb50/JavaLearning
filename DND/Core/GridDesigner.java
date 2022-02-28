@@ -1,6 +1,8 @@
 package core;
 
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 
 public class GridDesigner extends Gui
 {

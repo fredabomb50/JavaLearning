@@ -22,23 +22,38 @@ public class Gui extends JPanel implements ActionListener
 	//======================CONSTRUCTOR
 	public Gui()
 	{
-		//nothing yet
+		//do nothing yet
 	} // end of constructor
 
 
 	//======================Graphics
 	public void createAndShowGUI()
 	{	
+		//create and set frame
+		FrameDesigner frame = new FrameDesigner();
+		
+		
+		//create and set grid
+		GridDesigner grid = new GridDesigner();
+		
+		
+		//assign grid to frame
 		
 	}
 	
-
+	public static Image loadImage(String path)
+	{
+		return Toolkit.getDefaultToolkit().getImage(path);
+	}	
+	
+	
 	public Image loadRescaleImage(String path, int x, int y)
 	{
 		Image i = Toolkit.getDefaultToolkit().getImage(path);
 		return i.getScaledInstance(x, y, Image.SCALE_FAST);
 	}
-		
+	
+
 	
 	//======================awt.event methods
 	public void actionPerformed(ActionEvent e)
