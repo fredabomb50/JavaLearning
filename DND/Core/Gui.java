@@ -33,12 +33,6 @@ public class Gui extends JPanel implements ActionListener
 		FrameDesigner frame = new FrameDesigner();
 		
 		
-		//create and set grid
-		GridDesigner grid = new GridDesigner();
-		
-		
-		//assign grid to frame
-		
 	}
 	
 	public static Image loadImage(String path)
@@ -53,7 +47,11 @@ public class Gui extends JPanel implements ActionListener
 		return i.getScaledInstance(x, y, Image.SCALE_FAST);
 	}
 	
-
+	
+	public static Image rescaleImage(Image image, int x, int y)
+	{
+		return image.getScaledInstance(x, y, Image.SCALE_FAST);
+	}
 	
 	//======================awt.event methods
 	public void actionPerformed(ActionEvent e)

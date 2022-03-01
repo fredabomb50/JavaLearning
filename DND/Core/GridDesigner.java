@@ -3,11 +3,13 @@ package core;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JLabel;
+
 
 public class GridDesigner extends Gui
 {
 	//======================Constants; ultimately needs to be removed once a final design is made, to avoid memory hogging
-	//Generics
+	//Generic
 	final private static int default_GridX = 10;
 	final private static int default_GridY = 10;
 	
@@ -21,16 +23,15 @@ public class GridDesigner extends Gui
 	//Panel defaults
 	
 	
-	
 	//======================Variables
 	//Labels
-	protected GridBagConstraints cClassLabel, cLevelLabel; 
-	
+	GridBagConstraints lbl_Class, lbl_Level; 
+
 	//Panels
-	protected GridBagConstraints cAlignBGPanel, cAvatarPanel; 
+	GridBagConstraints panel_AlignBG, panel_Avatar; 
 	
 	//Buttons
-	protected GridBagConstraints cCharacterDetailsButton;
+	GridBagConstraints bttn_CharacterDetails;
 	
 	//
 	
@@ -43,19 +44,17 @@ public class GridDesigner extends Gui
 	
 	
 	//======================Constraint setters
-	public GridDesigner setCoord(GridBagConstraints constraint, int x, int y)
+	public void setCoord(GridBagConstraints constraint, int x, int y)
 	{
 		constraint.gridx = x;
 		constraint.gridy = y;
-		return this;
 	}
 	
 	
-	public GridDesigner setDimensions(GridBagConstraints constraint, int x, int y)
+	public void setDimensions(GridBagConstraints constraint, int x, int y)
 	{
 		constraint.gridx = x;
 		constraint.gridy = y;
-		return this;
 	}
 	
 	

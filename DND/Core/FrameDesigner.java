@@ -34,8 +34,11 @@ public class FrameDesigner extends Gui
 	
 	
 	//======================Variables
-	//JCompnents
-	JMenu newRandomMenu, newSemiMenu, fileMenu, printMenu;
+	private static Image icon_Avatar = loadImage("Resources/avatar.png");
+	
+	
+	//JComponents
+	JMenu menu_NewFullRandom, menu_NewSemiRandom, menu_File, menu_Print;
 	
 	JMenuBar menuBar;
 	
@@ -48,7 +51,7 @@ public class FrameDesigner extends Gui
 	
 	//Core
 	public JFrame frame = new JFrame("Character Randomizer");
-	public static Image icon_Avatar = loadImage("Resources/avatar.png");
+	private GridDesigner grid = new GridDesigner();
 	
 	
 	//======================Constructor
@@ -60,61 +63,131 @@ public class FrameDesigner extends Gui
 		frame.setBackground(color_LightBackdrop);
 		
 		
-		buildAddMenu();
+		buildMenus();
+		buildPanels();
+		buildLabels();
 		
 		
+		addConstraints();
 		frame.setVisible(true);
 	}
 	
-	
+
+	//======================Layout
 	public void setLayoutManager(GridBagLayout grid)
 	{
 		frame.setLayout(grid);
 	}
 	
 	
-	public void setAvatarLogo(String newPath)
+	private void addConstraints()
 	{
-		icon_Avatar = Toolkit.getDefaultToolkit().getImage(newPath);
+		//add panels
+		frame.add(panel_Avatar, grid.panel_Avatar);
+		frame.add(panel_AlignBG, grid.panel_AlignBG);
+		
+		//add labels
+		//frame.add(, );
+		
+		//add buttons
+		//frame.add(, );
 	}
 	
 	
-	//======================JComponent Builders
-	private void buildAddMenu()
+	//======================Section Builders
+	private void buildMenus()
 	{
-		fileMenu = new JMenu("File");
-		newRandomMenu = new JMenu("New Character (Random)");
-		newSemiMenu = new JMenu("New Character (Configurable)");
-		fileMenu.add(newRandomMenu);
-		fileMenu.add(newSemiMenu);
+		menu_File = new JMenu("File");
+		menu_NewFullRandom = new JMenu("New Character (Random)");
+		menu_NewSemiRandom = new JMenu("New Character (Configurable)");
+		menu_File.add(menu_NewFullRandom);
+		menu_File.add(menu_NewSemiRandom);
 		
 		
-		printMenu = new JMenu("Print");
+		menu_Print = new JMenu("Print");
 		
 		
 		menuBar = new JMenuBar();
-		menuBar.add(fileMenu);
-		menuBar.add(printMenu);
+		menuBar.add(menu_File);
+		menuBar.add(menu_Print);
 		
 		
 		frame.setJMenuBar(menuBar);
 	}
 
 	
+	private void buildPanels()
+	{
+		panel_Avatar = new JPanel();
+		setPanel(panel_Avatar, color_PanelBackdrop);
+	}
+	
+	
+	private void buildLabels()
+	{
+		//text only labels
+		lbl_Class = new JLabel("Barbarian");
+		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		
+		lbl_Level = new JLabel("9");
+		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		
+		lbl_Alignment = new JLabel("Chaotic Good");
+		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		
+		lbl_Background = new JLabel("Hermit");
+		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		
+		
+		//image only labels
+		lbl_Avatar = new JLabel(new ImageIcon(rescaleImage(icon_Avatar, 100, 100)));
+		
+		
+		//misc labels
+		
+		
+		frame.add(lbl_Class);
+		frame.add(lbl_Level);
+		frame.add(lbl_Alignment);
+		frame.add(lbl_Background);
+		frame.add(lbl_Avatar);
+		
+		
+	}
+	
+	
+	//======================Component builders
+	private void setLabel(JLabel label, Font font, Color color)
+	{
+		label.setFont(font);
+		label.setForeground(color);
+	}
+	
+	
+	private void setPanel(JPanel panel, Color color)
+	{
+		panel.setBackground(color);
+	}
+	
+	
+	//======================Designers
+	public void setAvatarLogo(String newPath)
+	{
+		icon_Avatar = Toolkit.getDefaultToolkit().getImage(newPath);
+	}
+	
+	
 	//======================Stubs
 	// contains old constraint settings from gui class; to be splintered as methods
 	public void stub1()
 	{
 		/*
-		  		// set frame and add layout
+		 // set frame and add layout
 		frame.setLayout(new GridBagLayout());
 		frame.setIconImage(icon_Window);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
-		
-		
-
 		
 		
 		// SECTION: Character details
