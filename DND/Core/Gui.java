@@ -31,8 +31,6 @@ public class Gui extends JPanel implements ActionListener
 	{	
 		//create and set frame
 		FrameDesigner frame = new FrameDesigner();
-		
-		
 	}
 	
 	public static Image loadImage(String path)

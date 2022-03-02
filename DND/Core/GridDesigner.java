@@ -2,6 +2,7 @@ package core;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JLabel;
 
@@ -12,6 +13,8 @@ public class GridDesigner extends Gui
 	//Generic
 	final private static int default_GridX = 10;
 	final private static int default_GridY = 10;
+	final private static int default_InsetSize = 5;
+	final private static Insets default_Insets = new Insets(default_InsetSize, default_InsetSize, default_InsetSize, default_InsetSize);
 	
 	//Button defaults
 	final private static int bttn_DefaultGridWidth = 1;
@@ -21,25 +24,42 @@ public class GridDesigner extends Gui
 	final private static int lbl_DefaultSize = 1;
 	
 	//Panel defaults
+	final private static int coord_AvatarX = 1;
+	final private static int coord_AvatarY = 1;
 	
+	//Core
+	GridBagLayout grid = new GridBagLayout();
 	
 	//======================Variables
-	//Labels
-	GridBagConstraints lbl_Class, lbl_Level; 
+	//for now, these are all separate constraints; ultimately, once design is uniform, can consolidate
+	//to just "buttonConstraint", "labelConstraint" etc., and just change the x,y coordinates
 
+	
 	//Panels
-	GridBagConstraints panel_AlignBG, panel_Avatar; 
-	
-	//Buttons
-	GridBagConstraints bttn_CharacterDetails;
-	
-	//
-	
+	GridBagConstraints panel_Avatar, panel_CharacterDetails, panel_CharacterStatus; 
+
 	
 	//======================Constructor
 	public GridDesigner()
 	{
+		buildPanels();
+	}
+	
+	
+	//======================Builders
+	public void buildPanels()
+	{
+		panel_Avatar = new GridBagConstraints();
+		setCoord(panel_Avatar, coord_AvatarX, coord_AvatarY);
+		setAnchor(panel_Avatar, GridBagConstraints.CENTER);
 		
+		panel_CharacterDetails = new GridBagConstraints();
+		setCoord(panel_CharacterDetails, coord_AvatarX + 1, coord_AvatarY);
+		setAnchor(panel_CharacterDetails, GridBagConstraints.NORTH);
+		
+		panel_CharacterStatus = new GridBagConstraints();
+		setCoord(panel_CharacterStatus, coord_AvatarX + 1, coord_AvatarY);
+		setAnchor(panel_CharacterStatus, GridBagConstraints.SOUTH);
 	}
 	
 	
@@ -57,6 +77,11 @@ public class GridDesigner extends Gui
 		constraint.gridy = y;
 	}
 	
+	
+	public void setAnchor(GridBagConstraints constraint, int anchor_point)
+	{
+		constraint.anchor = anchor_point;
+	}
 	
 	
 	//======================Stubs

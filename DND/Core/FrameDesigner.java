@@ -4,12 +4,14 @@ package core;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.GridBagConstraints;
 
 //SWING
 import javax.swing.*;
+import javax.swing.border.Border;
 
 
 public class FrameDesigner extends Gui
@@ -29,6 +31,9 @@ public class FrameDesigner extends Gui
 	final private static Color color_LogoText = new Color(146, 9, 9);			// 920909
 	final private static Color color_LightBackdrop = new Color(241, 235, 228);	// F1EBE4
 	
+	//Borders
+	final private static Border border_GenericPanel= BorderFactory.createEtchedBorder();
+	
 	//Icons
 	final private static Image icon_Window = Toolkit.getDefaultToolkit().getImage("Resources/window_icon.png");
 	
@@ -42,13 +47,12 @@ public class FrameDesigner extends Gui
 	
 	JMenuBar menuBar;
 	
-	JButton bttn_CharacterDetails;
-	
-	JPanel panel_Avatar, panel_AlignBG;
-	
-	JLabel lbl_Class, lbl_Level, lbl_Alignment, lbl_Background, lbl_Avatar;
-	
-	
+	JPanel panel_Avatar, panel_CharacterDetails, panel_CharacterStatus, panel_AbilityScores, panel_Skills,
+	panel_SavingThrows, panel_ArmorClass, panel_Inspiration, panel_Initiative;
+
+	JLabel lbl_Class, lbl_Level, lbl_Alignment, lbl_Background, lbl_Avatar, lbl_Name, lbl_Age, lbl_Weight, lbl_Height, lbl_Race, lbl_Faction,
+	lbl_Exp, lbl_MaxHealth, lbl_CurrentHealth, lbl_TempHealth, lbl_HitDie, lbl_CurrentHitDie;
+
 	//Core
 	public JFrame frame = new JFrame("Character Randomizer");
 	private GridDesigner grid = new GridDesigner();
@@ -57,22 +61,25 @@ public class FrameDesigner extends Gui
 	//======================Constructor
 	public FrameDesigner()
 	{
+		// build frame
 		frame.setIconImage(icon_Window);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
 		frame.setBackground(color_LightBackdrop);
+		setLayoutManager(grid.grid);
 		
-		
+		// build sections
 		buildMenus();
-		buildPanels();
-		buildLabels();
+		buildAvatar();
+		buildCharacterDetails();
+		buildCharacterStatus();
 		
-		
+		// assign constraints and display GUI
 		addConstraints();
 		frame.setVisible(true);
 	}
 	
-
+	
 	//======================Layout
 	public void setLayoutManager(GridBagLayout grid)
 	{
@@ -82,19 +89,24 @@ public class FrameDesigner extends Gui
 	
 	private void addConstraints()
 	{
-		//add panels
 		frame.add(panel_Avatar, grid.panel_Avatar);
-		frame.add(panel_AlignBG, grid.panel_AlignBG);
-		
-		//add labels
-		//frame.add(, );
-		
-		//add buttons
-		//frame.add(, );
+		frame.add(panel_CharacterDetails, grid.panel_CharacterDetails);
+		frame.add(panel_CharacterStatus, grid.panel_CharacterStatus);
 	}
 	
 	
 	//======================Section Builders
+	private void buildAvatar()
+	{
+		lbl_Avatar = new JLabel(new ImageIcon(rescaleImage(icon_Avatar, 100, 100)));	
+		
+		panel_Avatar = new JPanel();
+		setPanel(panel_Avatar, 100, 100);
+		panel_Avatar.setBorder(border_GenericPanel);
+		panel_Avatar.add(lbl_Avatar);	
+	}
+	
+	
 	private void buildMenus()
 	{
 		menu_File = new JMenu("File");
@@ -114,45 +126,51 @@ public class FrameDesigner extends Gui
 		
 		frame.setJMenuBar(menuBar);
 	}
+	
+	
+	private void buildCharacterDetails()
+	{
+		GridLayout grid = new GridLayout(3, 3);
+		
+		lbl_Name = new JLabel("Name: Little Shell");
+		setLabel(lbl_Name, font_SmallHeader, color_GenericText);
+		
+		lbl_Alignment = new JLabel("Alignment: Chaotic Good");
+		setLabel(lbl_Alignment, font_SmallHeader, color_GenericText);
+		
+		lbl_Class = new JLabel("Class: Barbarian");
+		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		
+		lbl_Level = new JLabel("Level: 9");
+		setLabel(lbl_Level, font_SmallHeader, color_GenericText);
+		
+		lbl_Background = new JLabel("Background: Hermit");
+		setLabel(lbl_Background, font_SmallHeader, color_GenericText);
+		
+		panel_CharacterDetails = new JPanel();
+		panel_CharacterDetails.setLayout(grid);
+		panel_CharacterDetails.setBorder(border_GenericPanel);
+		setPanel(panel_CharacterDetails, 250, 50);
+		
+		panel_CharacterDetails.add(lbl_Name);
+		panel_CharacterDetails.add(lbl_Alignment);
+		panel_CharacterDetails.add(lbl_Class);
+		panel_CharacterDetails.add(lbl_Level);
+		panel_CharacterDetails.add(lbl_Background);
+		
+		
+	}
 
 	
-	private void buildPanels()
+	private void buildCharacterStatus()
 	{
-		panel_Avatar = new JPanel();
-		setPanel(panel_Avatar, color_PanelBackdrop);
-	}
-	
-	
-	private void buildLabels()
-	{
-		//text only labels
-		lbl_Class = new JLabel("Barbarian");
-		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
-		
-		lbl_Level = new JLabel("9");
-		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
-		
-		lbl_Alignment = new JLabel("Chaotic Good");
-		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
-		
-		lbl_Background = new JLabel("Hermit");
-		setLabel(lbl_Class, font_SmallHeader, color_GenericText);
+		GridLayout grid = new GridLayout(3, 3);
 		
 		
-		//image only labels
-		lbl_Avatar = new JLabel(new ImageIcon(rescaleImage(icon_Avatar, 100, 100)));
-		
-		
-		//misc labels
-		
-		
-		frame.add(lbl_Class);
-		frame.add(lbl_Level);
-		frame.add(lbl_Alignment);
-		frame.add(lbl_Background);
-		frame.add(lbl_Avatar);
-		
-		
+		panel_CharacterStatus = new JPanel();
+		panel_CharacterStatus.setLayout(grid);
+		panel_CharacterStatus.setBorder(border_GenericPanel);
+		setPanel(panel_CharacterStatus, 250, 50);
 	}
 	
 	
@@ -164,9 +182,10 @@ public class FrameDesigner extends Gui
 	}
 	
 	
-	private void setPanel(JPanel panel, Color color)
+	private void setPanel(JPanel panel, int x, int y)
 	{
-		panel.setBackground(color);
+		panel.setBackground(color_PanelBackdrop);
+		panel.setSize(x, y);
 	}
 	
 	
