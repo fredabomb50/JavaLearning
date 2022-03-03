@@ -30,13 +30,14 @@ public class GridDesigner extends Gui
 	//Core
 	GridBagLayout grid = new GridBagLayout();
 	
+	
 	//======================Variables
 	//for now, these are all separate constraints; ultimately, once design is uniform, can consolidate
 	//to just "buttonConstraint", "labelConstraint" etc., and just change the x,y coordinates
 
 	
 	//Panels
-	GridBagConstraints panel_Avatar, panel_CharacterDetails, panel_CharacterStatus; 
+	GridBagConstraints panel_Avatar, panel_CharacterDetails, panel_CharacterStatus, panel_AbilityScores, panel_Skills;
 
 	
 	//======================Constructor
@@ -52,14 +53,24 @@ public class GridDesigner extends Gui
 		panel_Avatar = new GridBagConstraints();
 		setCoord(panel_Avatar, coord_AvatarX, coord_AvatarY);
 		setAnchor(panel_Avatar, GridBagConstraints.CENTER);
+		panel_Avatar.gridwidth = 2;
+		panel_Avatar.gridheight = 2;
 		
 		panel_CharacterDetails = new GridBagConstraints();
-		setCoord(panel_CharacterDetails, coord_AvatarX + 1, coord_AvatarY);
+		setCoord(panel_CharacterDetails, coord_AvatarX + 3, coord_AvatarY);
 		setAnchor(panel_CharacterDetails, GridBagConstraints.NORTH);
 		
 		panel_CharacterStatus = new GridBagConstraints();
-		setCoord(panel_CharacterStatus, coord_AvatarX + 1, coord_AvatarY);
-		setAnchor(panel_CharacterStatus, GridBagConstraints.SOUTH);
+		setCoord(panel_CharacterStatus, coord_AvatarX + 3, coord_AvatarY + 1);
+		setAnchor(panel_CharacterStatus, GridBagConstraints.NORTHWEST);
+		
+		panel_AbilityScores = new GridBagConstraints();
+		setCoord(panel_AbilityScores, coord_AvatarX, coord_AvatarY);
+		setAnchor(panel_AbilityScores, GridBagConstraints.NORTHWEST);
+		
+		panel_Skills = new GridBagConstraints();
+		setCoord(panel_Skills, coord_AvatarX, coord_AvatarY + 2);
+		setAnchor(panel_Skills, GridBagConstraints.NORTH);
 	}
 	
 	
