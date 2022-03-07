@@ -28,6 +28,8 @@ import javax.swing.JList;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JProgressBar;
 
 public class Window {
 
@@ -86,14 +88,33 @@ public class Window {
 		
 		JPanel Character = new JPanel();
 		tabbedPane.addTab("Character", null, Character, null);
-		Character.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("default:grow"),}));
+		Character.setLayout(new GridLayout(3, 1, 0, 0));
+		
+		JSplitPane split_CharacterStatus = new JSplitPane();
+		split_CharacterStatus.setResizeWeight(0.8);
+		Character.add(split_CharacterStatus);
+		
+		JSplitPane split_HealthSection = new JSplitPane();
+		split_HealthSection.setResizeWeight(0.8);
+		split_HealthSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		split_CharacterStatus.setLeftComponent(split_HealthSection);
+		
+		JProgressBar prog_HealthBar = new JProgressBar();
+		prog_HealthBar.setStringPainted(true);
+		prog_HealthBar.setString("100 / 100");
+		prog_HealthBar.setValue(50);
+		split_HealthSection.setLeftComponent(prog_HealthBar);
+		
+		JLabel lbl_HealthStatus = new JLabel("120 / 100 (+20)");
+		split_HealthSection.setRightComponent(lbl_HealthStatus);
+		
+		JPanel panel_ImportantStats = new JPanel();
+		split_CharacterStatus.setRightComponent(panel_ImportantStats);
+		panel_ImportantStats.setLayout(new GridLayout(1, 4, 0, 0));
+		
+		JSplitPane split_HitDie = new JSplitPane();
+		split_HitDie.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		panel_ImportantStats.add(split_HitDie);
 		
 		JPanel Details = new JPanel();
 		tabbedPane.addTab("Details", null, Details, null);
@@ -107,17 +128,17 @@ public class Window {
 		splitPane_10.setRightComponent(panel);
 		panel.setLayout(new GridLayout(4, 3, 0, 0));
 		
-		JLabel lblNewLabel_7 = new JLabel("Name: Little Shell");
-		panel.add(lblNewLabel_7);
+		JLabel lbl_Name = new JLabel("Name: Little Shell");
+		panel.add(lbl_Name);
 		
-		JLabel lblNewLabel_8 = new JLabel("New label");
-		panel.add(lblNewLabel_8);
+		JLabel lbl_Age = new JLabel("Age: ");
+		panel.add(lbl_Age);
 		
-		JLabel lblNewLabel_9 = new JLabel("New label");
-		panel.add(lblNewLabel_9);
+		JLabel lbl_Height = new JLabel("Height: ");
+		panel.add(lbl_Height);
 		
-		JLabel lblNewLabel_10 = new JLabel("New label");
-		panel.add(lblNewLabel_10);
+		JLabel lbl_Race = new JLabel("Race: Tortle");
+		panel.add(lbl_Race);
 		
 		JLabel lblNewLabel_11 = new JLabel("New label");
 		panel.add(lblNewLabel_11);
@@ -472,56 +493,108 @@ public class Window {
 		
 		JPanel Inventory = new JPanel();
 		tabbedPane.addTab("Inventory", null, Inventory, null);
-		Inventory.setLayout(new GridLayout(0, 3, 1, 1));
+		Inventory.setLayout(new GridLayout(2, 3, 1, 1));
 		
-		JSplitPane split_Equipment = new JSplitPane();
-		split_Equipment.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		Inventory.add(split_Equipment);
+		JSplitPane split_WeaponsSection = new JSplitPane();
+		split_WeaponsSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_WeaponsSection);
 		
-		JPanel panel_Equipment = new JPanel();
-		split_Equipment.setRightComponent(panel_Equipment);
-		panel_Equipment.setLayout(new GridLayout(5, 1, 0, 0));
+		JSplitPane split_WeaponsHeader = new JSplitPane();
+		split_WeaponsSection.setLeftComponent(split_WeaponsHeader);
 		
-		JLabel lblNewLabel = new JLabel("first");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_Equipment.add(lblNewLabel);
+		JButton bttn_AddWeapon = new JButton("Add new");
+		split_WeaponsHeader.setLeftComponent(bttn_AddWeapon);
 		
-		JLabel lblNewLabel_3 = new JLabel("second");
-		panel_Equipment.add(lblNewLabel_3);
+		JLabel lbl_h2_Weapons = new JLabel("Weapons");
+		lbl_h2_Weapons.setHorizontalAlignment(SwingConstants.CENTER);
+		split_WeaponsHeader.setRightComponent(lbl_h2_Weapons);
 		
-		JLabel lbl_Equipment = new JLabel("Equipment");
-		lbl_Equipment.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Equipment.setLeftComponent(lbl_Equipment);
+		JTextArea txtbox_Weapons = new JTextArea();
+		split_WeaponsSection.setRightComponent(txtbox_Weapons);
 		
-		JSplitPane split_Potions = new JSplitPane();
-		split_Potions.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		Inventory.add(split_Potions);
+		JSplitPane split_ArmorsSection = new JSplitPane();
+		split_ArmorsSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_ArmorsSection);
 		
-		JLabel lbl_Potions = new JLabel("Potions");
-		lbl_Potions.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Potions.setLeftComponent(lbl_Potions);
+		JSplitPane split_ArmorsHeader = new JSplitPane();
+		split_ArmorsSection.setLeftComponent(split_ArmorsHeader);
 		
-		JPanel panel_Potions = new JPanel();
-		split_Potions.setRightComponent(panel_Potions);
-		panel_Potions.setLayout(new GridLayout(5, 1, 0, 0));
+		JButton bttn_AddArmor = new JButton("Add new");
+		split_ArmorsHeader.setLeftComponent(bttn_AddArmor);
 		
-		JLabel lblNewLabel_1 = new JLabel("first");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_Potions.add(lblNewLabel_1);
+		JLabel lbl_h2_Armors = new JLabel("Armors");
+		lbl_h2_Armors.setHorizontalAlignment(SwingConstants.CENTER);
+		split_ArmorsHeader.setRightComponent(lbl_h2_Armors);
 		
-		JSplitPane split_Materials = new JSplitPane();
-		split_Materials.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		Inventory.add(split_Materials);
+		JTextArea txtbox_Armors = new JTextArea();
+		split_ArmorsSection.setRightComponent(txtbox_Armors);
 		
-		JLabel lblMaterials = new JLabel("Materials");
-		lblMaterials.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Materials.setLeftComponent(lblMaterials);
+		JSplitPane split_EquipmentSection = new JSplitPane();
+		split_EquipmentSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_EquipmentSection);
 		
-		JPanel panel_Materials = new JPanel();
-		split_Materials.setRightComponent(panel_Materials);
-		panel_Materials.setLayout(new GridLayout(5, 1, 0, 0));
+		JSplitPane split_EquipmentHeader = new JSplitPane();
+		split_EquipmentSection.setLeftComponent(split_EquipmentHeader);
 		
-		JLabel lblNewLabel_4_2 = new JLabel("dirty water");
-		panel_Materials.add(lblNewLabel_4_2);
+		JButton bttn_AddEquipment = new JButton("Add new");
+		split_EquipmentHeader.setLeftComponent(bttn_AddEquipment);
+		
+		JLabel lbl_h2_Equipment = new JLabel("Equipment");
+		lbl_h2_Equipment.setHorizontalAlignment(SwingConstants.CENTER);
+		split_EquipmentHeader.setRightComponent(lbl_h2_Equipment);
+		
+		JTextArea txtbox_Equipment = new JTextArea();
+		split_EquipmentSection.setRightComponent(txtbox_Equipment);
+		
+		JSplitPane split_PotionsSection = new JSplitPane();
+		split_PotionsSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_PotionsSection);
+		
+		JSplitPane split_PotionsHeader = new JSplitPane();
+		split_PotionsSection.setLeftComponent(split_PotionsHeader);
+		
+		JButton bttn_AddPotion = new JButton("Add new");
+		split_PotionsHeader.setLeftComponent(bttn_AddPotion);
+		
+		JLabel lbl_h2_Potions = new JLabel("Potions");
+		lbl_h2_Potions.setHorizontalAlignment(SwingConstants.CENTER);
+		split_PotionsHeader.setRightComponent(lbl_h2_Potions);
+		
+		JTextArea txtbox_Potions = new JTextArea();
+		split_PotionsSection.setRightComponent(txtbox_Potions);
+		
+		JSplitPane split_MaterialsSection = new JSplitPane();
+		split_MaterialsSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_MaterialsSection);
+		
+		JSplitPane split_MaterialsHeader = new JSplitPane();
+		split_MaterialsSection.setLeftComponent(split_MaterialsHeader);
+		
+		JButton bttn_AddMaterial = new JButton("Add new");
+		split_MaterialsHeader.setLeftComponent(bttn_AddMaterial);
+		
+		JLabel lbl_h2_Materials = new JLabel("Materials");
+		lbl_h2_Materials.setHorizontalAlignment(SwingConstants.CENTER);
+		split_MaterialsHeader.setRightComponent(lbl_h2_Materials);
+		
+		JTextArea txtbox_Materials = new JTextArea();
+		split_MaterialsSection.setRightComponent(txtbox_Materials);
+		
+		JSplitPane split_ValuablesSection = new JSplitPane();
+		split_ValuablesSection.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		Inventory.add(split_ValuablesSection);
+		
+		JSplitPane split_ValuablesHeader = new JSplitPane();
+		split_ValuablesSection.setLeftComponent(split_ValuablesHeader);
+		
+		JButton bttn_AddValuable = new JButton("Add new");
+		split_ValuablesHeader.setLeftComponent(bttn_AddValuable);
+		
+		JLabel lbl_h2_Valuables = new JLabel("Valuables");
+		lbl_h2_Valuables.setHorizontalAlignment(SwingConstants.CENTER);
+		split_ValuablesHeader.setRightComponent(lbl_h2_Valuables);
+		
+		JTextArea txtbox_Valuables = new JTextArea();
+		split_ValuablesSection.setRightComponent(txtbox_Valuables);
 	}	
 }
