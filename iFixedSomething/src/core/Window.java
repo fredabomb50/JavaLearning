@@ -33,6 +33,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class Window {
 
@@ -80,17 +82,13 @@ public class Window {
 		frmIfixedsomething.setResizable(false);
 		frmIfixedsomething.setTitle("iFixedSomething");
 		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\resources\\grey_ivy_logo.png"));
-		frmIfixedsomething.setBounds(100, 100, 400, 300);
+		frmIfixedsomething.setBounds(100, 100, 500, 300);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIfixedsomething.setUndecorated(true);
 		frmIfixedsomething.getContentPane().setLayout(new GridLayout(1, 1, 0, 0));
 		
 		JSplitPane split_Frame = new JSplitPane();
 		frmIfixedsomething.getContentPane().add(split_Frame);
-		
-		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		split_Frame.setRightComponent(layeredPane);
 		
 		JPanel panel_Menu = new JPanel();
 		split_Frame.setLeftComponent(panel_Menu);
@@ -102,8 +100,8 @@ public class Window {
 		JButton bttn_Rework = new JButton("Rework");
 		panel_Menu.add(bttn_Rework);
 		
-		JButton bttn_Admin = new JButton("Admin");
-		panel_Menu.add(bttn_Admin);
+		JButton bttn_Setup = new JButton("Setup");
+		panel_Menu.add(bttn_Setup);
 		
 		JLabel lbl_MenuPlaceholder = new JLabel(" ");
 		panel_Menu.add(lbl_MenuPlaceholder);
@@ -122,5 +120,63 @@ public class Window {
 			}
 		});
 		panel_Menu.add(bttn_Exit);
+		
+		JSplitPane split_Workpane = new JSplitPane();
+		split_Workpane.setResizeWeight(0.1);
+		split_Workpane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		split_Frame.setRightComponent(split_Workpane);
+		
+		JLayeredPane layers_Workpanes = new JLayeredPane();
+		split_Workpane.setRightComponent(layers_Workpanes);
+		
+		JPanel panel_Setup = new JPanel();
+		panel_Setup.setBounds(0, 0, 422, 250);
+		layers_Workpanes.add(panel_Setup);
+		panel_Setup.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.5);
+		panel_Setup.add(splitPane);
+		
+		JPanel panel = new JPanel();
+		splitPane.setLeftComponent(panel);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 62, Short.MAX_VALUE)
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 248, Short.MAX_VALUE)
+		);
+		panel.setLayout(gl_panel);
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane_1.setResizeWeight(0.5);
+		panel_Setup.add(splitPane_1);
+		
+		JPanel panel_UnitInfo = new JPanel();
+		split_Workpane.setLeftComponent(panel_UnitInfo);
+		panel_UnitInfo.setLayout(new GridLayout(1, 5, 0, 0));
+		
+		JLabel lbl_Model = new JLabel("INSPIRON 7506");
+		lbl_Model.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_UnitInfo.add(lbl_Model);
+		
+		JLabel lbl_Tag = new JLabel("73CTR93");
+		lbl_Tag.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_UnitInfo.add(lbl_Tag);
+		
+		JLabel lbl_DPS = new JLabel("427551909");
+		lbl_DPS.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_UnitInfo.add(lbl_DPS);
+		
+		JLabel lbl_Bin = new JLabel("NBD0643");
+		lbl_Bin.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_UnitInfo.add(lbl_Bin);
+		
+		JLabel lbl_Rack = new JLabel("A1");
+		lbl_Rack.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_UnitInfo.add(lbl_Rack);
 	}
 }
