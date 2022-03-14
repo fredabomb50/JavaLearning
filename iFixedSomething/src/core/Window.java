@@ -26,6 +26,13 @@ import javax.swing.Action;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import javax.swing.JTabbedPane;
+import java.awt.FlowLayout;
+import javax.swing.border.BevelBorder;
+import javax.swing.JLayeredPane;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import javax.swing.border.SoftBevelBorder;
 
 public class Window {
 
@@ -54,6 +61,17 @@ public class Window {
 		initialize();
 	}
 
+	public void exit_App()
+	{
+		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
+		
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
+		frmIfixedsomething.setVisible(false);
+		frmIfixedsomething.dispose();
+		
+		System.exit(0);
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -65,29 +83,36 @@ public class Window {
 		frmIfixedsomething.setBounds(100, 100, 400, 300);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIfixedsomething.setUndecorated(true);
-		frmIfixedsomething.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmIfixedsomething.getContentPane().setLayout(new GridLayout(1, 1, 0, 0));
 		
-		JPanel panel = new JPanel();
-		frmIfixedsomething.getContentPane().add(panel, BorderLayout.WEST);
-		panel.setLayout(new GridLayout(7, 1, 0, 0));
+		JSplitPane split_Frame = new JSplitPane();
+		frmIfixedsomething.getContentPane().add(split_Frame);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		split_Frame.setRightComponent(layeredPane);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel.add(btnNewButton_1);
+		JPanel panel_Menu = new JPanel();
+		split_Frame.setLeftComponent(panel_Menu);
+		panel_Menu.setLayout(new GridLayout(7, 1, 0, 0));
+		
+		JButton bttn_Debug = new JButton("Debug");
+		panel_Menu.add(bttn_Debug);
+		
+		JButton bttn_Rework = new JButton("Rework");
+		panel_Menu.add(bttn_Rework);
+		
+		JButton bttn_Admin = new JButton("Admin");
+		panel_Menu.add(bttn_Admin);
 		
 		JLabel lbl_MenuPlaceholder = new JLabel(" ");
-		panel.add(lbl_MenuPlaceholder);
+		panel_Menu.add(lbl_MenuPlaceholder);
 		
 		JLabel lbl_MenuPlaceholder_1 = new JLabel(" ");
-		panel.add(lbl_MenuPlaceholder_1);
+		panel_Menu.add(lbl_MenuPlaceholder_1);
 		
 		JLabel lbl_MenuPlaceholder_2 = new JLabel(" ");
-		panel.add(lbl_MenuPlaceholder_2);
-		
-		JLabel lbl_MenuPlaceholder_3 = new JLabel(" ");
-		panel.add(lbl_MenuPlaceholder_3);
+		panel_Menu.add(lbl_MenuPlaceholder_2);
 		
 		JButton bttn_Exit = new JButton("Exit");
 		bttn_Exit.addMouseListener(new MouseAdapter() {
@@ -96,22 +121,6 @@ public class Window {
 				exit_App();
 			}
 		});
-		panel.add(bttn_Exit);
-	}
-
-	public void exit_App()
-	{
-		// create event that processes just like the standard "x" close button
-		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
-		
-		// post the close event to the systems message queue; this ensures that thread and memory is freed
-		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
-		
-		// visibly remove the window and its elements
-		frmIfixedsomething.setVisible(false);
-		frmIfixedsomething.dispose();
-		
-		// terminate JVM with no error code
-		System.exit(0);
+		panel_Menu.add(bttn_Exit);
 	}
 }
