@@ -44,9 +44,11 @@ public class Window {
 	private JTextField txt_ModelNumber;
 	private JTextField txt_ServiceTag;
 	private JTextField txt_Dps;
-	private JTextField txt_Cell;
 	private JTextField txt_Rack;
 	private JTextField txt_Bin;
+	private JTextField txt_CellNumber;
+	private JTextField txt_RackMin;
+	private JTextField txt_RackMax;
 
 	/**
 	 * Launch the application.
@@ -102,14 +104,20 @@ public class Window {
 		split_Frame.setLeftComponent(panel_Menu);
 		panel_Menu.setLayout(new GridLayout(7, 1, 0, 0));
 		
-		JButton bttn_Debug = new JButton("Debug");
-		panel_Menu.add(bttn_Debug);
+		JToggleButton tglbttn_Debug = new JToggleButton("Debug");
+		panel_Menu.add(tglbttn_Debug);
 		
-		JButton bttn_Rework = new JButton("Rework");
-		panel_Menu.add(bttn_Rework);
+		JToggleButton tglbttn_Rework = new JToggleButton("Rework");
+		panel_Menu.add(tglbttn_Rework);
 		
-		JButton bttn_Settings = new JButton("Settings");
-		panel_Menu.add(bttn_Settings);
+		JToggleButton tglbttn_Settings = new JToggleButton("Settings");
+		tglbttn_Settings.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		panel_Menu.add(tglbttn_Settings);
 		
 		JLabel lbl_MenuPlaceholder = new JLabel(" ");
 		panel_Menu.add(lbl_MenuPlaceholder);
@@ -138,7 +146,7 @@ public class Window {
 		split_Workpane.setRightComponent(layers_Workpanes);
 		
 		JPanel panel_Settings = new JPanel();
-		panel_Settings.setBounds(0, 0, 620, 217);
+		panel_Settings.setBounds(0, 0, 620, 240);
 		layers_Workpanes.add(panel_Settings);
 		panel_Settings.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -154,13 +162,46 @@ public class Window {
 		split_GeneralSettings.setRightComponent(panel_GeneralSettings);
 		panel_GeneralSettings.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setResizeWeight(0.5);
-		panel_GeneralSettings.add(splitPane);
+		JSplitPane split_GenOptions = new JSplitPane();
+		split_GenOptions.setResizeWeight(0.5);
+		panel_GeneralSettings.add(split_GenOptions);
 		
 		JPanel panel_GenOptions = new JPanel();
-		splitPane.setLeftComponent(panel_GenOptions);
+		split_GenOptions.setLeftComponent(panel_GenOptions);
 		panel_GenOptions.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		JLabel lbl_Option1 = new JLabel("New label");
+		lbl_Option1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_GenOptions.add(lbl_Option1);
+		
+		JLabel lbl_Option1_1 = new JLabel("New label");
+		lbl_Option1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_GenOptions.add(lbl_Option1_1);
+		
+		JLabel lbl_Option1_2 = new JLabel("New label");
+		lbl_Option1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_GenOptions.add(lbl_Option1_2);
+		
+		JLabel lbl_Option1_3 = new JLabel("New label");
+		lbl_Option1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_GenOptions.add(lbl_Option1_3);
+		
+		JPanel panel_GenOptionValues = new JPanel();
+		split_GenOptions.setRightComponent(panel_GenOptionValues);
+		panel_GenOptionValues.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
+		chckbxNewCheckBox.setToolTipText("This is a test option, for testing.");
+		panel_GenOptionValues.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("New check box");
+		panel_GenOptionValues.add(chckbxNewCheckBox_1);
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("New check box");
+		panel_GenOptionValues.add(chckbxNewCheckBox_2);
+		
+		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("New check box");
+		panel_GenOptionValues.add(chckbxNewCheckBox_3);
 		
 		JSplitPane split_ProfileSettings = new JSplitPane();
 		split_ProfileSettings.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -172,6 +213,63 @@ public class Window {
 		
 		JPanel panel_ProfileSettings = new JPanel();
 		split_ProfileSettings.setRightComponent(panel_ProfileSettings);
+		panel_ProfileSettings.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane.setResizeWeight(0.5);
+		panel_ProfileSettings.add(splitPane);
+		
+		JSplitPane split_RackRange = new JSplitPane();
+		split_RackRange.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane.setRightComponent(split_RackRange);
+		
+		JLabel lbl_RackRange = new JLabel("Rack Range (min - max)");
+		lbl_RackRange.setHorizontalAlignment(SwingConstants.CENTER);
+		split_RackRange.setLeftComponent(lbl_RackRange);
+		
+		JSplitPane splitPane_2 = new JSplitPane();
+		splitPane_2.setResizeWeight(0.5);
+		split_RackRange.setRightComponent(splitPane_2);
+		
+		txt_RackMin = new JTextField();
+		splitPane_2.setLeftComponent(txt_RackMin);
+		txt_RackMin.setColumns(10);
+		
+		txt_RackMax = new JTextField();
+		splitPane_2.setRightComponent(txt_RackMax);
+		txt_RackMax.setColumns(10);
+		
+		JSplitPane split_CellNumber = new JSplitPane();
+		splitPane.setLeftComponent(split_CellNumber);
+		
+		JLabel lbl_CellNumber = new JLabel("Cell Number:");
+		split_CellNumber.setLeftComponent(lbl_CellNumber);
+		
+		txt_CellNumber = new JTextField();
+		split_CellNumber.setRightComponent(txt_CellNumber);
+		txt_CellNumber.setColumns(10);
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane_1.setResizeWeight(0.5);
+		panel_ProfileSettings.add(splitPane_1);
+		
+		JPanel panel = new JPanel();
+		splitPane_1.setLeftComponent(panel);
+		
+		JLabel lbl_temp_1 = new JLabel("New label");
+		panel.add(lbl_temp_1);
+		
+		JPanel panel_1 = new JPanel();
+		splitPane_1.setRightComponent(panel_1);
+		
+		JLabel lbl_temp = new JLabel("New label");
+		panel_1.add(lbl_temp);
+		
+		JPanel panel_Debug = new JPanel();
+		layers_Workpanes.setLayer(panel_Debug, 1);
+		panel_Debug.setBounds(0, 0, 620, 240);
+		layers_Workpanes.add(panel_Debug);
 		
 		JPanel panel_UnitInfo = new JPanel();
 		split_Workpane.setLeftComponent(panel_UnitInfo);
@@ -221,9 +319,9 @@ public class Window {
 		lbl_Cell.setHorizontalAlignment(SwingConstants.CENTER);
 		split_Cell.setLeftComponent(lbl_Cell);
 		
-		txt_Cell = new JTextField();
-		split_Cell.setRightComponent(txt_Cell);
-		txt_Cell.setColumns(10);
+		JLabel lbl_CellValue = new JLabel("A");
+		lbl_CellValue.setHorizontalAlignment(SwingConstants.CENTER);
+		split_Cell.setRightComponent(lbl_CellValue);
 		
 		JSplitPane split_Rack = new JSplitPane();
 		split_Rack.setResizeWeight(0.72);
