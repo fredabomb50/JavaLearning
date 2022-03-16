@@ -37,6 +37,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class Window {
 
@@ -270,6 +274,119 @@ public class Window {
 		layers_Workpanes.setLayer(panel_Debug, 1);
 		panel_Debug.setBounds(0, 0, 620, 240);
 		layers_Workpanes.add(panel_Debug);
+		panel_Debug.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JPanel panel_PartsList = new JPanel();
+		panel_Debug.add(panel_PartsList, "3, 2, 20, 13, fill, fill");
+		panel_PartsList.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JScrollPane scroll_PartsList = new JScrollPane();
+		panel_PartsList.add(scroll_PartsList);
+		
+		JList ls_Parts = new JList();
+		ls_Parts.setLayoutOrientation(JList.VERTICAL_WRAP);
+		ls_Parts.setModel(new AbstractListModel() {
+			String[] values = new String[] {"ACAD", "Battery", "Battery Cable", "Bottom Cover", "Camera", "CMOS Battery", "CPU Fan", "DCIN", "GPU Fan", "HDD", "HDD Bracket", "HDD Cable", "Heatsink", "HUD", "IO Board", "IO Cable", "Keyboard", "LCD", "LCD Bevel", "LCD Cable", "LCD Cover", "Memory", "Motherboard", "ODD", "ODD IO", "Palmrest", "Power Button", "Power Cord", "Power IO", "SSD", "SSD Bracket", "Speaker", "Stylus", "Top Cover", "Touchpad", "Touchpad Bracket", "Touchpad Cable", "USB Bracket", "Wifi Bracket", "Wifi Card"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		scroll_PartsList.setViewportView(ls_Parts);
+		
+		JPanel panel_OrderList = new JPanel();
+		panel_Debug.add(panel_OrderList, "26, 2, 18, 13, fill, fill");
+		panel_OrderList.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JScrollPane scroll_Order = new JScrollPane();
+		panel_OrderList.add(scroll_Order);
+		
+		JList ls_Order = new JList();
+		ls_Order.setVisibleRowCount(9);
+		ls_Order.setLayoutOrientation(JList.VERTICAL_WRAP);
+		scroll_Order.setViewportView(ls_Order);
+		
+		JButton bttn_AddToOrder = new JButton("Add ->");
+		panel_Debug.add(bttn_AddToOrder, "24, 8");
+		
+		JButton bttn_RemoveFromOrder = new JButton("<- Remove");
+		panel_Debug.add(bttn_RemoveFromOrder, "24, 10");
+		
+		JButton bttn_Reset = new JButton("Reset");
+		panel_Debug.add(bttn_Reset, "24, 16");
 		
 		JPanel panel_UnitInfo = new JPanel();
 		split_Workpane.setLeftComponent(panel_UnitInfo);
