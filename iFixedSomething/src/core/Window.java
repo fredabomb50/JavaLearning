@@ -54,6 +54,8 @@ public class Window {
 	private JTextField txt_RackMin;
 	private JTextField txt_RackMax;
 
+	
+	private JPanel panel_Settings, panel_Debug, panel_Rework;
 	/**
 	 * Launch the application.
 	 */
@@ -108,20 +110,29 @@ public class Window {
 		split_Frame.setLeftComponent(panel_Menu);
 		panel_Menu.setLayout(new GridLayout(7, 1, 0, 0));
 		
-		JToggleButton tglbttn_Debug = new JToggleButton("Debug");
-		panel_Menu.add(tglbttn_Debug);
-		
-		JToggleButton tglbttn_Rework = new JToggleButton("Rework");
-		panel_Menu.add(tglbttn_Rework);
-		
-		JToggleButton tglbttn_Settings = new JToggleButton("Settings");
-		tglbttn_Settings.addMouseListener(new MouseAdapter() {
+		JButton bttn_Debug = new JButton("Debug");
+		bttn_Debug.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				panel_Debug.setVisible(true);
+				panel_Settings.setVisible(false);
 			}
 		});
-		panel_Menu.add(tglbttn_Settings);
+		
+		panel_Menu.add(bttn_Debug);
+		
+		JButton bttn_Rework = new JButton("Rework");
+		panel_Menu.add(bttn_Rework);
+		
+		JButton bttn_Settings = new JButton("Settings");
+		bttn_Settings.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_Settings.setVisible(true);
+				panel_Debug.setVisible(false);
+			}
+		});
+		panel_Menu.add(bttn_Settings);
 		
 		JLabel lbl_MenuPlaceholder = new JLabel(" ");
 		panel_Menu.add(lbl_MenuPlaceholder);
@@ -149,7 +160,7 @@ public class Window {
 		JLayeredPane layers_Workpanes = new JLayeredPane();
 		split_Workpane.setRightComponent(layers_Workpanes);
 		
-		JPanel panel_Settings = new JPanel();
+		panel_Settings = new JPanel();
 		panel_Settings.setBounds(0, 0, 620, 240);
 		layers_Workpanes.add(panel_Settings);
 		panel_Settings.setLayout(new GridLayout(0, 2, 0, 0));
@@ -270,123 +281,14 @@ public class Window {
 		JLabel lbl_temp = new JLabel("New label");
 		panel_1.add(lbl_temp);
 		
-		JPanel panel_Debug = new JPanel();
+		panel_Debug = new JPanel();
 		layers_Workpanes.setLayer(panel_Debug, 1);
 		panel_Debug.setBounds(0, 0, 620, 240);
 		layers_Workpanes.add(panel_Debug);
-		panel_Debug.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		panel_Debug.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JPanel panel_PartsList = new JPanel();
-		panel_Debug.add(panel_PartsList, "3, 2, 20, 13, fill, fill");
-		panel_PartsList.setLayout(new GridLayout(1, 1, 0, 0));
-		
-		JScrollPane scroll_PartsList = new JScrollPane();
-		panel_PartsList.add(scroll_PartsList);
-		
-		JList ls_Parts = new JList();
-		ls_Parts.setLayoutOrientation(JList.VERTICAL_WRAP);
-		ls_Parts.setModel(new AbstractListModel() {
-			String[] values = new String[] {"ACAD", "Battery", "Battery Cable", "Bottom Cover", "Camera", "CMOS Battery", "CPU Fan", "DCIN", "GPU Fan", "HDD", "HDD Bracket", "HDD Cable", "Heatsink", "HUD", "IO Board", "IO Cable", "Keyboard", "LCD", "LCD Bevel", "LCD Cable", "LCD Cover", "Memory", "Motherboard", "ODD", "ODD IO", "Palmrest", "Power Button", "Power Cord", "Power IO", "SSD", "SSD Bracket", "Speaker", "Stylus", "Top Cover", "Touchpad", "Touchpad Bracket", "Touchpad Cable", "USB Bracket", "Wifi Bracket", "Wifi Card"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		scroll_PartsList.setViewportView(ls_Parts);
-		
-		JPanel panel_OrderList = new JPanel();
-		panel_Debug.add(panel_OrderList, "26, 2, 18, 13, fill, fill");
-		panel_OrderList.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JScrollPane scroll_Order = new JScrollPane();
-		panel_OrderList.add(scroll_Order);
-		
-		JList ls_Order = new JList();
-		ls_Order.setVisibleRowCount(9);
-		ls_Order.setLayoutOrientation(JList.VERTICAL_WRAP);
-		scroll_Order.setViewportView(ls_Order);
-		
-		JButton bttn_AddToOrder = new JButton("Add ->");
-		panel_Debug.add(bttn_AddToOrder, "24, 8");
-		
-		JButton bttn_RemoveFromOrder = new JButton("<- Remove");
-		panel_Debug.add(bttn_RemoveFromOrder, "24, 10");
-		
-		JButton bttn_Reset = new JButton("Reset");
-		panel_Debug.add(bttn_Reset, "24, 16");
+		JButton btnNewButton = new JButton("New button");
+		panel_Debug.add(btnNewButton);
 		
 		JPanel panel_UnitInfo = new JPanel();
 		split_Workpane.setLeftComponent(panel_UnitInfo);
