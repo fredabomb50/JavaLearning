@@ -122,6 +122,13 @@ public class Window {
 		panel_Menu.add(bttn_Debug);
 		
 		JButton bttn_Rework = new JButton("Rework");
+		bttn_Rework.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Pop_DebugNote temp = new Pop_DebugNote();
+
+			}
+		});
 		panel_Menu.add(bttn_Rework);
 		
 		JButton bttn_Settings = new JButton("Settings");
