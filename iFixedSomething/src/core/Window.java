@@ -100,7 +100,7 @@ public class Window {
 		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\resources\\grey_ivy_logo.png"));
 		frmIfixedsomething.setBounds(100, 100, 700, 300);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmIfixedsomething.setUndecorated(true);
+		//frmIfixedsomething.setUndecorated(true);
 		frmIfixedsomething.getContentPane().setLayout(new GridLayout(1, 1, 0, 0));
 		
 		JSplitPane split_Frame = new JSplitPane();
