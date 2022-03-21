@@ -42,8 +42,18 @@ import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+
 public class Window {
 
+	// File I/O
+	private File file_Daily, file_DailyReport, file_WeeklyReport, file_MonthlyReport, file_YearlyReport;
+	private String path_Daily, path_DailyReport, path_WeeklyReport, path_MonthlyReport, path_YearlyReport;
+	
+	// GUI components
 	private JFrame frmIfixedsomething;
 	private JTextField txt_ModelNumber;
 	private JTextField txt_ServiceTag;
@@ -53,9 +63,9 @@ public class Window {
 	private JTextField txt_CellNumber;
 	private JTextField txt_RackMin;
 	private JTextField txt_RackMax;
-
-	
 	private JPanel panel_Settings, panel_Debug, panel_Rework;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -76,9 +86,124 @@ public class Window {
 	 * Create the application.
 	 */
 	public Window() {
+		checkFileStructure();
 		initialize();
 	}
 
+	// yyyy/MM/dd HH:mm:ss  
+	public void checkFileStructure()
+	{
+		Boolean result = false;
+		LocalDateTime currentDay = LocalDateTime.now();
+		String path_ = "";
+		
+		
+		// Create Records folder
+		path_ = "Records/";
+		File dir_Records = new File(path_);	
+		result = dir_Records.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create Records folder");
+		}
+		
+		// Create folder for current year
+		DateTimeFormatter dtf_Year = DateTimeFormatter.ofPattern("yyyy");
+		path_ = path_ + dtf_Year.format(currentDay) + "/";
+		path_YearlyReport = path_ + "summary_" + dtf_Year.format(currentDay) + ".txt";
+		File dir_Year = new File(path_);
+		result = dir_Year.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create yearly folder");
+		}
+		file_YearlyReport = new File(path_YearlyReport);
+		try
+		{
+			file_YearlyReport.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create yearly report - %s\n", e.getMessage());
+		}
+		
+		// Create folder for current month
+		DateTimeFormatter dtf_Month = DateTimeFormatter.ofPattern("MMMM");
+		path_ = path_ + dtf_Month.format(currentDay) + "/";
+		path_MonthlyReport = path_ + "summary_" + dtf_Month.format(currentDay) + ".txt";
+		File dir_Month = new File(path_);
+		result = dir_Month.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create monthly folder");
+		}
+		file_MonthlyReport = new File(path_MonthlyReport);
+		try
+		{
+			file_MonthlyReport.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create monthly report - %s\n", e.getMessage());
+		}
+		
+		// Create folder for current week of the month
+		DateTimeFormatter dtf_Week = DateTimeFormatter.ofPattern("W");	
+		path_ = path_ + "Week " + dtf_Week.format(currentDay) + "/";
+		path_WeeklyReport = path_ + "summary_Week " + dtf_Week.format(currentDay) + ".txt";
+		File dir_Week = new File(path_);
+		result = dir_Week.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create weekly folder");
+		}
+		file_WeeklyReport = new File(path_WeeklyReport);
+		try
+		{
+			file_WeeklyReport.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create weekly report - %s\n", e.getMessage());
+		}
+		
+		// Create folder for current day of the month
+		DateTimeFormatter dtf_Day = DateTimeFormatter.ofPattern("d");
+		path_ = path_ + dtf_Day.format(currentDay) + "/";
+		File dir_Day = new File(path_);
+		result = dir_Day.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create daily folder");
+		}
+		
+		// Create daily file and report
+		DateTimeFormatter dtf_CurrentDay = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+		path_DailyReport = path_ + "summary_"+ dtf_CurrentDay.format(currentDay) + ".txt";
+		path_ = path_ + dtf_CurrentDay.format(currentDay) + ".txt";
+		path_Daily = path_;
+		file_Daily = new File(path_);
+		file_DailyReport = new File(path_DailyReport);
+		
+		try
+		{
+			result = file_DailyReport.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create daily report - %s\n", e.getMessage());
+		}
+		try
+		{
+			result = file_Daily.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create daily file - %s\n", e.getMessage());
+		}
+	}
+	
+	
 	public void exit_App()
 	{
 		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
