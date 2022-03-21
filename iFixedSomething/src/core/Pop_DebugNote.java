@@ -43,11 +43,13 @@ public class Pop_DebugNote {
 
 	public void close()
 	{
-		WindowEvent event = new WindowEvent(frmNote, WindowEvent.WINDOW_CLOSING);
-		
-		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
 		frmNote.setVisible(false);
 		frmNote.dispose();
+	}
+	
+	public void show()
+	{
+		frmNote.setVisible(true);
 	}
 	
 	/**
