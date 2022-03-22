@@ -227,6 +227,12 @@ public class Window {
 	}
 	
 	
+	public void showPopUp()
+	{
+		Pop_DebugNote temp = new Pop_DebugNote();
+		temp.show();
+	}
+	
 	public void exit_App()
 	{
 		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
@@ -309,7 +315,7 @@ public class Window {
 		split_Workpane.setRightComponent(layers_Workpanes);
 		
 		panel_Settings = new JPanel();
-		panel_Settings.setBounds(0, 0, 620, 240);
+		panel_Settings.setBounds(0, 0, 604, 202);
 		layers_Workpanes.add(panel_Settings);
 		panel_Settings.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -432,18 +438,6 @@ public class Window {
 		panel_Debug = new JPanel();
 		layers_Workpanes.setLayer(panel_Debug, 1);
 		panel_Debug.setBounds(0, 0, 604, 202);
-		layers_Workpanes.add(panel_Debug);
-		panel_Debug.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Pop_DebugNote temp = new Pop_DebugNote();
-				temp.show();
-			}
-		});
-		panel_Debug.add(btnNewButton);
 		
 		JPanel panel_UnitInfo = new JPanel();
 		split_Workpane.setLeftComponent(panel_UnitInfo);
