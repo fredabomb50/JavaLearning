@@ -57,7 +57,7 @@ public class Pop_DebugNote {
 	 */
 	private void initialize() {
 		frmNote = new JFrame();
-		frmNote.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\resources\\grey_ivy_logo.png"));
+		frmNote.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\Resources\\grey_ivy_logo.png"));
 		frmNote.setTitle("Note");
 		frmNote.setBounds(100, 100, 450, 300);
 		frmNote.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

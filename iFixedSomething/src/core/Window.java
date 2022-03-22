@@ -50,8 +50,11 @@ import java.time.LocalDateTime;
 public class Window {
 
 	// File I/O
-	private File file_Daily, file_DailyReport, file_WeeklyReport, file_MonthlyReport, file_YearlyReport;
-	private String path_Daily, path_DailyReport, path_WeeklyReport, path_MonthlyReport, path_YearlyReport;
+	private File file_Daily, file_DailyReport, file_WeeklyReport, file_MonthlyReport, file_YearlyReport,
+	file_Macros;
+	
+	private String path_Daily, path_DailyReport, path_WeeklyReport, path_MonthlyReport, path_YearlyReport,
+	path_Macros;
 	
 	// GUI components
 	private JFrame frmIfixedsomething;
@@ -90,7 +93,7 @@ public class Window {
 		initialize();
 	}
 
-	// yyyy/MM/dd HH:mm:ss  
+
 	public void checkFileStructure()
 	{
 		Boolean result = false;
@@ -182,7 +185,7 @@ public class Window {
 		path_DailyReport = path_ + "summary_"+ dtf_CurrentDay.format(currentDay) + ".txt";
 		path_ = path_ + dtf_CurrentDay.format(currentDay) + ".txt";
 		path_Daily = path_;
-		file_Daily = new File(path_);
+		file_Daily = new File(path_Daily);
 		file_DailyReport = new File(path_DailyReport);
 		
 		try
@@ -200,6 +203,26 @@ public class Window {
 		catch (IOException e)
 		{
 			System.out.printf("Failed to create daily file - %s\n", e.getMessage());
+		}
+		
+		
+		// Create resources folder, along with macros file
+		path_ = "Resources/";
+		File dir_Resources = new File(path_);
+		result = dir_Resources.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create Resources folder");
+		}
+		path_Macros = path_ + "Macros.txt";
+		file_Macros = new File(path_Macros);
+		try
+		{
+			result = file_Macros.createNewFile();
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to create macros file - %s\n", e.getMessage());
 		}
 	}
 	
@@ -222,7 +245,7 @@ public class Window {
 		frmIfixedsomething = new JFrame();
 		frmIfixedsomething.setResizable(false);
 		frmIfixedsomething.setTitle("iFixedSomething");
-		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\resources\\grey_ivy_logo.png"));
+		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\Resources\\grey_ivy_logo.png"));
 		frmIfixedsomething.setBounds(100, 100, 700, 300);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frmIfixedsomething.setUndecorated(true);
