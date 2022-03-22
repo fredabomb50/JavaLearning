@@ -45,7 +45,9 @@ import javax.swing.ScrollPaneConstants;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime;    
+import java.time.LocalDateTime;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;    
 
 public class Window {
 
@@ -452,6 +454,12 @@ public class Window {
 		split_Model.setLeftComponent(lbl_Model);
 		
 		txt_ModelNumber = new JTextField();
+		txt_ModelNumber.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+			}
+		});
 		split_Model.setRightComponent(txt_ModelNumber);
 		txt_ModelNumber.setColumns(10);
 		
