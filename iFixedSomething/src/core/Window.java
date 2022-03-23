@@ -457,7 +457,10 @@ public class Window {
 		txt_ModelNumber.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
+				if (e.getKeyCode() == )
+				{
+					
+				}
 			}
 		});
 		split_Model.setRightComponent(txt_ModelNumber);
