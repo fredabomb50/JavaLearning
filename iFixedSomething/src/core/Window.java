@@ -74,13 +74,19 @@ public class Window {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
 					Window window = new Window();
 					window.frmIfixedsomething.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -92,10 +98,11 @@ public class Window {
 	 */
 	public Window() {
 		checkFileStructure();
+		runMacros();
 		initialize();
 	}
 
-
+	// create directory tree, and skipping over present files
 	public void checkFileStructure()
 	{
 		Boolean result = false;
@@ -259,13 +266,14 @@ public class Window {
 		}
 	}
 	
-	
+	// needs to be parameterized so any pop up can be opened
 	public void showPopUp()
 	{
 		Pop_DebugNote temp = new Pop_DebugNote();
 		temp.show();
 	}
 	
+	// clean closure of application
 	public void exit_App()
 	{
 		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
@@ -275,6 +283,21 @@ public class Window {
 		frmIfixedsomething.dispose();
 		
 		System.exit(0);
+	}
+	
+	// run macros.exe
+	public void runMacros()
+	{
+		Runtime macroEXE = Runtime.getRuntime();
+		try
+		{
+			Process process = macroEXE.exec("macros.exe");
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to launch / find macro - %s", e.getMessage());
+		}
+		
 	}
 	
 	/**
@@ -488,9 +511,9 @@ public class Window {
 		txt_ModelNumber.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == 102)
+				if (e.getKeyCode() == 10)
 				{
-					
+					showPopUp();
 				}
 			}
 		});

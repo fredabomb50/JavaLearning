@@ -61,6 +61,7 @@ public class Pop_DebugNote {
 		frmNote.setTitle("Note");
 		frmNote.setBounds(100, 100, 450, 300);
 		frmNote.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNote.setUndecorated(true);
 		
 		JPanel panel = new JPanel();
 		frmNote.getContentPane().add(panel, BorderLayout.CENTER);
