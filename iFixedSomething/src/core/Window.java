@@ -232,7 +232,7 @@ public class Window {
 		{
 			System.out.println("Failed to create Resources folder");
 		}
-		path_Macros = path_ + "Macros.txt";
+		path_Macros = path_ + "macros.txt";
 		file_Macros = new File(path_Macros);
 		try
 		{
