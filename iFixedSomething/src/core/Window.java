@@ -112,6 +112,22 @@ public class Window {
 			System.out.println("Failed to create Records folder");
 		}
 		
+		// Create records archive folder
+		File dir_ArchivedRecords = new File(path_ + "_archives");
+		result = dir_ArchivedRecords.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create Records archive folder");
+		}
+		
+		// Create units folder
+		File dir_Units = new File(path_ + "_units");
+		result = dir_Units.mkdir();
+		if (!result)
+		{
+			System.out.println("Failed to create units folder");
+		}
+		
 		// Create folder for current year
 		DateTimeFormatter dtf_Year = DateTimeFormatter.ofPattern("yyyy");
 		path_ = path_ + dtf_Year.format(currentDay) + "/";
@@ -225,6 +241,21 @@ public class Window {
 		catch (IOException e)
 		{
 			System.out.printf("Failed to create macros file - %s\n", e.getMessage());
+		}
+		
+		// Create logs folder
+		path_ = "Logs/";
+		File dir_Logs = new File(path_);
+		if (!dir_Logs.mkdir())
+		{
+			System.out.println("Failed to create logs folder");
+		}
+		
+		// Create logs archive folder
+		File dir_ArchivedLogs = new File(path_ + "_archives");
+		if(!dir_ArchivedLogs.mkdir())
+		{
+			System.out.println("Failed to create Logs archive folder");
 		}
 	}
 	
@@ -457,7 +488,7 @@ public class Window {
 		txt_ModelNumber.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == )
+				if (e.getKeyCode() == 102)
 				{
 					
 				}
