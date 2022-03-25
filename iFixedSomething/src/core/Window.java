@@ -51,6 +51,9 @@ import java.awt.event.KeyEvent;
 
 public class Window {
 
+	// Processes
+	private Process proc_Macro;
+	
 	// File I/O
 	private File file_Daily, file_DailyReport, file_WeeklyReport, file_MonthlyReport, file_YearlyReport,
 	file_Macros;
@@ -276,12 +279,22 @@ public class Window {
 	// clean closure of application
 	public void exit_App()
 	{
+		// create windows-safe event for closing app
 		WindowEvent event = new WindowEvent(frmIfixedsomething, WindowEvent.WINDOW_CLOSING);
 		
+		// close process for macros.exe
+		proc_Macro.destroy();
+		
+		// post windows-safe event
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(event);
+		
+		// remove GUI from screen
 		frmIfixedsomething.setVisible(false);
+		
+		// dispose of class instance
 		frmIfixedsomething.dispose();
 		
+		// exit application
 		System.exit(0);
 	}
 	
@@ -291,7 +304,7 @@ public class Window {
 		Runtime macroEXE = Runtime.getRuntime();
 		try
 		{
-			Process process = macroEXE.exec("macros.exe");
+			proc_Macro = macroEXE.exec("macros.exe");
 		}
 		catch (IOException e)
 		{
@@ -510,10 +523,11 @@ public class Window {
 		txt_ModelNumber = new JTextField();
 		txt_ModelNumber.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e)
+			{
 				if (e.getKeyCode() == 10)
 				{
-					showPopUp();
+					txt_ModelNumber.setEnabled(false);
 				}
 			}
 		});
