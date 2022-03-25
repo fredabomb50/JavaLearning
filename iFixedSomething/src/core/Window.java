@@ -528,6 +528,7 @@ public class Window {
 				if (e.getKeyCode() == 10)
 				{
 					txt_ModelNumber.setEnabled(false);
+					txt_ServiceTag.requestFocusInWindow();
 				}
 			}
 		});
