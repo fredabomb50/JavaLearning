@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
@@ -47,7 +49,8 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;    
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;    
 
 public class Window {
 
@@ -63,16 +66,10 @@ public class Window {
 	
 	// GUI components
 	private JFrame frmIfixedsomething;
-	private JTextField txt_ModelNumber;
-	private JTextField txt_ServiceTag;
-	private JTextField txt_Dps;
-	private JTextField txt_Rack;
-	private JTextField txt_Bin;
-	private JTextField txt_CellNumber;
-	private JTextField txt_RackMin;
-	private JTextField txt_RackMax;
-	private JPanel panel_Settings, panel_Debug, panel_Rework;
+	private JPanel panel_Debug, panel_Rework;
 	
+	
+	private Image img_Exit, img_Debug;
 	
 	/**
 	 * Launch the application.
@@ -99,12 +96,14 @@ public class Window {
 	/**
 	 * Create the application.
 	 */
-	public Window() {
+	public Window()
+	{
 		checkFileStructure();
 		runMacros();
 		initialize();
 	}
 
+	
 	// create directory tree, and skipping over present files
 	public void checkFileStructure()
 	{
@@ -276,6 +275,22 @@ public class Window {
 		temp.show();
 	}
 	
+	// run macros.exe
+	public void runMacros()
+	{
+		Runtime macroEXE = Runtime.getRuntime();
+		try
+		{
+			proc_Macro = macroEXE.exec("macros.exe");
+		}
+		catch (IOException e)
+		{
+			System.out.printf("Failed to launch / find macro - %s", e.getMessage());
+		}
+		
+	}
+	
+	
 	// clean closure of application
 	public void exit_App()
 	{
@@ -298,301 +313,49 @@ public class Window {
 		System.exit(0);
 	}
 	
-	// run macros.exe
-	public void runMacros()
-	{
-		Runtime macroEXE = Runtime.getRuntime();
-		try
-		{
-			proc_Macro = macroEXE.exec("macros.exe");
-		}
-		catch (IOException e)
-		{
-			System.out.printf("Failed to launch / find macro - %s", e.getMessage());
-		}
-		
-	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	
+	private void initialize()
+	{
 		frmIfixedsomething = new JFrame();
 		frmIfixedsomething.setResizable(false);
 		frmIfixedsomething.setTitle("iFixedSomething");
-		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\Resources\\grey_ivy_logo.png"));
+		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\Resources\\images\\icon_IvyLogoGrey.png"));
 		frmIfixedsomething.setBounds(100, 100, 700, 300);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frmIfixedsomething.setUndecorated(true);
-		frmIfixedsomething.getContentPane().setLayout(new GridLayout(1, 1, 0, 0));
+		frmIfixedsomething.setUndecorated(true);
+		frmIfixedsomething.getContentPane().setLayout(null);
+
 		
-		JSplitPane split_Frame = new JSplitPane();
-		frmIfixedsomething.getContentPane().add(split_Frame);
-		
-		JPanel panel_Menu = new JPanel();
-		split_Frame.setLeftComponent(panel_Menu);
-		panel_Menu.setLayout(new GridLayout(7, 1, 0, 0));
-		
-		JButton bttn_Debug = new JButton("Debug");
-		bttn_Debug.addMouseListener(new MouseAdapter() {
+		JButton bttn_CloseApp = new JButton("");
+		bttn_CloseApp.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_Debug.setVisible(true);
-				panel_Settings.setVisible(false);
-			}
-		});
-		
-		panel_Menu.add(bttn_Debug);
-		
-		JButton bttn_Rework = new JButton("Rework");
-		panel_Menu.add(bttn_Rework);
-		
-		JButton bttn_Settings = new JButton("Settings");
-		bttn_Settings.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_Settings.setVisible(true);
-				panel_Debug.setVisible(false);
-			}
-		});
-		panel_Menu.add(bttn_Settings);
-		
-		JLabel lbl_MenuPlaceholder = new JLabel(" ");
-		panel_Menu.add(lbl_MenuPlaceholder);
-		
-		JLabel lbl_MenuPlaceholder_1 = new JLabel(" ");
-		panel_Menu.add(lbl_MenuPlaceholder_1);
-		
-		JLabel lbl_MenuPlaceholder_2 = new JLabel(" ");
-		panel_Menu.add(lbl_MenuPlaceholder_2);
-		
-		JButton bttn_Exit = new JButton("Exit");
-		bttn_Exit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
 				exit_App();
 			}
 		});
-		panel_Menu.add(bttn_Exit);
+		bttn_CloseApp.setBounds(670, 0, 30, 30);
+		frmIfixedsomething.getContentPane().add(bttn_CloseApp);
+		img_Exit = Toolkit.getDefaultToolkit().getImage("W:\\\\JavaLearning\\\\iFixedSomething\\\\Resources\\\\images\\\\icon_Close.jpg");
+		Image scaled_i = img_Exit.getScaledInstance(30, 30, Image.SCALE_FAST);
+		bttn_CloseApp.setIcon(new ImageIcon(scaled_i));
 		
-		JSplitPane split_Workpane = new JSplitPane();
-		split_Workpane.setResizeWeight(0.03);
-		split_Workpane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		split_Frame.setRightComponent(split_Workpane);
+		JPanel panel_Menu = new JPanel();
+		panel_Menu.setBounds(0, 0, 75, 300);
+		frmIfixedsomething.getContentPane().add(panel_Menu);
+		panel_Menu.setLayout(null);
 		
-		JLayeredPane layers_Workpanes = new JLayeredPane();
-		split_Workpane.setRightComponent(layers_Workpanes);
-		
-		panel_Settings = new JPanel();
-		panel_Settings.setBounds(0, 0, 604, 202);
-		layers_Workpanes.add(panel_Settings);
-		panel_Settings.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		JSplitPane split_GeneralSettings = new JSplitPane();
-		split_GeneralSettings.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		panel_Settings.add(split_GeneralSettings);
-		
-		JLabel lbl_GeneralSettigns = new JLabel("General");
-		lbl_GeneralSettigns.setHorizontalAlignment(SwingConstants.CENTER);
-		split_GeneralSettings.setLeftComponent(lbl_GeneralSettigns);
-		
-		JPanel panel_GeneralSettings = new JPanel();
-		split_GeneralSettings.setRightComponent(panel_GeneralSettings);
-		panel_GeneralSettings.setLayout(new GridLayout(1, 1, 0, 0));
-		
-		JSplitPane split_GenOptions = new JSplitPane();
-		split_GenOptions.setResizeWeight(0.5);
-		panel_GeneralSettings.add(split_GenOptions);
-		
-		JPanel panel_GenOptions = new JPanel();
-		split_GenOptions.setLeftComponent(panel_GenOptions);
-		panel_GenOptions.setLayout(new GridLayout(4, 1, 0, 0));
-		
-		JLabel lbl_Option1 = new JLabel("New label");
-		lbl_Option1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_GenOptions.add(lbl_Option1);
-		
-		JLabel lbl_Option1_1 = new JLabel("New label");
-		lbl_Option1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_GenOptions.add(lbl_Option1_1);
-		
-		JLabel lbl_Option1_2 = new JLabel("New label");
-		lbl_Option1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_GenOptions.add(lbl_Option1_2);
-		
-		JLabel lbl_Option1_3 = new JLabel("New label");
-		lbl_Option1_3.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_GenOptions.add(lbl_Option1_3);
-		
-		JPanel panel_GenOptionValues = new JPanel();
-		split_GenOptions.setRightComponent(panel_GenOptionValues);
-		panel_GenOptionValues.setLayout(new GridLayout(4, 1, 0, 0));
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
-		chckbxNewCheckBox.setToolTipText("This is a test option, for testing.");
-		panel_GenOptionValues.add(chckbxNewCheckBox);
-		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("New check box");
-		panel_GenOptionValues.add(chckbxNewCheckBox_1);
-		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("New check box");
-		panel_GenOptionValues.add(chckbxNewCheckBox_2);
-		
-		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("New check box");
-		panel_GenOptionValues.add(chckbxNewCheckBox_3);
-		
-		JSplitPane split_ProfileSettings = new JSplitPane();
-		split_ProfileSettings.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		panel_Settings.add(split_ProfileSettings);
-		
-		JLabel lbl_ProfileSettings = new JLabel("Profile Settings");
-		lbl_ProfileSettings.setHorizontalAlignment(SwingConstants.CENTER);
-		split_ProfileSettings.setLeftComponent(lbl_ProfileSettings);
-		
-		JPanel panel_ProfileSettings = new JPanel();
-		split_ProfileSettings.setRightComponent(panel_ProfileSettings);
-		panel_ProfileSettings.setLayout(new GridLayout(2, 1, 0, 0));
-		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane.setResizeWeight(0.5);
-		panel_ProfileSettings.add(splitPane);
-		
-		JSplitPane split_RackRange = new JSplitPane();
-		split_RackRange.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		splitPane.setRightComponent(split_RackRange);
-		
-		JLabel lbl_RackRange = new JLabel("Rack Range (min - max)");
-		lbl_RackRange.setHorizontalAlignment(SwingConstants.CENTER);
-		split_RackRange.setLeftComponent(lbl_RackRange);
-		
-		JSplitPane splitPane_2 = new JSplitPane();
-		splitPane_2.setResizeWeight(0.5);
-		split_RackRange.setRightComponent(splitPane_2);
-		
-		txt_RackMin = new JTextField();
-		splitPane_2.setLeftComponent(txt_RackMin);
-		txt_RackMin.setColumns(10);
-		
-		txt_RackMax = new JTextField();
-		splitPane_2.setRightComponent(txt_RackMax);
-		txt_RackMax.setColumns(10);
-		
-		JSplitPane split_CellNumber = new JSplitPane();
-		splitPane.setLeftComponent(split_CellNumber);
-		
-		JLabel lbl_CellNumber = new JLabel("Cell Number:");
-		split_CellNumber.setLeftComponent(lbl_CellNumber);
-		
-		txt_CellNumber = new JTextField();
-		split_CellNumber.setRightComponent(txt_CellNumber);
-		txt_CellNumber.setColumns(10);
-		
-		JSplitPane splitPane_1 = new JSplitPane();
-		splitPane_1.setResizeWeight(0.5);
-		panel_ProfileSettings.add(splitPane_1);
-		
-		JPanel panel = new JPanel();
-		splitPane_1.setLeftComponent(panel);
-		
-		JLabel lbl_temp_1 = new JLabel("New label");
-		panel.add(lbl_temp_1);
-		
-		JPanel panel_1 = new JPanel();
-		splitPane_1.setRightComponent(panel_1);
-		
-		JLabel lbl_temp = new JLabel("New label");
-		panel_1.add(lbl_temp);
+		JButton btnNewButton = new JButton("Debug");
+		btnNewButton.setBounds(10, 11, 55, 44);
+		panel_Menu.add(btnNewButton);
+		 
 		
 		panel_Debug = new JPanel();
-		layers_Workpanes.setLayer(panel_Debug, 1);
 		panel_Debug.setBounds(0, 0, 604, 202);
-		
-		JPanel panel_UnitInfo = new JPanel();
-		split_Workpane.setLeftComponent(panel_UnitInfo);
-		panel_UnitInfo.setLayout(new GridLayout(2, 3, 0, 0));
-		
-		JSplitPane split_Model = new JSplitPane();
-		split_Model.setResizeWeight(0.5);
-		panel_UnitInfo.add(split_Model);
-		
-		JLabel lbl_Model = new JLabel("Model:");
-		lbl_Model.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Model.setLeftComponent(lbl_Model);
-		
-		txt_ModelNumber = new JTextField();
-		txt_ModelNumber.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-				if (e.getKeyCode() == 10)
-				{
-					txt_ModelNumber.setEnabled(false);
-					txt_ServiceTag.requestFocusInWindow();
-				}
-			}
-		});
-		split_Model.setRightComponent(txt_ModelNumber);
-		txt_ModelNumber.setColumns(10);
-		
-		JSplitPane split_ServiceTag = new JSplitPane();
-		split_ServiceTag.setResizeWeight(0.5);
-		panel_UnitInfo.add(split_ServiceTag);
-		
-		JLabel lbl_ServiceTag = new JLabel("Service Tag: ");
-		lbl_ServiceTag.setHorizontalAlignment(SwingConstants.CENTER);
-		split_ServiceTag.setLeftComponent(lbl_ServiceTag);
-		
-		txt_ServiceTag = new JTextField();
-		split_ServiceTag.setRightComponent(txt_ServiceTag);
-		txt_ServiceTag.setColumns(10);
-		
-		JSplitPane split_Dps = new JSplitPane();
-		split_Dps.setResizeWeight(0.5);
-		panel_UnitInfo.add(split_Dps);
-		
-		JLabel lbl_Dps = new JLabel("DPS:");
-		lbl_Dps.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Dps.setLeftComponent(lbl_Dps);
-		
-		txt_Dps = new JTextField();
-		split_Dps.setRightComponent(txt_Dps);
-		txt_Dps.setColumns(10);
-		
-		JSplitPane split_Cell = new JSplitPane();
-		split_Cell.setResizeWeight(0.555);
-		panel_UnitInfo.add(split_Cell);
-		
-		JLabel lbl_Cell = new JLabel("Cell:");
-		lbl_Cell.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Cell.setLeftComponent(lbl_Cell);
-		
-		JLabel lbl_CellValue = new JLabel("A");
-		lbl_CellValue.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Cell.setRightComponent(lbl_CellValue);
-		
-		JSplitPane split_Rack = new JSplitPane();
-		split_Rack.setResizeWeight(0.72);
-		panel_UnitInfo.add(split_Rack);
-		
-		JLabel lbl_Rack = new JLabel("Rack:");
-		lbl_Rack.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Rack.setLeftComponent(lbl_Rack);
-		
-		txt_Rack = new JTextField();
-		split_Rack.setRightComponent(txt_Rack);
-		txt_Rack.setColumns(10);
-		
-		JSplitPane split_Bin = new JSplitPane();
-		split_Bin.setResizeWeight(0.535);
-		panel_UnitInfo.add(split_Bin);
-		
-		JLabel lbl_Bin = new JLabel("Bin:");
-		lbl_Bin.setHorizontalAlignment(SwingConstants.CENTER);
-		split_Bin.setLeftComponent(lbl_Bin);
-		
-		txt_Bin = new JTextField();
-		split_Bin.setRightComponent(txt_Bin);
-		txt_Bin.setColumns(10);
 	}
+
 }
