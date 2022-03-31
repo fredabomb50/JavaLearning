@@ -43,6 +43,7 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JComponent;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,8 +53,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;    
 
-public class Window {
-
+public class Window
+{	
 	// Processes
 	private Process proc_Macro;
 	
@@ -70,6 +71,9 @@ public class Window {
 	
 	
 	private Image img_Exit, img_Debug;
+	private JTextField txt_Bin;
+	private JTextField txt_ServiceTag;
+	private JTextField txt_Model;
 	
 	/**
 	 * Launch the application.
@@ -314,6 +318,19 @@ public class Window {
 	}
 	
 	
+	// disable component
+	public void toggleEnableComp(JComponent comp)
+	{
+		if (comp.isEnabled())
+		{
+			comp.setEnabled(false);
+		}
+		else
+		{
+			comp.setEnabled(true);
+		}
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -324,13 +341,23 @@ public class Window {
 		frmIfixedsomething.setResizable(false);
 		frmIfixedsomething.setTitle("iFixedSomething");
 		frmIfixedsomething.setIconImage(Toolkit.getDefaultToolkit().getImage("W:\\JavaLearning\\iFixedSomething\\Resources\\images\\icon_IvyLogoGrey.png"));
-		frmIfixedsomething.setBounds(100, 100, 700, 300);
+		frmIfixedsomething.setBounds(100, 100, 850, 500);
 		frmIfixedsomething.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIfixedsomething.setUndecorated(true);
 		frmIfixedsomething.getContentPane().setLayout(null);
 
+		JPanel panel_Menu = new JPanel();
+		panel_Menu.setBounds(10, 11, 117, 478);
+		frmIfixedsomething.getContentPane().add(panel_Menu);
+		panel_Menu.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Debug");
+		btnNewButton.setBounds(10, 11, 97, 30);
+		panel_Menu.add(btnNewButton);
 		
 		JButton bttn_CloseApp = new JButton("");
+		bttn_CloseApp.setBounds(0, 448, 30, 30);
+		panel_Menu.add(bttn_CloseApp);
 		bttn_CloseApp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)
@@ -338,24 +365,124 @@ public class Window {
 				exit_App();
 			}
 		});
-		bttn_CloseApp.setBounds(670, 0, 30, 30);
-		frmIfixedsomething.getContentPane().add(bttn_CloseApp);
 		img_Exit = Toolkit.getDefaultToolkit().getImage("W:\\\\JavaLearning\\\\iFixedSomething\\\\Resources\\\\images\\\\icon_Close.jpg");
 		Image scaled_i = img_Exit.getScaledInstance(30, 30, Image.SCALE_FAST);
 		bttn_CloseApp.setIcon(new ImageIcon(scaled_i));
 		
-		JPanel panel_Menu = new JPanel();
-		panel_Menu.setBounds(0, 0, 75, 300);
-		frmIfixedsomething.getContentPane().add(panel_Menu);
-		panel_Menu.setLayout(null);
+		JButton bttn_Rework = new JButton("Rework");
+		bttn_Rework.setBounds(10, 52, 97, 30);
+		panel_Menu.add(bttn_Rework);
 		
-		JButton btnNewButton = new JButton("Debug");
-		btnNewButton.setBounds(10, 11, 55, 44);
-		panel_Menu.add(btnNewButton);
-		 
+		JButton bttn_Settings = new JButton("Settings");
+		bttn_Settings.setBounds(10, 93, 97, 30);
+		panel_Menu.add(bttn_Settings);
+		
+		txt_Bin = new JTextField();
+		txt_Bin.addKeyListener(new KeyAdapter()
+		{
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					toggleEnableComp(txt_Bin);
+					txt_ServiceTag.requestFocusInWindow();
+				}
+			}
+		});
+		txt_Bin.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_Bin.setBounds(10, 180, 97, 20);
+		panel_Menu.add(txt_Bin);
+		txt_Bin.setColumns(10);
+		
+		JLabel lbl_Bin = new JLabel("Bin Number");
+		lbl_Bin.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_Bin.setBounds(10, 165, 70, 14);
+		panel_Menu.add(lbl_Bin);
+		
+		txt_ServiceTag = new JTextField();
+		txt_ServiceTag.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					toggleEnableComp(txt_ServiceTag);
+					
+					// Will want to check records to see if Service tag exists;
+					// And if it exists, pull model number and auto-complete
+					txt_Model.requestFocusInWindow();
+				}
+			}
+		});
+		txt_ServiceTag.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_ServiceTag.setBounds(10, 227, 97, 20);
+		panel_Menu.add(txt_ServiceTag);
+		txt_ServiceTag.setColumns(10);
+		
+		JLabel lbl_ServiceTag = new JLabel("Service Tag");
+		lbl_ServiceTag.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_ServiceTag.setBounds(10, 211, 70, 14);
+		panel_Menu.add(lbl_ServiceTag);
+		
+		txt_Model = new JTextField();
+		txt_Model.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_Model.setBounds(10, 274, 97, 20);
+		panel_Menu.add(txt_Model);
+		txt_Model.setColumns(10);
+		
+		JLabel lbl_Model = new JLabel("Model");
+		lbl_Model.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_Model.setBounds(10, 258, 70, 14);
+		panel_Menu.add(lbl_Model);
+		
+		JToggleButton tgl_ServiceTag = new JToggleButton(".");
+		tgl_ServiceTag.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				toggleEnableComp(txt_ServiceTag);
+			}
+			
+		});
+		tgl_ServiceTag.setBounds(91, 210, 16, 16);
+		panel_Menu.add(tgl_ServiceTag);
+		
+		JToggleButton tgl_Model = new JToggleButton(".");
+		tgl_Model.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				toggleEnableComp(txt_Model);
+			}
+		});
+		tgl_Model.setBounds(90, 257, 16, 16);
+		panel_Menu.add(tgl_Model);
+		
+		JToggleButton tgl_Bin = new JToggleButton(".");
+		tgl_Bin.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				toggleEnableComp(txt_Bin);
+			}
+		});
+		tgl_Bin.setBounds(91, 164, 16, 16);
+		panel_Menu.add(tgl_Bin);
+		
+		JLayeredPane layers_ = new JLayeredPane();
+		layers_.setBounds(137, 11, 703, 478);
+		frmIfixedsomething.getContentPane().add(layers_);
 		
 		panel_Debug = new JPanel();
-		panel_Debug.setBounds(0, 0, 604, 202);
+		panel_Debug.setBounds(0, 0, 703, 478);
+		layers_.add(panel_Debug);
+		
+		panel_Rework = new JPanel();
+		panel_Rework.setBounds(0, 0, 703, 478);
+		layers_.add(panel_Rework);
+		
+		JPanel panel_Settings = new JPanel();
+		panel_Settings.setBounds(0, 0, 703, 478);
+		layers_.add(panel_Settings);
 	}
-
 }
