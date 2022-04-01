@@ -75,6 +75,9 @@ public class Window
 	private JTextField txt_ServiceTag;
 	private JTextField txt_Model;
 	
+	private JList<Object> list_OrderableParts, list_Order;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -335,6 +338,7 @@ public class Window
 	 * Initialize the contents of the frame.
 	 */
 	
+	@SuppressWarnings("serial")
 	private void initialize()
 	{
 		frmIfixedsomething = new JFrame();
@@ -483,9 +487,9 @@ public class Window
 		scroll_OrderableParts.setBounds(10, 24, 280, 300);
 		panel_Debug.add(scroll_OrderableParts);
 		
-		JList list_OrderableParts = new JList();
+		list_OrderableParts = new JList<Object>();
 		list_OrderableParts.setVisibleRowCount(17);
-		list_OrderableParts.setModel(new AbstractListModel() {
+		list_OrderableParts.setModel(new AbstractListModel<Object>() {
 			String[] values = new String[] {"ACAD", "Battery", "Battery Cable", "Bottom Cover", "Camera", "Coin Battery", "CPU Fan", "DCIN", "GPU Fan", "HDD", "HDD Bracket", "HDD Cable", "Heatsink", "HUD", "IO Board", "IO Cable", "Keyboard", "LCD", "LCD Bevel", "LCD Cable", "LCD Cover", "LCD Hinge (Left)", "LCD Hinge (Right)", "Memory", "Motherboard", "ODD", "ODD Board", "Palmrest", "Power IO", "Power Button", "Power Cord", "SSD", "SSD Bracket", "Speaker", "Stylus", "Top Cover", "Touchpad", "Touchpad Bracket", "Touchpad Cable", "USB Bracket", "Wifi Bracket", "Wifi Card"};
 			public int getSize() {
 				return values.length;
@@ -507,16 +511,29 @@ public class Window
 		scroll_Order.setBounds(413, 24, 150, 300);
 		panel_Debug.add(scroll_Order);
 		
-		JList list = new JList();
-		scroll_Order.setViewportView(list);
+		list_Order = new JList<Object>();
+		scroll_Order.setViewportView(list_Order);
 		
 		JButton bttn_Add = new JButton("--->");
+		bttn_Add.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				list_OrderableParts.getModel();
+				//
+				
+			}
+		});
 		bttn_Add.setBounds(300, 65, 103, 23);
 		panel_Debug.add(bttn_Add);
 		
 		JButton bttn_Remove = new JButton("<---");
 		bttn_Remove.setBounds(300, 99, 103, 23);
 		panel_Debug.add(bttn_Remove);
+		
+		JLabel lbl_Order = new JLabel("Order");
+		lbl_Order.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_Order.setBounds(465, 11, 46, 14);
+		panel_Debug.add(lbl_Order);
 		
 		panel_Rework = new JPanel();
 		panel_Rework.setBounds(0, 0, 703, 478);
