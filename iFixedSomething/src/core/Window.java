@@ -476,13 +476,56 @@ public class Window
 		panel_Debug = new JPanel();
 		panel_Debug.setBounds(0, 0, 703, 478);
 		layers_.add(panel_Debug);
+		panel_Debug.setLayout(null);
+		
+		JScrollPane scroll_OrderableParts = new JScrollPane();
+		scroll_OrderableParts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll_OrderableParts.setBounds(10, 24, 280, 300);
+		panel_Debug.add(scroll_OrderableParts);
+		
+		JList list_OrderableParts = new JList();
+		list_OrderableParts.setVisibleRowCount(17);
+		list_OrderableParts.setModel(new AbstractListModel() {
+			String[] values = new String[] {"ACAD", "Battery", "Battery Cable", "Bottom Cover", "Camera", "Coin Battery", "CPU Fan", "DCIN", "GPU Fan", "HDD", "HDD Bracket", "HDD Cable", "Heatsink", "HUD", "IO Board", "IO Cable", "Keyboard", "LCD", "LCD Bevel", "LCD Cable", "LCD Cover", "LCD Hinge (Left)", "LCD Hinge (Right)", "Memory", "Motherboard", "ODD", "ODD Board", "Palmrest", "Power IO", "Power Button", "Power Cord", "SSD", "SSD Bracket", "Speaker", "Stylus", "Top Cover", "Touchpad", "Touchpad Bracket", "Touchpad Cable", "USB Bracket", "Wifi Bracket", "Wifi Card"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list_OrderableParts.setLayoutOrientation(JList.VERTICAL_WRAP);
+		scroll_OrderableParts.setViewportView(list_OrderableParts);
+		
+		JLabel lbl_OrderableParts = new JLabel("Parts List");
+		lbl_OrderableParts.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_OrderableParts.setBounds(123, 11, 52, 14);
+		panel_Debug.add(lbl_OrderableParts);
+		
+		JScrollPane scroll_Order = new JScrollPane();
+		scroll_Order.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll_Order.setBounds(413, 24, 150, 300);
+		panel_Debug.add(scroll_Order);
+		
+		JList list = new JList();
+		scroll_Order.setViewportView(list);
+		
+		JButton bttn_Add = new JButton("--->");
+		bttn_Add.setBounds(300, 65, 103, 23);
+		panel_Debug.add(bttn_Add);
+		
+		JButton bttn_Remove = new JButton("<---");
+		bttn_Remove.setBounds(300, 99, 103, 23);
+		panel_Debug.add(bttn_Remove);
 		
 		panel_Rework = new JPanel();
 		panel_Rework.setBounds(0, 0, 703, 478);
 		layers_.add(panel_Rework);
+		panel_Rework.setLayout(null);
 		
 		JPanel panel_Settings = new JPanel();
 		panel_Settings.setBounds(0, 0, 703, 478);
 		layers_.add(panel_Settings);
+		panel_Settings.setLayout(null);
 	}
 }
