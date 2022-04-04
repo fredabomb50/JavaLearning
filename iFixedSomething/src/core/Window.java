@@ -8,6 +8,8 @@ import javax.swing.JMenu;
 import java.awt.Toolkit;
 import java.awt.Window.Type;
 import javax.swing.JToolBar;
+import javax.swing.ListModel;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -518,9 +520,8 @@ public class Window
 		bttn_Add.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				list_OrderableParts.getModel();
-				//
 				
+				ListModel<Object> temp = list_OrderableParts.getModel();
 			}
 		});
 		bttn_Add.setBounds(300, 65, 103, 23);
