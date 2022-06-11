@@ -451,7 +451,7 @@ public class CharacterSheet
 			public void mouseClicked(MouseEvent e)
 			{
 				int val = 0;
-				SetTxtBoxInt( txt_StrSave, val);
+				SetTxtBoxInt( txt_StrSave, val );
 			}
 		});
 		panel_Stats.add(radio_StrSave, "cell 3 1");
