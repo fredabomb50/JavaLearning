@@ -25,10 +25,17 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
+import dnd_gui.Dice.eDice;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class CharacterSheet
 {
 	private final static int MAX_INSPIRATION = 10;
+	@SuppressWarnings("rawtypes")
+	JComboBox combo_DieSelector = null;
+	
 	
 	// Utility Classes
 	Math general_tools = new Math();
@@ -95,9 +102,22 @@ public class CharacterSheet
 	private JTextField txt_Inspiration;
 	private JTextField txt_Level;
 	private JTextField textField_1;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txt_CurrentHealth;
+	private JTextField txt_MaxHealth;
+	private JTextField txt_TempHealth;
+	private JTextField txt_HitDie;
+	private JTextField txt_StrMod;
+	private JTextField txt_DexMod;
+	private JTextField txt_ConMod;
+	private JTextField txt_IntMod;
+	private JTextField txt_WisMod;
+	private JTextField txt_ChrMod;
+	private JTextField txt_StrSave;
+	private JTextField txt_DexSave;
+	private JTextField txt_ConSave;
+	private JTextField txt_IntSave;
+	private JTextField txt_WisSave;
+	private JTextField txt_ChrSave;
 
 	/**
 	 * Launch the application.
@@ -118,18 +138,21 @@ public class CharacterSheet
 	/**
 	 * Create the application.
 	 */
-	public CharacterSheet() {
+	public CharacterSheet()
+	{
 		initialize();
+		init_StatMods();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		frmCharacterSheet = new JFrame();
 		frmCharacterSheet.setTitle("Character Sheet");
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmCharacterSheet.setBounds(100, 100, 765, 729);
+		frmCharacterSheet.setBounds(100, 100, 840, 729);
 		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][]", "[center][center][grow,center]"));
 		
@@ -143,7 +166,7 @@ public class CharacterSheet
 		
 		txt_Level = new JTextField();
 		txt_Level.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Level.setText("1");
+		txt_Level.setText("5");
 		txt_Level.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
 		txt_Level.setEditable(false);
 		panel_Header.add(txt_Level, "cell 1 0,alignx center,aligny center");
@@ -244,7 +267,7 @@ public class CharacterSheet
 				int val = Integer.parseInt( txt_Inspiration.getText() );
 				val++;
 				val = general_tools.ClampInt( val, 0, MAX_INSPIRATION );
-				txt_Inspiration.setText( Integer.toString(val) );
+				SetTxtBoxInt( txt_Inspiration, val);
 			}
 		});
 		panel_Header.add(bttn_AddInsp, "cell 2 5,alignx center,aligny center");
@@ -257,43 +280,50 @@ public class CharacterSheet
 				int val = Integer.parseInt( txt_Inspiration.getText() );
 				val--;
 				val = general_tools.ClampInt( val, 0, MAX_INSPIRATION );
-				txt_Inspiration.setText( Integer.toString(val) );
+				SetTxtBoxInt( txt_Inspiration, val);
 			}
 		});
 		panel_Header.add(bttn_BurnInsp, "cell 3 5,alignx center,aligny center");
 		
 		JPanel panel_Health = new JPanel();
 		frmCharacterSheet.getContentPane().add(panel_Health, "cell 1 0,alignx center,growy");
-		panel_Health.setLayout(new MigLayout("", "[center][grow][][]", "[][][][grow]"));
+		panel_Health.setLayout(new MigLayout("", "[grow,center][grow][][]", "[][][][][]"));
 		
 		JLabel lbl_CHealth = new JLabel("Current Health:");
 		lbl_CHealth.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_Health.add(lbl_CHealth, "cell 0 0,alignx trailing");
 		
-		textField = new JTextField();
-		textField.setText("100");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setBackground(UIManager.getColor("ColorChooser.background"));
-		textField.setEditable(false);
-		panel_Health.add(textField, "cell 1 0,growx");
-		textField.setColumns(10);
+		txt_CurrentHealth = new JTextField();
+		txt_CurrentHealth.setText("100");
+		txt_CurrentHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_CurrentHealth.setBackground(UIManager.getColor("ColorChooser.background"));
+		txt_CurrentHealth.setEditable(false);
+		panel_Health.add(txt_CurrentHealth, "cell 1 0,growx");
+		txt_CurrentHealth.setColumns(10);
 		
 		JButton bttn_AddCurrentHealth = new JButton("+");
 		panel_Health.add(bttn_AddCurrentHealth, "flowy,cell 2 0,alignx center");
 		
 		JButton bttn_SubCurrentHealth = new JButton("-");
+		bttn_SubCurrentHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Hurt( 5 );
+			}
+		});
 		panel_Health.add(bttn_SubCurrentHealth, "cell 3 0,alignx center");
 		
 		JLabel lbl_MHealth = new JLabel("Max Health:");
 		panel_Health.add(lbl_MHealth, "cell 0 1,alignx trailing");
 		
-		textField_2 = new JTextField();
-		textField_2.setText("100");
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setBackground(UIManager.getColor("ColorChooser.background"));
-		textField_2.setEditable(false);
-		panel_Health.add(textField_2, "cell 1 1,growx");
-		textField_2.setColumns(10);
+		txt_MaxHealth = new JTextField();
+		txt_MaxHealth.setText("100");
+		txt_MaxHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_MaxHealth.setBackground(UIManager.getColor("ColorChooser.background"));
+		txt_MaxHealth.setEditable(false);
+		panel_Health.add(txt_MaxHealth, "cell 1 1,growx");
+		txt_MaxHealth.setColumns(10);
 		
 		JButton bttn_AddMaxHealth = new JButton("+");
 		panel_Health.add(bttn_AddMaxHealth, "cell 2 1,alignx center");
@@ -304,13 +334,13 @@ public class CharacterSheet
 		JLabel lbl_THealth = new JLabel("Temp Health:");
 		panel_Health.add(lbl_THealth, "cell 0 2,alignx trailing");
 		
-		textField_3 = new JTextField();
-		textField_3.setText("10");
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setBackground(UIManager.getColor("ColorChooser.background"));
-		textField_3.setEditable(false);
-		panel_Health.add(textField_3, "cell 1 2,growx");
-		textField_3.setColumns(10);
+		txt_TempHealth = new JTextField();
+		txt_TempHealth.setText("10");
+		txt_TempHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_TempHealth.setBackground(UIManager.getColor("ColorChooser.background"));
+		txt_TempHealth.setEditable(false);
+		panel_Health.add(txt_TempHealth, "cell 1 2,growx");
+		txt_TempHealth.setColumns(10);
 		
 		JButton bttn_AddTempHealth = new JButton("+");
 		panel_Health.add(bttn_AddTempHealth, "cell 2 2,alignx center");
@@ -319,18 +349,77 @@ public class CharacterSheet
 		panel_Health.add(bttn_SubTempHealth, "cell 3 2,alignx center");
 		
 		JLabel lbl_HDie = new JLabel("Hit Die:");
-		panel_Health.add(lbl_HDie, "cell 0 3");
+		lbl_HDie.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_HDie, "cell 0 3,alignx trailing");
 		
-		JLabel lbl_HitDieLeft = new JLabel("5");
-		lbl_HitDieLeft.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Health.add(lbl_HitDieLeft, "cell 1 3,alignx center");
+		txt_HitDie = new JTextField();
+		txt_HitDie.setText("5");
+		txt_HitDie.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_HitDie.setEditable(false);
+		txt_HitDie.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
+		panel_Health.add(txt_HitDie, "cell 1 3,growx");
+		txt_HitDie.setColumns(10);
 		
 		JButton bttn_ConsumeHitDie = new JButton("Use");
+		bttn_ConsumeHitDie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int die_count = Integer.parseInt( txt_HitDie.getText() );
+				int result = 0;
+				int max = Integer.parseInt( txt_MaxHealth.getText() );
+				int current = Integer.parseInt( txt_CurrentHealth.getText() );
+				if ( !( current >= max ) )
+				{
+					switch ( (eDice) combo_DieSelector.getSelectedItem() )
+					{
+						case D4:
+						{
+							// set score mods to to text boxes as well
+							die_count--;
+							die_count = general_tools.ClampInt( die_count, 0, Integer.parseInt( txt_Level.getText() ) );
+							result = dice_tools.RollD6( 1 );
+							
+							if ( die_count > 0 )
+							{
+								Heal( result );
+							}
+							// out of dice
+						}
+						case D6:
+						{
+							
+						}
+						case D8:
+						{
+							
+						}
+						case D10:
+						{
+							
+						}
+						case D12:
+						{
+							
+						}
+						default:
+						{
+							// picked an invalid dice type
+						}break;
+					}
+					SetTxtBoxInt( txt_HitDie, die_count);
+				}
+			}
+		});
 		panel_Health.add(bttn_ConsumeHitDie, "cell 2 3 2 1,alignx center,aligny center");
+		
+		combo_DieSelector = new JComboBox();
+		combo_DieSelector.setModel(new DefaultComboBoxModel(eDice.values()));
+		panel_Health.add(combo_DieSelector, "cell 0 4,growx");
 		
 		JPanel panel_Stats = new JPanel();
 		frmCharacterSheet.getContentPane().add(panel_Stats, "cell 2 0");
-		panel_Stats.setLayout(new MigLayout("", "[center][][][][]", "[][][][][][][]"));
+		panel_Stats.setLayout(new MigLayout("", "[center][][grow][][grow]", "[][][][][][][]"));
 		
 		JLabel lblNewLabel_3 = new JLabel("Stats");
 		panel_Stats.add(lblNewLabel_3, "cell 0 0 2 1");
@@ -344,126 +433,164 @@ public class CharacterSheet
 		panel_Stats.add(lbl_Strength, "cell 0 1,grow");
 		
 		txt_STR = new JTextField();
+		txt_STR.setEditable(false);
 		txt_STR.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_STR.setText("20");
+		txt_STR.setText("11");
 		panel_Stats.add(txt_STR, "cell 1 1,grow");
 		txt_STR.setColumns(10);
 		
-		JLabel lbl_STR = new JLabel("+5");
-		lbl_STR.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_STR, "cell 2 1,grow");
+		txt_StrMod = new JTextField();
+		txt_StrMod.setEditable(false);
+		txt_StrMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_StrMod, "cell 2 1,growx");
+		txt_StrMod.setColumns(10);
 		
-		JRadioButton rdbtnNewRadioButton_15 = new JRadioButton("");
-		panel_Stats.add(rdbtnNewRadioButton_15, "cell 3 1");
+		JRadioButton radio_StrSave = new JRadioButton("");
+		radio_StrSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int val = 0;
+				SetTxtBoxInt( txt_StrSave, val);
+			}
+		});
+		panel_Stats.add(radio_StrSave, "cell 3 1");
 		
-		JLabel lbl_SaveCHR = new JLabel("+5");
-		panel_Stats.add(lbl_SaveCHR, "cell 4 1");
-		lbl_SaveCHR.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_StrSave = new JTextField();
+		txt_StrSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_StrSave.setEditable(false);
+		panel_Stats.add(txt_StrSave, "cell 4 1,growx");
+		txt_StrSave.setColumns(10);
 		
 		JLabel lbl_Dexterity = new JLabel("Dexterity:");
 		lbl_Dexterity.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_Dexterity, "cell 0 2,grow");
 		
 		txt_DEX = new JTextField();
+		txt_DEX.setEditable(false);
 		txt_DEX.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_DEX.setText("20");
+		txt_DEX.setText("14");
 		panel_Stats.add(txt_DEX, "cell 1 2,grow");
 		txt_DEX.setColumns(10);
 		
-		JLabel lbl_DEX = new JLabel("+5");
-		lbl_DEX.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_DEX, "cell 2 2,grow");
+		txt_DexMod = new JTextField();
+		txt_DexMod.setEditable(false);
+		txt_DexMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_DexMod, "cell 2 2,growx");
+		txt_DexMod.setColumns(10);
 		
-		JRadioButton radio_Dexterity = new JRadioButton("");
-		panel_Stats.add(radio_Dexterity, "flowx,cell 3 2");
+		JRadioButton radio_DexSave = new JRadioButton("");
+		panel_Stats.add(radio_DexSave, "flowx,cell 3 2");
 		
-		JLabel lbl_SaveCON = new JLabel("+5");
-		panel_Stats.add(lbl_SaveCON, "cell 4 2");
-		lbl_SaveCON.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_DexSave = new JTextField();
+		txt_DexSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_DexSave.setEditable(false);
+		txt_DexSave.setColumns(10);
+		panel_Stats.add(txt_DexSave, "cell 4 2,growx");
 		
 		JLabel lbl_Constitution = new JLabel("Constitution:");
 		lbl_Constitution.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_Constitution, "cell 0 3,grow");
 		
 		txt_CON = new JTextField();
+		txt_CON.setEditable(false);
 		txt_CON.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_CON.setText("20");
+		txt_CON.setText("15");
 		panel_Stats.add(txt_CON, "cell 1 3,grow");
 		txt_CON.setColumns(10);
 		
-		JLabel lbl_CON = new JLabel("+5");
-		lbl_CON.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_CON, "cell 2 3,grow");
+		txt_ConMod = new JTextField();
+		txt_ConMod.setEditable(false);
+		txt_ConMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_ConMod, "cell 2 3,growx");
+		txt_ConMod.setColumns(10);
 		
-		JRadioButton radio_Constitution = new JRadioButton("");
-		panel_Stats.add(radio_Constitution, "flowx,cell 3 3");
+		JRadioButton radio_ConSave = new JRadioButton("");
+		panel_Stats.add(radio_ConSave, "flowx,cell 3 3");
 		
-		JLabel lbl_SaveINT = new JLabel("+5");
-		panel_Stats.add(lbl_SaveINT, "cell 4 3");
-		lbl_SaveINT.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_ConSave = new JTextField();
+		txt_ConSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_ConSave.setEditable(false);
+		txt_ConSave.setColumns(10);
+		panel_Stats.add(txt_ConSave, "cell 4 3,growx");
 		
 		JLabel lbl_Intelligence = new JLabel("Intelligence:");
 		lbl_Intelligence.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_Intelligence, "cell 0 4,grow");
 		
 		txt_INT = new JTextField();
+		txt_INT.setEditable(false);
 		txt_INT.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_INT.setText("20");
+		txt_INT.setText("12");
 		panel_Stats.add(txt_INT, "cell 1 4,grow");
 		txt_INT.setColumns(10);
 		
-		JLabel lbl_INT = new JLabel("+5");
-		lbl_INT.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_INT, "cell 2 4,grow");
+		txt_IntMod = new JTextField();
+		txt_IntMod.setEditable(false);
+		txt_IntMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_IntMod, "cell 2 4,growx");
+		txt_IntMod.setColumns(10);
 		
-		JRadioButton radio_Intelligence = new JRadioButton("");
-		panel_Stats.add(radio_Intelligence, "flowx,cell 3 4");
+		JRadioButton radio_IntSave = new JRadioButton("");
+		panel_Stats.add(radio_IntSave, "flowx,cell 3 4");
 		
-		JLabel lbl_SaveWIS = new JLabel("+5");
-		panel_Stats.add(lbl_SaveWIS, "cell 4 4");
-		lbl_SaveWIS.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_IntSave = new JTextField();
+		txt_IntSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_IntSave.setEditable(false);
+		txt_IntSave.setColumns(10);
+		panel_Stats.add(txt_IntSave, "cell 4 4,growx");
 		
 		JLabel lbl_Wisdom = new JLabel("Wisdom:");
 		lbl_Wisdom.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_Wisdom, "cell 0 5,grow");
 		
 		txt_WIS = new JTextField();
+		txt_WIS.setEditable(false);
 		txt_WIS.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_WIS.setText("20");
 		panel_Stats.add(txt_WIS, "cell 1 5,grow");
 		txt_WIS.setColumns(10);
 		
-		JLabel lbl_WIS = new JLabel("+5");
-		lbl_WIS.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_WIS, "cell 2 5,grow");
+		txt_WisMod = new JTextField();
+		txt_WisMod.setEditable(false);
+		txt_WisMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_WisMod, "cell 2 5,growx");
+		txt_WisMod.setColumns(10);
 		
-		JRadioButton radio_Wisdom = new JRadioButton("");
-		panel_Stats.add(radio_Wisdom, "flowx,cell 3 5");
+		JRadioButton radio_WisSave = new JRadioButton("");
+		panel_Stats.add(radio_WisSave, "flowx,cell 3 5");
 		
-		JLabel lbl_SaveDEX = new JLabel("+5");
-		panel_Stats.add(lbl_SaveDEX, "cell 4 5");
-		lbl_SaveDEX.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_WisSave = new JTextField();
+		txt_WisSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_WisSave.setEditable(false);
+		txt_WisSave.setColumns(10);
+		panel_Stats.add(txt_WisSave, "cell 4 5,growx");
 		
 		JLabel lbl_Charisma = new JLabel("Charisma:");
 		lbl_Charisma.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_Charisma, "cell 0 6,grow");
 		
 		txt_CHR = new JTextField();
+		txt_CHR.setEditable(false);
 		txt_CHR.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_CHR.setText("20");
+		txt_CHR.setText("12");
 		panel_Stats.add(txt_CHR, "cell 1 6,grow");
 		txt_CHR.setColumns(10);
 		
-		JLabel lbl_CHR = new JLabel("+5");
-		lbl_CHR.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_CHR, "cell 2 6,grow");
+		txt_ChrMod = new JTextField();
+		txt_ChrMod.setEditable(false);
+		txt_ChrMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(txt_ChrMod, "cell 2 6,growx");
+		txt_ChrMod.setColumns(10);
 		
-		JRadioButton radio_Charisma = new JRadioButton("");
-		panel_Stats.add(radio_Charisma, "flowx,cell 3 6");
+		JRadioButton radio_ChrSave = new JRadioButton("");
+		panel_Stats.add(radio_ChrSave, "flowx,cell 3 6");
 		
-		JLabel lbl_SaveDEX_1 = new JLabel("+5");
-		lbl_SaveDEX_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_SaveDEX_1, "cell 4 6");
+		txt_ChrSave = new JTextField();
+		txt_ChrSave.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_ChrSave.setEditable(false);
+		txt_ChrSave.setColumns(10);
+		panel_Stats.add(txt_ChrSave, "cell 4 6,growx");
 		
 		JPanel panel_Skills = new JPanel();
 		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1 1 2,grow");
@@ -641,16 +768,49 @@ public class CharacterSheet
 		JPanel panel_Proficiences = new JPanel();
 		tabbedPane.addTab("Proficiencies", null, panel_Proficiences, null);
 		panel_Proficiences.setLayout(new MigLayout("", "[]", "[]"));
+		
+		JPanel panel_Advantages = new JPanel();
+		tabbedPane.addTab("Adv/Disadv", null, panel_Advantages, null);
 	}
 	
 	
-	public int GetIntFromTxt( JTextField txt_box)
+	public void SetTxtBoxInt( JTextField txt_box, int val)
 	{
-		int result = 0;
+		txt_box.setText( Integer.toString( val ) );
+	}
+	
+	public void Heal( int val )
+	{
+		int max_heal = Integer.parseInt( txt_MaxHealth.getText() );
+		int current = Integer.parseInt( txt_CurrentHealth.getText() );
+		current += val;
+		current = general_tools.ClampInt( current, 0, max_heal);
+		txt_CurrentHealth.setText( Integer.toString( current ) );
+	}
+	
+	public void Hurt( int val )
+	{
+		int current = Integer.parseInt( txt_CurrentHealth.getText() );
+		current -= val;
+		current = general_tools.ClampInt( current, 0, current);
+		txt_CurrentHealth.setText( Integer.toString( current ) );
+	}
+	
+	public void init_StatMods()
+	{
+		SetTxtBoxInt( txt_StrMod, ( ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_DexMod, ( ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_ConMod, ( ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_IntMod, ( ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_WisMod, ( ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_ChrMod, ( ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2 ) );
 		
-		Integer.parseInt( txt_box.getText() );
-		
-		return result;
+		SetTxtBoxInt( txt_StrSave, ( ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_DexSave, ( ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_ConSave, ( ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_IntSave, ( ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_WisSave, ( ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2 ) );
+		SetTxtBoxInt( txt_ChrSave, ( ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2 ) );
 	}
 }
 
