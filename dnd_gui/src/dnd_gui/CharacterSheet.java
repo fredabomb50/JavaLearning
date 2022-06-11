@@ -4,8 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -258,6 +258,26 @@ public class CharacterSheet
 		
 		JButton bttn_AddXP = new JButton("Add XP");
 		panel_Header.add(bttn_AddXP, "cell 0 5,alignx center,aligny center");
+		bttn_AddXP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int val = Integer.parseInt( txt_Experience.getText() );
+				int current_level = Integer.parseInt( txt_Level.getText() );
+				val += 100;
+				for (int i = 0; i <= xp_table.length; i++)
+				{
+					if (val >= xp_table[i][0] && current_level >= i)
+					{
+						SetTxtBoxInt( txt_Level, i + 1);
+						SetTxtBoxInt( textField_1, xp_table[i][1] );
+					}
+					
+				}
+				SetTxtBoxInt( txt_Experience, val);
+			}
+		});
+		
 		
 		JButton bttn_AddInsp = new JButton("Add Insp.");
 		bttn_AddInsp.addMouseListener(new MouseAdapter() {
