@@ -38,32 +38,34 @@ public class CharacterSheet
 	
 	
 	// Utility Classes
+	// create a core-gameplay class that holds constant data. xp_table, maximums, etc
+	// that would be for v.2
 	Math general_tools = new Math();
 	Dice dice_tools = new Dice();
 	
-	// xp table for reference
+	// XP table for reference
 	int[][] xp_table =
 	{
 		{0, 2}, 		// level 1
 		{300, 2},		// level 2
 		{900, 2},		// level 3
-		{2700, 2},
-		{6500, 3},
-		{14000, 3},
-		{23000, 3},
-		{34000, 3},
-		{48000, 4},
-		{64000, 4},
-		{85000, 4},
-		{100000, 4},
-		{120000, 5},
-		{140000, 5},
-		{165000, 5},
-		{195000, 5},
-		{225000, 6},
-		{265000, 6},
-		{305000, 6},
-		{355000, 6}
+		{2700, 2},		// level 4
+		{6500, 3},		// level 5
+		{14000, 3},		// level 6
+		{23000, 3},		// level 7
+		{34000, 3},		// level 8
+		{48000, 4},		// level 9
+		{64000, 4},		// level 10
+		{85000, 4},		// level 11
+		{100000, 4},	// level 12
+		{120000, 5},	// level 13
+		{140000, 5},	// level 14
+		{165000, 5},	// level 15
+		{195000, 5},	// level 16
+		{225000, 6},	// level 17
+		{265000, 6},	// level 18
+		{305000, 6},	// level 19
+		{355000, 6}		// level 20
 	};
 	
 	
@@ -101,7 +103,7 @@ public class CharacterSheet
 	private JTextField txt_FlySpeed;
 	private JTextField txt_Inspiration;
 	private JTextField txt_Level;
-	private JTextField textField_1;
+	private JTextField txt_Proficiency;
 	private JTextField txt_CurrentHealth;
 	private JTextField txt_MaxHealth;
 	private JTextField txt_TempHealth;
@@ -152,7 +154,7 @@ public class CharacterSheet
 		frmCharacterSheet = new JFrame();
 		frmCharacterSheet.setTitle("Character Sheet");
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmCharacterSheet.setBounds(100, 100, 840, 729);
+		frmCharacterSheet.setBounds(100, 100, 893, 729);
 		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][]", "[center][center][grow,center]"));
 		
@@ -166,7 +168,7 @@ public class CharacterSheet
 		
 		txt_Level = new JTextField();
 		txt_Level.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Level.setText("5");
+		txt_Level.setText("1");
 		txt_Level.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
 		txt_Level.setEditable(false);
 		panel_Header.add(txt_Level, "cell 1 0,alignx center,aligny center");
@@ -175,13 +177,13 @@ public class CharacterSheet
 		JLabel lbl_Proficiency = new JLabel("Proficiency Bonus:");
 		panel_Header.add(lbl_Proficiency, "cell 2 0,alignx center,aligny center");
 		
-		textField_1 = new JTextField();
-		textField_1.setText("2");
-		textField_1.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		textField_1.setEditable(false);
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(textField_1, "cell 3 0,growx");
-		textField_1.setColumns(10);
+		txt_Proficiency = new JTextField();
+		txt_Proficiency.setText("2");
+		txt_Proficiency.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
+		txt_Proficiency.setEditable(false);
+		txt_Proficiency.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Header.add(txt_Proficiency, "cell 3 0,growx");
+		txt_Proficiency.setColumns(10);
 		
 		JLabel lbl_Experience = new JLabel("Experience:");
 		lbl_Experience.setHorizontalAlignment(SwingConstants.CENTER);
@@ -257,7 +259,6 @@ public class CharacterSheet
 		txt_FlySpeed.setColumns(10);
 		
 		JButton bttn_AddXP = new JButton("Add XP");
-		panel_Header.add(bttn_AddXP, "cell 0 5,alignx center,aligny center");
 		bttn_AddXP.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)
@@ -265,18 +266,20 @@ public class CharacterSheet
 				int val = Integer.parseInt( txt_Experience.getText() );
 				int current_level = Integer.parseInt( txt_Level.getText() );
 				val += 100;
-				for (int i = 0; i <= xp_table.length; i++)
+				for (int i = xp_table.length - 1; i >= 0 ; --i)
 				{
-					if (val >= xp_table[i][0] && current_level >= i)
+					if ( val >= xp_table[i][0] )
 					{
-						SetTxtBoxInt( txt_Level, i + 1);
-						SetTxtBoxInt( textField_1, xp_table[i][1] );
+						SetTxtBoxInt( txt_Level, i);
+						SetTxtBoxInt( txt_Proficiency, xp_table[i][1] );
 					}
 					
 				}
 				SetTxtBoxInt( txt_Experience, val);
+				
 			}
 		});
+		panel_Header.add(bttn_AddXP, "cell 0 5,alignx center,aligny center");
 		
 		
 		JButton bttn_AddInsp = new JButton("Add Insp.");
