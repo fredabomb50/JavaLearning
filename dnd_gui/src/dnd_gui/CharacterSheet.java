@@ -263,20 +263,7 @@ public class CharacterSheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int val = Integer.parseInt( txt_Experience.getText() );
-				int current_level = Integer.parseInt( txt_Level.getText() );
-				val += 100;
-				for (int i = xp_table.length - 1; i >= 0 ; --i)
-				{
-					if ( val >= xp_table[i][0] )
-					{
-						SetTxtBoxInt( txt_Level, i);
-						SetTxtBoxInt( txt_Proficiency, xp_table[i][1] );
-					}
-					
-				}
-				SetTxtBoxInt( txt_Experience, val);
-				
+				UpdateXP( 100 );
 			}
 		});
 		panel_Header.add(bttn_AddXP, "cell 0 5,alignx center,aligny center");
@@ -834,6 +821,23 @@ public class CharacterSheet
 		SetTxtBoxInt( txt_IntSave, ( ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2 ) );
 		SetTxtBoxInt( txt_WisSave, ( ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2 ) );
 		SetTxtBoxInt( txt_ChrSave, ( ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2 ) );
+	}
+	
+	public void UpdateXP( int xp_received )
+	{
+		// NOTE (Luis): Player level is always 1 or greater, and is also used as the index for the 2d array, index 0 never accessed
+		int current_xp = Integer.parseInt( txt_Experience.getText() );
+		int current_level = Integer.parseInt( txt_Level.getText() );
+		
+		if (current_xp + xp_received >= xp_table[current_level][0])
+		{
+			System.out.print("current level: " + Integer.toString( current_level ) + "\n" );
+			System.out.print("current xp: " + Integer.toString( current_xp + xp_received ) + "\n" );
+			SetTxtBoxInt( txt_Level, current_level + 1);
+			SetTxtBoxInt( txt_Proficiency, xp_table[current_level][1] );	
+		}
+		current_xp += xp_received;
+		SetTxtBoxInt( txt_Experience, current_xp);
 	}
 }
 
