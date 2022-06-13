@@ -29,6 +29,8 @@ import javax.swing.DefaultComboBoxModel;
 import dnd_gui.Dice.eDice;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
 
 public class CharacterSheet
 {
@@ -120,6 +122,54 @@ public class CharacterSheet
 	private JTextField txt_IntSave;
 	private JTextField txt_WisSave;
 	private JTextField txt_ChrSave;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
+	private JTextField textField_14;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JTextField textField_18;
+	private JTextField textField_19;
+	private JTextField textField_20;
+	private JTextField textField_21;
+	private JTextField textField_22;
+	private JTextField textField_23;
+	private JTextField textField_24;
+	private JTextField textField_25;
+	private JTextField textField_26;
+	private JTextField textField_27;
+	private JTextField textField_28;
+	private JTextField textField_29;
+	private JTextField textField_30;
+	private JTextField textField_31;
+	private JTextField textField_32;
+	private JTextField textField_33;
+	private JTextField textField_34;
+	private JTextField textField_35;
+	private JTextField textField_36;
+	private JTextField textField_37;
+	private JTextField textField_38;
+	private JTextField textField_39;
+	private JTextField textField_40;
+	private JTextField textField_41;
+	private JTextField textField_42;
+	private JTextField textField_43;
+	private JTextField textField_44;
+	private JTextField textField_45;
+	private JTextField textField_46;
+	private JTextField textField_47;
 
 	/**
 	 * Launch the application.
@@ -154,7 +204,7 @@ public class CharacterSheet
 		frmCharacterSheet = new JFrame();
 		frmCharacterSheet.setTitle("Character Sheet");
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmCharacterSheet.setBounds(100, 100, 893, 729);
+		frmCharacterSheet.setBounds(100, 100, 1073, 729);
 		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][]", "[center][center][grow,center]"));
 		
@@ -460,8 +510,14 @@ public class CharacterSheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int val = 0;
-				SetTxtBoxInt( txt_StrSave, val );
+				if ( radio_StrSave.isSelected() )
+				{
+					AddProfBonus( txt_StrSave );
+				}
+				else
+				{
+					RemoveProfBonus( txt_StrSave );
+				}
 			}
 		});
 		panel_Stats.add(radio_StrSave, "cell 3 1");
@@ -490,6 +546,20 @@ public class CharacterSheet
 		txt_DexMod.setColumns(10);
 		
 		JRadioButton radio_DexSave = new JRadioButton("");
+		radio_DexSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_DexSave.isSelected() )
+				{
+					AddProfBonus( txt_DexSave );
+				}
+				else
+				{
+					RemoveProfBonus( txt_DexSave );
+				}
+			}
+		});
 		panel_Stats.add(radio_DexSave, "flowx,cell 3 2");
 		
 		txt_DexSave = new JTextField();
@@ -516,6 +586,20 @@ public class CharacterSheet
 		txt_ConMod.setColumns(10);
 		
 		JRadioButton radio_ConSave = new JRadioButton("");
+		radio_ConSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_ConSave.isSelected() )
+				{
+					AddProfBonus( txt_ConSave );
+				}
+				else
+				{
+					RemoveProfBonus( txt_ConSave );
+				}
+			}
+		});
 		panel_Stats.add(radio_ConSave, "flowx,cell 3 3");
 		
 		txt_ConSave = new JTextField();
@@ -542,6 +626,20 @@ public class CharacterSheet
 		txt_IntMod.setColumns(10);
 		
 		JRadioButton radio_IntSave = new JRadioButton("");
+		radio_IntSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_IntSave.isSelected() )
+				{
+					AddProfBonus( txt_IntSave );
+				}
+				else
+				{
+					RemoveProfBonus( txt_IntSave );
+				}
+			}
+		});
 		panel_Stats.add(radio_IntSave, "flowx,cell 3 4");
 		
 		txt_IntSave = new JTextField();
@@ -609,6 +707,20 @@ public class CharacterSheet
 		txt_ChrMod.setColumns(10);
 		
 		JRadioButton radio_ChrSave = new JRadioButton("");
+		radio_ChrSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_ChrSave.isSelected() )
+				{
+					AddProfBonus( txt_ChrSave );
+				}
+				else
+				{
+					RemoveProfBonus( txt_ChrSave );
+				}
+			}
+		});
 		panel_Stats.add(radio_ChrSave, "flowx,cell 3 6");
 		
 		txt_ChrSave = new JTextField();
@@ -622,6 +734,20 @@ public class CharacterSheet
 		panel_Skills.setLayout(new MigLayout("", "[left][]", "[][][][][][][][][][][][][][][][][][]"));
 		
 		JRadioButton radio_Acrobatics = new JRadioButton("(DEX) Acrobatics");
+		radio_Acrobatics.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Acrobatics.isSelected() )
+				{
+					AddProfBonus( txt_Acrobatics );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Acrobatics );
+				}
+			}
+		});
 		panel_Skills.add(radio_Acrobatics, "cell 0 0");
 		
 		txt_Acrobatics = new JTextField();
@@ -632,6 +758,20 @@ public class CharacterSheet
 		txt_Acrobatics.setColumns(10);
 		
 		JRadioButton radio_Insight = new JRadioButton("(WIS) Insight");
+		radio_Insight.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Insight.isSelected() )
+				{
+					AddProfBonus( txt_Insight );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Insight );
+				}
+			}
+		});
 		panel_Skills.add(radio_Insight, "cell 0 6");
 		
 		txt_Insight = new JTextField();
@@ -642,6 +782,20 @@ public class CharacterSheet
 		txt_Insight.setColumns(10);
 		
 		JRadioButton radio_AnimalHandling = new JRadioButton("(INT) Animal Handling");
+		radio_AnimalHandling.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_AnimalHandling.isSelected() )
+				{
+					AddProfBonus( txt_AnimalHandling );
+				}
+				else
+				{
+					RemoveProfBonus( txt_AnimalHandling );
+				}
+			}
+		});
 		panel_Skills.add(radio_AnimalHandling, "cell 0 1");
 		
 		txt_AnimalHandling = new JTextField();
@@ -652,6 +806,20 @@ public class CharacterSheet
 		txt_AnimalHandling.setColumns(10);
 		
 		JRadioButton radio_Arcana = new JRadioButton("(INT) Arcana");
+		radio_Arcana.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Arcana.isSelected() )
+				{
+					AddProfBonus( txt_Arcana );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Arcana );
+				}
+			}
+		});
 		panel_Skills.add(radio_Arcana, "flowy,cell 0 2");
 		
 		txt_Arcana = new JTextField();
@@ -662,9 +830,37 @@ public class CharacterSheet
 		txt_Arcana.setColumns(10);
 		
 		JRadioButton radio_Intimidation = new JRadioButton("(CHR) Intimidation");
+		radio_Intimidation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Intimidation.isSelected() )
+				{
+					AddProfBonus( txt_Intimidation );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Intimidation );
+				}
+			}
+		});
 		panel_Skills.add(radio_Intimidation, "cell 0 7");
 		
 		JRadioButton radio_Athletics = new JRadioButton("(STR) Athletics");
+		radio_Athletics.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Athletics.isSelected() )
+				{
+					AddProfBonus( txt_Athletics );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Athletics );
+				}
+			}
+		});
 		panel_Skills.add(radio_Athletics, "cell 0 3");
 		
 		txt_Athletics = new JTextField();
@@ -681,10 +877,21 @@ public class CharacterSheet
 		txt_Intimidation.setColumns(10);
 		panel_Skills.add(txt_Intimidation, "cell 1 7,growx");
 		
-		JRadioButton radio_Investigation = new JRadioButton("(INT) Investigation");
-		panel_Skills.add(radio_Investigation, "cell 0 8");
-		
 		JRadioButton radio_Deception = new JRadioButton("(CHR) Deception");
+		radio_Deception.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Deception.isSelected() )
+				{
+					AddProfBonus( txt_Deception );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Deception );
+				}
+			}
+		});
 		panel_Skills.add(radio_Deception, "cell 0 4");
 		
 		txt_Deception = new JTextField();
@@ -695,6 +902,20 @@ public class CharacterSheet
 		txt_Deception.setColumns(10);
 		
 		JRadioButton radio_History = new JRadioButton("(INT) History");
+		radio_History.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_History.isSelected() )
+				{
+					AddProfBonus( txt_History );
+				}
+				else
+				{
+					RemoveProfBonus( txt_History );
+				}
+			}
+		});
 		panel_Skills.add(radio_History, "cell 0 5");
 		
 		txt_History = new JTextField();
@@ -704,6 +925,23 @@ public class CharacterSheet
 		panel_Skills.add(txt_History, "cell 1 5,growx");
 		txt_History.setColumns(10);
 		
+		JRadioButton radio_Investigation = new JRadioButton("(Int) Investigation");
+		radio_Investigation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Investigation.isSelected() )
+				{
+					AddProfBonus( txt_Investigation );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Investigation );
+				}
+			}
+		});
+		panel_Skills.add(radio_Investigation, "cell 0 8");
+		
 		txt_Investigation = new JTextField();
 		txt_Investigation.setEditable(false);
 		txt_Investigation.setText("5");
@@ -712,6 +950,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Investigation, "cell 1 8,growx");
 		
 		JRadioButton radio_Medicine = new JRadioButton("(WIS) Medicine");
+		radio_Medicine.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Medicine.isSelected() )
+				{
+					AddProfBonus( txt_Medicine );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Medicine );
+				}
+			}
+		});
 		panel_Skills.add(radio_Medicine, "cell 0 9");
 		
 		txt_Medicine = new JTextField();
@@ -722,6 +974,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Medicine, "cell 1 9,growx");
 		
 		JRadioButton radio_Nature = new JRadioButton("(INT) Nature");
+		radio_Nature.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Nature.isSelected() )
+				{
+					AddProfBonus( txt_Nature );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Nature );
+				}
+			}
+		});
 		panel_Skills.add(radio_Nature, "cell 0 10");
 		
 		txt_Nature = new JTextField();
@@ -732,6 +998,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Nature, "cell 1 10,growx");
 		
 		JRadioButton radio_Perception = new JRadioButton("(WIS) Perception");
+		radio_Perception.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Perception.isSelected() )
+				{
+					AddProfBonus( txt_Perception );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Perception );
+				}
+			}
+		});
 		panel_Skills.add(radio_Perception, "cell 0 11");
 		
 		txt_Perception = new JTextField();
@@ -742,6 +1022,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Perception, "cell 1 11,growx");
 		
 		JRadioButton radio_Performance = new JRadioButton("(CHR) Performance");
+		radio_Performance.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Performance.isSelected() )
+				{
+					AddProfBonus( txt_Performance );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Performance );
+				}
+			}
+		});
 		panel_Skills.add(radio_Performance, "cell 0 12");
 		
 		txt_Performance = new JTextField();
@@ -752,6 +1046,20 @@ public class CharacterSheet
 		txt_Performance.setColumns(10);
 		
 		JRadioButton radio_Persuasion = new JRadioButton("(CHR) Persuasion");
+		radio_Persuasion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Persuasion.isSelected() )
+				{
+					AddProfBonus( txt_Persuasion );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Persuasion );
+				}
+			}
+		});
 		panel_Skills.add(radio_Persuasion, "cell 0 13");
 		
 		txt_Persuasion = new JTextField();
@@ -762,6 +1070,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Persuasion, "cell 1 13,growx");
 		
 		JRadioButton radio_Religion = new JRadioButton("(INT) Religion");
+		radio_Religion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Religion.isSelected() )
+				{
+					AddProfBonus( txt_Religion );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Religion );
+				}
+			}
+		});
 		panel_Skills.add(radio_Religion, "cell 0 14");
 		
 		txt_Religion = new JTextField();
@@ -772,6 +1094,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Religion, "cell 1 14,growx");
 		
 		JRadioButton radio_SleightOfHand = new JRadioButton("(DEX) Sleight of Hand");
+		radio_SleightOfHand.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_SleightOfHand.isSelected() )
+				{
+					AddProfBonus( txt_SleightOfHand );
+				}
+				else
+				{
+					RemoveProfBonus( txt_SleightOfHand );
+				}
+			}
+		});
 		panel_Skills.add(radio_SleightOfHand, "cell 0 15");
 		
 		txt_SleightOfHand = new JTextField();
@@ -782,6 +1118,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_SleightOfHand, "cell 1 15,growx");
 		
 		JRadioButton radio_Stealth = new JRadioButton("(DEX) Stealth");
+		radio_Stealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Stealth.isSelected() )
+				{
+					AddProfBonus( txt_Stealth );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Stealth );
+				}
+			}
+		});
 		panel_Skills.add(radio_Stealth, "cell 0 16");
 		
 		txt_Stealth = new JTextField();
@@ -792,6 +1142,20 @@ public class CharacterSheet
 		panel_Skills.add(txt_Stealth, "cell 1 16,growx");
 		
 		JRadioButton radio_Survival = new JRadioButton("(WIS) Survival");
+		radio_Survival.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( radio_Survival.isSelected() )
+				{
+					AddProfBonus( txt_Survival );
+				}
+				else
+				{
+					RemoveProfBonus( txt_Survival );
+				}
+			}
+		});
 		panel_Skills.add(radio_Survival, "cell 0 17");
 		
 		txt_Survival = new JTextField();
@@ -806,17 +1170,334 @@ public class CharacterSheet
 		
 		JPanel panel_ActionsTab = new JPanel();
 		tabbedPane.addTab("Actions", null, panel_ActionsTab, null);
-		panel_ActionsTab.setLayout(new MigLayout("", "[]", "[]"));
+		panel_ActionsTab.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JPanel panel_ActionsContainer = new JPanel();
+		panel_ActionsTab.add(panel_ActionsContainer, "cell 0 0,grow");
+		panel_ActionsContainer.setLayout(new MigLayout("", "[][]", "[][]"));
+		
+		JScrollPane scroll_Actions = new JScrollPane();
+		panel_ActionsContainer.add(scroll_Actions, "cell 0 0,grow");
+		
+		JPanel panel_Actions = new JPanel();
+		scroll_Actions.setViewportView(panel_Actions);
+		panel_Actions.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][][][][][]"));
+		
+		JLabel lbl_Actions = new JLabel("Action");
+		lbl_Actions.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_Actions, "cell 0 0,alignx center,aligny center");
+		
+		JLabel lbl_ActionRange = new JLabel("Range");
+		lbl_ActionRange.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_ActionRange, "cell 1 0,alignx center,aligny center");
+		
+		JLabel lbl_ActionHit = new JLabel("To Hit");
+		lbl_ActionHit.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_ActionHit, "cell 2 0,alignx center,aligny center");
+		
+		JLabel lbl_ActionDmg = new JLabel("Dmg");
+		lbl_ActionDmg.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_ActionDmg, "cell 3 0,alignx center,aligny center");
+		
+		JLabel lbl_ActionDmgBonus = new JLabel("Dmg Bonus");
+		lbl_ActionDmgBonus.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_ActionDmgBonus, "cell 4 0,alignx center,aligny center");
+		
+		JLabel lbl_ActionSavingThrow = new JLabel("Saving Throw");
+		lbl_ActionSavingThrow.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(lbl_ActionSavingThrow, "cell 5 0,alignx center,aligny center");
+		
+		textField = new JTextField();
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField, "cell 0 1,growx");
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField_1, "cell 1 1,growx");
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField_2, "cell 2 1,growx");
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField_3, "cell 3 1,growx");
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField_4, "cell 4 1,growx");
+		textField_4.setColumns(10);
+		
+		textField_5 = new JTextField();
+		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Actions.add(textField_5, "cell 5 1,growx");
+		textField_5.setColumns(10);
+		
+		textField_17 = new JTextField();
+		textField_17.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_17.setColumns(10);
+		panel_Actions.add(textField_17, "cell 0 2,growx");
+		
+		textField_16 = new JTextField();
+		textField_16.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_16.setColumns(10);
+		panel_Actions.add(textField_16, "cell 1 2,growx");
+		
+		textField_12 = new JTextField();
+		textField_12.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_12.setColumns(10);
+		panel_Actions.add(textField_12, "cell 2 2,growx");
+		
+		textField_11 = new JTextField();
+		textField_11.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_11.setColumns(10);
+		panel_Actions.add(textField_11, "cell 3 2,growx");
+		
+		textField_10 = new JTextField();
+		textField_10.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_10.setColumns(10);
+		panel_Actions.add(textField_10, "cell 4 2,growx");
+		
+		textField_6 = new JTextField();
+		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_6.setColumns(10);
+		panel_Actions.add(textField_6, "cell 5 2,growx");
+		
+		textField_19 = new JTextField();
+		textField_19.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_19.setColumns(10);
+		panel_Actions.add(textField_19, "cell 0 3,growx");
+		
+		textField_21 = new JTextField();
+		textField_21.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_21.setColumns(10);
+		panel_Actions.add(textField_21, "cell 1 3,growx");
+		
+		textField_23 = new JTextField();
+		textField_23.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_23.setColumns(10);
+		panel_Actions.add(textField_23, "cell 2 3,growx");
+		
+		textField_14 = new JTextField();
+		textField_14.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_14.setColumns(10);
+		panel_Actions.add(textField_14, "cell 3 3,growx");
+		
+		textField_13 = new JTextField();
+		textField_13.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_13.setColumns(10);
+		panel_Actions.add(textField_13, "cell 4 3,growx");
+		
+		textField_7 = new JTextField();
+		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_7.setColumns(10);
+		panel_Actions.add(textField_7, "cell 5 3,growx");
+		
+		textField_20 = new JTextField();
+		textField_20.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_20.setColumns(10);
+		panel_Actions.add(textField_20, "cell 0 4,growx");
+		
+		textField_22 = new JTextField();
+		textField_22.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_22.setColumns(10);
+		panel_Actions.add(textField_22, "cell 1 4,growx");
+		
+		textField_24 = new JTextField();
+		textField_24.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_24.setColumns(10);
+		panel_Actions.add(textField_24, "cell 2 4,growx");
+		
+		textField_25 = new JTextField();
+		textField_25.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_25.setColumns(10);
+		panel_Actions.add(textField_25, "cell 3 4,growx");
+		
+		textField_15 = new JTextField();
+		textField_15.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_15.setColumns(10);
+		panel_Actions.add(textField_15, "cell 4 4,growx");
+		
+		textField_8 = new JTextField();
+		textField_8.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_8.setColumns(10);
+		panel_Actions.add(textField_8, "cell 5 4,growx");
+		
+		textField_18 = new JTextField();
+		textField_18.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_18.setColumns(10);
+		panel_Actions.add(textField_18, "cell 0 5,growx");
+		
+		textField_26 = new JTextField();
+		textField_26.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_26.setColumns(10);
+		panel_Actions.add(textField_26, "cell 1 5,growx");
+		
+		textField_27 = new JTextField();
+		textField_27.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_27.setColumns(10);
+		panel_Actions.add(textField_27, "cell 2 5,growx");
+		
+		textField_28 = new JTextField();
+		textField_28.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_28.setColumns(10);
+		panel_Actions.add(textField_28, "cell 3 5,growx");
+		
+		textField_29 = new JTextField();
+		textField_29.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_29.setColumns(10);
+		panel_Actions.add(textField_29, "cell 4 5,growx");
+		
+		textField_9 = new JTextField();
+		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_9.setColumns(10);
+		panel_Actions.add(textField_9, "cell 5 5,growx");
+		
+		JScrollPane scroll_BonusActions = new JScrollPane();
+		panel_ActionsContainer.add(scroll_BonusActions, "cell 0 1,grow");
+		
+		JPanel panel_BonusActions = new JPanel();
+		scroll_BonusActions.setViewportView(panel_BonusActions);
+		panel_BonusActions.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][][][]"));
+		
+		JLabel lbl_BonusAction = new JLabel("Bonus Action");
+		lbl_BonusAction.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_BonusAction, "cell 0 0,alignx center");
+		
+		JLabel lbl_ActionRange_1 = new JLabel("Range");
+		lbl_ActionRange_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_ActionRange_1, "cell 1 0,alignx center");
+		
+		JLabel lbl_ActionHit_1 = new JLabel("To Hit");
+		lbl_ActionHit_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_ActionHit_1, "cell 2 0,alignx center");
+		
+		JLabel lbl_ActionDmg_1 = new JLabel("Dmg");
+		lbl_ActionDmg_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_ActionDmg_1, "cell 3 0,alignx center");
+		
+		JLabel lbl_ActionDmgBonus_1 = new JLabel("Dmg Bonus");
+		lbl_ActionDmgBonus_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_ActionDmgBonus_1, "cell 4 0,alignx center");
+		
+		JLabel lbl_ActionSavingThrow_1 = new JLabel("Saving Throw");
+		lbl_ActionSavingThrow_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(lbl_ActionSavingThrow_1, "cell 5 0,alignx center");
+		
+		textField_30 = new JTextField();
+		textField_30.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_30, "cell 0 1,growx");
+		textField_30.setColumns(10);
+		
+		textField_31 = new JTextField();
+		textField_31.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_31.setColumns(10);
+		panel_BonusActions.add(textField_31, "cell 1 1,growx");
+		
+		textField_32 = new JTextField();
+		textField_32.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_32.setColumns(10);
+		panel_BonusActions.add(textField_32, "cell 2 1,growx");
+		
+		textField_33 = new JTextField();
+		textField_33.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_33.setColumns(10);
+		panel_BonusActions.add(textField_33, "cell 3 1,growx");
+		
+		textField_34 = new JTextField();
+		textField_34.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_34.setColumns(10);
+		panel_BonusActions.add(textField_34, "cell 4 1,growx");
+		
+		textField_35 = new JTextField();
+		textField_35.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_35.setColumns(10);
+		panel_BonusActions.add(textField_35, "cell 5 1,growx");
+		
+		textField_36 = new JTextField();
+		textField_36.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_36.setColumns(10);
+		panel_BonusActions.add(textField_36, "cell 0 2,growx");
+		
+		textField_37 = new JTextField();
+		textField_37.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_37.setColumns(10);
+		panel_BonusActions.add(textField_37, "cell 1 2,growx");
+		
+		textField_38 = new JTextField();
+		textField_38.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_38.setColumns(10);
+		panel_BonusActions.add(textField_38, "cell 2 2,growx");
+		
+		textField_39 = new JTextField();
+		textField_39.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_39.setColumns(10);
+		panel_BonusActions.add(textField_39, "cell 3 2,growx");
+		
+		textField_40 = new JTextField();
+		textField_40.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_40.setColumns(10);
+		panel_BonusActions.add(textField_40, "cell 4 2,growx");
+		
+		textField_41 = new JTextField();
+		textField_41.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_41.setColumns(10);
+		panel_BonusActions.add(textField_41, "cell 5 2,growx");
+		
+		textField_42 = new JTextField();
+		textField_42.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_42.setColumns(10);
+		panel_BonusActions.add(textField_42, "cell 0 3,growx");
+		
+		textField_43 = new JTextField();
+		textField_43.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_43.setColumns(10);
+		panel_BonusActions.add(textField_43, "cell 1 3,growx");
+		
+		textField_44 = new JTextField();
+		textField_44.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_44.setColumns(10);
+		panel_BonusActions.add(textField_44, "cell 2 3,growx");
+		
+		textField_45 = new JTextField();
+		textField_45.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_45.setColumns(10);
+		panel_BonusActions.add(textField_45, "cell 3 3,growx");
+		
+		textField_46 = new JTextField();
+		textField_46.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_46.setColumns(10);
+		panel_BonusActions.add(textField_46, "cell 4 3,growx");
+		
+		textField_47 = new JTextField();
+		textField_47.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_47.setColumns(10);
+		panel_BonusActions.add(textField_47, "cell 5 3,growx");
 		
 		JPanel panel_Proficiences = new JPanel();
 		tabbedPane.addTab("Proficiencies", null, panel_Proficiences, null);
-		panel_Proficiences.setLayout(new MigLayout("", "[]", "[]"));
+		panel_Proficiences.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JTextArea area_Proficiences = new JTextArea();
+		panel_Proficiences.add(area_Proficiences);
 		
 		JPanel panel_Advantages = new JPanel();
 		tabbedPane.addTab("Adv/Disadv", null, panel_Advantages, null);
+		panel_Advantages.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JTextArea area_Advantages = new JTextArea();
+		panel_Advantages.add(area_Advantages);
 		
 		JPanel panel_Bonuses = new JPanel();
 		tabbedPane.addTab("Bonuses", null, panel_Bonuses, null);
+		panel_Bonuses.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JTextArea area_Bonuses = new JTextArea();
+		panel_Bonuses.add(area_Bonuses);
 	}
 	
 	
@@ -844,19 +1525,49 @@ public class CharacterSheet
 	
 	public void init_StatMods()
 	{
-		SetTxtBoxInt( txt_StrMod, ( ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_DexMod, ( ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_ConMod, ( ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_IntMod, ( ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_WisMod, ( ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_ChrMod, ( ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2 ) );
 		
-		SetTxtBoxInt( txt_StrSave, ( ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_DexSave, ( ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_ConSave, ( ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_IntSave, ( ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_WisSave, ( ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2 ) );
-		SetTxtBoxInt( txt_ChrSave, ( ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2 ) );
+		int str_value = ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2;
+		int dex_value = ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2;
+		int con_value = ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2;
+		int int_value = ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2;
+		int wis_value = ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2;
+		int chr_value = ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2;
+		
+
+		SetTxtBoxInt( txt_StrMod, str_value );
+		SetTxtBoxInt( txt_DexMod, dex_value );
+		SetTxtBoxInt( txt_ConMod, con_value );
+		SetTxtBoxInt( txt_IntMod, int_value );
+		SetTxtBoxInt( txt_WisMod, wis_value );
+		SetTxtBoxInt( txt_ChrMod, chr_value );
+		
+
+		SetTxtBoxInt( txt_StrSave, str_value );
+		SetTxtBoxInt( txt_DexSave, dex_value );
+		SetTxtBoxInt( txt_ConSave, con_value );
+		SetTxtBoxInt( txt_IntSave, int_value );
+		SetTxtBoxInt( txt_WisSave, wis_value );
+		SetTxtBoxInt( txt_ChrSave, chr_value );
+		
+		
+		SetTxtBoxInt( txt_Acrobatics, dex_value );
+		SetTxtBoxInt( txt_AnimalHandling, wis_value );
+		SetTxtBoxInt( txt_Arcana, int_value );
+		SetTxtBoxInt( txt_Athletics, str_value );
+		SetTxtBoxInt( txt_Deception, chr_value );
+		SetTxtBoxInt( txt_History, int_value );
+		SetTxtBoxInt( txt_Insight, wis_value );
+		SetTxtBoxInt( txt_Performance, chr_value );
+		SetTxtBoxInt( txt_Intimidation, chr_value );
+		SetTxtBoxInt( txt_Investigation, int_value );
+		SetTxtBoxInt( txt_Medicine, wis_value );
+		SetTxtBoxInt( txt_Nature, int_value );
+		SetTxtBoxInt( txt_Perception, wis_value );
+		SetTxtBoxInt( txt_Persuasion, chr_value );
+		SetTxtBoxInt( txt_Religion, int_value );
+		SetTxtBoxInt( txt_SleightOfHand, dex_value );
+		SetTxtBoxInt( txt_Stealth, dex_value );
+		SetTxtBoxInt( txt_Survival, wis_value );
 	}
 	
 	public void UpdateXP( int xp_received )
