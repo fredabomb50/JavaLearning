@@ -44,8 +44,9 @@ public class Menu {
 	private void initialize()
 	{
 		frame_Menu = new JFrame();
+		frame_Menu.setResizable(false);
 		frame_Menu.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frame_Menu.setBounds(100, 100, 165, 317);
+		frame_Menu.setBounds(100, 100, 233, 317);
 		frame_Menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame_Menu.getContentPane().setLayout(new MigLayout("", "[grow]", "[][grow][][grow][][grow][][grow]"));
 		
