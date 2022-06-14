@@ -170,23 +170,68 @@ public class CharacterSheet
 	private JTextField textField_45;
 	private JTextField textField_46;
 	private JTextField textField_47;
+	private JTextField textField_48;
+	private JTextField textField_49;
+	private JTextField textField_50;
+	private JTextField textField_51;
+	private JTextField textField_52;
+	private JTextField textField_53;
+	private JTextField textField_54;
+	private JTextField textField_55;
+	private JTextField textField_56;
+	private JTextField textField_57;
+	private JTextField textField_58;
+	private JTextField textField_59;
+	private JScrollPane scroll_Reactions;
+	private JPanel panel_Reactions;
+	private JLabel lbl_Reaction;
+	private JLabel lbl_ActionRange_2;
+	private JLabel lbl_ActionHit_2;
+	private JLabel lbl_ActionDmg_2;
+	private JLabel lbl_ActionDmgBonus_2;
+	private JLabel lbl_ActionSavingThrow_2;
+	private JTextField textField_60;
+	private JTextField textField_61;
+	private JTextField textField_62;
+	private JTextField textField_63;
+	private JTextField textField_64;
+	private JTextField textField_65;
+	private JTextField textField_66;
+	private JTextField textField_67;
+	private JTextField textField_68;
+	private JTextField textField_69;
+	private JTextField textField_70;
+	private JTextField textField_71;
+	private JTextField textField_72;
+	private JTextField textField_73;
+	private JTextField textField_74;
+	private JTextField textField_75;
+	private JTextField textField_76;
+	private JTextField textField_77;
+	private JTextField textField_78;
+	private JTextField textField_79;
+	private JTextField textField_80;
+	private JTextField textField_81;
+	private JTextField textField_82;
+	private JTextField textField_83;
+	private JTextField textField_84;
+	private JTextField textField_85;
+	private JTextField textField_86;
+	private JTextField textField_87;
+	private JTextField textField_88;
+	private JTextField textField_89;
+	private JScrollPane scroll_Proficiences;
+	private JTextArea area_Proficiences;
+	private JScrollPane scroll_Adv;
+	private JScrollPane scroll_Disadv;
+	private JLabel lbl_Adv;
+	private JLabel lbl_Disadv;
+	private JTextArea area_Disadv;
+	private JTextArea area_Adv;
+	private JScrollPane scroll_Bonuses;
+	private JTextArea area_Bonuses;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CharacterSheet window = new CharacterSheet();
-					window.frmCharacterSheet.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	// SET UP A HASH MAP, OR SOME KIND OF STRUCTURE, FOR KEEPING PLAYER LEVEL, XP, AND PROFICIENCY VALUES TIED TOGETHER
+
 	/**
 	 * Create the application.
 	 */
@@ -194,6 +239,7 @@ public class CharacterSheet
 	{
 		initialize();
 		init_StatMods();
+		frmCharacterSheet.setVisible( false );
 	}
 
 	/**
@@ -206,7 +252,7 @@ public class CharacterSheet
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
 		frmCharacterSheet.setBounds(100, 100, 1073, 729);
 		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][]", "[center][center][grow,center]"));
+		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][grow]", "[grow,center][7.00,center][][grow,center]"));
 		
 		JPanel panel_Header = new JPanel();
 		frmCharacterSheet.getContentPane().add(panel_Header, "cell 0 0,alignx center,growy");
@@ -730,7 +776,7 @@ public class CharacterSheet
 		panel_Stats.add(txt_ChrSave, "cell 4 6,growx");
 		
 		JPanel panel_Skills = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1 1 2,grow");
+		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1 1 3,grow");
 		panel_Skills.setLayout(new MigLayout("", "[left][]", "[][][][][][][][][][][][][][][][][][]"));
 		
 		JRadioButton radio_Acrobatics = new JRadioButton("(DEX) Acrobatics");
@@ -1166,7 +1212,7 @@ public class CharacterSheet
 		panel_Skills.add(txt_Survival, "cell 1 17,growx");
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frmCharacterSheet.getContentPane().add(tabbedPane, "cell 1 1 2 2,grow");
+		frmCharacterSheet.getContentPane().add(tabbedPane, "cell 1 1 2 3,grow");
 		
 		JPanel panel_ActionsTab = new JPanel();
 		tabbedPane.addTab("Actions", null, panel_ActionsTab, null);
@@ -1174,7 +1220,7 @@ public class CharacterSheet
 		
 		JPanel panel_ActionsContainer = new JPanel();
 		panel_ActionsTab.add(panel_ActionsContainer, "cell 0 0,grow");
-		panel_ActionsContainer.setLayout(new MigLayout("", "[][]", "[][]"));
+		panel_ActionsContainer.setLayout(new MigLayout("", "[grow][]", "[][][grow]"));
 		
 		JScrollPane scroll_Actions = new JScrollPane();
 		panel_ActionsContainer.add(scroll_Actions, "cell 0 0,grow");
@@ -1362,7 +1408,7 @@ public class CharacterSheet
 		
 		JPanel panel_BonusActions = new JPanel();
 		scroll_BonusActions.setViewportView(panel_BonusActions);
-		panel_BonusActions.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][][][]"));
+		panel_BonusActions.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][][][][][]"));
 		
 		JLabel lbl_BonusAction = new JLabel("Bonus Action");
 		lbl_BonusAction.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1390,116 +1436,391 @@ public class CharacterSheet
 		
 		textField_30 = new JTextField();
 		textField_30.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_BonusActions.add(textField_30, "cell 0 1,growx");
+		panel_BonusActions.add(textField_30, "cell 0 1,alignx center");
 		textField_30.setColumns(10);
 		
 		textField_31 = new JTextField();
 		textField_31.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_31.setColumns(10);
-		panel_BonusActions.add(textField_31, "cell 1 1,growx");
+		panel_BonusActions.add(textField_31, "cell 1 1,alignx center");
 		
 		textField_32 = new JTextField();
 		textField_32.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_32.setColumns(10);
-		panel_BonusActions.add(textField_32, "cell 2 1,growx");
+		panel_BonusActions.add(textField_32, "cell 2 1,alignx center");
 		
 		textField_33 = new JTextField();
 		textField_33.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_33.setColumns(10);
-		panel_BonusActions.add(textField_33, "cell 3 1,growx");
+		panel_BonusActions.add(textField_33, "cell 3 1,alignx center");
 		
 		textField_34 = new JTextField();
 		textField_34.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_34.setColumns(10);
-		panel_BonusActions.add(textField_34, "cell 4 1,growx");
+		panel_BonusActions.add(textField_34, "cell 4 1,alignx center");
 		
 		textField_35 = new JTextField();
 		textField_35.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_35.setColumns(10);
-		panel_BonusActions.add(textField_35, "cell 5 1,growx");
+		panel_BonusActions.add(textField_35, "cell 5 1,alignx center");
 		
 		textField_36 = new JTextField();
 		textField_36.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_36.setColumns(10);
-		panel_BonusActions.add(textField_36, "cell 0 2,growx");
+		panel_BonusActions.add(textField_36, "cell 0 2,alignx center");
 		
 		textField_37 = new JTextField();
 		textField_37.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_37.setColumns(10);
-		panel_BonusActions.add(textField_37, "cell 1 2,growx");
+		panel_BonusActions.add(textField_37, "cell 1 2,alignx center");
 		
 		textField_38 = new JTextField();
 		textField_38.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_38.setColumns(10);
-		panel_BonusActions.add(textField_38, "cell 2 2,growx");
+		panel_BonusActions.add(textField_38, "cell 2 2,alignx center");
 		
 		textField_39 = new JTextField();
 		textField_39.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_39.setColumns(10);
-		panel_BonusActions.add(textField_39, "cell 3 2,growx");
+		panel_BonusActions.add(textField_39, "cell 3 2,alignx center");
 		
 		textField_40 = new JTextField();
 		textField_40.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_40.setColumns(10);
-		panel_BonusActions.add(textField_40, "cell 4 2,growx");
+		panel_BonusActions.add(textField_40, "cell 4 2,alignx center");
 		
 		textField_41 = new JTextField();
 		textField_41.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_41.setColumns(10);
-		panel_BonusActions.add(textField_41, "cell 5 2,growx");
+		panel_BonusActions.add(textField_41, "cell 5 2,alignx center");
 		
 		textField_42 = new JTextField();
 		textField_42.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_42.setColumns(10);
-		panel_BonusActions.add(textField_42, "cell 0 3,growx");
+		panel_BonusActions.add(textField_42, "cell 0 3,alignx center");
 		
 		textField_43 = new JTextField();
 		textField_43.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_43.setColumns(10);
-		panel_BonusActions.add(textField_43, "cell 1 3,growx");
+		panel_BonusActions.add(textField_43, "cell 1 3,alignx center");
 		
 		textField_44 = new JTextField();
 		textField_44.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_44.setColumns(10);
-		panel_BonusActions.add(textField_44, "cell 2 3,growx");
+		panel_BonusActions.add(textField_44, "cell 2 3,alignx center");
 		
 		textField_45 = new JTextField();
 		textField_45.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_45.setColumns(10);
-		panel_BonusActions.add(textField_45, "cell 3 3,growx");
+		panel_BonusActions.add(textField_45, "cell 3 3,alignx center");
 		
 		textField_46 = new JTextField();
 		textField_46.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_46.setColumns(10);
-		panel_BonusActions.add(textField_46, "cell 4 3,growx");
+		panel_BonusActions.add(textField_46, "cell 4 3,alignx center");
 		
 		textField_47 = new JTextField();
 		textField_47.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_47.setColumns(10);
-		panel_BonusActions.add(textField_47, "cell 5 3,growx");
+		panel_BonusActions.add(textField_47, "cell 5 3,alignx center");
+		
+		textField_57 = new JTextField();
+		textField_57.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_57, "cell 0 4,alignx center");
+		textField_57.setColumns(10);
+		
+		textField_56 = new JTextField();
+		textField_56.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_56, "cell 1 4,alignx center");
+		textField_56.setColumns(10);
+		
+		textField_55 = new JTextField();
+		textField_55.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_55, "cell 2 4,alignx center");
+		textField_55.setColumns(10);
+		
+		textField_50 = new JTextField();
+		textField_50.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_50, "cell 3 4,alignx center");
+		textField_50.setColumns(10);
+		
+		textField_51 = new JTextField();
+		textField_51.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_51, "cell 4 4,alignx center");
+		textField_51.setColumns(10);
+		
+		textField_52 = new JTextField();
+		textField_52.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_52, "cell 5 4,alignx center");
+		textField_52.setColumns(10);
+		
+		textField_58 = new JTextField();
+		textField_58.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_58, "cell 0 5,alignx center");
+		textField_58.setColumns(10);
+		
+		textField_59 = new JTextField();
+		textField_59.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_59, "cell 1 5,alignx center");
+		textField_59.setColumns(10);
+		
+		textField_54 = new JTextField();
+		textField_54.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_54, "cell 2 5,alignx center");
+		textField_54.setColumns(10);
+		
+		textField_53 = new JTextField();
+		textField_53.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_53, "cell 3 5,alignx center");
+		textField_53.setColumns(10);
+		
+		textField_49 = new JTextField();
+		textField_49.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_49, "cell 4 5,alignx center");
+		textField_49.setColumns(10);
+		
+		textField_48 = new JTextField();
+		textField_48.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_BonusActions.add(textField_48, "cell 5 5,alignx center");
+		textField_48.setColumns(10);
+		
+		scroll_Reactions = new JScrollPane();
+		panel_ActionsContainer.add(scroll_Reactions, "cell 0 2,grow");
+		
+		panel_Reactions = new JPanel();
+		scroll_Reactions.setViewportView(panel_Reactions);
+		panel_Reactions.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][][][][][]"));
+		
+		lbl_Reaction = new JLabel("Reaction");
+		lbl_Reaction.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_Reaction, "cell 0 0,alignx center,aligny center");
+		
+		lbl_ActionRange_2 = new JLabel("Range");
+		lbl_ActionRange_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_ActionRange_2, "cell 1 0,alignx center,aligny center");
+		
+		lbl_ActionHit_2 = new JLabel("To Hit");
+		lbl_ActionHit_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_ActionHit_2, "cell 2 0,alignx center,aligny center");
+		
+		lbl_ActionDmg_2 = new JLabel("Dmg");
+		lbl_ActionDmg_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_ActionDmg_2, "cell 3 0,alignx center,aligny center");
+		
+		lbl_ActionDmgBonus_2 = new JLabel("Dmg Bonus");
+		lbl_ActionDmgBonus_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_ActionDmgBonus_2, "cell 4 0,alignx center,aligny center");
+		
+		lbl_ActionSavingThrow_2 = new JLabel("Saving Throw");
+		lbl_ActionSavingThrow_2.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Reactions.add(lbl_ActionSavingThrow_2, "cell 5 0,alignx center,aligny center");
+		
+		textField_63 = new JTextField();
+		textField_63.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_63.setColumns(10);
+		panel_Reactions.add(textField_63, "cell 0 1,growx");
+		
+		textField_65 = new JTextField();
+		textField_65.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_65.setColumns(10);
+		panel_Reactions.add(textField_65, "cell 1 1,growx");
+		
+		textField_64 = new JTextField();
+		textField_64.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_64.setColumns(10);
+		panel_Reactions.add(textField_64, "cell 2 1,growx");
+		
+		textField_62 = new JTextField();
+		textField_62.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_62.setColumns(10);
+		panel_Reactions.add(textField_62, "cell 3 1,growx");
+		
+		textField_61 = new JTextField();
+		textField_61.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_61.setColumns(10);
+		panel_Reactions.add(textField_61, "cell 4 1,growx");
+		
+		textField_60 = new JTextField();
+		textField_60.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_60.setColumns(10);
+		panel_Reactions.add(textField_60, "cell 5 1,growx");
+		
+		textField_66 = new JTextField();
+		textField_66.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_66.setColumns(10);
+		panel_Reactions.add(textField_66, "cell 0 2,growx");
+		
+		textField_75 = new JTextField();
+		textField_75.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_75.setColumns(10);
+		panel_Reactions.add(textField_75, "cell 1 2,growx");
+		
+		textField_76 = new JTextField();
+		textField_76.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_76.setColumns(10);
+		panel_Reactions.add(textField_76, "cell 2 2,growx");
+		
+		textField_78 = new JTextField();
+		textField_78.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_78.setColumns(10);
+		panel_Reactions.add(textField_78, "cell 3 2,growx");
+		
+		textField_80 = new JTextField();
+		textField_80.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_80.setColumns(10);
+		panel_Reactions.add(textField_80, "cell 4 2,growx");
+		
+		textField_82 = new JTextField();
+		textField_82.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_82.setColumns(10);
+		panel_Reactions.add(textField_82, "cell 5 2,growx");
+		
+		textField_67 = new JTextField();
+		textField_67.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_67.setColumns(10);
+		panel_Reactions.add(textField_67, "cell 0 3,growx");
+		
+		textField_74 = new JTextField();
+		textField_74.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_74.setColumns(10);
+		panel_Reactions.add(textField_74, "cell 1 3,growx");
+		
+		textField_77 = new JTextField();
+		textField_77.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_77.setColumns(10);
+		panel_Reactions.add(textField_77, "cell 2 3,growx");
+		
+		textField_79 = new JTextField();
+		textField_79.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_79.setColumns(10);
+		panel_Reactions.add(textField_79, "cell 3 3,growx");
+		
+		textField_81 = new JTextField();
+		textField_81.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_81.setColumns(10);
+		panel_Reactions.add(textField_81, "cell 4 3,growx");
+		
+		textField_83 = new JTextField();
+		textField_83.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_83.setColumns(10);
+		panel_Reactions.add(textField_83, "cell 5 3,growx");
+		
+		textField_68 = new JTextField();
+		textField_68.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_68.setColumns(10);
+		panel_Reactions.add(textField_68, "cell 0 4,growx");
+		
+		textField_73 = new JTextField();
+		textField_73.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_73.setColumns(10);
+		panel_Reactions.add(textField_73, "cell 1 4,growx");
+		
+		textField_72 = new JTextField();
+		textField_72.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_72.setColumns(10);
+		panel_Reactions.add(textField_72, "cell 2 4,growx");
+		
+		textField_71 = new JTextField();
+		textField_71.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_71.setColumns(10);
+		panel_Reactions.add(textField_71, "cell 3 4,growx");
+		
+		textField_70 = new JTextField();
+		textField_70.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_70.setColumns(10);
+		panel_Reactions.add(textField_70, "cell 4 4,growx");
+		
+		textField_69 = new JTextField();
+		textField_69.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_69.setColumns(10);
+		panel_Reactions.add(textField_69, "cell 5 4,growx");
+		
+		textField_85 = new JTextField();
+		textField_85.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_85.setColumns(10);
+		panel_Reactions.add(textField_85, "cell 0 5,growx");
+		
+		textField_86 = new JTextField();
+		textField_86.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_86.setColumns(10);
+		panel_Reactions.add(textField_86, "cell 1 5,growx");
+		
+		textField_87 = new JTextField();
+		textField_87.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_87.setColumns(10);
+		panel_Reactions.add(textField_87, "cell 2 5,growx");
+		
+		textField_88 = new JTextField();
+		textField_88.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_88.setColumns(10);
+		panel_Reactions.add(textField_88, "cell 3 5,growx");
+		
+		textField_89 = new JTextField();
+		textField_89.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_89.setColumns(10);
+		panel_Reactions.add(textField_89, "cell 4 5,growx");
+		
+		textField_84 = new JTextField();
+		textField_84.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_84.setColumns(10);
+		panel_Reactions.add(textField_84, "cell 5 5,growx");
 		
 		JPanel panel_Proficiences = new JPanel();
 		tabbedPane.addTab("Proficiencies", null, panel_Proficiences, null);
 		panel_Proficiences.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea area_Proficiences = new JTextArea();
-		panel_Proficiences.add(area_Proficiences);
+		scroll_Proficiences = new JScrollPane();
+		panel_Proficiences.add(scroll_Proficiences);
+		
+		area_Proficiences = new JTextArea();
+		scroll_Proficiences.setViewportView(area_Proficiences);
 		
 		JPanel panel_Advantages = new JPanel();
 		tabbedPane.addTab("Adv/Disadv", null, panel_Advantages, null);
-		panel_Advantages.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_Advantages.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
 		
-		JTextArea area_Advantages = new JTextArea();
-		panel_Advantages.add(area_Advantages);
+		scroll_Adv = new JScrollPane();
+		panel_Advantages.add(scroll_Adv, "cell 0 0,grow");
+		
+		lbl_Adv = new JLabel("Advantages");
+		lbl_Adv.setHorizontalAlignment(SwingConstants.CENTER);
+		scroll_Adv.setColumnHeaderView(lbl_Adv);
+		
+		area_Adv = new JTextArea();
+		scroll_Adv.setViewportView(area_Adv);
+		
+		scroll_Disadv = new JScrollPane();
+		panel_Advantages.add(scroll_Disadv, "cell 1 0,grow");
+		
+		lbl_Disadv = new JLabel("Disadvantages");
+		lbl_Disadv.setHorizontalAlignment(SwingConstants.CENTER);
+		scroll_Disadv.setColumnHeaderView(lbl_Disadv);
+		
+		area_Disadv = new JTextArea();
+		scroll_Disadv.setViewportView(area_Disadv);
 		
 		JPanel panel_Bonuses = new JPanel();
 		tabbedPane.addTab("Bonuses", null, panel_Bonuses, null);
 		panel_Bonuses.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		JTextArea area_Bonuses = new JTextArea();
-		panel_Bonuses.add(area_Bonuses);
+		scroll_Bonuses = new JScrollPane();
+		panel_Bonuses.add(scroll_Bonuses);
+		
+		area_Bonuses = new JTextArea();
+		scroll_Bonuses.setViewportView(area_Bonuses);
 	}
 	
+	public void ToggleVisibility()
+	{
+		if ( this.frmCharacterSheet.isVisible() )
+		{
+			this.frmCharacterSheet.setVisible( false );
+		}
+		else
+		{
+			this.frmCharacterSheet.setVisible( true );
+		}
+	}
 	
 	public void SetTxtBoxInt( JTextField txt_box, int val)
 	{
