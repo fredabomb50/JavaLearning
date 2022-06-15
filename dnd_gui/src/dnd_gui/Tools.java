@@ -1,6 +1,6 @@
 package dnd_gui;
 
-public class Math
+public class Tools
 {
 	private static String error_msg = null;
 	
@@ -8,7 +8,7 @@ public class Math
 	public int ClampInt( int value, int min, int max )
 	{
 		int result = 0;
-		
+
 		if ( value >= max )
 		{
 			result = max;

@@ -1,7 +1,7 @@
 package dnd_gui;
 
 import java.awt.EventQueue;
-
+import java.lang.Math; 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
@@ -11,6 +11,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
@@ -41,8 +42,8 @@ public class CharacterSheet
 	
 	// Utility Classes
 	// create a core-gameplay class that holds constant data. xp_table, maximums, etc
-	// that would be for v.2
-	Math general_tools = new Math();
+		// that would be for v.2
+	Tools general_tools = new Tools();
 	Dice dice_tools = new Dice();
 	
 	// XP table for reference
@@ -71,6 +72,10 @@ public class CharacterSheet
 	};
 	
 	
+	static int CACHED_MAX_HEALTH = 0;
+	
+	
+	// GUI
 	private JFrame frmCharacterSheet;
 	private JTextField txt_Experience;
 	private JTextField txt_STR;
@@ -241,7 +246,8 @@ public class CharacterSheet
 		init_StatMods();
 		frmCharacterSheet.setVisible( false );
 	}
-
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -408,6 +414,28 @@ public class CharacterSheet
 		txt_CurrentHealth.setColumns(10);
 		
 		JButton bttn_AddCurrentHealth = new JButton("+");
+		bttn_AddCurrentHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+		        JFrame jFrame = new JFrame();
+		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
+		        
+		        if ( value == null || value.length() == 0 )
+		        {
+		        	jFrame.dispose();
+		        }
+		        
+		        try
+		        {
+		        	Heal( Math.abs( Integer.parseInt( value ) ) );
+		        }
+		        catch ( NumberFormatException ex_num )
+		        {
+		        	jFrame.dispose();
+		        }
+			}
+		});
 		panel_Health.add(bttn_AddCurrentHealth, "flowy,cell 2 0,alignx center");
 		
 		JButton bttn_SubCurrentHealth = new JButton("-");
@@ -415,7 +443,22 @@ public class CharacterSheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				Hurt( 5 );
+		        JFrame jFrame = new JFrame();
+		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
+		        
+		        if ( value == null || value.length() == 0 )
+		        {
+		        	jFrame.dispose();
+		        }
+		        
+		        try
+		        {
+		        	Hurt( ( Integer.parseInt( value ) ) );
+		        }
+		        catch ( NumberFormatException ex_num )
+		        {
+		        	jFrame.dispose();
+		        }
 			}
 		});
 		panel_Health.add(bttn_SubCurrentHealth, "cell 3 0,alignx center");
@@ -432,9 +475,59 @@ public class CharacterSheet
 		txt_MaxHealth.setColumns(10);
 		
 		JButton bttn_AddMaxHealth = new JButton("+");
+		bttn_AddMaxHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+		        JFrame jFrame = new JFrame();
+		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
+		        
+		        if ( value == null || value.length() == 0 )
+		        {
+		        	jFrame.dispose();
+		        }
+		        
+		        try
+		        {
+		    		int current = Integer.parseInt( txt_MaxHealth.getText() );
+		    		current += Integer.parseInt( value );
+		    		current = general_tools.ClampInt( current, 0, CACHED_MAX_HEALTH );
+		    		SetTxtBoxInt( txt_MaxHealth, current );
+		        }
+		        catch ( NumberFormatException ex_num )
+		        {
+		        	jFrame.dispose();
+		        }
+			}
+		});
 		panel_Health.add(bttn_AddMaxHealth, "cell 2 1,alignx center");
 		
 		JButton bttn_SubMaxHealth = new JButton("-");
+		bttn_SubMaxHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+		        JFrame jFrame = new JFrame();
+		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
+		        
+		        if ( value == null || value.length() == 0 )
+		        {
+		        	jFrame.dispose();
+		        }
+		        
+		        try
+		        {
+		    		int current = Integer.parseInt( txt_MaxHealth.getText() );
+		    		current -= Integer.parseInt( value );
+		    		current = general_tools.ClampInt( current, 0, CACHED_MAX_HEALTH );
+		    		SetTxtBoxInt( txt_MaxHealth, current );
+		        }
+		        catch ( NumberFormatException ex_num )
+		        {
+		        	jFrame.dispose();
+		        }
+			}
+		});
 		panel_Health.add(bttn_SubMaxHealth, "cell 3 1,alignx center");
 		
 		JLabel lbl_THealth = new JLabel("Temp Health:");
@@ -1838,9 +1931,10 @@ public class CharacterSheet
 	
 	public void Hurt( int val )
 	{
+		int max_hurt = Integer.parseInt( txt_MaxHealth.getText() );
 		int current = Integer.parseInt( txt_CurrentHealth.getText() );
 		current -= val;
-		current = general_tools.ClampInt( current, 0, current);
+		current = general_tools.ClampInt( current, 0, max_hurt );
 		txt_CurrentHealth.setText( Integer.toString( current ) );
 	}
 	
@@ -1889,6 +1983,9 @@ public class CharacterSheet
 		SetTxtBoxInt( txt_SleightOfHand, dex_value );
 		SetTxtBoxInt( txt_Stealth, dex_value );
 		SetTxtBoxInt( txt_Survival, wis_value );
+		
+		
+		CACHED_MAX_HEALTH = Integer.parseInt( txt_MaxHealth.getText() );
 	}
 	
 	public void UpdateXP( int xp_received )
