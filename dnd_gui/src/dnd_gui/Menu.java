@@ -13,6 +13,8 @@ public class Menu {
 
 	private JFrame frame_Menu;
 	private CharacterSheet c_Sheet;
+	private DetailsSheet d_Sheet;
+	
 	
 	/**
 	 * Launch the application.
@@ -56,6 +58,7 @@ public class Menu {
 			public void mouseClicked(MouseEvent e)
 			{
 				c_Sheet.ToggleVisibility();
+				d_Sheet.ToggleVisibility();
 			}
 		});
 		frame_Menu.getContentPane().add(bttn_CharacterSheet, "cell 0 0 1 2,grow");
@@ -64,6 +67,14 @@ public class Menu {
 		frame_Menu.getContentPane().add(bttn_SpellSheet, "cell 0 2 1 2,grow");
 		
 		JButton bttn_CharacterDetails = new JButton("Character Details");
+		bttn_CharacterDetails.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				d_Sheet.ToggleVisibility();
+				c_Sheet.ToggleVisibility();
+			}
+		});
 		frame_Menu.getContentPane().add(bttn_CharacterDetails, "cell 0 4 1 2,grow");
 		
 		JButton bttn_Inventory = new JButton("Inventory");
@@ -74,5 +85,6 @@ public class Menu {
 	private void init_sheets()
 	{
 		c_Sheet = new CharacterSheet();
+		d_Sheet = new DetailsSheet();
 	}
 }
