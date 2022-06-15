@@ -72,9 +72,6 @@ public class CharacterSheet
 	};
 	
 	
-	static int CACHED_MAX_HEALTH = 0;
-	
-	
 	// GUI
 	private JFrame frmCharacterSheet;
 	private JTextField txt_Experience;
@@ -432,8 +429,10 @@ public class CharacterSheet
 		        }
 		        catch ( NumberFormatException ex_num )
 		        {
-		        	jFrame.dispose();
+		        	// logging?
 		        }
+		        
+		        jFrame.dispose();
 			}
 		});
 		panel_Health.add(bttn_AddCurrentHealth, "flowy,cell 2 0,alignx center");
@@ -457,8 +456,10 @@ public class CharacterSheet
 		        }
 		        catch ( NumberFormatException ex_num )
 		        {
-		        	jFrame.dispose();
+		        	// logging?
 		        }
+		        
+		        jFrame.dispose();
 			}
 		});
 		panel_Health.add(bttn_SubCurrentHealth, "cell 3 0,alignx center");
@@ -490,45 +491,29 @@ public class CharacterSheet
 		        try
 		        {
 		    		int current = Integer.parseInt( txt_MaxHealth.getText() );
-		    		current += Integer.parseInt( value );
-		    		current = general_tools.ClampInt( current, 0, CACHED_MAX_HEALTH );
+		    		int c_Health = Integer.parseInt( txt_CurrentHealth.getText() );
+		    		if ( c_Health == current )
+		    		{
+		    			current += Math.abs( Integer.parseInt( value ) );
+		    			SetTxtBoxInt( txt_CurrentHealth, current );
+		    		}
+		    		else
+		    		{
+		    			current += Math.abs( Integer.parseInt( value ) );
+		    		}
+		    		
+		    		
 		    		SetTxtBoxInt( txt_MaxHealth, current );
 		        }
 		        catch ( NumberFormatException ex_num )
 		        {
-		        	jFrame.dispose();
+		        	// logging?
 		        }
+		        
+		        jFrame.dispose();
 			}
 		});
 		panel_Health.add(bttn_AddMaxHealth, "cell 2 1,alignx center");
-		
-		JButton bttn_SubMaxHealth = new JButton("-");
-		bttn_SubMaxHealth.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-		        JFrame jFrame = new JFrame();
-		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
-		        
-		        if ( value == null || value.length() == 0 )
-		        {
-		        	jFrame.dispose();
-		        }
-		        
-		        try
-		        {
-		    		int current = Integer.parseInt( txt_MaxHealth.getText() );
-		    		current -= Integer.parseInt( value );
-		    		current = general_tools.ClampInt( current, 0, CACHED_MAX_HEALTH );
-		    		SetTxtBoxInt( txt_MaxHealth, current );
-		        }
-		        catch ( NumberFormatException ex_num )
-		        {
-		        	jFrame.dispose();
-		        }
-			}
-		});
-		panel_Health.add(bttn_SubMaxHealth, "cell 3 1,alignx center");
 		
 		JLabel lbl_THealth = new JLabel("Temp Health:");
 		panel_Health.add(lbl_THealth, "cell 0 2,alignx trailing");
@@ -1983,9 +1968,6 @@ public class CharacterSheet
 		SetTxtBoxInt( txt_SleightOfHand, dex_value );
 		SetTxtBoxInt( txt_Stealth, dex_value );
 		SetTxtBoxInt( txt_Survival, wis_value );
-		
-		
-		CACHED_MAX_HEALTH = Integer.parseInt( txt_MaxHealth.getText() );
 	}
 	
 	public void UpdateXP( int xp_received )
