@@ -57,8 +57,8 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				c_Sheet.ToggleVisibility();
-				d_Sheet.ToggleVisibility();
+				c_Sheet.ToggleVisibility( true );
+				d_Sheet.ToggleVisibility( false );
 			}
 		});
 		frame_Menu.getContentPane().add(bttn_CharacterSheet, "cell 0 0 1 2,grow");
@@ -71,8 +71,8 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				d_Sheet.ToggleVisibility();
-				c_Sheet.ToggleVisibility();
+				d_Sheet.ToggleVisibility( true );
+				c_Sheet.ToggleVisibility( false );
 			}
 		});
 		frame_Menu.getContentPane().add(bttn_CharacterDetails, "cell 0 4 1 2,grow");

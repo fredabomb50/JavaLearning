@@ -193,4 +193,9 @@ public class DetailsSheet {
 			this.frame.setVisible( true );
 		}
 	}
+	
+	public void ToggleVisibility( boolean value )
+	{
+		frame.setVisible(value);
+	}
 }

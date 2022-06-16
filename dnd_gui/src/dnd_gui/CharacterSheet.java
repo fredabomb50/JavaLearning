@@ -1890,14 +1890,19 @@ public class CharacterSheet
 	
 	public void ToggleVisibility()
 	{
-		if ( this.frmCharacterSheet.isVisible() )
+		if ( frmCharacterSheet.isVisible() )
 		{
-			this.frmCharacterSheet.setVisible( false );
+			frmCharacterSheet.setVisible( false );
 		}
 		else
 		{
-			this.frmCharacterSheet.setVisible( true );
+			frmCharacterSheet.setVisible( true );
 		}
+	}
+	
+	public void ToggleVisibility( boolean value )
+	{
+		frmCharacterSheet.setVisible(value);
 	}
 	
 	public void SetTxtBoxInt( JTextField txt_box, int val)
