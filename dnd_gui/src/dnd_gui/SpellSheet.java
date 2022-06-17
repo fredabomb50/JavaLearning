@@ -5,8 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 
-public class SpellSheet {
-
+public class SpellSheet
+{
+	// header should have:
+	//casting ability(wisdom, int, char, etc..) && spell hit bonus (casting ability mod + prof) && spell save (8 + cast mod + prof)
+	//10 tables, from 0 - 9
+	// each table has 10 available entries
+	// each spell needs the following:
+	// cast time, duration, range, save, dmg, components 
+	
 	private JFrame frmSpellSheet;
 
 	/**
