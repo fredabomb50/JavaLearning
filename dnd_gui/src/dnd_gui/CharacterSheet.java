@@ -251,6 +251,7 @@ public class CharacterSheet
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		frmCharacterSheet = new JFrame();
+		frmCharacterSheet.setUndecorated(true);
 		frmCharacterSheet.setTitle("Character Sheet");
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
 		frmCharacterSheet.setBounds(100, 100, 1073, 729);
