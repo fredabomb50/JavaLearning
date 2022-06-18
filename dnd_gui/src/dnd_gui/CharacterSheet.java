@@ -103,7 +103,7 @@ public class CharacterSheet
 	private JTextField txt_Initiative;
 	private JTextField txt_Speed;
 	private JTextField txt_SwimSpeed;
-	private JTextField txtDig;
+	private JTextField txt_Dig;
 	private JTextField txt_FlySpeed;
 	private JTextField txt_Inspiration;
 	private JTextField txt_Level;
@@ -336,10 +336,10 @@ public class CharacterSheet
 		JLabel lbl_DigSpeed = new JLabel("Dig");
 		panel_Header.add(lbl_DigSpeed, "cell 2 3,alignx center,aligny center");
 		
-		txtDig = new JTextField();
-		txtDig.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txtDig, "cell 3 3,growx");
-		txtDig.setColumns(10);
+		txt_Dig = new JTextField();
+		txt_Dig.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Header.add(txt_Dig, "cell 3 3,growx");
+		txt_Dig.setColumns(10);
 		
 		JLabel lbl_Speed = new JLabel("Speed:");
 		lbl_Speed.setHorizontalAlignment(SwingConstants.CENTER);
