@@ -235,6 +235,61 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JLabel lbl_TempHealthVal;
 	private JLabel lbl_HitDie;
 	private JLabel lbl_HitDieValue;
+	private JLabel lbl_DeathSaves;
+	private JLabel lbl_SuccessfulDeathSaves;
+	private JLabel lbl_FailedDeathSaves;
+	private JRadioButton radio_sSave1;
+	private JRadioButton radio_sSave2;
+	private JRadioButton radio_sSave3;
+	private JRadioButton radio_fSave1;
+	private JRadioButton radio_fSave2;
+	private JRadioButton radio_fSave3;
+	private JLabel lblNewLabel;
+	private JLabel lblStrSave;
+	private JLabel lblConSave;
+	private JLabel lblChrsave;
+	private JLabel lblWisSave;
+	private JLabel lbl_Int;
+	private JLabel lbl_DexSave;
+	private JLabel lbl_StrSave;
+	private JLabel lbl_ConSave;
+	private JLabel lbl_ChrSave;
+	private JLabel lbl_WisSave;
+	private JLabel lbl_IntSave;
+	private JLabel lbl_DexSaveProf;
+	private JLabel lbl_StrSaveProf;
+	private JLabel lbl_ConSaveProf;
+	private JLabel lbl_ChrSaveProf;
+	private JLabel lbl_WisSaveProf;
+	private JLabel lbl_IntSaveProf;
+	private JLabel lblNewLabel_1;
+	private JLabel lbl_Level;
+	private JLabel lblNewLabel_2;
+	private JLabel lbl_XP;
+	private JLabel lblNewLabel_3;
+	private JLabel lbl_AC;
+	private JLabel lblNewLabel_4;
+	private JLabel lbl_Initiative;
+	private JLabel lblNewLabel_5;
+	private JLabel lbl_ProfBonus;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_7;
+	private JLabel lblNewLabel_8;
+	private JLabel lblNewLabel_9;
+	private JLabel lblNewLabel_10;
+	private JLabel lblNewLabel_11;
+	private JLabel lbl_DexMod;
+	private JLabel lbl_StrMod;
+	private JLabel lbl_ConMod;
+	private JLabel lbl_WisMod;
+	private JLabel lbl_IntMod;
+	private JLabel lbl_ChrMod;
+	private JLabel lbl_DexStat;
+	private JLabel lbl_StrStat;
+	private JLabel lbl_ConStat;
+	private JLabel lbl_WisStat;
+	private JLabel lbl_IntStat;
+	private JLabel lbl_ChrStat;
 
 
 	/**
@@ -249,7 +304,8 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		frmCharacterSheet = new JFrame();
 		frmCharacterSheet.setUndecorated(true);
 		frmCharacterSheet.setTitle("Character Sheet");
@@ -263,10 +319,105 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		
 		panel_Stats = new JPanel();
 		tabs_Header.addTab("Stats", null, panel_Stats, null);
+		panel_Stats.setLayout(new MigLayout("", "[][][][][]", "[][][][][][][][][][]"));
+		
+		lblNewLabel_1 = new JLabel("Level:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lblNewLabel_1, "cell 0 0");
+		
+		lbl_Level = new JLabel("5");
+		lbl_Level.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_Level, "cell 1 0,alignx center");
+		
+		lblNewLabel_2 = new JLabel("XP:");
+		panel_Stats.add(lblNewLabel_2, "cell 3 0");
+		
+		lbl_XP = new JLabel("6500");
+		panel_Stats.add(lbl_XP, "cell 4 0");
+		
+		lblNewLabel_3 = new JLabel("AC:");
+		panel_Stats.add(lblNewLabel_3, "cell 0 1");
+		
+		lbl_AC = new JLabel("15");
+		lbl_AC.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_AC, "cell 1 1,alignx center");
+		
+		lblNewLabel_4 = new JLabel("Initiative:");
+		panel_Stats.add(lblNewLabel_4, "cell 3 1");
+		
+		lbl_Initiative = new JLabel("2");
+		panel_Stats.add(lbl_Initiative, "cell 4 1,alignx center");
+		
+		lblNewLabel_5 = new JLabel("Prof:");
+		panel_Stats.add(lblNewLabel_5, "cell 0 2");
+		
+		lbl_ProfBonus = new JLabel("3");
+		lbl_ProfBonus.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_ProfBonus, "cell 1 2,alignx center");
+		
+		lblNewLabel_6 = new JLabel("Dexterity");
+		panel_Stats.add(lblNewLabel_6, "cell 0 3");
+		
+		lbl_DexMod = new JLabel("500");
+		lbl_DexMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_DexMod, "cell 1 3,alignx center");
+		
+		lbl_DexStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_DexStat, "cell 2 3,alignx center");
+		
+		lblNewLabel_7 = new JLabel("Strength");
+		panel_Stats.add(lblNewLabel_7, "cell 0 4");
+		
+		lbl_StrMod = new JLabel("5");
+		lbl_StrMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_StrMod, "cell 1 4,alignx center");
+		
+		lbl_StrStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_StrStat, "cell 2 4,alignx center");
+		
+		lblNewLabel_8 = new JLabel("Consitution");
+		panel_Stats.add(lblNewLabel_8, "cell 0 5");
+		
+		lbl_ConMod = new JLabel("5");
+		lbl_ConMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_ConMod, "cell 1 5,alignx center");
+		
+		lbl_ConStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_ConStat, "cell 2 5,alignx center");
+		
+		lblNewLabel_9 = new JLabel("Wisdom");
+		panel_Stats.add(lblNewLabel_9, "cell 0 6");
+		
+		lbl_WisMod = new JLabel("5");
+		lbl_WisMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_WisMod, "cell 1 6,alignx center");
+		
+		lbl_WisStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_WisStat, "cell 2 6,alignx center");
+		
+		lblNewLabel_10 = new JLabel("Intelligence");
+		panel_Stats.add(lblNewLabel_10, "cell 0 7");
+		
+		lbl_IntMod = new JLabel("5");
+		lbl_IntMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_IntMod, "cell 1 7,alignx center");
+		
+		lbl_IntStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_IntStat, "cell 2 7,alignx center");
+		
+		lblNewLabel_11 = new JLabel("Charisma");
+		panel_Stats.add(lblNewLabel_11, "cell 0 8");
+		
+		lbl_ChrMod = new JLabel("5");
+		lbl_ChrMod.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_ChrMod, "cell 1 8,alignx center");
+		
+		lbl_ChrStat = new JLabel("( 20 )");
+		panel_Stats.add(lbl_ChrStat, "cell 2 8,alignx center");
 		
 		panel_Health = new JPanel();
 		tabs_Header.addTab("Health", null, panel_Health, null);
-		panel_Health.setLayout(new MigLayout("", "[][][]", "[][][][][]"));
+		panel_Health.setLayout(new MigLayout("", "[][][][]", "[][][][][][][][][][][][][][][]"));
 		
 		lbl_CurrentHealth = new JLabel("Current Health:");
 		panel_Health.add(lbl_CurrentHealth, "cell 0 0,alignx center,aligny center");
@@ -293,6 +444,113 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_HitDieValue = new JLabel("5/5");
 		lbl_HitDieValue.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Health.add(lbl_HitDieValue, "cell 2 3,alignx center");
+		
+		lbl_DeathSaves = new JLabel("--- Death Saving Throws ---");
+		lbl_DeathSaves.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_DeathSaves, "cell 0 5 4 1,alignx center,aligny center");
+		
+		lbl_SuccessfulDeathSaves = new JLabel("Successful:");
+		panel_Health.add(lbl_SuccessfulDeathSaves, "cell 0 6,alignx center,aligny center");
+		
+		radio_sSave1 = new JRadioButton("");
+		panel_Health.add(radio_sSave1, "cell 1 6");
+		
+		radio_sSave2 = new JRadioButton("");
+		panel_Health.add(radio_sSave2, "cell 2 6,alignx center");
+		
+		radio_sSave3 = new JRadioButton("");
+		panel_Health.add(radio_sSave3, "cell 3 6");
+		
+		lbl_FailedDeathSaves = new JLabel("Failed:");
+		lbl_FailedDeathSaves.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_FailedDeathSaves, "cell 0 7,alignx center");
+		
+		radio_fSave1 = new JRadioButton("");
+		panel_Health.add(radio_fSave1, "cell 1 7");
+		
+		radio_fSave2 = new JRadioButton("");
+		panel_Health.add(radio_fSave2, "cell 2 7,alignx center");
+		
+		radio_fSave3 = new JRadioButton("");
+		panel_Health.add(radio_fSave3, "cell 3 7");
+		
+		lblNewLabel = new JLabel("DEX Save");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lblNewLabel, "cell 0 9,alignx center");
+		
+		lbl_DexSave = new JLabel("[ 0 ]");
+		lbl_DexSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_DexSave, "cell 1 9,alignx center");
+		
+		lbl_DexSaveProf = new JLabel("(Prof.)");
+		lbl_DexSaveProf.setVisible(false);
+		lbl_DexSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_DexSaveProf, "cell 2 9");
+		
+		lblStrSave = new JLabel("STR Save");
+		lblStrSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lblStrSave, "cell 0 10,alignx center");
+		
+		lbl_StrSave = new JLabel("[ 0 ]");
+		lbl_StrSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_StrSave, "cell 1 10");
+		
+		lbl_StrSaveProf = new JLabel("(Prof.)");
+		lbl_StrSaveProf.setVisible(false);
+		lbl_StrSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_StrSaveProf, "cell 2 10");
+		
+		lblConSave = new JLabel("CON Save");
+		lblConSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lblConSave, "cell 0 11,alignx center");
+		
+		lbl_ConSave = new JLabel("[ 0 ]");
+		lbl_ConSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_ConSave, "cell 1 11");
+		
+		lbl_ConSaveProf = new JLabel("(Prof.)");
+		lbl_ConSaveProf.setVisible(false);
+		lbl_ConSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_ConSaveProf, "cell 2 11");
+		
+		lblChrsave = new JLabel("CHR Save");
+		lblChrsave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lblChrsave, "cell 0 12,alignx center");
+		
+		lbl_ChrSave = new JLabel("[ 0 ]");
+		lbl_ChrSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_ChrSave, "cell 1 12");
+		
+		lbl_ChrSaveProf = new JLabel("(Prof.)");
+		lbl_ChrSaveProf.setVisible(false);
+		lbl_ChrSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_ChrSaveProf, "cell 2 12");
+		
+		lblWisSave = new JLabel("WIS Save");
+		lblWisSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lblWisSave, "cell 0 13,alignx center");
+		
+		lbl_WisSave = new JLabel("[ 0 ]");
+		lbl_WisSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_WisSave, "cell 1 13");
+		
+		lbl_WisSaveProf = new JLabel("(Prof.)");
+		lbl_WisSaveProf.setVisible(false);
+		lbl_WisSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_WisSaveProf, "cell 2 13");
+		
+		lbl_Int = new JLabel("INT Save");
+		lbl_Int.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_Int, "cell 0 14,alignx center");
+		
+		lbl_IntSave = new JLabel("[ 0 ]");
+		lbl_IntSave.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_IntSave, "cell 1 14");
+		
+		lbl_IntSaveProf = new JLabel("(Prof.)");
+		lbl_IntSaveProf.setVisible(false);
+		lbl_IntSaveProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_IntSaveProf, "cell 2 14");
 		
 		JTabbedPane tabs_Actions = new JTabbedPane(JTabbedPane.TOP);
 		frmCharacterSheet.getContentPane().add(tabs_Actions, "cell 1 0 2 2,grow");
