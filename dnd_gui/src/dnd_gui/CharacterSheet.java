@@ -34,99 +34,16 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JCheckBox;
 
-public class CharacterSheet
+public class CharacterSheet extends Sheet implements Sheet_Generics
 {
 	private final static int MAX_INSPIRATION = 10;
 	@SuppressWarnings("rawtypes")
 	JComboBox combo_DieSelector = null;
 	
 	
-	// moving on to v2 for simplicity
-	
-	// 
-	
-	// Utility Classes
-	Tools general_tools = new Tools();
-	Dice dice_tools = new Dice();
-	
-	// XP table for reference
-	int[][] xp_table =
-	{
-		{0, 2}, 		// level 1
-		{300, 2},		// level 2
-		{900, 2},		// level 3
-		{2700, 2},		// level 4
-		{6500, 3},		// level 5
-		{14000, 3},		// level 6
-		{23000, 3},		// level 7
-		{34000, 3},		// level 8
-		{48000, 4},		// level 9
-		{64000, 4},		// level 10
-		{85000, 4},		// level 11
-		{100000, 4},	// level 12
-		{120000, 5},	// level 13
-		{140000, 5},	// level 14
-		{165000, 5},	// level 15
-		{195000, 5},	// level 16
-		{225000, 6},	// level 17
-		{265000, 6},	// level 18
-		{305000, 6},	// level 19
-		{355000, 6}		// level 20
-	};
-	
 	
 	// GUI
-	private JFrame frmCharacterSheet;
-	private JTextField txt_Experience;
-	private JTextField txt_STR;
-	private JTextField txt_DEX;
-	private JTextField txt_CON;
-	private JTextField txt_INT;
-	private JTextField txt_WIS;
-	private JTextField txt_CHR;
-	private JTextField txt_Acrobatics;
-	private JTextField txt_AnimalHandling;
-	private JTextField txt_Arcana;
-	private JTextField txt_Athletics;
-	private JTextField txt_Deception;
-	private JTextField txt_History;
-	private JTextField txt_Insight;
-	private JTextField txt_Performance;
-	private JTextField txt_Intimidation;
-	private JTextField txt_Investigation;
-	private JTextField txt_Medicine;
-	private JTextField txt_Nature;
-	private JTextField txt_Perception;
-	private JTextField txt_Persuasion;
-	private JTextField txt_Religion;
-	private JTextField txt_SleightOfHand;
-	private JTextField txt_Stealth;
-	private JTextField txt_Survival;
-	private JTextField txt_AC;
-	private JTextField txt_Initiative;
-	private JTextField txt_Speed;
-	private JTextField txt_SwimSpeed;
-	private JTextField txt_Dig;
-	private JTextField txt_FlySpeed;
-	private JTextField txt_Inspiration;
-	private JTextField txt_Level;
-	private JTextField txt_Proficiency;
-	private JTextField txt_CurrentHealth;
-	private JTextField txt_MaxHealth;
-	private JTextField txt_TempHealth;
-	private JTextField txt_HitDie;
-	private JTextField txt_StrMod;
-	private JTextField txt_DexMod;
-	private JTextField txt_ConMod;
-	private JTextField txt_IntMod;
-	private JTextField txt_WisMod;
-	private JTextField txt_ChrMod;
-	private JTextField txt_StrSave;
-	private JTextField txt_DexSave;
-	private JTextField txt_ConSave;
-	private JTextField txt_IntSave;
-	private JTextField txt_WisSave;
-	private JTextField txt_ChrSave;
+	public JFrame frmCharacterSheet;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -235,6 +152,89 @@ public class CharacterSheet
 	private JTextArea area_Adv;
 	private JScrollPane scroll_Bonuses;
 	private JTextArea area_Bonuses;
+	private JLabel lbl_Acrobatics;
+	private JLabel lbl_AcrobaticsProf;
+	private JLabel lbl_AcrobaticsExpert;
+	private JLabel lbl_AcrobaticsVal;
+	private JLabel lbl_AnimalHandlingVal;
+	private JLabel lbl_AnimalHandling;
+	private JLabel lbl_Arcana;
+	private JLabel lbl_Athletics;
+	private JLabel lbl_Deception;
+	private JLabel lbl_History;
+	private JLabel lbl_Insight;
+	private JLabel lbl_Intimidation;
+	private JLabel lbl_Investigation;
+	private JLabel lbl_Medicine;
+	private JLabel lbl_Survival;
+	private JLabel lbl_Stealth;
+	private JLabel lbl_SleightOfHand;
+	private JLabel lbl_Religion;
+	private JLabel lbl_Persuasion;
+	private JLabel lbl_Performance;
+	private JLabel lbl_Perception;
+	private JLabel lbl_Nature;
+	private JLabel lbl_ArcanaVal;
+	private JLabel lbl_AthleticsVal;
+	private JLabel lbl_DeceptionVal;
+	private JLabel lbl_HistoryVal;
+	private JLabel lbl_InsightVal;
+	private JLabel lbl_IntimidationVal;
+	private JLabel lbl_InvestigationVal;
+	private JLabel lbl_MedicineVal;
+	private JLabel lbl_NatureVal;
+	private JLabel lbl_PerceptionVal;
+	private JLabel lbl_PerformanceVal;
+	private JLabel lbl_PersuasionVal;
+	private JLabel lbl_ReligionVal;
+	private JLabel lbl_SleightOfHandVal;
+	private JLabel lbl_StealthVal;
+	private JLabel lbl_SurvivalVal;
+	private JLabel lbl_AnimalHandlingProf;
+	private JLabel lbl_ArcanaProf;
+	private JLabel lbl_AthleticsProf;
+	private JLabel lbl_DeceptionProf;
+	private JLabel lbl_HistoryProf;
+	private JLabel lbl_InsightProf;
+	private JLabel lbl_IntimidationProf;
+	private JLabel lbl_InvestigationProf;
+	private JLabel lbl_MedicineProf;
+	private JLabel lbl_NatureProf;
+	private JLabel lbl_PerceptionProf;
+	private JLabel lbl_PerformanceProf;
+	private JLabel lbl_PersuasionProf;
+	private JLabel lbl_ReligionProf;
+	private JLabel lbl_SleightOfHandProf;
+	private JLabel lbl_StealthProf;
+	private JLabel lbl_SurvivalProf;
+	private JLabel lbl_AnimalHandlingExpert;
+	private JLabel lbl_ArcanaExpert;
+	private JLabel lbl_AthleticsExpert;
+	private JLabel lbl_DeceptionExpert;
+	private JLabel lbl_HistoryExpert;
+	private JLabel lbl_InsightExpert;
+	private JLabel lbl_IntimidationExpert;
+	private JLabel lbl_InvestigationExpert;
+	private JLabel lbl_MedicineExpert;
+	private JLabel lbl_NatureExpert;
+	private JLabel lbl_PerceptionExpert;
+	private JLabel lbl_PerformanceExpert;
+	private JLabel lbl_PersuasionExpert;
+	private JLabel lbl_ReligionExpert;
+	private JLabel lbl_SleightOfHandExpert;
+	private JLabel lbl_StealthExpert;
+	private JLabel lbl_SurvivalExpert;
+	private JTabbedPane tabs_Header;
+	private JPanel panel_Stats;
+	private JPanel panel_Health;
+	private JLabel lbl_CurrentHealth;
+	private JLabel lbl_CurrentHealthVal;
+	private JLabel lbl_MaxHealth;
+	private JLabel lbl_MaxHealthVal;
+	private JLabel lbl_TempHealth;
+	private JLabel lbl_TempHealthVal;
+	private JLabel lbl_HitDie;
+	private JLabel lbl_HitDieValue;
 
 
 	/**
@@ -243,1061 +243,62 @@ public class CharacterSheet
 	public CharacterSheet()
 	{
 		initialize();
-		init_StatMods();
-		frmCharacterSheet.setVisible( false );
 	}
 	
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize() {
 		frmCharacterSheet = new JFrame();
 		frmCharacterSheet.setUndecorated(true);
 		frmCharacterSheet.setTitle("Character Sheet");
 		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmCharacterSheet.setBounds(100, 100, 1073, 729);
+		frmCharacterSheet.setBounds(100, 100, 827, 719);
 		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[center][center][grow]", "[grow,center][7.00,center][][grow,center]"));
+		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[grow,center][center][]", "[grow][]"));
 		
-		JPanel panel_Header = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Header, "cell 0 0,alignx center,growy");
-		panel_Header.setLayout(new MigLayout("", "[center][grow,center][center][grow,center]", "[][center][][][][]"));
+		tabs_Header = new JTabbedPane(JTabbedPane.TOP);
+		frmCharacterSheet.getContentPane().add(tabs_Header, "cell 0 0,grow");
 		
-		JLabel lbl_Level = new JLabel("Level:");
-		lbl_Level.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(lbl_Level, "cell 0 0,alignx center,aligny center");
+		panel_Stats = new JPanel();
+		tabs_Header.addTab("Stats", null, panel_Stats, null);
 		
-		txt_Level = new JTextField();
-		txt_Level.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Level.setText("1");
-		txt_Level.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		txt_Level.setEditable(false);
-		panel_Header.add(txt_Level, "cell 1 0,alignx center,aligny center");
-		txt_Level.setColumns(10);
+		panel_Health = new JPanel();
+		tabs_Header.addTab("Health", null, panel_Health, null);
+		panel_Health.setLayout(new MigLayout("", "[][][]", "[][][][][]"));
 		
-		JLabel lbl_Proficiency = new JLabel("Proficiency Bonus:");
-		panel_Header.add(lbl_Proficiency, "cell 2 0,alignx center,aligny center");
+		lbl_CurrentHealth = new JLabel("Current Health:");
+		panel_Health.add(lbl_CurrentHealth, "cell 0 0,alignx center,aligny center");
 		
-		txt_Proficiency = new JTextField();
-		txt_Proficiency.setText("2");
-		txt_Proficiency.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		txt_Proficiency.setEditable(false);
-		txt_Proficiency.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_Proficiency, "cell 3 0,growx");
-		txt_Proficiency.setColumns(10);
+		lbl_CurrentHealthVal = new JLabel("100");
+		panel_Health.add(lbl_CurrentHealthVal, "cell 2 0,alignx center");
 		
-		JLabel lbl_Experience = new JLabel("Experience:");
-		lbl_Experience.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(lbl_Experience, "cell 0 1,alignx center,aligny center");
+		lbl_MaxHealth = new JLabel("Max Health:");
+		panel_Health.add(lbl_MaxHealth, "cell 0 1,alignx center,aligny center");
 		
-		txt_Experience = new JTextField();
-		txt_Experience.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Experience.setText("0");
-		txt_Experience.setEditable(false);
-		panel_Header.add(txt_Experience, "cell 1 1,grow");
-		txt_Experience.setColumns(10);
+		lbl_MaxHealthVal = new JLabel("100");
+		panel_Health.add(lbl_MaxHealthVal, "cell 2 1,alignx center");
 		
-		JLabel lblNewLabel = new JLabel("Inspiration:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(lblNewLabel, "cell 2 1,alignx center,aligny center");
+		lbl_TempHealth = new JLabel("Temp Health:");
+		lbl_TempHealth.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_TempHealth, "cell 0 2,alignx center,aligny center");
 		
-		txt_Inspiration = new JTextField();
-		txt_Inspiration.setEditable(false);
-		txt_Inspiration.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Inspiration.setText("2");
-		txt_Inspiration.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		panel_Header.add(txt_Inspiration, "cell 3 1,growx");
-		txt_Inspiration.setColumns(10);
+		lbl_TempHealthVal = new JLabel("10");
+		panel_Health.add(lbl_TempHealthVal, "cell 2 2,alignx center");
 		
-		JLabel lbl_AC = new JLabel("Armor Class:");
-		panel_Header.add(lbl_AC, "cell 0 2,alignx center,aligny center");
+		lbl_HitDie = new JLabel("Hit Die:");
+		panel_Health.add(lbl_HitDie, "cell 0 3,alignx center,aligny center");
 		
-		txt_AC = new JTextField();
-		txt_AC.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_AC, "cell 1 2,growx");
-		txt_AC.setColumns(10);
+		lbl_HitDieValue = new JLabel("5/5");
+		lbl_HitDieValue.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Health.add(lbl_HitDieValue, "cell 2 3,alignx center");
 		
-		JLabel lbl_SwimSpeed = new JLabel("Swim");
-		panel_Header.add(lbl_SwimSpeed, "cell 2 2,alignx center,aligny center");
-		
-		txt_SwimSpeed = new JTextField();
-		txt_SwimSpeed.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_SwimSpeed, "cell 3 2,growx");
-		txt_SwimSpeed.setColumns(10);
-		
-		JLabel lbl_Initiative = new JLabel("Initiative:");
-		lbl_Initiative.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(lbl_Initiative, "cell 0 3,alignx center,aligny center");
-		
-		txt_Initiative = new JTextField();
-		txt_Initiative.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_Initiative, "cell 1 3,growx");
-		txt_Initiative.setColumns(10);
-		
-		JLabel lbl_DigSpeed = new JLabel("Dig");
-		panel_Header.add(lbl_DigSpeed, "cell 2 3,alignx center,aligny center");
-		
-		txt_Dig = new JTextField();
-		txt_Dig.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_Dig, "cell 3 3,growx");
-		txt_Dig.setColumns(10);
-		
-		JLabel lbl_Speed = new JLabel("Speed:");
-		lbl_Speed.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(lbl_Speed, "flowx,cell 0 4,alignx center,aligny center");
-		
-		txt_Speed = new JTextField();
-		txt_Speed.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_Speed, "cell 1 4,growx");
-		txt_Speed.setColumns(10);
-		
-		JLabel lbl_FlySpeed = new JLabel("Fly");
-		panel_Header.add(lbl_FlySpeed, "cell 2 4,alignx center,aligny center");
-		
-		txt_FlySpeed = new JTextField();
-		txt_FlySpeed.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Header.add(txt_FlySpeed, "cell 3 4,growx");
-		txt_FlySpeed.setColumns(10);
-		
-		JButton bttn_AddXP = new JButton("Add XP");
-		bttn_AddXP.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				UpdateXP( 100 );
-			}
-		});
-		panel_Header.add(bttn_AddXP, "cell 0 5,alignx center,aligny center");
-		
-		
-		JButton bttn_AddInsp = new JButton("Add Insp.");
-		bttn_AddInsp.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				int val = Integer.parseInt( txt_Inspiration.getText() );
-				val++;
-				val = general_tools.ClampInt( val, 0, MAX_INSPIRATION );
-				SetTxtBoxInt( txt_Inspiration, val);
-			}
-		});
-		panel_Header.add(bttn_AddInsp, "cell 2 5,alignx center,aligny center");
-		
-		JButton bttn_BurnInsp = new JButton("Burn Insp.");
-		bttn_BurnInsp.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				int val = Integer.parseInt( txt_Inspiration.getText() );
-				val--;
-				val = general_tools.ClampInt( val, 0, MAX_INSPIRATION );
-				SetTxtBoxInt( txt_Inspiration, val);
-			}
-		});
-		panel_Header.add(bttn_BurnInsp, "cell 3 5,alignx center,aligny center");
-		
-		JPanel panel_Health = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Health, "cell 1 0,alignx center,growy");
-		panel_Health.setLayout(new MigLayout("", "[grow,center][grow][][]", "[][][][][]"));
-		
-		JLabel lbl_CHealth = new JLabel("Current Health:");
-		lbl_CHealth.setHorizontalAlignment(SwingConstants.LEFT);
-		panel_Health.add(lbl_CHealth, "cell 0 0,alignx trailing");
-		
-		txt_CurrentHealth = new JTextField();
-		txt_CurrentHealth.setText("100");
-		txt_CurrentHealth.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_CurrentHealth.setBackground(UIManager.getColor("ColorChooser.background"));
-		txt_CurrentHealth.setEditable(false);
-		panel_Health.add(txt_CurrentHealth, "cell 1 0,growx");
-		txt_CurrentHealth.setColumns(10);
-		
-		JButton bttn_AddCurrentHealth = new JButton("+");
-		bttn_AddCurrentHealth.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-		        JFrame jFrame = new JFrame();
-		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
-		        
-		        if ( value == null || value.length() == 0 )
-		        {
-		        	jFrame.dispose();
-		        }
-		        
-		        try
-		        {
-		        	Heal( Math.abs( Integer.parseInt( value ) ) );
-		        }
-		        catch ( NumberFormatException ex_num )
-		        {
-		        	// logging?
-		        }
-		        
-		        jFrame.dispose();
-			}
-		});
-		panel_Health.add(bttn_AddCurrentHealth, "flowy,cell 2 0,alignx center");
-		
-		JButton bttn_SubCurrentHealth = new JButton("-");
-		bttn_SubCurrentHealth.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-		        JFrame jFrame = new JFrame();
-		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
-		        
-		        if ( value == null || value.length() == 0 )
-		        {
-		        	jFrame.dispose();
-		        }
-		        
-		        try
-		        {
-		        	Hurt( ( Integer.parseInt( value ) ) );
-		        }
-		        catch ( NumberFormatException ex_num )
-		        {
-		        	// logging?
-		        }
-		        
-		        jFrame.dispose();
-			}
-		});
-		panel_Health.add(bttn_SubCurrentHealth, "cell 3 0,alignx center");
-		
-		JLabel lbl_MHealth = new JLabel("Max Health:");
-		panel_Health.add(lbl_MHealth, "cell 0 1,alignx trailing");
-		
-		txt_MaxHealth = new JTextField();
-		txt_MaxHealth.setText("100");
-		txt_MaxHealth.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_MaxHealth.setBackground(UIManager.getColor("ColorChooser.background"));
-		txt_MaxHealth.setEditable(false);
-		panel_Health.add(txt_MaxHealth, "cell 1 1,growx");
-		txt_MaxHealth.setColumns(10);
-		
-		JButton bttn_AddMaxHealth = new JButton("+");
-		bttn_AddMaxHealth.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-		        JFrame jFrame = new JFrame();
-		        String value = JOptionPane.showInputDialog(jFrame, "Enter value: ");
-		        
-		        if ( value == null || value.length() == 0 )
-		        {
-		        	jFrame.dispose();
-		        }
-		        
-		        try
-		        {
-		    		int current = Integer.parseInt( txt_MaxHealth.getText() );
-		    		int c_Health = Integer.parseInt( txt_CurrentHealth.getText() );
-		    		if ( c_Health == current )
-		    		{
-		    			current += Math.abs( Integer.parseInt( value ) );
-		    			SetTxtBoxInt( txt_CurrentHealth, current );
-		    		}
-		    		else
-		    		{
-		    			current += Math.abs( Integer.parseInt( value ) );
-		    		}
-		    		
-		    		
-		    		SetTxtBoxInt( txt_MaxHealth, current );
-		        }
-		        catch ( NumberFormatException ex_num )
-		        {
-		        	// logging?
-		        }
-		        
-		        jFrame.dispose();
-			}
-		});
-		panel_Health.add(bttn_AddMaxHealth, "cell 2 1,alignx center");
-		
-		JLabel lbl_THealth = new JLabel("Temp Health:");
-		panel_Health.add(lbl_THealth, "cell 0 2,alignx trailing");
-		
-		txt_TempHealth = new JTextField();
-		txt_TempHealth.setText("10");
-		txt_TempHealth.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_TempHealth.setBackground(UIManager.getColor("ColorChooser.background"));
-		txt_TempHealth.setEditable(false);
-		panel_Health.add(txt_TempHealth, "cell 1 2,growx");
-		txt_TempHealth.setColumns(10);
-		
-		JButton bttn_AddTempHealth = new JButton("+");
-		panel_Health.add(bttn_AddTempHealth, "cell 2 2,alignx center");
-		
-		JButton bttn_SubTempHealth = new JButton("-");
-		panel_Health.add(bttn_SubTempHealth, "cell 3 2,alignx center");
-		
-		JLabel lbl_HDie = new JLabel("Hit Die:");
-		lbl_HDie.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Health.add(lbl_HDie, "cell 0 3,alignx trailing");
-		
-		txt_HitDie = new JTextField();
-		txt_HitDie.setText("5");
-		txt_HitDie.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_HitDie.setEditable(false);
-		txt_HitDie.setBackground(UIManager.getColor("CheckBoxMenuItem.background"));
-		panel_Health.add(txt_HitDie, "cell 1 3,growx");
-		txt_HitDie.setColumns(10);
-		
-		JButton bttn_ConsumeHitDie = new JButton("Use");
-		bttn_ConsumeHitDie.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				int die_count = Integer.parseInt( txt_HitDie.getText() );
-				int result = 0;
-				int max = Integer.parseInt( txt_MaxHealth.getText() );
-				int current = Integer.parseInt( txt_CurrentHealth.getText() );
-				if ( !( current >= max ) )
-				{
-					switch ( (eDice) combo_DieSelector.getSelectedItem() )
-					{
-						case D4:
-						{
-							// set score mods to to text boxes as well
-							die_count--;
-							die_count = general_tools.ClampInt( die_count, 0, Integer.parseInt( txt_Level.getText() ) );
-							result = dice_tools.RollD6( 1 );
-							
-							if ( die_count > 0 )
-							{
-								Heal( result );
-							}
-							// out of dice
-						}
-						case D6:
-						{
-							
-						}
-						case D8:
-						{
-							
-						}
-						case D10:
-						{
-							
-						}
-						case D12:
-						{
-							
-						}
-						default:
-						{
-							// picked an invalid dice type
-						}break;
-					}
-					SetTxtBoxInt( txt_HitDie, die_count);
-				}
-			}
-		});
-		panel_Health.add(bttn_ConsumeHitDie, "cell 2 3 2 1,alignx center,aligny center");
-		
-		combo_DieSelector = new JComboBox();
-		combo_DieSelector.setModel(new DefaultComboBoxModel(eDice.values()));
-		panel_Health.add(combo_DieSelector, "cell 0 4,growx");
-		
-		JPanel panel_Stats = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Stats, "cell 2 0");
-		panel_Stats.setLayout(new MigLayout("", "[center][][grow][][grow]", "[][][][][][][]"));
-		
-		JLabel lblNewLabel_3 = new JLabel("Stats");
-		panel_Stats.add(lblNewLabel_3, "cell 0 0 2 1");
-		
-		JLabel lblNewLabel_2 = new JLabel("Saves");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lblNewLabel_2, "cell 3 0 2 1");
-		
-		JLabel lbl_Strength = new JLabel("Strength:");
-		lbl_Strength.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Strength, "cell 0 1,grow");
-		
-		txt_STR = new JTextField();
-		txt_STR.setEditable(false);
-		txt_STR.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_STR.setText("11");
-		panel_Stats.add(txt_STR, "cell 1 1,grow");
-		txt_STR.setColumns(10);
-		
-		txt_StrMod = new JTextField();
-		txt_StrMod.setEditable(false);
-		txt_StrMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_StrMod, "cell 2 1,growx");
-		txt_StrMod.setColumns(10);
-		
-		JRadioButton radio_StrSave = new JRadioButton("");
-		radio_StrSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_StrSave.isSelected() )
-				{
-					AddProfBonus( txt_StrSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_StrSave );
-				}
-			}
-		});
-		panel_Stats.add(radio_StrSave, "cell 3 1");
-		
-		txt_StrSave = new JTextField();
-		txt_StrSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_StrSave.setEditable(false);
-		panel_Stats.add(txt_StrSave, "cell 4 1,growx");
-		txt_StrSave.setColumns(10);
-		
-		JLabel lbl_Dexterity = new JLabel("Dexterity:");
-		lbl_Dexterity.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Dexterity, "cell 0 2,grow");
-		
-		txt_DEX = new JTextField();
-		txt_DEX.setEditable(false);
-		txt_DEX.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_DEX.setText("14");
-		panel_Stats.add(txt_DEX, "cell 1 2,grow");
-		txt_DEX.setColumns(10);
-		
-		txt_DexMod = new JTextField();
-		txt_DexMod.setEditable(false);
-		txt_DexMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_DexMod, "cell 2 2,growx");
-		txt_DexMod.setColumns(10);
-		
-		JRadioButton radio_DexSave = new JRadioButton("");
-		radio_DexSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_DexSave.isSelected() )
-				{
-					AddProfBonus( txt_DexSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_DexSave );
-				}
-			}
-		});
-		panel_Stats.add(radio_DexSave, "flowx,cell 3 2");
-		
-		txt_DexSave = new JTextField();
-		txt_DexSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_DexSave.setEditable(false);
-		txt_DexSave.setColumns(10);
-		panel_Stats.add(txt_DexSave, "cell 4 2,growx");
-		
-		JLabel lbl_Constitution = new JLabel("Constitution:");
-		lbl_Constitution.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Constitution, "cell 0 3,grow");
-		
-		txt_CON = new JTextField();
-		txt_CON.setEditable(false);
-		txt_CON.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_CON.setText("15");
-		panel_Stats.add(txt_CON, "cell 1 3,grow");
-		txt_CON.setColumns(10);
-		
-		txt_ConMod = new JTextField();
-		txt_ConMod.setEditable(false);
-		txt_ConMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_ConMod, "cell 2 3,growx");
-		txt_ConMod.setColumns(10);
-		
-		JRadioButton radio_ConSave = new JRadioButton("");
-		radio_ConSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_ConSave.isSelected() )
-				{
-					AddProfBonus( txt_ConSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_ConSave );
-				}
-			}
-		});
-		panel_Stats.add(radio_ConSave, "flowx,cell 3 3");
-		
-		txt_ConSave = new JTextField();
-		txt_ConSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_ConSave.setEditable(false);
-		txt_ConSave.setColumns(10);
-		panel_Stats.add(txt_ConSave, "cell 4 3,growx");
-		
-		JLabel lbl_Intelligence = new JLabel("Intelligence:");
-		lbl_Intelligence.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Intelligence, "cell 0 4,grow");
-		
-		txt_INT = new JTextField();
-		txt_INT.setEditable(false);
-		txt_INT.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_INT.setText("12");
-		panel_Stats.add(txt_INT, "cell 1 4,grow");
-		txt_INT.setColumns(10);
-		
-		txt_IntMod = new JTextField();
-		txt_IntMod.setEditable(false);
-		txt_IntMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_IntMod, "cell 2 4,growx");
-		txt_IntMod.setColumns(10);
-		
-		JRadioButton radio_IntSave = new JRadioButton("");
-		radio_IntSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_IntSave.isSelected() )
-				{
-					AddProfBonus( txt_IntSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_IntSave );
-				}
-			}
-		});
-		panel_Stats.add(radio_IntSave, "flowx,cell 3 4");
-		
-		txt_IntSave = new JTextField();
-		txt_IntSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_IntSave.setEditable(false);
-		txt_IntSave.setColumns(10);
-		panel_Stats.add(txt_IntSave, "cell 4 4,growx");
-		
-		JLabel lbl_Wisdom = new JLabel("Wisdom:");
-		lbl_Wisdom.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Wisdom, "cell 0 5,grow");
-		
-		txt_WIS = new JTextField();
-		txt_WIS.setEditable(false);
-		txt_WIS.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_WIS.setText("20");
-		panel_Stats.add(txt_WIS, "cell 1 5,grow");
-		txt_WIS.setColumns(10);
-		
-		txt_WisMod = new JTextField();
-		txt_WisMod.setEditable(false);
-		txt_WisMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_WisMod, "cell 2 5,growx");
-		txt_WisMod.setColumns(10);
-		
-		JRadioButton radio_WisSave = new JRadioButton("");
-		radio_WisSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_WisSave.isSelected() )
-				{
-					AddProfBonus( txt_WisSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_WisSave );
-				}
-				
-			}
-		});
-		panel_Stats.add(radio_WisSave, "flowx,cell 3 5");
-		
-		txt_WisSave = new JTextField();
-		txt_WisSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_WisSave.setEditable(false);
-		txt_WisSave.setColumns(10);
-		panel_Stats.add(txt_WisSave, "cell 4 5,growx");
-		
-		JLabel lbl_Charisma = new JLabel("Charisma:");
-		lbl_Charisma.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(lbl_Charisma, "cell 0 6,grow");
-		
-		txt_CHR = new JTextField();
-		txt_CHR.setEditable(false);
-		txt_CHR.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_CHR.setText("12");
-		panel_Stats.add(txt_CHR, "cell 1 6,grow");
-		txt_CHR.setColumns(10);
-		
-		txt_ChrMod = new JTextField();
-		txt_ChrMod.setEditable(false);
-		txt_ChrMod.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Stats.add(txt_ChrMod, "cell 2 6,growx");
-		txt_ChrMod.setColumns(10);
-		
-		JRadioButton radio_ChrSave = new JRadioButton("");
-		radio_ChrSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_ChrSave.isSelected() )
-				{
-					AddProfBonus( txt_ChrSave );
-				}
-				else
-				{
-					RemoveProfBonus( txt_ChrSave );
-				}
-			}
-		});
-		panel_Stats.add(radio_ChrSave, "flowx,cell 3 6");
-		
-		txt_ChrSave = new JTextField();
-		txt_ChrSave.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_ChrSave.setEditable(false);
-		txt_ChrSave.setColumns(10);
-		panel_Stats.add(txt_ChrSave, "cell 4 6,growx");
-		
-		JPanel panel_Skills = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1 1 3,grow");
-		panel_Skills.setLayout(new MigLayout("", "[left][]", "[][][][][][][][][][][][][][][][][][][]"));
-		
-		JRadioButton radio_Acrobatics = new JRadioButton("(DEX) Acrobatics");
-		radio_Acrobatics.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Acrobatics.isSelected() )
-				{
-					AddProfBonus( txt_Acrobatics );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Acrobatics );
-				}
-			}
-		});
-		panel_Skills.add(radio_Acrobatics, "cell 0 0");
-		
-		txt_Acrobatics = new JTextField();
-		txt_Acrobatics.setEditable(false);
-		txt_Acrobatics.setText("5");
-		txt_Acrobatics.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Acrobatics, "cell 1 0,alignx center");
-		txt_Acrobatics.setColumns(10);
-		
-		JRadioButton radio_Insight = new JRadioButton("(WIS) Insight");
-		radio_Insight.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Insight.isSelected() )
-				{
-					AddProfBonus( txt_Insight );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Insight );
-				}
-			}
-		});
-		panel_Skills.add(radio_Insight, "cell 0 6");
-		
-		txt_Insight = new JTextField();
-		txt_Insight.setEditable(false);
-		txt_Insight.setText("5");
-		txt_Insight.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Insight, "cell 1 6,growx");
-		txt_Insight.setColumns(10);
-		
-		JRadioButton radio_AnimalHandling = new JRadioButton("(INT) Animal Handling");
-		radio_AnimalHandling.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_AnimalHandling.isSelected() )
-				{
-					AddProfBonus( txt_AnimalHandling );
-				}
-				else
-				{
-					RemoveProfBonus( txt_AnimalHandling );
-				}
-			}
-		});
-		panel_Skills.add(radio_AnimalHandling, "cell 0 1");
-		
-		txt_AnimalHandling = new JTextField();
-		txt_AnimalHandling.setEditable(false);
-		txt_AnimalHandling.setText("5");
-		txt_AnimalHandling.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_AnimalHandling, "cell 1 1,growx");
-		txt_AnimalHandling.setColumns(10);
-		
-		JRadioButton radio_Arcana = new JRadioButton("(INT) Arcana");
-		radio_Arcana.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Arcana.isSelected() )
-				{
-					AddProfBonus( txt_Arcana );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Arcana );
-				}
-			}
-		});
-		panel_Skills.add(radio_Arcana, "flowy,cell 0 2");
-		
-		txt_Arcana = new JTextField();
-		txt_Arcana.setEditable(false);
-		txt_Arcana.setText("5");
-		txt_Arcana.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Arcana, "cell 1 2,growx");
-		txt_Arcana.setColumns(10);
-		
-		JRadioButton radio_Intimidation = new JRadioButton("(CHR) Intimidation");
-		radio_Intimidation.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Intimidation.isSelected() )
-				{
-					AddProfBonus( txt_Intimidation );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Intimidation );
-				}
-			}
-		});
-		panel_Skills.add(radio_Intimidation, "cell 0 7");
-		
-		JRadioButton radio_Athletics = new JRadioButton("(STR) Athletics");
-		radio_Athletics.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Athletics.isSelected() )
-				{
-					AddProfBonus( txt_Athletics );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Athletics );
-				}
-			}
-		});
-		panel_Skills.add(radio_Athletics, "cell 0 3");
-		
-		txt_Athletics = new JTextField();
-		txt_Athletics.setEditable(false);
-		txt_Athletics.setText("5");
-		txt_Athletics.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Athletics, "cell 1 3,growx");
-		txt_Athletics.setColumns(10);
-		
-		txt_Intimidation = new JTextField();
-		txt_Intimidation.setEditable(false);
-		txt_Intimidation.setText("5");
-		txt_Intimidation.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Intimidation.setColumns(10);
-		panel_Skills.add(txt_Intimidation, "cell 1 7,growx");
-		
-		JRadioButton radio_Deception = new JRadioButton("(CHR) Deception");
-		radio_Deception.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Deception.isSelected() )
-				{
-					AddProfBonus( txt_Deception );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Deception );
-				}
-			}
-		});
-		panel_Skills.add(radio_Deception, "cell 0 4");
-		
-		txt_Deception = new JTextField();
-		txt_Deception.setEditable(false);
-		txt_Deception.setText("5");
-		txt_Deception.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Deception, "cell 1 4,growx");
-		txt_Deception.setColumns(10);
-		
-		JRadioButton radio_History = new JRadioButton("(INT) History");
-		radio_History.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_History.isSelected() )
-				{
-					AddProfBonus( txt_History );
-				}
-				else
-				{
-					RemoveProfBonus( txt_History );
-				}
-			}
-		});
-		panel_Skills.add(radio_History, "cell 0 5");
-		
-		txt_History = new JTextField();
-		txt_History.setEditable(false);
-		txt_History.setText("5");
-		txt_History.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_History, "cell 1 5,growx");
-		txt_History.setColumns(10);
-		
-		JRadioButton radio_Investigation = new JRadioButton("(Int) Investigation");
-		radio_Investigation.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Investigation.isSelected() )
-				{
-					AddProfBonus( txt_Investigation );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Investigation );
-				}
-			}
-		});
-		panel_Skills.add(radio_Investigation, "cell 0 8");
-		
-		txt_Investigation = new JTextField();
-		txt_Investigation.setEditable(false);
-		txt_Investigation.setText("5");
-		txt_Investigation.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Investigation.setColumns(10);
-		panel_Skills.add(txt_Investigation, "cell 1 8,growx");
-		
-		JRadioButton radio_Medicine = new JRadioButton("(WIS) Medicine");
-		radio_Medicine.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Medicine.isSelected() )
-				{
-					AddProfBonus( txt_Medicine );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Medicine );
-				}
-			}
-		});
-		panel_Skills.add(radio_Medicine, "cell 0 9");
-		
-		txt_Medicine = new JTextField();
-		txt_Medicine.setEditable(false);
-		txt_Medicine.setText("5");
-		txt_Medicine.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Medicine.setColumns(10);
-		panel_Skills.add(txt_Medicine, "cell 1 9,growx");
-		
-		JRadioButton radio_Nature = new JRadioButton("(INT) Nature");
-		radio_Nature.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Nature.isSelected() )
-				{
-					AddProfBonus( txt_Nature );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Nature );
-				}
-			}
-		});
-		panel_Skills.add(radio_Nature, "cell 0 10");
-		
-		txt_Nature = new JTextField();
-		txt_Nature.setEditable(false);
-		txt_Nature.setText("5");
-		txt_Nature.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Nature.setColumns(10);
-		panel_Skills.add(txt_Nature, "cell 1 10,growx");
-		
-		JRadioButton radio_Perception = new JRadioButton("(WIS) Perception");
-		radio_Perception.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Perception.isSelected() )
-				{
-					AddProfBonus( txt_Perception );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Perception );
-				}
-			}
-		});
-		panel_Skills.add(radio_Perception, "cell 0 11");
-		
-		txt_Perception = new JTextField();
-		txt_Perception.setEditable(false);
-		txt_Perception.setText("5");
-		txt_Perception.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Perception.setColumns(10);
-		panel_Skills.add(txt_Perception, "cell 1 11,growx");
-		
-		JRadioButton radio_Performance = new JRadioButton("(CHR) Performance");
-		radio_Performance.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Performance.isSelected() )
-				{
-					AddProfBonus( txt_Performance );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Performance );
-				}
-			}
-		});
-		panel_Skills.add(radio_Performance, "cell 0 12");
-		
-		txt_Performance = new JTextField();
-		txt_Performance.setEditable(false);
-		txt_Performance.setText("5");
-		txt_Performance.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Skills.add(txt_Performance, "cell 1 12,growx");
-		txt_Performance.setColumns(10);
-		
-		JRadioButton radio_Persuasion = new JRadioButton("(CHR) Persuasion");
-		radio_Persuasion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Persuasion.isSelected() )
-				{
-					AddProfBonus( txt_Persuasion );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Persuasion );
-				}
-			}
-		});
-		panel_Skills.add(radio_Persuasion, "cell 0 13");
-		
-		txt_Persuasion = new JTextField();
-		txt_Persuasion.setEditable(false);
-		txt_Persuasion.setText("5");
-		txt_Persuasion.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Persuasion.setColumns(10);
-		panel_Skills.add(txt_Persuasion, "cell 1 13,growx");
-		
-		JRadioButton radio_Religion = new JRadioButton("(INT) Religion");
-		radio_Religion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Religion.isSelected() )
-				{
-					AddProfBonus( txt_Religion );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Religion );
-				}
-			}
-		});
-		panel_Skills.add(radio_Religion, "cell 0 14");
-		
-		txt_Religion = new JTextField();
-		txt_Religion.setEditable(false);
-		txt_Religion.setText("5");
-		txt_Religion.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Religion.setColumns(10);
-		panel_Skills.add(txt_Religion, "cell 1 14,growx");
-		
-		JRadioButton radio_SleightOfHand = new JRadioButton("(DEX) Sleight of Hand");
-		radio_SleightOfHand.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_SleightOfHand.isSelected() )
-				{
-					AddProfBonus( txt_SleightOfHand );
-				}
-				else
-				{
-					RemoveProfBonus( txt_SleightOfHand );
-				}
-			}
-		});
-		panel_Skills.add(radio_SleightOfHand, "cell 0 15");
-		
-		txt_SleightOfHand = new JTextField();
-		txt_SleightOfHand.setEditable(false);
-		txt_SleightOfHand.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_SleightOfHand.setText("5");
-		txt_SleightOfHand.setColumns(10);
-		panel_Skills.add(txt_SleightOfHand, "cell 1 15,growx");
-		
-		JRadioButton radio_Stealth = new JRadioButton("(DEX) Stealth");
-		radio_Stealth.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Stealth.isSelected() )
-				{
-					AddProfBonus( txt_Stealth );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Stealth );
-				}
-			}
-		});
-		panel_Skills.add(radio_Stealth, "cell 0 16");
-		
-		txt_Stealth = new JTextField();
-		txt_Stealth.setEditable(false);
-		txt_Stealth.setText("5");
-		txt_Stealth.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Stealth.setColumns(10);
-		panel_Skills.add(txt_Stealth, "cell 1 16,growx");
-		
-		JRadioButton radio_Survival = new JRadioButton("(WIS) Survival");
-		radio_Survival.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if ( radio_Survival.isSelected() )
-				{
-					AddProfBonus( txt_Survival );
-				}
-				else
-				{
-					RemoveProfBonus( txt_Survival );
-				}
-			}
-		});
-		panel_Skills.add(radio_Survival, "cell 0 17");
-		
-		txt_Survival = new JTextField();
-		txt_Survival.setEditable(false);
-		txt_Survival.setText("5");
-		txt_Survival.setHorizontalAlignment(SwingConstants.CENTER);
-		txt_Survival.setColumns(10);
-		panel_Skills.add(txt_Survival, "cell 1 17,growx");
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frmCharacterSheet.getContentPane().add(tabbedPane, "cell 1 1 2 3,grow");
+		JTabbedPane tabs_Actions = new JTabbedPane(JTabbedPane.TOP);
+		frmCharacterSheet.getContentPane().add(tabs_Actions, "cell 1 0 2 2,grow");
 		
 		JPanel panel_ActionsTab = new JPanel();
-		tabbedPane.addTab("Actions", null, panel_ActionsTab, null);
+		tabs_Actions.addTab("Actions", null, panel_ActionsTab, null);
 		panel_ActionsTab.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
 		JPanel panel_ActionsContainer = new JPanel();
@@ -1848,7 +849,7 @@ public class CharacterSheet
 		panel_Reactions.add(textField_84, "cell 5 5,growx");
 		
 		JPanel panel_Proficiences = new JPanel();
-		tabbedPane.addTab("Proficiencies", null, panel_Proficiences, null);
+		tabs_Actions.addTab("Proficiencies", null, panel_Proficiences, null);
 		panel_Proficiences.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		scroll_Proficiences = new JScrollPane();
@@ -1858,7 +859,7 @@ public class CharacterSheet
 		scroll_Proficiences.setViewportView(area_Proficiences);
 		
 		JPanel panel_Advantages = new JPanel();
-		tabbedPane.addTab("Adv/Disadv", null, panel_Advantages, null);
+		tabs_Actions.addTab("Adv/Disadv", null, panel_Advantages, null);
 		panel_Advantages.setLayout(new MigLayout("", "[grow][grow]", "[grow]"));
 		
 		scroll_Adv = new JScrollPane();
@@ -1882,7 +883,7 @@ public class CharacterSheet
 		scroll_Disadv.setViewportView(area_Disadv);
 		
 		JPanel panel_Bonuses = new JPanel();
-		tabbedPane.addTab("Bonuses", null, panel_Bonuses, null);
+		tabs_Actions.addTab("Bonuses", null, panel_Bonuses, null);
 		panel_Bonuses.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		scroll_Bonuses = new JScrollPane();
@@ -1890,126 +891,347 @@ public class CharacterSheet
 		
 		area_Bonuses = new JTextArea();
 		scroll_Bonuses.setViewportView(area_Bonuses);
+		
+		JPanel panel_Skills = new JPanel();
+		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1,growx,aligny top");
+		panel_Skills.setLayout(new MigLayout("", "[left][][][]", "[][][][][][][][][][][][][][][][][][]"));
+		
+		lbl_Acrobatics = new JLabel("(DEX) Acrobatics");
+		lbl_Acrobatics.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Acrobatics, "cell 0 0,alignx left,aligny center");
+		
+		lbl_AcrobaticsVal = new JLabel("[ 0 ]");
+		lbl_AcrobaticsVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AcrobaticsVal, "cell 1 0");
+		
+		lbl_AcrobaticsProf = new JLabel("(Prof.)");
+		lbl_AcrobaticsProf.setVisible(false);
+		lbl_AcrobaticsProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AcrobaticsProf, "cell 2 0,alignx center,aligny center");
+		
+		lbl_AcrobaticsExpert = new JLabel("(Exp.)");
+		lbl_AcrobaticsExpert.setVisible(false);
+		lbl_AcrobaticsExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AcrobaticsExpert, "cell 3 0");
+		
+		lbl_AnimalHandling = new JLabel("(WIS) Animal Handling");
+		lbl_AnimalHandling.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AnimalHandling, "cell 0 1,alignx left,aligny center");
+		
+		lbl_AnimalHandlingVal = new JLabel("[ 0 ]");
+		lbl_AnimalHandlingVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AnimalHandlingVal, "cell 1 1");
+		
+		lbl_AnimalHandlingProf = new JLabel("(Prof.)");
+		lbl_AnimalHandlingProf.setVisible(false);
+		lbl_AnimalHandlingProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AnimalHandlingProf, "cell 2 1");
+		
+		lbl_AnimalHandlingExpert = new JLabel("(Exp.)");
+		lbl_AnimalHandlingExpert.setVisible(false);
+		lbl_AnimalHandlingExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AnimalHandlingExpert, "cell 3 1");
+		
+		lbl_Arcana = new JLabel("(INT) Arcana");
+		lbl_Arcana.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Arcana, "cell 0 2,alignx left,aligny center");
+		
+		lbl_ArcanaVal = new JLabel("[ 0 ]");
+		lbl_ArcanaVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ArcanaVal, "cell 1 2");
+		
+		lbl_ArcanaProf = new JLabel("(Prof.)");
+		lbl_ArcanaProf.setVisible(false);
+		lbl_ArcanaProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ArcanaProf, "cell 2 2");
+		
+		lbl_ArcanaExpert = new JLabel("(Exp.)");
+		lbl_ArcanaExpert.setVisible(false);
+		lbl_ArcanaExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ArcanaExpert, "cell 3 2");
+		
+		lbl_Athletics = new JLabel("(STR) Athletics");
+		lbl_Athletics.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Athletics, "cell 0 3");
+		
+		lbl_AthleticsVal = new JLabel("[ 0 ]");
+		lbl_AthleticsVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AthleticsVal, "cell 1 3");
+		
+		lbl_AthleticsProf = new JLabel("(Prof.)");
+		lbl_AthleticsProf.setVisible(false);
+		lbl_AthleticsProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AthleticsProf, "cell 2 3");
+		
+		lbl_AthleticsExpert = new JLabel("(Exp.)");
+		lbl_AthleticsExpert.setVisible(false);
+		lbl_AthleticsExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_AthleticsExpert, "cell 3 3");
+		
+		lbl_Deception = new JLabel("(CHR) Deception");
+		lbl_Deception.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Deception, "cell 0 4");
+		
+		lbl_DeceptionVal = new JLabel("[ 0 ]");
+		lbl_DeceptionVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_DeceptionVal, "cell 1 4");
+		
+		lbl_DeceptionProf = new JLabel("(Prof.)");
+		lbl_DeceptionProf.setVisible(false);
+		lbl_DeceptionProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_DeceptionProf, "cell 2 4");
+		
+		lbl_DeceptionExpert = new JLabel("(Exp.)");
+		lbl_DeceptionExpert.setVisible(false);
+		lbl_DeceptionExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_DeceptionExpert, "cell 3 4");
+		
+		lbl_History = new JLabel("(INT) History");
+		lbl_History.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_History, "cell 0 5");
+		
+		lbl_HistoryVal = new JLabel("[ 0 ]");
+		lbl_HistoryVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_HistoryVal, "cell 1 5");
+		
+		lbl_HistoryProf = new JLabel("(Prof.)");
+		lbl_HistoryProf.setVisible(false);
+		lbl_HistoryProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_HistoryProf, "cell 2 5");
+		
+		lbl_HistoryExpert = new JLabel("(Exp.)");
+		lbl_HistoryExpert.setVisible(false);
+		lbl_HistoryExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_HistoryExpert, "cell 3 5");
+		
+		lbl_Insight = new JLabel("(WIS) Insight");
+		lbl_Insight.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Insight, "cell 0 6");
+		
+		lbl_InsightVal = new JLabel("[ 0 ]");
+		lbl_InsightVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InsightVal, "cell 1 6");
+		
+		lbl_InsightProf = new JLabel("(Prof.)");
+		lbl_InsightProf.setVisible(false);
+		lbl_InsightProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InsightProf, "cell 2 6");
+		
+		lbl_InsightExpert = new JLabel("(Exp.)");
+		lbl_InsightExpert.setVisible(false);
+		lbl_InsightExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InsightExpert, "cell 3 6");
+		
+		lbl_Intimidation = new JLabel("(CHR) Intimidation");
+		lbl_Intimidation.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Intimidation, "cell 0 7");
+		
+		lbl_IntimidationVal = new JLabel("[ 0 ]");
+		lbl_IntimidationVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_IntimidationVal, "cell 1 7");
+		
+		lbl_IntimidationProf = new JLabel("(Prof.)");
+		lbl_IntimidationProf.setVisible(false);
+		lbl_IntimidationProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_IntimidationProf, "cell 2 7");
+		
+		lbl_IntimidationExpert = new JLabel("(Exp.)");
+		lbl_IntimidationExpert.setVisible(false);
+		lbl_IntimidationExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_IntimidationExpert, "cell 3 7");
+		
+		lbl_Investigation = new JLabel("(INT) Investigation");
+		lbl_Investigation.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Investigation, "cell 0 8");
+		
+		lbl_InvestigationVal = new JLabel("[ 0 ]");
+		lbl_InvestigationVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InvestigationVal, "cell 1 8");
+		
+		lbl_InvestigationProf = new JLabel("(Prof.)");
+		lbl_InvestigationProf.setVisible(false);
+		lbl_InvestigationProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InvestigationProf, "cell 2 8");
+		
+		lbl_InvestigationExpert = new JLabel("(Exp.)");
+		lbl_InvestigationExpert.setVisible(false);
+		lbl_InvestigationExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_InvestigationExpert, "cell 3 8");
+		
+		lbl_Medicine = new JLabel("(WIS) Medicine");
+		lbl_Medicine.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Medicine, "cell 0 9");
+		
+		lbl_MedicineVal = new JLabel("[ 0 ]");
+		lbl_MedicineVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_MedicineVal, "cell 1 9");
+		
+		lbl_MedicineProf = new JLabel("(Prof.)");
+		lbl_MedicineProf.setVisible(false);
+		lbl_MedicineProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_MedicineProf, "cell 2 9");
+		
+		lbl_MedicineExpert = new JLabel("(Exp.)");
+		lbl_MedicineExpert.setVisible(false);
+		lbl_MedicineExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_MedicineExpert, "cell 3 9");
+		
+		lbl_Nature = new JLabel("(INT) Nature");
+		lbl_Nature.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Nature, "cell 0 10");
+		
+		lbl_NatureVal = new JLabel("[ 0 ]");
+		lbl_NatureVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_NatureVal, "cell 1 10");
+		
+		lbl_NatureProf = new JLabel("(Prof.)");
+		lbl_NatureProf.setVisible(false);
+		lbl_NatureProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_NatureProf, "cell 2 10");
+		
+		lbl_NatureExpert = new JLabel("(Exp.)");
+		lbl_NatureExpert.setVisible(false);
+		lbl_NatureExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_NatureExpert, "cell 3 10");
+		
+		lbl_Perception = new JLabel("(WIS) Perception");
+		lbl_Perception.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Perception, "cell 0 11");
+		
+		lbl_PerceptionVal = new JLabel("[ 0 ]");
+		lbl_PerceptionVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerceptionVal, "cell 1 11");
+		
+		lbl_PerceptionProf = new JLabel("(Prof.)");
+		lbl_PerceptionProf.setVisible(false);
+		lbl_PerceptionProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerceptionProf, "cell 2 11");
+		
+		lbl_PerceptionExpert = new JLabel("(Exp.)");
+		lbl_PerceptionExpert.setVisible(false);
+		lbl_PerceptionExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerceptionExpert, "cell 3 11");
+		
+		lbl_Performance = new JLabel("(CHR) Performance");
+		lbl_Performance.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Performance, "cell 0 12");
+		
+		lbl_PerformanceVal = new JLabel("[ 0 ]");
+		lbl_PerformanceVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerformanceVal, "cell 1 12");
+		
+		lbl_PerformanceProf = new JLabel("(Prof.)");
+		lbl_PerformanceProf.setVisible(false);
+		lbl_PerformanceProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerformanceProf, "cell 2 12");
+		
+		lbl_PerformanceExpert = new JLabel("(Exp.)");
+		lbl_PerformanceExpert.setVisible(false);
+		lbl_PerformanceExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PerformanceExpert, "cell 3 12");
+		
+		lbl_Persuasion = new JLabel("(CHR) Persuasion");
+		lbl_Persuasion.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Persuasion, "cell 0 13");
+		
+		lbl_PersuasionVal = new JLabel("[ 0 ]");
+		lbl_PersuasionVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PersuasionVal, "cell 1 13");
+		
+		lbl_PersuasionProf = new JLabel("(Prof.)");
+		lbl_PersuasionProf.setVisible(false);
+		lbl_PersuasionProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PersuasionProf, "cell 2 13");
+		
+		lbl_PersuasionExpert = new JLabel("(Exp.)");
+		lbl_PersuasionExpert.setVisible(false);
+		lbl_PersuasionExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_PersuasionExpert, "cell 3 13");
+		
+		lbl_Religion = new JLabel("(INT) Religion");
+		lbl_Religion.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Religion, "cell 0 14");
+		
+		lbl_ReligionVal = new JLabel("[ 0 ]");
+		lbl_ReligionVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ReligionVal, "cell 1 14");
+		
+		lbl_ReligionProf = new JLabel("(Prof.)");
+		lbl_ReligionProf.setVisible(false);
+		lbl_ReligionProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ReligionProf, "cell 2 14");
+		
+		lbl_ReligionExpert = new JLabel("(Exp.)");
+		lbl_ReligionExpert.setVisible(false);
+		lbl_ReligionExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_ReligionExpert, "cell 3 14");
+		
+		lbl_SleightOfHand = new JLabel("(DEX) Sleight Of Hand");
+		lbl_SleightOfHand.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SleightOfHand, "cell 0 15");
+		
+		lbl_SleightOfHandVal = new JLabel("[ 0 ]");
+		lbl_SleightOfHandVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SleightOfHandVal, "cell 1 15");
+		
+		lbl_SleightOfHandProf = new JLabel("(Prof.)");
+		lbl_SleightOfHandProf.setVisible(false);
+		lbl_SleightOfHandProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SleightOfHandProf, "cell 2 15");
+		
+		lbl_SleightOfHandExpert = new JLabel("(Exp.)");
+		lbl_SleightOfHandExpert.setVisible(false);
+		lbl_SleightOfHandExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SleightOfHandExpert, "cell 3 15");
+		
+		lbl_Stealth = new JLabel("(DEX) Stealth");
+		lbl_Stealth.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Stealth, "cell 0 16");
+		
+		lbl_StealthVal = new JLabel("[ 0 ]");
+		lbl_StealthVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_StealthVal, "cell 1 16");
+		
+		lbl_StealthProf = new JLabel("(Prof.)");
+		lbl_StealthProf.setVisible(false);
+		lbl_StealthProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_StealthProf, "cell 2 16");
+		
+		lbl_StealthExpert = new JLabel("(Exp.)");
+		lbl_StealthExpert.setVisible(false);
+		lbl_StealthExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_StealthExpert, "cell 3 16");
+		
+		lbl_Survival = new JLabel("(WIS) Survival");
+		lbl_Survival.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_Survival, "cell 0 17");
+		
+		lbl_SurvivalVal = new JLabel("[ 0 ]");
+		lbl_SurvivalVal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SurvivalVal, "cell 1 17");
+		
+		lbl_SurvivalProf = new JLabel("(Prof.)");
+		lbl_SurvivalProf.setVisible(false);
+		lbl_SurvivalProf.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SurvivalProf, "cell 2 17");
+		
+		lbl_SurvivalExpert = new JLabel("(Exp.)");
+		lbl_SurvivalExpert.setVisible(false);
+		lbl_SurvivalExpert.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Skills.add(lbl_SurvivalExpert, "cell 3 17");
 	}
 	
-	public void ToggleVisibility()
-	{
-		if ( frmCharacterSheet.isVisible() )
-		{
-			frmCharacterSheet.setVisible( false );
-		}
-		else
-		{
-			frmCharacterSheet.setVisible( true );
-		}
-	}
-	
-	public void ToggleVisibility( boolean value )
-	{
-		frmCharacterSheet.setVisible(value);
-	}
-	
-	public void SetTxtBoxInt( JTextField txt_box, int val)
-	{
-		txt_box.setText( Integer.toString( val ) );
-	}
-	
-	public void Heal( int val )
-	{
-		int max_heal = Integer.parseInt( txt_MaxHealth.getText() );
-		int current = Integer.parseInt( txt_CurrentHealth.getText() );
-		current += val;
-		current = general_tools.ClampInt( current, 0, max_heal);
-		txt_CurrentHealth.setText( Integer.toString( current ) );
-	}
-	
-	public void Hurt( int val )
-	{
-		int max_hurt = Integer.parseInt( txt_MaxHealth.getText() );
-		int current = Integer.parseInt( txt_CurrentHealth.getText() );
-		current -= val;
-		current = general_tools.ClampInt( current, 0, max_hurt );
-		txt_CurrentHealth.setText( Integer.toString( current ) );
-	}
-	
-	public void init_StatMods()
+	private static void update_CurrentHealth( int new_val )
 	{
 		
-		int str_value = ( Integer.parseInt( txt_STR.getText() ) - 10 ) / 2;
-		int dex_value = ( Integer.parseInt( txt_DEX.getText() ) - 10 ) / 2;
-		int con_value = ( Integer.parseInt( txt_CON.getText() ) - 10 ) / 2;
-		int int_value = ( Integer.parseInt( txt_INT.getText() ) - 10 ) / 2;
-		int wis_value = ( Integer.parseInt( txt_WIS.getText() ) - 10 ) / 2;
-		int chr_value = ( Integer.parseInt( txt_CHR.getText() ) - 10 ) / 2;
-		
+	}
 
-		SetTxtBoxInt( txt_StrMod, str_value );
-		SetTxtBoxInt( txt_DexMod, dex_value );
-		SetTxtBoxInt( txt_ConMod, con_value );
-		SetTxtBoxInt( txt_IntMod, int_value );
-		SetTxtBoxInt( txt_WisMod, wis_value );
-		SetTxtBoxInt( txt_ChrMod, chr_value );
-		
 
-		SetTxtBoxInt( txt_StrSave, str_value );
-		SetTxtBoxInt( txt_DexSave, dex_value );
-		SetTxtBoxInt( txt_ConSave, con_value );
-		SetTxtBoxInt( txt_IntSave, int_value );
-		SetTxtBoxInt( txt_WisSave, wis_value );
-		SetTxtBoxInt( txt_ChrSave, chr_value );
-		
-		
-		SetTxtBoxInt( txt_Acrobatics, dex_value );
-		SetTxtBoxInt( txt_AnimalHandling, wis_value );
-		SetTxtBoxInt( txt_Arcana, int_value );
-		SetTxtBoxInt( txt_Athletics, str_value );
-		SetTxtBoxInt( txt_Deception, chr_value );
-		SetTxtBoxInt( txt_History, int_value );
-		SetTxtBoxInt( txt_Insight, wis_value );
-		SetTxtBoxInt( txt_Performance, chr_value );
-		SetTxtBoxInt( txt_Intimidation, chr_value );
-		SetTxtBoxInt( txt_Investigation, int_value );
-		SetTxtBoxInt( txt_Medicine, wis_value );
-		SetTxtBoxInt( txt_Nature, int_value );
-		SetTxtBoxInt( txt_Perception, wis_value );
-		SetTxtBoxInt( txt_Persuasion, chr_value );
-		SetTxtBoxInt( txt_Religion, int_value );
-		SetTxtBoxInt( txt_SleightOfHand, dex_value );
-		SetTxtBoxInt( txt_Stealth, dex_value );
-		SetTxtBoxInt( txt_Survival, wis_value );
-	}
-	
-	public void UpdateXP( int xp_received )
+	@Override
+	public void ToggleEdits()
 	{
-		// NOTE (Luis): Player level is always 1 or greater, and is also used as the index for the 2d array, index 0 never accessed
-		int current_xp = Integer.parseInt( txt_Experience.getText() );
-		int current_level = Integer.parseInt( txt_Level.getText() );
+		// TODO (Luis): Check if one textfield is editable, and set the rest accordingly
 		
-		if (current_xp + xp_received >= xp_table[current_level][0])
-		{
-			System.out.print("current level: " + Integer.toString( current_level ) + "\n" );
-			System.out.print("current xp: " + Integer.toString( current_xp + xp_received ) + "\n" );
-			SetTxtBoxInt( txt_Level, current_level + 1);
-			SetTxtBoxInt( txt_Proficiency, xp_table[current_level][1] );	
-		}
-		current_xp += xp_received;
-		SetTxtBoxInt( txt_Experience, current_xp);
-	}
-	
-	public void AddProfBonus( JTextField field )
-	{
-		int prof_bonus = Integer.parseInt( txt_Proficiency.getText() );
-		int field_val = Integer.parseInt( field.getText() );
-		
-		SetTxtBoxInt( field, field_val + prof_bonus);
-	}
-	
-	public void RemoveProfBonus( JTextField field )
-	{
-		int prof_bonus = Integer.parseInt( txt_Proficiency.getText() );
-		int field_val = Integer.parseInt( field.getText() );
-		
-		SetTxtBoxInt( field, field_val - prof_bonus);
 	}
 }
 

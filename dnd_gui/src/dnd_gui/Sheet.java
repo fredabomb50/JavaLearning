@@ -1,0 +1,58 @@
+package dnd_gui;
+
+import javax.swing.*;
+
+public class Sheet
+{
+	void ToggleVisibility( JFrame window, boolean new_visibility )
+	{
+		window.setVisible( new_visibility );
+	}
+	
+	void ToggleVisibility( JFrame window )
+	{
+		if ( window.isVisible() )
+		{
+			window.setVisible( false );
+		}
+		else
+		{
+			window.setVisible( true );
+		}
+	}
+	
+	
+	void ToggleLabelVisibility( JLabel label, boolean new_visibility )
+	{
+		label.setVisible( new_visibility );
+	}
+	
+	void ToggleLabelVisibility( JLabel label )
+	{
+		if ( label.isVisible() )
+		{
+			label.setVisible( false );
+		}
+		else
+		{
+			label.setVisible( true );
+		}
+	}
+	
+	
+	void SetLabelText(JLabel label, int val)
+	{
+		label.setText( Integer.toString( val ) );
+	}
+	
+	void SetLabelText(JLabel label, String val)
+	{
+		
+	}
+	
+	
+	void SetTextField( JTextField txt_box, int val )
+	{
+		txt_box.setText( Integer.toString( val ) );
+	}
+}

@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.awt.Toolkit;
 import net.miginfocom.swing.MigLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class ControlPanel
@@ -79,6 +81,9 @@ public class ControlPanel
 	};
 	
 
+	// GUI sheets
+	private static CharacterSheet c_Sheet = null;
+	private static DetailsSheet d_Sheet = null;
 	
 	
 	// GUI elements
@@ -115,6 +120,7 @@ public class ControlPanel
 	{
 		init_stats();
 		initialize();
+		init_sheets();
 	}
 
 
@@ -192,6 +198,14 @@ public class ControlPanel
 		panel_Sheets.setLayout(new MigLayout("", "[][][][][]", "[]"));
 		
 		JButton bttn_CSheet = new JButton("Character Sheet");
+		bttn_CSheet.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				c_Sheet.ToggleVisibility(c_Sheet.frmCharacterSheet);
+				d_Sheet.ToggleVisibility(false);
+			}
+		});
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
 		
 		JButton bttn_SSheet = new JButton("Spell Sheet");
@@ -306,6 +320,16 @@ public class ControlPanel
 		skills_BonusMap.put("SleightOfHand", 0);
 		skills_BonusMap.put("Stealth", 0);
 		skills_BonusMap.put("Survival", 0);
+	}
+	
+	private static void init_sheets()
+	{
+		c_Sheet = new CharacterSheet();
+		c_Sheet.ToggleVisibility(c_Sheet.frmCharacterSheet, false);
+		
+		
+		d_Sheet = new DetailsSheet();
+		d_Sheet.ToggleVisibility(false);
 	}
 	
 	public void Heal( int val )
