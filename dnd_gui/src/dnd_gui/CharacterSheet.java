@@ -290,6 +290,9 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JLabel lbl_WisStat;
 	private JLabel lbl_IntStat;
 	private JLabel lbl_ChrStat;
+	private JLabel lblNewLabel_12;
+	private JLabel lbl_GroundSpeed;
+	private JLabel lblNewLabel_13;
 
 
 	/**
@@ -319,7 +322,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		
 		panel_Stats = new JPanel();
 		tabs_Header.addTab("Stats", null, panel_Stats, null);
-		panel_Stats.setLayout(new MigLayout("", "[][][][][]", "[][][][][][][][][][]"));
+		panel_Stats.setLayout(new MigLayout("", "[][][][][]", "[][][][][][][][][][][]"));
 		
 		lblNewLabel_1 = new JLabel("Level:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -414,6 +417,15 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		
 		lbl_ChrStat = new JLabel("( 20 )");
 		panel_Stats.add(lbl_ChrStat, "cell 2 8,alignx center");
+		
+		lblNewLabel_12 = new JLabel("Walk:");
+		panel_Stats.add(lblNewLabel_12, "cell 0 10");
+		
+		lbl_GroundSpeed = new JLabel("30");
+		panel_Stats.add(lbl_GroundSpeed, "cell 1 10");
+		
+		lblNewLabel_13 = new JLabel("Fly:");
+		panel_Stats.add(lblNewLabel_13, "cell 3 10");
 		
 		panel_Health = new JPanel();
 		tabs_Header.addTab("Health", null, panel_Health, null);
