@@ -45,7 +45,7 @@ public class ControlPanel
 	private static int hitdie_Max = 0;
 	private static E_DieType current_HitDie = null;
 	
-	private static HashMap<String, Boolean> skills_ProfMap = new HashMap<String, Boolean>();
+	private static HashMap<String, Boolean> skills_IsProfEnabled = new HashMap<String, Boolean>();
 	private static HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 	private static HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
 	
@@ -83,6 +83,12 @@ public class ControlPanel
 	private JFrame frame;
 
 	
+	
+	// interact process goes as such:
+	// gui is initialized, loading a save file (json)
+	// player clicks button on control panel
+	// prompts user for value, passes back into method that called it
+	// calls Update interface method from c_sheet 
 	public static void main(String[] args)
 	{
 		EventQueue.invokeLater(new Runnable()
@@ -141,25 +147,42 @@ public class ControlPanel
 		chr_mod = ( charisma - 10 ) / 2;
 		
 		
+		speed_Ground = 35;
+		speed_Swim = 35;
+		speed_Fly = 35;
+		speed_Dig = 35;
+		speed_Climb = 35;
+
+		initiative = dex_mod;
+		armor_class = 15 + dex_mod;
+
+		health_Current = 100;
+		health_Max = 100;
+		health_Temp = 15;
+		hitdie_Current = current_lvl;
+		hitdie_Max = current_lvl;
+		current_HitDie = E_DieType.D6;
+		
+		
 //		HashMap<String, Boolean> skills_ProfMap = new HashMap<String, Boolean>();
-		skills_ProfMap.put("Acrobatics", false);
-		skills_ProfMap.put("AnimalHandling", false);
-		skills_ProfMap.put("Arcana", false);
-		skills_ProfMap.put("Athletics", false);
-		skills_ProfMap.put("Deception", false);
-		skills_ProfMap.put("History", false);
-		skills_ProfMap.put("Insight", false);
-		skills_ProfMap.put("Performance", false);
-		skills_ProfMap.put("Intimidation", false);
-		skills_ProfMap.put("Investigation", false);
-		skills_ProfMap.put("Medicine", false);
-		skills_ProfMap.put("Nature", false);
-		skills_ProfMap.put("Perception", false);
-		skills_ProfMap.put("Persuasion", false);
-		skills_ProfMap.put("Religion", false);
-		skills_ProfMap.put("SleightOfHand", false);
-		skills_ProfMap.put("Stealth", false);
-		skills_ProfMap.put("Survival", false);
+		skills_IsProfEnabled.put("Acrobatics", false);
+		skills_IsProfEnabled.put("AnimalHandling", false);
+		skills_IsProfEnabled.put("Arcana", false);
+		skills_IsProfEnabled.put("Athletics", false);
+		skills_IsProfEnabled.put("Deception", false);
+		skills_IsProfEnabled.put("History", false);
+		skills_IsProfEnabled.put("Insight", false);
+		skills_IsProfEnabled.put("Performance", false);
+		skills_IsProfEnabled.put("Intimidation", false);
+		skills_IsProfEnabled.put("Investigation", false);
+		skills_IsProfEnabled.put("Medicine", false);
+		skills_IsProfEnabled.put("Nature", false);
+		skills_IsProfEnabled.put("Perception", false);
+		skills_IsProfEnabled.put("Persuasion", false);
+		skills_IsProfEnabled.put("Religion", false);
+		skills_IsProfEnabled.put("SleightOfHand", false);
+		skills_IsProfEnabled.put("Stealth", false);
+		skills_IsProfEnabled.put("Survival", false);
 		
 //		HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 		skills_ValMap.put("Acrobatics", dex_mod);
@@ -201,4 +224,50 @@ public class ControlPanel
 		skills_BonusMap.put("Stealth", 0);
 		skills_BonusMap.put("Survival", 0);
 	}
+	
+	public void Heal( int val )
+	{
+		health_Current = general_tools.ClampInt( health_Current + val, 0, health_Max);
+	}
+	
+	public void Hurt( int val )
+	{
+		if ( health_Temp > 0 )
+		{
+			health_Temp = general_tools.ClampInt( health_Temp - val, 0, health_Temp );
+		}
+		else
+		{
+			health_Current = general_tools.ClampInt( health_Current - val, 0, health_Current );
+		}
+	}
+
+	public void UpdateXP( int xp_received )
+	{
+		// NOTE (Luis): Player level is always 1 or greater, 
+		// and is also used as the index for the 2d array, index 0 never accessed
+		if (current_xp + xp_received >= xp_table[current_lvl][0])
+		{
+			current_lvl++;
+			current_Proficiency = xp_table[current_lvl][1];	
+		}
+		current_xp += xp_received;
+	}
+	
+	public void ToggleProfBonus( String skill_name )
+	{
+		if( skills_IsProfEnabled.get(skill_name) )
+		{
+			skills_IsProfEnabled.replace(skill_name, false);
+		}
+		else
+		{
+			skills_IsProfEnabled.replace(skill_name, true);
+		}
+	}
+	
+	public void RemoveProfBonus( String skill_name )
+	{
+	}
+
 }

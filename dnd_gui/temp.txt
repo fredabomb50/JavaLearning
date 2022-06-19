@@ -1,0 +1,16 @@
+speed_Ground = 35;
+speed_Swim = 35;
+speed_Fly = 35;
+speed_Dig = 35;
+speed_Climb = 35;
+
+initiative = 2;
+armor_class = 20;
+
+health_Current = 100;
+health_Max = 100;
+health_Temp = 15;
+
+hitdie_Current = current_lvl;
+hitdie_Max = current_lvl;
+current_HitDie = E_DieType.D6;

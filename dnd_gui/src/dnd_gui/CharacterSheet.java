@@ -32,6 +32,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
 
 public class CharacterSheet
 {
@@ -40,9 +41,11 @@ public class CharacterSheet
 	JComboBox combo_DieSelector = null;
 	
 	
+	// moving on to v2 for simplicity
+	
+	// 
+	
 	// Utility Classes
-	// create a core-gameplay class that holds constant data. xp_table, maximums, etc
-		// that would be for v.2
 	Tools general_tools = new Tools();
 	Dice dice_tools = new Dice();
 	
@@ -856,7 +859,7 @@ public class CharacterSheet
 		
 		JPanel panel_Skills = new JPanel();
 		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1 1 3,grow");
-		panel_Skills.setLayout(new MigLayout("", "[left][]", "[][][][][][][][][][][][][][][][][][]"));
+		panel_Skills.setLayout(new MigLayout("", "[left][]", "[][][][][][][][][][][][][][][][][][][]"));
 		
 		JRadioButton radio_Acrobatics = new JRadioButton("(DEX) Acrobatics");
 		radio_Acrobatics.addMouseListener(new MouseAdapter() {
