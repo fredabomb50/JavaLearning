@@ -3,6 +3,8 @@ package dnd_gui;
 import java.awt.EventQueue;
 import javax.swing.*;
 import java.util.HashMap;
+import java.awt.Toolkit;
+import net.miginfocom.swing.MigLayout;
 
 
 public class ControlPanel
@@ -120,8 +122,89 @@ public class ControlPanel
 	private void initialize()
 	{
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
+		frame.setBounds(100, 100, 550, 250);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][][]"));
+		
+		JPanel panel_HealthControls = new JPanel();
+		frame.getContentPane().add(panel_HealthControls, "cell 0 0,alignx center,aligny center");
+		panel_HealthControls.setLayout(new MigLayout("", "[][][][][][]", "[][][]"));
+		
+		JButton bttn_Heal = new JButton("Heal Health");
+		panel_HealthControls.add(bttn_Heal, "cell 0 1,grow");
+		
+		JButton bttn_Hurt = new JButton("Hurt Health");
+		panel_HealthControls.add(bttn_Hurt, "cell 1 1,grow");
+		
+		JButton bttn_AddMaxHealth = new JButton("Add Max Health");
+		panel_HealthControls.add(bttn_AddMaxHealth, "cell 2 1,grow");
+		
+		JButton bttn_AddTempHealth = new JButton("Add Temp Health");
+		panel_HealthControls.add(bttn_AddTempHealth, "cell 3 1,grow");
+		
+		JButton bttn_HitDie = new JButton("Use Hit Die");
+		panel_HealthControls.add(bttn_HitDie, "cell 4 1,grow");
+		
+		JPanel panel_GenericControls = new JPanel();
+		frame.getContentPane().add(panel_GenericControls, "cell 0 1,alignx center,aligny center");
+		panel_GenericControls.setLayout(new MigLayout("", "[][][][][]", "[][][]"));
+		
+		JButton bttn_LongRest = new JButton("Long Rest");
+		panel_GenericControls.add(bttn_LongRest, "cell 0 1,grow");
+		
+		JButton bttn_AddXP = new JButton("Gain Xp");
+		panel_GenericControls.add(bttn_AddXP, "cell 1 1,grow");
+		
+		JButton bttn_ToggleVantage = new JButton("Toggle Adv/Disadv");
+		panel_GenericControls.add(bttn_ToggleVantage, "cell 2 1,grow");
+		
+		JButton bttn_ToggleProf = new JButton("Toggle Prof.");
+		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
+		
+		JButton bttn_AddInsp = new JButton("Gain Insp.");
+		panel_GenericControls.add(bttn_AddInsp, "cell 4 1,grow");
+		
+		JButton bttn_ShortRest = new JButton("Short Rest");
+		panel_GenericControls.add(bttn_ShortRest, "cell 0 2,grow");
+		
+		JButton bttn_BurnInsp = new JButton("Burn Insp.");
+		panel_GenericControls.add(bttn_BurnInsp, "cell 4 2,grow");
+		
+		JPanel panel_InventoryControls = new JPanel();
+		frame.getContentPane().add(panel_InventoryControls, "cell 0 2,alignx center,aligny center");
+		panel_InventoryControls.setLayout(new MigLayout("", "[][][][]", "[]"));
+		
+		JButton bttn_AddMoney = new JButton("Add Money");
+		panel_InventoryControls.add(bttn_AddMoney, "cell 0 0,grow");
+		
+		JButton bttn_SpendMoney = new JButton("Spend Money");
+		panel_InventoryControls.add(bttn_SpendMoney, "cell 1 0,grow");
+		
+		JButton bttn_AddItem = new JButton("Add Item");
+		panel_InventoryControls.add(bttn_AddItem, "cell 2 0,grow");
+		
+		JButton bttn_RemoveItem = new JButton("Remove Item");
+		panel_InventoryControls.add(bttn_RemoveItem, "cell 3 0,grow");
+		
+		JPanel panel_Sheets = new JPanel();
+		frame.getContentPane().add(panel_Sheets, "cell 0 3,alignx center,aligny center");
+		panel_Sheets.setLayout(new MigLayout("", "[][][][][]", "[]"));
+		
+		JButton bttn_CSheet = new JButton("Character Sheet");
+		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
+		
+		JButton bttn_SSheet = new JButton("Spell Sheet");
+		panel_Sheets.add(bttn_SSheet, "cell 1 0,grow");
+		
+		JButton bttn_DSheet = new JButton("Character Details");
+		panel_Sheets.add(bttn_DSheet, "cell 2 0,grow");
+		
+		JButton bttn_Inventory = new JButton("Inventory");
+		panel_Sheets.add(bttn_Inventory, "cell 3 0,grow");
+		
+		JButton bttn_Notes = new JButton("Notes");
+		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
 	}
 
 	
@@ -256,18 +339,17 @@ public class ControlPanel
 	
 	public void ToggleProfBonus( String skill_name )
 	{
+		int current_value = skills_ValMap.get( skill_name );
+			
 		if( skills_IsProfEnabled.get(skill_name) )
 		{
 			skills_IsProfEnabled.replace(skill_name, false);
+			skills_ValMap.replace(skill_name, current_value - current_Proficiency);	
 		}
 		else
 		{
 			skills_IsProfEnabled.replace(skill_name, true);
+			skills_ValMap.replace(skill_name, current_value + current_Proficiency);
 		}
 	}
-	
-	public void RemoveProfBonus( String skill_name )
-	{
-	}
-
 }
