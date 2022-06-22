@@ -19,17 +19,11 @@ public class ControlPanel
 	
 	
 	// CORE STATS
-	private static int strength = 0;
 	private static int str_mod = 0;
-	private static int dexterity = 0;
 	private static int dex_mod = 0;
-	private static int consititution = 0;
 	private static int con_mod = 0;
-	private static int intelligence = 0;
 	private static int int_mod = 0;
-	private static int wisdom = 0;
 	private static int wis_mod = 0;
-	private static int charisma = 0;
 	private static int chr_mod = 0;
 	
 	private static int speed_Ground = 0;
@@ -49,7 +43,10 @@ public class ControlPanel
 	private static int hitdie_Max = 0;
 	private static E_DieType current_HitDie = null;
 	
+	private static HashMap<String, int[]> stats = new HashMap<String, int[]>();
+	private static HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
 	private static HashMap<String, Boolean> skills_IsProfEnabled = new HashMap<String, Boolean>();
+	private static HashMap<String, Boolean> skills_IsExpertEnabled = new HashMap<String, Boolean>();
 	private static HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 	private static HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
 	
@@ -128,8 +125,8 @@ public class ControlPanel
 	private void initialize()
 	{
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frame.setBounds(100, 100, 550, 284);
+		frame.setAlwaysOnTop(true);
+		frame.setBounds(100, 100, 612, 284);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][][]"));
 		
@@ -173,6 +170,12 @@ public class ControlPanel
 		
 		JButton bttn_ShortRest = new JButton("Short Rest");
 		panel_GenericControls.add(bttn_ShortRest, "cell 0 2,grow");
+		
+		JButton bttn_LoseXP = new JButton("Lose XP");
+		panel_GenericControls.add(bttn_LoseXP, "cell 1 2");
+		
+		JButton bttn_ToggleExpert = new JButton("Toggle Expert");
+		panel_GenericControls.add(bttn_ToggleExpert, "cell 3 2");
 		
 		JButton bttn_BurnInsp = new JButton("Burn Insp.");
 		panel_GenericControls.add(bttn_BurnInsp, "cell 4 2,grow");
@@ -219,35 +222,48 @@ public class ControlPanel
 		
 		JButton bttn_Notes = new JButton("Notes");
 		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
-		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-		JMenuItem mitem_FileMenu = new JMenuItem("New menu item");
-		menuBar.add(mitem_FileMenu);
 	}
 
 	
 	// NOTE (Luis): should ultimately use a json loading class to save and load player data
 	private static void init_stats()
 	{
+		int[] temp_stat = {0,0};
 		
 		current_lvl = 5;
 		current_xp = 6500;
 		current_Proficiency = 3;
 		
-		strength = 20;
-		str_mod = ( strength - 10 ) / 2;
-		dexterity = 20;
-		dex_mod = ( dexterity - 10 ) / 2;
-		consititution = 20;
-		con_mod = ( consititution - 10 ) / 2;
-		intelligence = 20;
-		int_mod = ( intelligence - 10 ) / 2;
-		wisdom = 20;
-		wis_mod = ( wisdom - 10 ) / 2;
-		charisma = 20;
-		chr_mod = ( charisma - 10 ) / 2;
+//		HashMap<String, int[]> stats = new HashMap<String, int[]>();
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		str_mod = temp_stat[1];
+		stats.put("Str", temp_stat);
+
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		dex_mod = temp_stat[1];
+		stats.put("Dex", temp_stat);
+		
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		con_mod = temp_stat[1];
+		stats.put("Con", temp_stat);
+		
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		wis_mod = temp_stat[1];
+		stats.put("Wis", temp_stat);
+		
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		int_mod = temp_stat[1];
+		stats.put("Int", temp_stat);
+		
+		temp_stat[0] = 20;
+		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
+		chr_mod = temp_stat[1];
+		stats.put("Chr", temp_stat);
 		
 		
 		speed_Ground = 35;
@@ -256,15 +272,25 @@ public class ControlPanel
 		speed_Dig = 35;
 		speed_Climb = 35;
 
+		
 		initiative = dex_mod;
 		armor_class = 15 + dex_mod;
 
+		
 		health_Current = 100;
 		health_Max = 100;
 		health_Temp = 15;
 		hitdie_Current = current_lvl;
 		hitdie_Max = current_lvl;
 		current_HitDie = E_DieType.D6;
+		
+//		HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
+		saves.put("Str", false);
+		saves.put("Dex", false);
+		saves.put("Con", false);
+		saves.put("Wis", false);
+		saves.put("Int", false);
+		saves.put("Chr", false);	
 		
 		
 //		HashMap<String, Boolean> skills_ProfMap = new HashMap<String, Boolean>();
@@ -285,8 +311,30 @@ public class ControlPanel
 		skills_IsProfEnabled.put("Religion", false);
 		skills_IsProfEnabled.put("SleightOfHand", false);
 		skills_IsProfEnabled.put("Stealth", false);
-		skills_IsProfEnabled.put("Survival", false);
+		skills_IsProfEnabled.put("Survival", false);		
 		
+//		HashMap<String, Boolean> skills_IsExpertEnabled = new HashMap<String, Boolean>();
+		skills_IsExpertEnabled.put("Acrobatics", false);
+		skills_IsExpertEnabled.put("AnimalHandling", false);
+		skills_IsExpertEnabled.put("Arcana", false);
+		skills_IsExpertEnabled.put("Athletics", false);
+		skills_IsExpertEnabled.put("Deception", false);
+		skills_IsExpertEnabled.put("History", false);
+		skills_IsExpertEnabled.put("Insight", false);
+		skills_IsExpertEnabled.put("Performance", false);
+		skills_IsExpertEnabled.put("Intimidation", false);
+		skills_IsExpertEnabled.put("Investigation", false);
+		skills_IsExpertEnabled.put("Medicine", false);
+		skills_IsExpertEnabled.put("Nature", false);
+		skills_IsExpertEnabled.put("Perception", false);
+		skills_IsExpertEnabled.put("Persuasion", false);
+		skills_IsExpertEnabled.put("Religion", false);
+		skills_IsExpertEnabled.put("SleightOfHand", false);
+		skills_IsExpertEnabled.put("Stealth", false);
+		skills_IsExpertEnabled.put("Survival", false);
+	
+		
+
 //		HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 		skills_ValMap.put("Acrobatics", dex_mod);
 		skills_ValMap.put("AnimalHandling", wis_mod);
@@ -332,7 +380,9 @@ public class ControlPanel
 	{
 		c_Sheet = new CharacterSheet();
 		c_Sheet.ToggleVisibility(c_Sheet.frmCharacterSheet, false);
-		
+		c_Sheet.fill_Health( health_Current, health_Max, health_Max );
+		c_Sheet.fill_Stats(stats, saves);
+		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
 		
 		d_Sheet = new DetailsSheet();
 		d_Sheet.ToggleVisibility(false);

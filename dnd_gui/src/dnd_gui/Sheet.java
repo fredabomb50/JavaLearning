@@ -55,4 +55,10 @@ public class Sheet
 	{
 		txt_box.setText( Integer.toString( val ) );
 	}
+
+
+	int GetModFromStat( int stat )
+	{
+		return ( stat - 10 ) / 2;
+	}
 }

@@ -131,14 +131,14 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JPanel panel_Stats;
 	private JPanel panel_Health;
 	private JLabel lbl_CurrentHealth;
-	private JLabel lbl_CurrentHealthVal;
+	private static JLabel lbl_CurrentHealthVal;
 	private JLabel lbl_MaxHealth;
-	private JLabel lbl_MaxHealthVal;
+	private static JLabel lbl_MaxHealthVal;
 	private JLabel lbl_TempHealth;
-	private JLabel lbl_TempHealthVal;
+	private static JLabel lbl_TempHealthVal;
 	private JLabel lbl_HitDie;
-	private JLabel lbl_HitDieValue;
-	private JLabel lbl_DeathSaves;
+	private static JLabel lbl_HitDieValue;
+	private static JLabel lbl_DeathSaves;
 	private JLabel lbl_SuccessfulDeathSaves;
 	private JLabel lbl_FailedDeathSaves;
 	private JRadioButton radio_sSave1;
@@ -213,6 +213,10 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JTextArea textArea_1;
 	private JTextArea textArea_2;
 	private JTextArea textArea_3;
+	private JLabel lblNewLabel_22;
+	private JTextArea textArea_4;
+	private JLabel lblNewLabel_23;
+	private JTextArea textArea_5;
 
 
 	/**
@@ -359,7 +363,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lblNewLabel_20 = new JLabel("Dig: ");
 		panel_Stats.add(lblNewLabel_20, "cell 3 11");
 		
-		lbl_DigSpeed = new JLabel("New label");
+		lbl_DigSpeed = new JLabel("30");
 		panel_Stats.add(lbl_DigSpeed, "cell 4 11");
 		
 		lblNewLabel_21 = new JLabel("Climb:");
@@ -510,7 +514,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		
 		JPanel panel_ActionsTab = new JPanel();
 		tabs_Actions.addTab("Actions", null, panel_ActionsTab, null);
-		panel_ActionsTab.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[][grow]"));
+		panel_ActionsTab.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow][grow]", "[][grow]"));
 		
 		lblNewLabel_14 = new JLabel("Action");
 		panel_ActionsTab.add(lblNewLabel_14, "cell 0 0,alignx center");
@@ -527,6 +531,12 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lblNewLabel_18 = new JLabel("Damage Bonus");
 		panel_ActionsTab.add(lblNewLabel_18, "cell 4 0,alignx center");
 		
+		lblNewLabel_22 = new JLabel("Ammo");
+		panel_ActionsTab.add(lblNewLabel_22, "cell 5 0,alignx center");
+		
+		lblNewLabel_23 = new JLabel("Misc.");
+		panel_ActionsTab.add(lblNewLabel_23, "cell 6 0,alignx center");
+		
 		area_Actions = new JTextArea();
 		panel_ActionsTab.add(area_Actions, "cell 0 1,grow");
 		
@@ -541,6 +551,12 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		
 		textArea_3 = new JTextArea();
 		panel_ActionsTab.add(textArea_3, "cell 4 1,grow");
+		
+		textArea_4 = new JTextArea();
+		panel_ActionsTab.add(textArea_4, "cell 5 1,grow");
+		
+		textArea_5 = new JTextArea();
+		panel_ActionsTab.add(textArea_5, "cell 6 1,grow");
 		
 		JPanel panel_Proficiences = new JPanel();
 		tabs_Actions.addTab("Proficiencies", null, panel_Proficiences, null);
@@ -915,12 +931,147 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		panel_Skills.add(lbl_SurvivalExpert, "cell 3 17");
 	}
 	
-	private static void update_CurrentHealth( int new_val )
+	
+	public static void update_CurrentHealth( int new_val )
 	{
 		
 	}
 
+	
+	public void fill_Health( int current, int max, int temp )
+	{
+		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
+		lbl_MaxHealthVal.setText( Integer.toString( max ) );
+		lbl_TempHealthVal.setText( Integer.toString( temp ) );
+	}
+	
+	
+	public void fill_Stats( HashMap<String, int[]> stat_values, HashMap<String, Boolean> save_values )
+	{
+		boolean temp_bool = false;
+		int temp_values[] = { 0,0 };
+		
+		temp_values = stat_values.get( "Str" );
+		int temp_str = temp_values[0];
+		
+		temp_values = stat_values.get( "Dex" );
+		int temp_dex = temp_values[0];
+		
+		temp_values = stat_values.get( "Con" );
+		int temp_con = temp_values[0];
+		
+		temp_values = stat_values.get( "Wis" );
+		int temp_wis = temp_values[0];
+		
+		temp_values = stat_values.get( "Int" );
+		int temp_int = temp_values[0];
+		
+		temp_values = stat_values.get( "Chr" );
+		int temp_chr = temp_values[0];
+		
+		lbl_DexMod.setText( Integer.toString( GetModFromStat( temp_dex ) ) );
+		lbl_StrMod.setText( Integer.toString( GetModFromStat( temp_str ) ) );
+		lbl_ConMod.setText( Integer.toString( GetModFromStat( temp_con ) ) );
+		lbl_WisMod.setText( Integer.toString( GetModFromStat( temp_wis ) ) );
+		lbl_IntMod.setText( Integer.toString( GetModFromStat( temp_int ) ) );
+		lbl_ChrMod.setText( Integer.toString( GetModFromStat( temp_chr ) ) );
+		lbl_DexStat.setText( Integer.toString( temp_dex ) );
+		lbl_StrStat.setText( Integer.toString( temp_str ) );
+		lbl_ConStat.setText( Integer.toString( temp_con ) );
+		lbl_WisStat.setText( Integer.toString( temp_wis ) );
+		lbl_IntStat.setText( Integer.toString( temp_int ) );
+		lbl_ChrStat.setText( Integer.toString( temp_chr ) );
+		
+		
+		lbl_StrSave.setText( Integer.toString( temp_str ) );		
+		lbl_DexSave.setText( Integer.toString( temp_dex ) );
+		lbl_ConSave.setText( Integer.toString( temp_con ) );
+		lbl_WisSave.setText( Integer.toString( temp_wis ) );
+		lbl_IntSave.setText( Integer.toString( temp_int ) );
+		lbl_ChrSave.setText( Integer.toString( temp_chr ) );
+		
+		
+		temp_bool = save_values.get( "Str" );
+		lbl_StrSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_values.get( "Dex" );
+		lbl_DexSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_values.get( "Con" );
+		lbl_ConSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_values.get( "Wis" );
+		lbl_WisSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_values.get( "Int" );
+		lbl_IntSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_values.get( "Chr" );
+		lbl_ChrSaveProf.setVisible( temp_bool );
+	}
+	
+	
+	public void fill_Skills( HashMap<String, Boolean> skills_IsProfEnabled, HashMap<String, Boolean> skills_IsExpertEnabled,
+								HashMap<String, Integer> skills_ValMap, HashMap<String, Integer> skills_BonusMap )
+	{
+		lbl_AnimalHandlingVal.setText( Integer.toString( ( skills_ValMap.get( "AnimalHandling" ) + skills_BonusMap.get( "AnimalHandling" ) ) ) );
+		lbl_AcrobaticsVal.setText( Integer.toString( ( skills_ValMap.get( "Acrobatics" ) + skills_BonusMap.get( "Acrobatics" ) ) ) );
+		lbl_ArcanaVal.setText( Integer.toString( ( skills_ValMap.get( "Arcana" ) + skills_BonusMap.get( "Arcana" ) ) ) );
+		lbl_AthleticsVal.setText( Integer.toString( ( skills_ValMap.get( "Athletics" ) + skills_BonusMap.get( "Athletics" ) ) ) );
+		lbl_DeceptionVal.setText( Integer.toString( ( skills_ValMap.get( "Deception" ) + skills_BonusMap.get( "Deception" ) ) ) );
+		lbl_HistoryVal.setText( Integer.toString( ( skills_ValMap.get( "History" ) + skills_BonusMap.get( "History" ) ) ) );
+		lbl_InsightVal.setText( Integer.toString( ( skills_ValMap.get( "Insight" ) + skills_BonusMap.get( "Insight" ) ) ) );
+		lbl_IntimidationVal.setText( Integer.toString( ( skills_ValMap.get( "Intimidation" ) + skills_BonusMap.get( "Intimidation" ) ) ) );
+		lbl_InvestigationVal.setText( Integer.toString( ( skills_ValMap.get( "Investigation" ) + skills_BonusMap.get( "Investigation" ) ) ) );
+		lbl_MedicineVal.setText( Integer.toString( ( skills_ValMap.get( "Medicine" ) + skills_BonusMap.get( "Medicine" ) ) ) );
+		lbl_NatureVal.setText( Integer.toString( ( skills_ValMap.get( "Nature" ) + skills_BonusMap.get( "Nature" ) ) ) );
+		lbl_PerceptionVal.setText( Integer.toString( ( skills_ValMap.get( "Perception" ) + skills_BonusMap.get( "Perception" ) ) ) );
+		lbl_PerformanceVal.setText( Integer.toString( ( skills_ValMap.get( "Performance" ) + skills_BonusMap.get( "Performance" ) ) ) );
+		lbl_PersuasionVal.setText( Integer.toString( ( skills_ValMap.get( "Persuasion" ) + skills_BonusMap.get( "Persuasion" ) ) ) );
+		lbl_ReligionVal.setText( Integer.toString( ( skills_ValMap.get( "Religion" ) + skills_BonusMap.get( "Religion" ) ) ) );
+		lbl_SleightOfHandVal.setText( Integer.toString( ( skills_ValMap.get( "SleightOfHand" ) + skills_BonusMap.get( "SleightOfHand" ) ) ) );
+		lbl_StealthVal.setText( Integer.toString( ( skills_ValMap.get( "Stealth" ) + skills_BonusMap.get( "Stealth" ) ) ) );
+		lbl_SurvivalVal.setText( Integer.toString( ( skills_ValMap.get( "Survival" ) + skills_BonusMap.get( "Survival" ) ) ) );
 
+		lbl_AnimalHandlingProf.setVisible( skills_IsProfEnabled.get( "AnimalHandling" ) );
+		lbl_AcrobaticsProf.setVisible( skills_IsProfEnabled.get( "Acrobatics" ) );
+		lbl_ArcanaProf.setVisible( skills_IsProfEnabled.get( "Arcana" ) );
+		lbl_AthleticsProf.setVisible( skills_IsProfEnabled.get( "Athletics" ) );
+		lbl_DeceptionProf.setVisible( skills_IsProfEnabled.get( "Deception" ) );
+		lbl_HistoryProf.setVisible( skills_IsProfEnabled.get( "History" ) );
+		lbl_InsightProf.setVisible( skills_IsProfEnabled.get( "Insight" ) );
+		lbl_IntimidationProf.setVisible( skills_IsProfEnabled.get( "Intimidation" ) );
+		lbl_InvestigationProf.setVisible( skills_IsProfEnabled.get( "Investigation" ) );
+		lbl_MedicineProf.setVisible( skills_IsProfEnabled.get( "Medicine" ) );
+		lbl_NatureProf.setVisible( skills_IsProfEnabled.get( "Nature" ) );
+		lbl_PerceptionProf.setVisible( skills_IsProfEnabled.get( "Perception" ) );
+		lbl_PerformanceProf.setVisible( skills_IsProfEnabled.get( "Performance" ) );
+		lbl_PersuasionProf.setVisible( skills_IsProfEnabled.get( "Persuasion" ) );
+		lbl_ReligionProf.setVisible( skills_IsProfEnabled.get( "Religion" ) );
+		lbl_SleightOfHandProf.setVisible( skills_IsProfEnabled.get( "SleightOfHand" ) );
+		lbl_StealthProf.setVisible( skills_IsProfEnabled.get( "Stealth" ) );
+		lbl_SurvivalProf.setVisible( skills_IsProfEnabled.get( "Survival" ) );
+
+		lbl_AnimalHandlingExpert.setVisible( skills_IsExpertEnabled.get( "AnimalHandling" ) );
+		lbl_AcrobaticsExpert.setVisible( skills_IsExpertEnabled.get( "Acrobatics" ) );
+		lbl_ArcanaExpert.setVisible( skills_IsExpertEnabled.get( "Arcana" ) );
+		lbl_AthleticsExpert.setVisible( skills_IsExpertEnabled.get( "Athletics" ) );
+		lbl_DeceptionExpert.setVisible( skills_IsExpertEnabled.get( "Deception" ) );
+		lbl_HistoryExpert.setVisible( skills_IsExpertEnabled.get( "History" ) );
+		lbl_InsightExpert.setVisible( skills_IsExpertEnabled.get( "Insight" ) );
+		lbl_IntimidationExpert.setVisible( skills_IsExpertEnabled.get( "Intimidation" ) );
+		lbl_InvestigationExpert.setVisible( skills_IsExpertEnabled.get( "Investigation" ) );
+		lbl_MedicineExpert.setVisible( skills_IsExpertEnabled.get( "Medicine" ) );
+		lbl_NatureExpert.setVisible( skills_IsExpertEnabled.get( "Nature" ) );
+		lbl_PerceptionExpert.setVisible( skills_IsExpertEnabled.get( "Perception" ) );
+		lbl_PerformanceExpert.setVisible( skills_IsExpertEnabled.get( "Performance" ) );
+		lbl_PersuasionExpert.setVisible( skills_IsExpertEnabled.get( "Persuasion" ) );
+		lbl_ReligionExpert.setVisible( skills_IsExpertEnabled.get( "Religion" ) );
+		lbl_SleightOfHandExpert.setVisible( skills_IsExpertEnabled.get( "SleightOfHand" ) );
+		lbl_StealthExpert.setVisible( skills_IsExpertEnabled.get( "Stealth" ) );
+		lbl_SurvivalExpert.setVisible( skills_IsExpertEnabled.get( "Survival" ) );
+	}
+	
 	@Override
 	public void ToggleEdits()
 	{
