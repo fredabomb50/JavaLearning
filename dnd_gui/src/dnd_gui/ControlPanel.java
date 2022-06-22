@@ -129,7 +129,7 @@ public class ControlPanel
 	{
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frame.setBounds(100, 100, 550, 250);
+		frame.setBounds(100, 100, 550, 284);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][][]"));
 		
@@ -219,6 +219,12 @@ public class ControlPanel
 		
 		JButton bttn_Notes = new JButton("Notes");
 		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenuItem mitem_FileMenu = new JMenuItem("New menu item");
+		menuBar.add(mitem_FileMenu);
 	}
 
 	
