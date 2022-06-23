@@ -938,6 +938,16 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 
 	
+	
+	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
+	{
+		SetLabelText( lbl_GroundSpeed, ground );
+		SetLabelText( lbl_FlySpeed, fly );
+		SetLabelText( lbl_SwimSpeed, swim );
+		SetLabelText( lbl_DigSpeed, dig );
+		SetLabelText( lbl_ClimbSpeed, climb );
+	}
+	
 	public void fill_Health( int current, int max, int temp )
 	{
 		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
@@ -945,6 +955,16 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_TempHealthVal.setText( Integer.toString( temp ) );
 	}
 	
+	public void fill_Misc(int lvl, int xp, int prof,  int initiative, int ac)
+	{		
+		SetLabelText( lbl_Level, lvl );
+		SetLabelText( lbl_XP, xp );
+		SetLabelText( lbl_AC, ac );
+		SetLabelText( lbl_Initiative, initiative );
+		SetLabelText( lbl_ProfBonus, prof );
+		
+		lbl_HitDieValue.setText( Integer.toString( lvl ) + "/" + Integer.toString( lvl ) );
+	}
 	
 	public void fill_Stats( HashMap<String, int[]> stat_values, HashMap<String, Boolean> save_values )
 	{
@@ -975,20 +995,20 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_WisMod.setText( Integer.toString( GetModFromStat( temp_wis ) ) );
 		lbl_IntMod.setText( Integer.toString( GetModFromStat( temp_int ) ) );
 		lbl_ChrMod.setText( Integer.toString( GetModFromStat( temp_chr ) ) );
-		lbl_DexStat.setText( Integer.toString( temp_dex ) );
-		lbl_StrStat.setText( Integer.toString( temp_str ) );
-		lbl_ConStat.setText( Integer.toString( temp_con ) );
-		lbl_WisStat.setText( Integer.toString( temp_wis ) );
-		lbl_IntStat.setText( Integer.toString( temp_int ) );
-		lbl_ChrStat.setText( Integer.toString( temp_chr ) );
+		lbl_DexStat.setText( "[ " + Integer.toString( temp_dex ) + " ]" );
+		lbl_StrStat.setText( "[ " + Integer.toString( temp_str ) + " ]" );
+		lbl_ConStat.setText( "[ " + Integer.toString( temp_con ) + " ]" );
+		lbl_WisStat.setText( "[ " + Integer.toString( temp_wis ) + " ]" );
+		lbl_IntStat.setText( "[ " + Integer.toString( temp_int ) + " ]" );
+		lbl_ChrStat.setText( "[ " + Integer.toString( temp_chr ) + " ]" );
 		
 		
-		lbl_StrSave.setText( Integer.toString( temp_str ) );		
-		lbl_DexSave.setText( Integer.toString( temp_dex ) );
-		lbl_ConSave.setText( Integer.toString( temp_con ) );
-		lbl_WisSave.setText( Integer.toString( temp_wis ) );
-		lbl_IntSave.setText( Integer.toString( temp_int ) );
-		lbl_ChrSave.setText( Integer.toString( temp_chr ) );
+		lbl_StrSave.setText( "[ " + Integer.toString( GetModFromStat( temp_str ) ) + " ]" );		
+		lbl_DexSave.setText( "[ " + Integer.toString( GetModFromStat( temp_dex ) ) + " ]" );
+		lbl_ConSave.setText( "[ " + Integer.toString( GetModFromStat( temp_con ) ) + " ]" );
+		lbl_WisSave.setText( "[ " + Integer.toString( GetModFromStat( temp_wis ) ) + " ]" );
+		lbl_IntSave.setText( "[ " + Integer.toString( GetModFromStat( temp_int ) ) + " ]" );
+		lbl_ChrSave.setText( "[ " + Integer.toString( GetModFromStat( temp_chr ) ) + " ]" );
 		
 		
 		temp_bool = save_values.get( "Str" );
@@ -1009,7 +1029,6 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		temp_bool = save_values.get( "Chr" );
 		lbl_ChrSaveProf.setVisible( temp_bool );
 	}
-	
 	
 	public void fill_Skills( HashMap<String, Boolean> skills_IsProfEnabled, HashMap<String, Boolean> skills_IsExpertEnabled,
 								HashMap<String, Integer> skills_ValMap, HashMap<String, Integer> skills_BonusMap )
