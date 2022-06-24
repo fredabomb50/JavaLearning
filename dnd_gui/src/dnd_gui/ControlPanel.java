@@ -206,8 +206,8 @@ public class ControlPanel
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				c_Sheet.ToggleVisibility();
-				d_Sheet.ToggleVisibility(d_Sheet.frame);
+				c_Sheet.ToggleVisibility( c_Sheet.frame );
+				d_Sheet.ToggleVisibility( d_Sheet.frame );
 			}
 		});
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");

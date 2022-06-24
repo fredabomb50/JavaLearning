@@ -23,21 +23,8 @@ public class Sheet
 			window.setVisible( true );
 		}
 	}
-	
-	
-	void ToggleVisibility()
-	{
-		if ( this.frame.isVisible() )
-		{
-			this.frame.setVisible( false );
-		}
-		else
-		{
-			this.frame.setVisible( true );
-		}
-	}
-	
-	
+
+		
 	void ToggleLabelVisibility( JLabel label, boolean new_visibility )
 	{
 		label.setVisible( new_visibility );
