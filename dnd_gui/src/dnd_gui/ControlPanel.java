@@ -81,6 +81,7 @@ public class ControlPanel
 	// GUI sheets
 	private static CharacterSheet c_Sheet = null;
 	private static DetailsSheet d_Sheet = null;
+	private static SpellSheet s_Sheet = null;
 	
 	
 	// GUI elements
@@ -205,8 +206,8 @@ public class ControlPanel
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				c_Sheet.ToggleVisibility(c_Sheet.frmCharacterSheet);
-				d_Sheet.ToggleVisibility(false);
+				c_Sheet.ToggleVisibility();
+				d_Sheet.ToggleVisibility(d_Sheet.frame);
 			}
 		});
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
@@ -385,7 +386,10 @@ public class ControlPanel
 		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
 		
 		d_Sheet = new DetailsSheet();
-		d_Sheet.ToggleVisibility(false);
+		d_Sheet.ToggleVisibility(d_Sheet.frame, false);
+		
+		s_Sheet = new SpellSheet();
+		s_Sheet.ToggleVisibility(s_Sheet.frmSpellSheet, false);
 	}
 	
 	public void Heal( int val )

@@ -4,6 +4,9 @@ import javax.swing.*;
 
 public class Sheet
 {
+	protected JFrame frame = null;
+
+
 	void ToggleVisibility( JFrame window, boolean new_visibility )
 	{
 		window.setVisible( new_visibility );
@@ -18,6 +21,18 @@ public class Sheet
 		else
 		{
 			window.setVisible( true );
+		}
+	}
+	
+	void ToggleVisibility()
+	{
+		if ( this.frame.isVisible() )
+		{
+			this.frame.setVisible( false );
+		}
+		else
+		{
+			this.frame.setVisible( true );
 		}
 	}
 	

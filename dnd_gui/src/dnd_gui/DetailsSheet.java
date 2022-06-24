@@ -24,9 +24,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import java.awt.GridLayout;
 
-public class DetailsSheet {
+public class DetailsSheet extends Sheet
+{
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField txt_Age;
 	private JTextField txt_Height;
 	private JTextField txtLbs;
@@ -183,20 +184,4 @@ public class DetailsSheet {
 	}
 	
 	
-	public void ToggleVisibility()
-	{
-		if ( this.frame.isVisible() )
-		{
-			this.frame.setVisible( false );
-		}
-		else
-		{
-			this.frame.setVisible( true );
-		}
-	}
-	
-	public void ToggleVisibility( boolean value )
-	{
-		frame.setVisible(value);
-	}
 }
