@@ -24,6 +24,7 @@ public class Sheet
 		}
 	}
 	
+	
 	void ToggleVisibility()
 	{
 		if ( this.frame.isVisible() )
