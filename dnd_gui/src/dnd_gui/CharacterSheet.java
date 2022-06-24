@@ -44,7 +44,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	
 	
 	// GUI
-	public JFrame frmCharacterSheet;
+	public JFrame frame;
 	private JScrollPane scroll_Proficiences;
 	private JTextArea area_Proficiences;
 	private JScrollPane scroll_Adv;
@@ -233,16 +233,16 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	 */
 	private void initialize()
 	{
-		frmCharacterSheet = new JFrame();
-		frmCharacterSheet.setUndecorated(true);
-		frmCharacterSheet.setTitle("Character Sheet");
-		frmCharacterSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmCharacterSheet.setBounds(100, 100, 827, 719);
-		frmCharacterSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCharacterSheet.getContentPane().setLayout(new MigLayout("", "[left][grow]", "[grow][]"));
+		frame = new JFrame();
+		frame.setUndecorated(true);
+		frame.setTitle("Character Sheet");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
+		frame.setBounds(100, 100, 827, 719);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new MigLayout("", "[left][grow]", "[grow][]"));
 		
 		tabs_Header = new JTabbedPane(JTabbedPane.TOP);
-		frmCharacterSheet.getContentPane().add(tabs_Header, "cell 0 0,grow");
+		frame.getContentPane().add(tabs_Header, "cell 0 0,grow");
 		
 		panel_Stats = new JPanel();
 		tabs_Header.addTab("Stats", null, panel_Stats, null);
@@ -510,7 +510,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		panel_Health.add(lbl_IntSaveProf, "cell 2 14");
 		
 		JTabbedPane tabs_Actions = new JTabbedPane(JTabbedPane.TOP);
-		frmCharacterSheet.getContentPane().add(tabs_Actions, "cell 1 0 1 2,grow");
+		frame.getContentPane().add(tabs_Actions, "cell 1 0 1 2,grow");
 		
 		JPanel panel_ActionsTab = new JPanel();
 		tabs_Actions.addTab("Actions", null, panel_ActionsTab, null);
@@ -603,7 +603,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		scroll_Bonuses.setViewportView(area_Bonuses);
 		
 		JPanel panel_Skills = new JPanel();
-		frmCharacterSheet.getContentPane().add(panel_Skills, "cell 0 1,growx,aligny top");
+		frame.getContentPane().add(panel_Skills, "cell 0 1,growx,aligny top");
 		panel_Skills.setLayout(new MigLayout("", "[left][][][]", "[][][][][][][][][][][][][][][][][][]"));
 		
 		lbl_Acrobatics = new JLabel("(DEX) Acrobatics");

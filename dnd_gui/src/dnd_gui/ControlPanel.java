@@ -207,7 +207,7 @@ public class ControlPanel
 			public void mouseClicked(MouseEvent e)
 			{
 				c_Sheet.ToggleVisibility( c_Sheet.frame );
-				d_Sheet.ToggleVisibility( d_Sheet.frame );
+				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
 			}
 		});
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
@@ -216,6 +216,15 @@ public class ControlPanel
 		panel_Sheets.add(bttn_SSheet, "cell 1 0,grow");
 		
 		JButton bttn_DSheet = new JButton("Character Details");
+		bttn_DSheet.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				d_Sheet.ToggleVisibility( d_Sheet.frame );
+				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				
+			}
+		});
 		panel_Sheets.add(bttn_DSheet, "cell 2 0,grow");
 		
 		JButton bttn_Inventory = new JButton("Inventory");
@@ -380,7 +389,7 @@ public class ControlPanel
 	private static void init_sheets()
 	{
 		c_Sheet = new CharacterSheet();
-		c_Sheet.ToggleVisibility(c_Sheet.frmCharacterSheet, false);
+		c_Sheet.ToggleVisibility(c_Sheet.frame, false);
 		c_Sheet.fill_Health( health_Current, health_Max, health_Max );
 		c_Sheet.fill_Stats(stats, saves);
 		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
