@@ -213,6 +213,17 @@ public class ControlPanel
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
 		
 		JButton bttn_SSheet = new JButton("Spell Sheet");
+		bttn_SSheet.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				
+				s_Sheet.ToggleVisibility(s_Sheet.frmSpellSheet);
+				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
+				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				
+			}
+		});
 		panel_Sheets.add(bttn_SSheet, "cell 1 0,grow");
 		
 		JButton bttn_DSheet = new JButton("Character Details");
@@ -245,22 +256,22 @@ public class ControlPanel
 		current_Proficiency = 3;
 		
 //		HashMap<String, int[]> stats = new HashMap<String, int[]>();
-		temp_stat[0] = 20;
+		temp_stat[0] = 11;
 		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
 		str_mod = temp_stat[1];
 		stats.put("Str", temp_stat);
 
-		temp_stat[0] = 20;
+		temp_stat[0] = 14;
 		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
 		dex_mod = temp_stat[1];
 		stats.put("Dex", temp_stat);
 		
-		temp_stat[0] = 20;
+		temp_stat[0] = 16;
 		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
 		con_mod = temp_stat[1];
 		stats.put("Con", temp_stat);
 		
-		temp_stat[0] = 20;
+		temp_stat[0] = 12;
 		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
 		wis_mod = temp_stat[1];
 		stats.put("Wis", temp_stat);
@@ -270,26 +281,26 @@ public class ControlPanel
 		int_mod = temp_stat[1];
 		stats.put("Int", temp_stat);
 		
-		temp_stat[0] = 20;
+		temp_stat[0] = 12;
 		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
 		chr_mod = temp_stat[1];
 		stats.put("Chr", temp_stat);
 		
 		
 		speed_Ground = 35;
-		speed_Swim = 35;
-		speed_Fly = 35;
-		speed_Dig = 35;
-		speed_Climb = 35;
+		speed_Swim = 0;
+		speed_Fly = 0;
+		speed_Dig = 0;
+		speed_Climb = 0;
 
 		
 		initiative = dex_mod;
-		armor_class = 15 + dex_mod;
+		armor_class = 10 + dex_mod;
 
 		
-		health_Current = 100;
-		health_Max = 100;
-		health_Temp = 15;
+		health_Current = 45;
+		health_Max = 45;
+		health_Temp = 0;
 		hitdie_Current = current_lvl;
 		hitdie_Max = current_lvl;
 		current_HitDie = E_DieType.D6;

@@ -27,6 +27,8 @@ public class SpellSheet extends Sheet
 	/**
 	 * Create the application.
 	 */
+	
+	
 	public SpellSheet()
 	{
 		initialize();
@@ -57,7 +59,7 @@ public class SpellSheet extends Sheet
 		JLabel lblNewLabel_2 = new JLabel("Spell Save DC:");
 		panel_SpellCastingInfo.add(lblNewLabel_2, "cell 3 0");
 		
-		JLabel lbl_SpellSaveDC = new JLabel("20");
+		JLabel lbl_SpellSaveDC = new JLabel("16");
 		panel_SpellCastingInfo.add(lbl_SpellSaveDC, "cell 4 0");
 		
 		JLabel lblNewLabel_4 = new JLabel("Spell Attack Bonus:");
