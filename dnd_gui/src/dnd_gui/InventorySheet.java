@@ -64,7 +64,7 @@ public class InventorySheet {
 		JLabel lblNewLabel_4 = new JLabel("Copper:");
 		panel.add(lblNewLabel_4, "cell 3 1");
 		
-		JLabel lbl_Copper = new JLabel("0");
+		JLabel lbl_Copper = new JLabel("1000");
 		panel.add(lbl_Copper, "cell 4 1,alignx center");
 		
 		JLabel lblNewLabel_5 = new JLabel("Soul Coins:");
