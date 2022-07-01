@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class ControlPanel
+public class ControlPanel extends Sheet
 {
 	// Utility classes
 	Tools general_tools = new Tools();
@@ -82,18 +82,12 @@ public class ControlPanel
 	private static CharacterSheet c_Sheet = null;
 	private static DetailsSheet d_Sheet = null;
 	private static SpellSheet s_Sheet = null;
-	
+	private static NotesSheet n_Sheet = null;
 	
 	// GUI elements
 	private JFrame frame;
 
 	
-	
-	// interact process goes as such:
-	// gui is initialized, loading a save file (json)
-	// player clicks button on control panel
-	// prompts user for value, passes back into method that called it
-	// calls Update interface method from c_sheet 
 	public static void main(String[] args)
 	{
 		EventQueue.invokeLater(new Runnable()
@@ -116,8 +110,8 @@ public class ControlPanel
 
 	public ControlPanel()
 	{
-		init_stats();
 		initialize();
+		init_stats();
 		init_sheets();
 	}
 
@@ -174,6 +168,9 @@ public class ControlPanel
 		
 		JButton bttn_LoseXP = new JButton("Lose XP");
 		panel_GenericControls.add(bttn_LoseXP, "cell 1 2");
+		
+		JButton bttn_OverideField = new JButton("Overwrite");
+		panel_GenericControls.add(bttn_OverideField, "cell 2 2,growx");
 		
 		JButton bttn_ToggleExpert = new JButton("Toggle Expert");
 		panel_GenericControls.add(bttn_ToggleExpert, "cell 3 2");
@@ -242,6 +239,13 @@ public class ControlPanel
 		panel_Sheets.add(bttn_Inventory, "cell 3 0,grow");
 		
 		JButton bttn_Notes = new JButton("Notes");
+		bttn_Notes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+			}
+		});
 		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
 	}
 
@@ -249,45 +253,52 @@ public class ControlPanel
 	// NOTE (Luis): should ultimately use a json loading class to save and load player data
 	private static void init_stats()
 	{
-		int[] temp_stat = {0,0};
+		int temp_str[] = { 0, 0 };
+		int temp_dex[] = { 0, 0 };
+		int temp_con[] = { 0, 0 };
+		int temp_wis[] = { 0, 0 };
+		int temp_int[] = { 0, 0 };
+		int temp_chr[] = { 0, 0 };
+		
 		
 		current_lvl = 5;
 		current_xp = 6500;
 		current_Proficiency = 3;
 		
+		
 //		HashMap<String, int[]> stats = new HashMap<String, int[]>();
-		temp_stat[0] = 11;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		str_mod = temp_stat[1];
-		stats.put("Str", temp_stat);
+		temp_str[0] = 11;
+		temp_str[1] = GetModFromStat( temp_str[0] );
+		str_mod = temp_str[1];
+		stats.put("Str", temp_str);
 
-		temp_stat[0] = 14;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		dex_mod = temp_stat[1];
-		stats.put("Dex", temp_stat);
+		temp_dex[0] = 14;
+		temp_dex[1] = GetModFromStat( temp_dex[0] );
+		dex_mod = temp_dex[1];
+		stats.put("Dex", temp_dex);
 		
-		temp_stat[0] = 16;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		con_mod = temp_stat[1];
-		stats.put("Con", temp_stat);
+		temp_con[0] = 16;
+		temp_con[1] = GetModFromStat( temp_con[0] );
+		con_mod = temp_con[1];
+		stats.put("Con", temp_con);
 		
-		temp_stat[0] = 12;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		wis_mod = temp_stat[1];
-		stats.put("Wis", temp_stat);
+		temp_wis[0] = 12;
+		temp_wis[1] = GetModFromStat( temp_wis[0] );
+		wis_mod = temp_wis[1];
+		stats.put("Wis", temp_wis);
 		
-		temp_stat[0] = 20;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		int_mod = temp_stat[1];
-		stats.put("Int", temp_stat);
+		temp_int[0] = 20;
+		temp_int[1] = GetModFromStat( temp_int[0] );
+		int_mod = temp_int[1];
+		stats.put("Int", temp_int);
 		
-		temp_stat[0] = 12;
-		temp_stat[1] = ( temp_stat[0] - 10 ) / 2;
-		chr_mod = temp_stat[1];
-		stats.put("Chr", temp_stat);
+		temp_chr[0] = 12;
+		temp_chr[1] = GetModFromStat( temp_chr[0] );
+		chr_mod = temp_chr[1];
+		stats.put("Chr", temp_chr);
 		
 		
-		speed_Ground = 35;
+		speed_Ground = 30;
 		speed_Swim = 0;
 		speed_Fly = 0;
 		speed_Dig = 0;
@@ -404,12 +415,17 @@ public class ControlPanel
 		c_Sheet.fill_Health( health_Current, health_Max, health_Max );
 		c_Sheet.fill_Stats(stats, saves);
 		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
+		c_Sheet.fill_Speed(speed_Ground, speed_Fly, speed_Swim, speed_Dig, speed_Climb);
+		c_Sheet.fill_Misc(current_lvl, current_xp, current_Proficiency, initiative, armor_class);
 		
 		d_Sheet = new DetailsSheet();
 		d_Sheet.ToggleVisibility(d_Sheet.frame, false);
 		
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frmSpellSheet, false);
+		
+		n_Sheet = new NotesSheet();
+		n_Sheet.ToggleVisibility(n_Sheet.frame, false);
 	}
 	
 	public void Heal( int val )

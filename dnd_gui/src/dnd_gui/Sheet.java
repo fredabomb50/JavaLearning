@@ -60,7 +60,7 @@ public class Sheet
 	}
 
 
-	int GetModFromStat( int stat )
+	static int GetModFromStat( int stat )
 	{
 		return ( stat - 10 ) / 2;
 	}
