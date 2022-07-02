@@ -217,6 +217,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JTextArea textArea_4;
 	private JLabel lblNewLabel_23;
 	private JTextArea textArea_5;
+	private JLabel lbl_HitDieType;
 
 
 	/**
@@ -401,6 +402,9 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_HitDieValue = new JLabel("5/5");
 		lbl_HitDieValue.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Health.add(lbl_HitDieValue, "cell 2 3,alignx center");
+		
+		lbl_HitDieType = new JLabel("(D6)");
+		panel_Health.add(lbl_HitDieType, "cell 3 3");
 		
 		lbl_DeathSaves = new JLabel("--- Death Saving Throws ---");
 		lbl_DeathSaves.setHorizontalAlignment(SwingConstants.CENTER);
@@ -932,12 +936,22 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 	
 	
-	public static void update_CurrentHealth( int new_val )
+	public void update_CurrentHealth( int new_val )
 	{
-		
+		lbl_CurrentHealthVal.setText( Integer.toString( new_val ) );
 	}
-
-	
+	public void update_MaxHealth( int new_val )
+	{
+		lbl_MaxHealthVal.setText( Integer.toString( new_val ) );
+	}
+	public void update_TempHealth( int new_val )
+	{
+		lbl_TempHealthVal.setText( Integer.toString( new_val ) );
+	}
+	public void update_HitDie( int new_val, int lvl )
+	{
+		lbl_HitDieValue.setText( Integer.toString( new_val ) + "/" + Integer.toString( lvl ) );
+	}
 	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
 	{
@@ -948,11 +962,12 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		SetLabelText( lbl_ClimbSpeed, climb );
 	}
 	
-	public void fill_Health( int current, int max, int temp )
+	public void fill_Health( int current, int max, int temp, E_DieType die )
 	{
 		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
 		lbl_MaxHealthVal.setText( Integer.toString( max ) );
 		lbl_TempHealthVal.setText( Integer.toString( temp ) );
+		lbl_HitDieType.setText( die.toString() );
 	}
 	
 	public void fill_Misc(int lvl, int xp, int prof,  int initiative, int ac)

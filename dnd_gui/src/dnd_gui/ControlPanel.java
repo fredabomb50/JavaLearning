@@ -40,7 +40,6 @@ public class ControlPanel extends Sheet
 	private static int health_Temp = 0;
 	
 	private static int hitdie_Current = 0;
-	private static int hitdie_Max = 0;
 	private static E_DieType current_HitDie = null;
 	
 	private static HashMap<String, int[]> stats = new HashMap<String, int[]>();
@@ -49,6 +48,10 @@ public class ControlPanel extends Sheet
 	private static HashMap<String, Boolean> skills_IsExpertEnabled = new HashMap<String, Boolean>();
 	private static HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 	private static HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
+	
+	
+	private static HashMap<String, Integer> currency = new HashMap<String, Integer>();
+	
 	
 	private static int current_xp = 0;
 	private static int current_lvl = 0;
@@ -84,6 +87,7 @@ public class ControlPanel extends Sheet
 	private static SpellSheet s_Sheet = null;
 	private static NotesSheet n_Sheet = null;
 	private static InventorySheet i_Sheet = null;
+	
 	
 	// GUI elements
 	private JFrame frame;
@@ -131,18 +135,173 @@ public class ControlPanel extends Sheet
 		panel_HealthControls.setLayout(new MigLayout("", "[][][][][][]", "[][][]"));
 		
 		JButton bttn_Heal = new JButton("Heal Health");
+		bttn_Heal.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				String input = JOptionPane.showInputDialog( "Amount to heal: " );
+				int incoming_health;
+				try
+				{
+					incoming_health = Math.abs( Integer.parseInt( input ) );
+					health_Current = general_tools.ClampInt( health_Current + incoming_health, 0, health_Max );
+				}
+				catch (NumberFormatException e1)
+				{
+					// Re-prompt user
+					mouseClicked( e );
+				}
+
+				c_Sheet.update_CurrentHealth( health_Current );
+			}
+		});
 		panel_HealthControls.add(bttn_Heal, "cell 0 1,grow");
 		
 		JButton bttn_Hurt = new JButton("Hurt Health");
+		bttn_Hurt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				String input = JOptionPane.showInputDialog( "Amount to hurt: " );
+				int incoming_pain;
+				try
+				{
+					incoming_pain = Math.abs( Integer.parseInt( input ) );
+					if ( health_Temp <= 0 )
+					{
+						health_Current = general_tools.ClampInt( health_Current - incoming_pain, 0, health_Max );
+					}
+					else
+					{
+						health_Temp -= incoming_pain;
+						if ( health_Temp <= 0 )
+						{
+							int remainder = Math.abs( health_Temp );
+							health_Temp = 0;
+							health_Current = general_tools.ClampInt( health_Current - remainder, 0, health_Max );
+						}
+					}
+				}
+				catch (NumberFormatException e1)
+				{
+					// Re-prompt user
+					mouseClicked( e );
+				}
+				
+				c_Sheet.update_CurrentHealth( health_Current );
+				c_Sheet.update_TempHealth( health_Temp );
+			}
+		});
 		panel_HealthControls.add(bttn_Hurt, "cell 1 1,grow");
 		
 		JButton bttn_AddMaxHealth = new JButton("Add Max Health");
+		bttn_AddMaxHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				String input = JOptionPane.showInputDialog( "Amount to add: " );
+				int incoming_bump;
+				try
+				{
+					incoming_bump = Math.abs( Integer.parseInt( input ) );
+					health_Max = general_tools.ClampInt( health_Max + incoming_bump, 0, 999 );
+				}
+				catch (NumberFormatException e1)
+				{
+					// Re-prompt user
+					mouseClicked( e );
+				}
+
+				c_Sheet.update_MaxHealth( health_Max );
+			}
+		});
 		panel_HealthControls.add(bttn_AddMaxHealth, "cell 2 1,grow");
 		
 		JButton bttn_AddTempHealth = new JButton("Add Temp Health");
+		bttn_AddTempHealth.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				String input = JOptionPane.showInputDialog( "Amount to add: " );
+				int incoming_temp;
+				try
+				{
+					incoming_temp = Math.abs( Integer.parseInt( input ) );
+					health_Temp = general_tools.ClampInt( health_Temp + incoming_temp, 0, health_Max );
+				}
+				catch (NumberFormatException e1)
+				{
+					// Re-prompt user
+					mouseClicked( e );
+				}
+
+				c_Sheet.update_TempHealth( health_Temp );
+			}
+		});
 		panel_HealthControls.add(bttn_AddTempHealth, "cell 3 1,grow");
 		
 		JButton bttn_HitDie = new JButton("Use Hit Die");
+		bttn_HitDie.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if ( hitdie_Current > 0 )
+				{
+					int max_roll = 0;
+					switch ( current_HitDie )
+					{
+						case D4:
+						{
+							max_roll = 4;
+						}break;
+					
+						case D6:
+						{
+							max_roll = 6;
+						}break;
+						
+						case D8:
+						{
+							max_roll = 8;
+						} break;
+						
+						case D10:
+						{
+							max_roll = 10;
+						} break;
+						
+						case D12:
+						{
+							max_roll = 12;
+						} break;
+						
+						default:
+						{
+							max_roll = 100;
+						} break;
+					}
+					
+					
+					int[] temp = stats.get( "Con" );
+					String input = JOptionPane.showInputDialog( "Add dice roll (w/o con bonus): " );
+					int incoming_heal;
+					try
+					{
+						incoming_heal = Math.abs( Integer.parseInt( input ) );
+						incoming_heal = general_tools.ClampInt(incoming_heal, 1, max_roll);
+						health_Current = general_tools.ClampInt( health_Current + incoming_heal + temp[1], 0, health_Max );
+						hitdie_Current = general_tools.ClampInt( --hitdie_Current, 0, current_lvl );
+					}
+					catch (NumberFormatException e1)
+					{
+						// Re-prompt user
+						mouseClicked( e );
+					}
+				}
+				c_Sheet.update_CurrentHealth( health_Current );
+				c_Sheet.update_HitDie( hitdie_Current, current_lvl );
+			}
+		});
 		panel_HealthControls.add(bttn_HitDie, "cell 4 1,grow");
 		
 		JPanel panel_GenericControls = new JPanel();
@@ -335,9 +494,8 @@ public class ControlPanel extends Sheet
 		
 		health_Current = 45;
 		health_Max = 45;
-		health_Temp = 0;
+		health_Temp = 5;
 		hitdie_Current = current_lvl;
-		hitdie_Max = current_lvl;
 		current_HitDie = E_DieType.D6;
 		
 //		HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
@@ -430,6 +588,15 @@ public class ControlPanel extends Sheet
 		skills_BonusMap.put("SleightOfHand", 0);
 		skills_BonusMap.put("Stealth", 0);
 		skills_BonusMap.put("Survival", 0);
+		
+		
+		
+		currency.put("Copper", 0);
+		currency.put("Silver", 0);
+		currency.put("Electrum", 0);
+		currency.put("Gold", 0);
+		currency.put("Platinum", 0);
+		currency.put("SoulCoins", 0);
 	}
 	
 	private static void init_sheets()
@@ -438,7 +605,7 @@ public class ControlPanel extends Sheet
 		c_Sheet = new CharacterSheet();
 		c_Sheet.ToggleVisibility(c_Sheet.frame, false);
 		c_Sheet.frame.setBounds(100, 100, 830, 750);
-		c_Sheet.fill_Health( health_Current, health_Max, health_Max );
+		c_Sheet.fill_Health( health_Current, health_Max, health_Temp, current_HitDie );
 		c_Sheet.fill_Stats(stats, saves);
 		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
 		c_Sheet.fill_Speed(speed_Ground, speed_Fly, speed_Swim, speed_Dig, speed_Climb);
@@ -466,23 +633,6 @@ public class ControlPanel extends Sheet
 		i_Sheet.frame.setBounds(100, 500, 970, 360); 
 	}
 	
-	public void Heal( int val )
-	{
-		health_Current = general_tools.ClampInt( health_Current + val, 0, health_Max);
-	}
-	
-	public void Hurt( int val )
-	{
-		if ( health_Temp > 0 )
-		{
-			health_Temp = general_tools.ClampInt( health_Temp - val, 0, health_Temp );
-		}
-		else
-		{
-			health_Current = general_tools.ClampInt( health_Current - val, 0, health_Current );
-		}
-	}
-
 	public void UpdateXP( int xp_received )
 	{
 		// NOTE (Luis): Player level is always 1 or greater, 
