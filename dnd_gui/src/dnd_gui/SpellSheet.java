@@ -22,7 +22,7 @@ public class SpellSheet extends Sheet
 	// each spell needs the following:
 	// cast time, duration, range, save, dmg, components 
 	
-	public JFrame frmSpellSheet;
+	public JFrame frame;
 
 	/**
 	 * Create the application.
@@ -32,22 +32,23 @@ public class SpellSheet extends Sheet
 	public SpellSheet()
 	{
 		initialize();
-		frmSpellSheet.setVisible(true);
+		frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmSpellSheet = new JFrame();
-		frmSpellSheet.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frmSpellSheet.setTitle("Spell Sheet");
-		frmSpellSheet.setBounds(100, 100, 645, 430);
-		frmSpellSheet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSpellSheet.getContentPane().setLayout(new MigLayout("", "[grow]", "[][grow]"));
+		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
+		frame.setTitle("Spell Sheet");
+		frame.setBounds(100, 100, 659, 430);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][grow]"));
 		
 		JPanel panel_SpellCastingInfo = new JPanel();
-		frmSpellSheet.getContentPane().add(panel_SpellCastingInfo, "cell 0 0,growx,aligny top");
+		frame.getContentPane().add(panel_SpellCastingInfo, "cell 0 0,growx,aligny top");
 		panel_SpellCastingInfo.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][][][][][][][][]", "[]"));
 		
 		JLabel lblNewLabel = new JLabel("Spellcasting Ability: ");
@@ -75,7 +76,7 @@ public class SpellSheet extends Sheet
 		panel_SpellCastingInfo.add(lbl_SpellsKnown, "cell 23 0");
 		
 		JTabbedPane tabs_SpellLevels = new JTabbedPane(JTabbedPane.RIGHT);
-		frmSpellSheet.getContentPane().add(tabs_SpellLevels, "cell 0 1,grow");
+		frame.getContentPane().add(tabs_SpellLevels, "cell 0 1,grow");
 		
 		JPanel panel_Cantrips = new JPanel();
 		tabs_SpellLevels.addTab("Cantrips", null, panel_Cantrips, null);

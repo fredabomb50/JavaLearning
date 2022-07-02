@@ -7,16 +7,21 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
 
-public class InventorySheet {
+public class InventorySheet extends Sheet
+{
 
-	private JFrame frame;
+	public JFrame frame;
 
 	
 	/**
 	 * Create the application.
 	 */
-	public InventorySheet() {
+	public InventorySheet()
+	{
 		initialize();
 	}
 
@@ -25,9 +30,11 @@ public class InventorySheet {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 768, 305);
+		frame.setSize(new Dimension(970, 360));
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 970, 360); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[grow][grow][grow][grow]", "[grow]"));
+		frame.getContentPane().setLayout(new MigLayout("", "[][grow][grow][grow][grow]", "[grow]"));
 		
 		JPanel panel_Valubles = new JPanel();
 		frame.getContentPane().add(panel_Valubles, "cell 0 0,grow");
@@ -80,14 +87,45 @@ public class InventorySheet {
 		JTextArea area_Valuables = new JTextArea();
 		panel_4.add(area_Valuables, "cell 0 0,grow");
 		
-		JPanel panel_1 = new JPanel();
-		frame.getContentPane().add(panel_1, "cell 1 0,grow");
+		JScrollPane scrollPane = new JScrollPane();
+		frame.getContentPane().add(scrollPane, "cell 1 0,grow");
 		
-		JPanel panel_2 = new JPanel();
-		frame.getContentPane().add(panel_2, "cell 2 0,grow");
+		JLabel lblNewLabel_6 = new JLabel("Armor / Clothes");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane.setColumnHeaderView(lblNewLabel_6);
 		
-		JPanel panel_3 = new JPanel();
-		frame.getContentPane().add(panel_3, "cell 3 0,grow");
+		JTextArea textArea_3 = new JTextArea();
+		scrollPane.setViewportView(textArea_3);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		frame.getContentPane().add(scrollPane_1, "cell 2 0,grow");
+		
+		JLabel lblNewLabel_7 = new JLabel("Weapons / Tools");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_1.setColumnHeaderView(lblNewLabel_7);
+		
+		JTextArea textArea_2 = new JTextArea();
+		scrollPane_1.setViewportView(textArea_2);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		frame.getContentPane().add(scrollPane_2, "cell 3 0,grow");
+		
+		JLabel lblNewLabel_8 = new JLabel("Consumables");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_2.setColumnHeaderView(lblNewLabel_8);
+		
+		JTextArea textArea = new JTextArea();
+		scrollPane_2.setViewportView(textArea);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		frame.getContentPane().add(scrollPane_3, "cell 4 0,grow");
+		
+		JLabel lblNewLabel_9 = new JLabel("Materials");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_3.setColumnHeaderView(lblNewLabel_9);
+		
+		JTextArea textArea_1 = new JTextArea();
+		scrollPane_3.setViewportView(textArea_1);
 	}
 
 }

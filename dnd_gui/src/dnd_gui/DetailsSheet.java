@@ -49,7 +49,7 @@ public class DetailsSheet extends Sheet
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setUndecorated(true);
+		frame.setResizable(false);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
 		frame.setBounds(100, 100, 800, 808);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

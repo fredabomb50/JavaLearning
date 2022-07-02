@@ -83,6 +83,7 @@ public class ControlPanel extends Sheet
 	private static DetailsSheet d_Sheet = null;
 	private static SpellSheet s_Sheet = null;
 	private static NotesSheet n_Sheet = null;
+	private static InventorySheet i_Sheet = null;
 	
 	// GUI elements
 	private JFrame frame;
@@ -203,8 +204,11 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				c_Sheet.ToggleVisibility( c_Sheet.frame );
+				c_Sheet.ToggleVisibility(c_Sheet.frame);
 				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
+				s_Sheet.ToggleVisibility( s_Sheet.frame, false );
+				i_Sheet.ToggleVisibility( i_Sheet.frame, false );
+				n_Sheet.ToggleVisibility( n_Sheet.frame, false );
 			}
 		});
 		panel_Sheets.add(bttn_CSheet, "cell 0 0,grow");
@@ -215,9 +219,11 @@ public class ControlPanel extends Sheet
 			public void mouseClicked(MouseEvent e)
 			{
 				
-				s_Sheet.ToggleVisibility(s_Sheet.frmSpellSheet);
+				s_Sheet.ToggleVisibility(s_Sheet.frame);
 				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
 				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				i_Sheet.ToggleVisibility( i_Sheet.frame, false );
+				n_Sheet.ToggleVisibility( n_Sheet.frame, false );
 				
 			}
 		});
@@ -228,14 +234,28 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				d_Sheet.ToggleVisibility( d_Sheet.frame );
+				d_Sheet.ToggleVisibility(d_Sheet.frame);
 				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				s_Sheet.ToggleVisibility( s_Sheet.frame, false );
+				i_Sheet.ToggleVisibility( i_Sheet.frame, false );
+				n_Sheet.ToggleVisibility( n_Sheet.frame, false );
 				
 			}
 		});
 		panel_Sheets.add(bttn_DSheet, "cell 2 0,grow");
 		
 		JButton bttn_Inventory = new JButton("Inventory");
+		bttn_Inventory.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				i_Sheet.ToggleVisibility(i_Sheet.frame);
+				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				s_Sheet.ToggleVisibility( s_Sheet.frame, false );
+				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
+				n_Sheet.ToggleVisibility( n_Sheet.frame, false );
+			}
+		});
 		panel_Sheets.add(bttn_Inventory, "cell 3 0,grow");
 		
 		JButton bttn_Notes = new JButton("Notes");
@@ -243,7 +263,11 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
+				n_Sheet.ToggleVisibility(n_Sheet.frame);
 				c_Sheet.ToggleVisibility( c_Sheet.frame, false );
+				s_Sheet.ToggleVisibility( s_Sheet.frame, false );
+				d_Sheet.ToggleVisibility( d_Sheet.frame, false );
+				i_Sheet.ToggleVisibility( i_Sheet.frame, false );
 			}
 		});
 		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
@@ -410,22 +434,36 @@ public class ControlPanel extends Sheet
 	
 	private static void init_sheets()
 	{
+		// character sheet: 830 x 750
 		c_Sheet = new CharacterSheet();
 		c_Sheet.ToggleVisibility(c_Sheet.frame, false);
+		c_Sheet.frame.setBounds(100, 100, 830, 750);
 		c_Sheet.fill_Health( health_Current, health_Max, health_Max );
 		c_Sheet.fill_Stats(stats, saves);
 		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
 		c_Sheet.fill_Speed(speed_Ground, speed_Fly, speed_Swim, speed_Dig, speed_Climb);
 		c_Sheet.fill_Misc(current_lvl, current_xp, current_Proficiency, initiative, armor_class);
 		
+		
 		d_Sheet = new DetailsSheet();
 		d_Sheet.ToggleVisibility(d_Sheet.frame, false);
+		d_Sheet.frame.setBounds(100, 100, 830, 750);
 		
+		// spell sheet : 750 x 430
 		s_Sheet = new SpellSheet();
-		s_Sheet.ToggleVisibility(s_Sheet.frmSpellSheet, false);
+		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
+		s_Sheet.frame.setBounds(100, 100, 750, 430);
+		
 		
 		n_Sheet = new NotesSheet();
 		n_Sheet.ToggleVisibility(n_Sheet.frame, false);
+		n_Sheet.frame.setBounds(100, 100, 500, 500);
+		
+		
+		// Inventory sheet : 970 x 360
+		i_Sheet = new InventorySheet();
+		i_Sheet.ToggleVisibility(n_Sheet.frame, false);
+		i_Sheet.frame.setBounds(100, 500, 970, 360); 
 	}
 	
 	public void Heal( int val )

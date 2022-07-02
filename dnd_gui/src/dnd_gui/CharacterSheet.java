@@ -234,9 +234,10 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private void initialize()
 	{
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setTitle("Character Sheet");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\_BULK\\Image Resources\\dnd\\dnd_beyond.png"));
-		frame.setBounds(100, 100, 827, 719);
+		frame.setBounds(100, 100, 830, 724);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[left][grow]", "[grow][]"));
 		
