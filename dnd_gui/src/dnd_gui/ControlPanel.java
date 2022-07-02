@@ -51,7 +51,7 @@ public class ControlPanel extends Sheet
 	
 	
 	private static HashMap<String, Integer> currency = new HashMap<String, Integer>();
-	
+	private static int inspiration = 0;
 	
 	private static int current_xp = 0;
 	private static int current_lvl = 0;
@@ -321,6 +321,13 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
 		
 		JButton bttn_AddInsp = new JButton("Gain Insp.");
+		bttn_AddInsp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				inspiration++;
+			}
+		});
 		panel_GenericControls.add(bttn_AddInsp, "cell 4 1,grow");
 		
 		JButton bttn_ShortRest = new JButton("Short Rest");
@@ -589,6 +596,8 @@ public class ControlPanel extends Sheet
 		skills_BonusMap.put("Stealth", 0);
 		skills_BonusMap.put("Survival", 0);
 		
+		
+		inspiration = 0;
 		
 		
 		currency.put("Copper", 0);

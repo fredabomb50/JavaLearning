@@ -218,6 +218,8 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JLabel lblNewLabel_23;
 	private JTextArea textArea_5;
 	private JLabel lbl_HitDieType;
+	private JLabel lblNewLabel_24;
+	private JLabel lbl_Inspiration;
 
 
 	/**
@@ -282,6 +284,13 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_ProfBonus = new JLabel("3");
 		lbl_ProfBonus.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Stats.add(lbl_ProfBonus, "cell 1 2,alignx center");
+		
+		lblNewLabel_24 = new JLabel("Inspiration:");
+		panel_Stats.add(lblNewLabel_24, "cell 3 2");
+		
+		lbl_Inspiration = new JLabel("0");
+		lbl_Inspiration.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Stats.add(lbl_Inspiration, "cell 4 2,alignx center");
 		
 		lblNewLabel_6 = new JLabel("Dexterity");
 		panel_Stats.add(lblNewLabel_6, "cell 0 3");
@@ -951,6 +960,11 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	public void update_HitDie( int new_val, int lvl )
 	{
 		lbl_HitDieValue.setText( Integer.toString( new_val ) + "/" + Integer.toString( lvl ) );
+	}
+	
+	public void update_Inspiration( int new_val )
+	{
+		
 	}
 	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
