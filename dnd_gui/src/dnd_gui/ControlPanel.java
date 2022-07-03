@@ -312,6 +312,38 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.add(bttn_LongRest, "cell 0 1,grow");
 		
 		JButton bttn_AddXP = new JButton("Gain Xp");
+		bttn_AddXP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				String input = JOptionPane.showInputDialog( "Amount to add: " );
+				boolean lvl_up = false;
+				
+				int incoming_temp;
+				try
+				{
+					incoming_temp = Math.abs( Integer.parseInt( input ) );
+					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, 400000 );
+
+					for ( int i = 0; i <= xp_table.length; i++)
+					{
+						if ( current_xp >= xp_table[current_lvl][0] )
+						{
+							lvl_up = true;
+							current_Proficiency = xp_table[current_lvl][1];
+							current_lvl++;
+						}
+					}
+				}
+				catch (NumberFormatException e1)
+				{
+					// Re-prompt user
+					mouseClicked( e );
+				}
+
+				c_Sheet.update_XP( current_xp, lvl_up, current_lvl, current_Proficiency );
+			}
+		});
 		panel_GenericControls.add(bttn_AddXP, "cell 1 1,grow");
 		
 		JButton bttn_ToggleVantage = new JButton("Toggle Adv/Disadv");
@@ -326,6 +358,8 @@ public class ControlPanel extends Sheet
 			public void mouseClicked(MouseEvent e)
 			{
 				inspiration++;
+				inspiration = general_tools.ClampInt( inspiration, 0, 10 );
+				c_Sheet.update_Inspiration( inspiration );
 			}
 		});
 		panel_GenericControls.add(bttn_AddInsp, "cell 4 1,grow");
@@ -343,6 +377,15 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.add(bttn_ToggleExpert, "cell 3 2");
 		
 		JButton bttn_BurnInsp = new JButton("Burn Insp.");
+		bttn_BurnInsp.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				inspiration--;
+				inspiration = general_tools.ClampInt( inspiration, 0, 10 );
+				c_Sheet.update_Inspiration( inspiration );
+			}
+		});
 		panel_GenericControls.add(bttn_BurnInsp, "cell 4 2,grow");
 		
 		JPanel panel_InventoryControls = new JPanel();
