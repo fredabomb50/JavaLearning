@@ -327,12 +327,21 @@ public class ControlPanel extends Sheet
 
 					for ( int i = 0; i <= xp_table.length; i++)
 					{
-						if ( current_xp >= xp_table[current_lvl][0] )
+						if ( lvl_up )
 						{
-							lvl_up = true;
-							current_Proficiency = xp_table[current_lvl][1];
-							current_lvl++;
+							if ( current_xp >= xp_table[i][0] )
+							{
+								lvl_up = true;
+								current_Proficiency = xp_table[i][1];
+								current_lvl++;
+							}
+							else
+							{
+								lvl_up = false;
+							}
 						}
+						current_Proficiency = xp_table[i][1];
+						current_lvl = i;
 					}
 				}
 				catch (NumberFormatException e1)
@@ -341,7 +350,7 @@ public class ControlPanel extends Sheet
 					mouseClicked( e );
 				}
 
-				c_Sheet.update_XP( current_xp, lvl_up, current_lvl, current_Proficiency );
+				c_Sheet.update_XP( current_xp, current_lvl, current_Proficiency );
 			}
 		});
 		panel_GenericControls.add(bttn_AddXP, "cell 1 1,grow");

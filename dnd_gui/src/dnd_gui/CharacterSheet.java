@@ -968,15 +968,11 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 	
 	
-	public void update_XP( int new_val, boolean lvl_change, int new_lvl, int new_prof )
+	public void update_XP( int new_val, int new_lvl, int new_prof )
 	{
 		lbl_XP.setText( Integer.toString( new_val ) );
-		
-		if ( lvl_change )
-		{
-			lbl_Level.setText( Integer.toString( new_lvl ) );
-			SetLabelText( lbl_ProfBonus, Integer.toString( new_prof ) );
-		}
+		lbl_Level.setText( Integer.toString( new_lvl ) );
+		SetLabelText( lbl_ProfBonus, Integer.toString( new_prof ) );
 	}
 	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
