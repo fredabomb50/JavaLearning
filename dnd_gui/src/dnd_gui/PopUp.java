@@ -11,7 +11,8 @@ public class PopUp {
 	/**
 	 * Create the application.
 	 */
-	public PopUp() {
+	public PopUp()
+	{
 		initialize();
 	}
 

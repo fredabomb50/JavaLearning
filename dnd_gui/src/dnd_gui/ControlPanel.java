@@ -402,6 +402,13 @@ public class ControlPanel extends Sheet
 		panel_InventoryControls.setLayout(new MigLayout("", "[][][][]", "[]"));
 		
 		JButton bttn_AddMoney = new JButton("Add Money");
+		bttn_AddMoney.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				
+			}
+		});
 		panel_InventoryControls.add(bttn_AddMoney, "cell 0 0,grow");
 		
 		JButton bttn_SpendMoney = new JButton("Spend Money");
