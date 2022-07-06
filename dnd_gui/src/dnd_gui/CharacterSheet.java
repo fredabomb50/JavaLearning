@@ -529,7 +529,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		panel_ActionsTab.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow][grow]", "[][grow]"));
 		
 		lblNewLabel_14 = new JLabel("Action");
-		panel_ActionsTab.add(lblNewLabel_14, "cell 0 0,alignx center");
+		panel_ActionsTab.add(lblNewLabel_14, "cell 0 0,alignx center,aligny center");
 		
 		lblNewLabel_15 = new JLabel("Range");
 		panel_ActionsTab.add(lblNewLabel_15, "cell 1 0,alignx center");
@@ -541,7 +541,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		panel_ActionsTab.add(lblNewLabel_17, "cell 3 0,alignx center");
 		
 		lblNewLabel_18 = new JLabel("Damage Bonus");
-		panel_ActionsTab.add(lblNewLabel_18, "cell 4 0,alignx center");
+		panel_ActionsTab.add(lblNewLabel_18, "cell 4 0,alignx center,aligny center");
 		
 		lblNewLabel_22 = new JLabel("Ammo");
 		panel_ActionsTab.add(lblNewLabel_22, "cell 5 0,alignx center");
@@ -971,7 +971,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	{
 		lbl_XP.setText( Integer.toString( new_val ) );
 		lbl_Level.setText( Integer.toString( new_lvl ) );
-		SetLabelText( lbl_ProfBonus, Integer.toString( new_prof ) );
+		lbl_ProfBonus.setText( Integer.toString( new_prof ) );
 	}
 	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
@@ -991,7 +991,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_HitDieType.setText( die.toString() );
 	}
 	
-	public void fill_Misc(int lvl, int xp, int prof,  int initiative, int ac)
+	public void fill_Misc(int lvl, int xp, int prof, int initiative, int ac)
 	{		
 		SetLabelText( lbl_Level, lvl );
 		SetLabelText( lbl_XP, xp );

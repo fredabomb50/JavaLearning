@@ -164,15 +164,64 @@ public class SpellSheet extends Sheet
 		
 		JPanel panel_6thLevel = new JPanel();
 		tabs_SpellLevels.addTab("6th Level", null, panel_6thLevel, null);
+		panel_6thLevel.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		panel_6thLevel.add(scrollPane_6, "cell 0 0,grow");
+		
+		JLabel lbl_6thLevelSlots = new JLabel("New label");
+		lbl_6thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_6.setColumnHeaderView(lbl_6thLevelSlots);
+		
+		JTextArea textArea = new JTextArea();
+		scrollPane_6.setViewportView(textArea);
 		
 		JPanel panel_7thLevel = new JPanel();
 		tabs_SpellLevels.addTab("7th Level", null, panel_7thLevel, null);
+		panel_7thLevel.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		panel_7thLevel.add(scrollPane_7, "cell 0 0,grow");
+		
+		JLabel lbl_7thLevelSlots = new JLabel("New label");
+		lbl_7thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_7.setColumnHeaderView(lbl_7thLevelSlots);
+		
+		JTextArea textArea_1 = new JTextArea();
+		scrollPane_7.setViewportView(textArea_1);
 		
 		JPanel panel_8thLevel = new JPanel();
 		tabs_SpellLevels.addTab("8th Level", null, panel_8thLevel, null);
+		panel_8thLevel.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JScrollPane scrollPane_8 = new JScrollPane();
+		panel_8thLevel.add(scrollPane_8, "cell 0 0,grow");
+		
+		JLabel lbl_8thLevelSpell = new JLabel("New label");
+		lbl_8thLevelSpell.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_8.setColumnHeaderView(lbl_8thLevelSpell);
+		
+		JTextArea textArea_2 = new JTextArea();
+		scrollPane_8.setViewportView(textArea_2);
 		
 		JPanel panel_9thLevel = new JPanel();
 		tabs_SpellLevels.addTab("9th Level", null, panel_9thLevel, null);
+		panel_9thLevel.setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
+		JScrollPane scrollPane_9 = new JScrollPane();
+		panel_9thLevel.add(scrollPane_9, "cell 0 0,grow");
+		
+		JLabel lbl_9thLevelSlots = new JLabel("New label");
+		lbl_9thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
+		scrollPane_9.setColumnHeaderView(lbl_9thLevelSlots);
+		
+		JTextArea textArea_3 = new JTextArea();
+		scrollPane_9.setViewportView(textArea_3);
 	}
 
+	
+	public void update_Sheet( int[][] slots, int lvl, int new_save, int new_hit )
+	{
+		
+	}
 }

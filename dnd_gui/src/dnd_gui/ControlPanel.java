@@ -81,6 +81,29 @@ public class ControlPanel extends Sheet
 		{305000, 6},	// level 19
 		{355000, 6}		// level 20
 	};
+	private static final int[][] spell_slots_table =
+	{
+		{3, 2, 0, 0, 0, 0, 0, 0, 0, 0}, 	// level 1
+		{3, 3, 0, 0, 0, 0, 0, 0, 0, 0},		// level 2
+		{3, 4, 2, 0, 0, 0, 0, 0, 0, 0},		// level 3
+		{4, 4, 3, 0, 0, 0, 0, 0, 0, 0},		// level 4
+		{4, 4, 3, 2, 0, 0, 0, 0, 0, 0},		// level 5
+		{4, 4, 3, 3, 0, 0, 0, 0, 0, 0},		// level 6
+		{4, 4, 3, 3, 1, 0, 0, 0, 0, 0},		// level 7
+		{4, 4, 3, 3, 2, 0, 0, 0, 0, 0},		// level 8
+		{4, 4, 3, 3, 3, 1, 0, 0, 0, 0},		// level 9
+		{5, 4, 3, 3, 3, 2, 0, 0, 0, 0},		// level 10
+		{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},		// level 11
+		{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},	  	// level 12
+		{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	  	// level 13
+		{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	 	// level 14
+		{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 15
+		{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 16
+		{5, 4, 3, 3, 3, 2, 1, 1, 1, 1},	  	// level 17
+		{5, 4, 3, 3, 3, 3, 1, 1, 1, 1},	  	// level 18
+		{5, 4, 3, 3, 3, 3, 2, 1, 1, 1},   	// level 19
+		{5, 4, 3, 3, 3, 3, 2, 2, 1, 1}    	// level 20
+	};
 	
 
 	// Misc
@@ -139,8 +162,9 @@ public class ControlPanel extends Sheet
 	private void initialize()
 	{
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 612, 284);
+		frame.setBounds(100, 100, 625, 315);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][][]"));
 		
@@ -331,31 +355,26 @@ public class ControlPanel extends Sheet
 			public void mouseClicked(MouseEvent e)
 			{
 				String input = JOptionPane.showInputDialog( "Amount to add: " );
-				boolean lvl_up = false;
-				
 				int incoming_temp;
 				try
 				{
 					incoming_temp = Math.abs( Integer.parseInt( input ) );
-					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, 400000 );
+					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, xp_table[19][0] + 1 );
 
-					for ( int i = 0; i <= xp_table.length; i++)
-					{
-						if ( lvl_up )
+					int index = 0;
+					boolean lvl_up = false;
+					while( !lvl_up )
+					{	
+						if ( current_xp <= xp_table[index][0] )
 						{
-							if ( current_xp >= xp_table[i][0] )
-							{
-								lvl_up = true;
-								current_Proficiency = xp_table[i][1];
-								current_lvl++;
-							}
-							else
-							{
-								lvl_up = false;
-							}
+							lvl_up = true;
+							current_Proficiency = xp_table[index][1];
+							current_lvl = index;
 						}
-						current_Proficiency = xp_table[i][1];
-						current_lvl = i;
+						else
+						{
+							index++;
+						}
 					}
 				}
 				catch (NumberFormatException e1)
@@ -441,32 +460,32 @@ public class ControlPanel extends Sheet
 					{
 						case Platinum:
 						{
-							platinum += stored_value;
+							platinum = general_tools.ClampInt( platinum + stored_value, 0, 9999 );
 						} break;
 						
 						case Gold:
 						{
-							gold += stored_value;
+							gold = general_tools.ClampInt( gold + stored_value, 0, 9999 );
 						} break;
 						
 						case Electrum:
 						{
-							electrum += stored_value;
+							electrum = general_tools.ClampInt( electrum + stored_value, 0, 9999 );
 						} break;
 						
 						case Silver:
 						{
-							silver += stored_value;
+							silver = general_tools.ClampInt( silver + stored_value, 0, 9999 );
 						} break;
 						
 						case Copper:
 						{
-							copper += stored_value;
+							copper = general_tools.ClampInt( copper + stored_value, 0, 9999 );
 						} break;
 						
 						case SoulCoins:
 						{
-							soul_coins += stored_value;
+							soul_coins = general_tools.ClampInt( soul_coins + stored_value, 0, 9999 );
 						} break;
 						
 						default:
@@ -486,12 +505,96 @@ public class ControlPanel extends Sheet
 		panel_InventoryControls.add(bttn_AddMoney, "cell 0 0,grow");
 		
 		JButton bttn_SpendMoney = new JButton("Spend Money");
+		bttn_SpendMoney.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int stored_value = 0;
+				E_Currency stored_type = null;
+				boolean is_valid = true;
+				
+				try
+				{
+					stored_value = Integer.parseInt( txt_CurrencyVal.getText() );
+					stored_type = (E_Currency) combo_CurrencySelect.getSelectedItem();
+				}
+				catch (NumberFormatException exception)
+				{
+					is_valid = false;
+					stored_value = 0;
+				}
+				
+				if ( is_valid )
+				{
+					// for v.3 this will have to be much more robust.
+					switch ( stored_type )
+					{
+						case Platinum:
+						{
+							platinum = general_tools.ClampInt( platinum - stored_value, 0, 9999 );
+						} break;
+						
+						case Gold:
+						{
+							gold = general_tools.ClampInt( gold - stored_value, 0, 9999 );
+						} break;
+						
+						case Electrum:
+						{
+							electrum = general_tools.ClampInt( electrum - stored_value, 0, 9999 );
+						} break;
+						
+						case Silver:
+						{
+							silver = general_tools.ClampInt( silver - stored_value, 0, 9999 );
+						} break;
+						
+						case Copper:
+						{
+							copper = general_tools.ClampInt( copper - stored_value, 0, 9999 );
+						} break;
+						
+						case SoulCoins:
+						{
+							soul_coins = general_tools.ClampInt( soul_coins - stored_value, 0, 9999 );
+						} break;
+						
+						default:
+						{
+							// do nothing for now
+						} break;
+					}
+					i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
+					txt_CurrencyVal.setText( "" );
+				}
+				else
+				{
+					txt_CurrencyVal.setText( "???" );
+				}
+			}
+		});
 		panel_InventoryControls.add(bttn_SpendMoney, "cell 1 0,grow");
 		
 		JButton bttn_AddItem = new JButton("Add Item");
+		bttn_AddItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+		        JFrame temp = new JFrame();
+		        JOptionPane.showMessageDialog(temp, "COMING IN V.3");
+			}
+		});
 		panel_InventoryControls.add(bttn_AddItem, "cell 2 0,grow");
 		
 		JButton bttn_RemoveItem = new JButton("Remove Item");
+		bttn_RemoveItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+		        JFrame temp = new JFrame();
+		        JOptionPane.showMessageDialog(temp, "COMING IN V.3");
+			}
+		});
 		panel_InventoryControls.add(bttn_RemoveItem, "cell 3 0,grow");
 		
 		txt_CurrencyVal = new JTextField();
@@ -658,17 +761,17 @@ public class ControlPanel extends Sheet
 //		HashMap<String, Boolean> skills_ProfMap = new HashMap<String, Boolean>();
 		skills_IsProfEnabled.put("Acrobatics", false);
 		skills_IsProfEnabled.put("AnimalHandling", false);
-		skills_IsProfEnabled.put("Arcana", false);
+		skills_IsProfEnabled.put("Arcana", true);
 		skills_IsProfEnabled.put("Athletics", false);
 		skills_IsProfEnabled.put("Deception", false);
-		skills_IsProfEnabled.put("History", false);
-		skills_IsProfEnabled.put("Insight", false);
+		skills_IsProfEnabled.put("History", true);
+		skills_IsProfEnabled.put("Insight", true);
 		skills_IsProfEnabled.put("Performance", false);
 		skills_IsProfEnabled.put("Intimidation", false);
-		skills_IsProfEnabled.put("Investigation", false);
+		skills_IsProfEnabled.put("Investigation", true);
 		skills_IsProfEnabled.put("Medicine", false);
 		skills_IsProfEnabled.put("Nature", false);
-		skills_IsProfEnabled.put("Perception", false);
+		skills_IsProfEnabled.put("Perception", true);
 		skills_IsProfEnabled.put("Persuasion", false);
 		skills_IsProfEnabled.put("Religion", false);
 		skills_IsProfEnabled.put("SleightOfHand", false);
