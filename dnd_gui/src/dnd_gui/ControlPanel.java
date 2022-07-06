@@ -13,6 +13,7 @@ public class ControlPanel extends Sheet
 {
 	// Utility classes
 	Tools general_tools = new Tools();
+	//CustomDialogs pop_up = new CustomDialogs();
 	
 	// add a toggle that unlocks core stats for editing, and maybe a refresh function to make sure all relevant stats update
 	
@@ -51,6 +52,8 @@ public class ControlPanel extends Sheet
 	
 	private static HashMap<String, Integer> currency = new HashMap<String, Integer>();
 	private static int inspiration = 0;
+	
+	
 	
 	private static int current_xp = 0;
 	private static int current_lvl = 0;
@@ -99,7 +102,9 @@ public class ControlPanel extends Sheet
 	
 	// GUI elements
 	private JFrame frame;
-
+	private JTextField txt_CurrencyVal;
+	@SuppressWarnings("rawtypes")
+	private JComboBox combo_CurrencySelect;
 	
 	public static void main(String[] args)
 	{
@@ -130,6 +135,7 @@ public class ControlPanel extends Sheet
 
 
 	// Builds GUI and button functionality
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize()
 	{
 		frame = new JFrame();
@@ -407,57 +413,74 @@ public class ControlPanel extends Sheet
 		
 		JPanel panel_InventoryControls = new JPanel();
 		frame.getContentPane().add(panel_InventoryControls, "cell 0 2,alignx center,aligny center");
-		panel_InventoryControls.setLayout(new MigLayout("", "[][][][]", "[]"));
+		panel_InventoryControls.setLayout(new MigLayout("", "[grow][grow][][]", "[][]"));
 		
 		JButton bttn_AddMoney = new JButton("Add Money");
 		bttn_AddMoney.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				CustomDialogs pop_up = new CustomDialogs();
-				pop_up.frame.setVisible(true);
-
-				// consider instead using a constructor, passing the currencies, and returning
-				switch ( pop_up.get_type() )
+				int stored_value = 0;
+				E_Currency stored_type = null;
+				boolean is_valid = true;
+				
+				try
 				{
-					case Platinum:
-					{
-						platinum = pop_up.get_value();
-					} break;
-					
-					case Gold:
-					{
-						gold = pop_up.get_value();
-					} break;
-					
-					case Electrum:
-					{
-						electrum = pop_up.get_value();
-					} break;
-					
-					case Silver:
-					{
-						silver = pop_up.get_value();
-					} break;
-					
-					case Copper:
-					{
-						copper = pop_up.get_value();
-					} break;
-					
-					case SoulCoins:
-					{
-						soul_coins = pop_up.get_value();
-					} break;
-					
-					default:
-					{
-						// do nothing for now
-					} break;
+					stored_value = Integer.parseInt( txt_CurrencyVal.getText() );
+					stored_type = (E_Currency) combo_CurrencySelect.getSelectedItem();
+				}
+				catch (NumberFormatException exception)
+				{
+					is_valid = false;
+					stored_value = 0;
 				}
 				
-				pop_up.frame.dispose();
-				i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
+				if ( is_valid )
+				{
+					switch ( stored_type )
+					{
+						case Platinum:
+						{
+							platinum += stored_value;
+						} break;
+						
+						case Gold:
+						{
+							gold += stored_value;
+						} break;
+						
+						case Electrum:
+						{
+							electrum += stored_value;
+						} break;
+						
+						case Silver:
+						{
+							silver += stored_value;
+						} break;
+						
+						case Copper:
+						{
+							copper += stored_value;
+						} break;
+						
+						case SoulCoins:
+						{
+							soul_coins += stored_value;
+						} break;
+						
+						default:
+						{
+							// do nothing for now
+						} break;
+					}
+					i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
+					txt_CurrencyVal.setText( "" );
+				}
+				else
+				{
+					txt_CurrencyVal.setText( "???" );
+				}
 			}
 		});
 		panel_InventoryControls.add(bttn_AddMoney, "cell 0 0,grow");
@@ -470,6 +493,14 @@ public class ControlPanel extends Sheet
 		
 		JButton bttn_RemoveItem = new JButton("Remove Item");
 		panel_InventoryControls.add(bttn_RemoveItem, "cell 3 0,grow");
+		
+		txt_CurrencyVal = new JTextField();
+		panel_InventoryControls.add(txt_CurrencyVal, "cell 0 1,growx,aligny center");
+		txt_CurrencyVal.setColumns(10);
+		
+		combo_CurrencySelect = new JComboBox();
+		combo_CurrencySelect.setModel(new DefaultComboBoxModel(E_Currency.values()));
+		panel_InventoryControls.add(combo_CurrencySelect, "cell 1 1,growx,aligny center");
 		
 		JPanel panel_Sheets = new JPanel();
 		frame.getContentPane().add(panel_Sheets, "cell 0 3,alignx center,aligny center");

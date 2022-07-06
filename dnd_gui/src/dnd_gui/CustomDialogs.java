@@ -15,13 +15,9 @@ import java.awt.event.MouseEvent;
 public class CustomDialogs extends Sheet
 {
 	private JTextField txt_AddField;
-
-
 	private int stored_value = 0;
 	private E_Currency stored_type = null;
-	
-	
-	public JFrame frame;
+	private JFrame frame;
 	public CustomDialogs()
 	{
 		initialize();
@@ -67,10 +63,11 @@ public class CustomDialogs extends Sheet
 				if ( is_valid )
 				{
 					ToggleVisibility( frame, false );
+					frame.dispose();
 				}
 				else
 				{
-					txt_AddField.setText( "invalid" );
+					txt_AddField.setText( "???" );
 				}
 			}
 		});
