@@ -1,6 +1,6 @@
 package dnd_gui;
 
-public enum E_DieType
+public enum E_Dice
 {
 	D4,
 	D6,

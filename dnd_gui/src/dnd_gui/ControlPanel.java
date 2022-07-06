@@ -13,7 +13,6 @@ public class ControlPanel extends Sheet
 {
 	// Utility classes
 	Tools general_tools = new Tools();
-	Dice dice_tools = new Dice();
 	
 	// add a toggle that unlocks core stats for editing, and maybe a refresh function to make sure all relevant stats update
 	
@@ -40,7 +39,7 @@ public class ControlPanel extends Sheet
 	private static int health_Temp = 0;
 	
 	private static int hitdie_Current = 0;
-	private static E_DieType current_HitDie = null;
+	private static E_Dice current_HitDie = null;
 	
 	private static HashMap<String, int[]> stats = new HashMap<String, int[]>();
 	private static HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
@@ -81,6 +80,15 @@ public class ControlPanel extends Sheet
 	};
 	
 
+	// Misc
+	private static int platinum = 0;
+	private static int gold = 0;
+	private static int electrum = 0;
+	private static int silver = 0;
+	private static int copper = 0;
+	private static int soul_coins = 0;
+	
+	
 	// GUI sheets
 	private static CharacterSheet c_Sheet = null;
 	private static DetailsSheet d_Sheet = null;
@@ -406,7 +414,50 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
+				CustomDialogs pop_up = new CustomDialogs();
+				pop_up.frame.setVisible(true);
+
+				// consider instead using a constructor, passing the currencies, and returning
+				switch ( pop_up.get_type() )
+				{
+					case Platinum:
+					{
+						platinum = pop_up.get_value();
+					} break;
+					
+					case Gold:
+					{
+						gold = pop_up.get_value();
+					} break;
+					
+					case Electrum:
+					{
+						electrum = pop_up.get_value();
+					} break;
+					
+					case Silver:
+					{
+						silver = pop_up.get_value();
+					} break;
+					
+					case Copper:
+					{
+						copper = pop_up.get_value();
+					} break;
+					
+					case SoulCoins:
+					{
+						soul_coins = pop_up.get_value();
+					} break;
+					
+					default:
+					{
+						// do nothing for now
+					} break;
+				}
 				
+				pop_up.frame.dispose();
+				i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
 			}
 		});
 		panel_InventoryControls.add(bttn_AddMoney, "cell 0 0,grow");
@@ -562,7 +613,7 @@ public class ControlPanel extends Sheet
 		health_Max = 45;
 		health_Temp = 5;
 		hitdie_Current = current_lvl;
-		current_HitDie = E_DieType.D6;
+		current_HitDie = E_Dice.D6;
 		
 //		HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
 		saves.put("Str", false);
@@ -699,6 +750,7 @@ public class ControlPanel extends Sheet
 		i_Sheet = new InventorySheet();
 		i_Sheet.ToggleVisibility(n_Sheet.frame, false);
 		i_Sheet.frame.setBounds(100, 500, 970, 360); 
+		i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
 	}
 	
 	public void UpdateXP( int xp_received )

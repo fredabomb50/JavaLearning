@@ -27,7 +27,6 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
-import dnd_gui.Dice.eDice;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.FlowLayout;
@@ -984,7 +983,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		SetLabelText( lbl_ClimbSpeed, climb );
 	}
 	
-	public void fill_Health( int current, int max, int temp, E_DieType die )
+	public void fill_Health( int current, int max, int temp, E_Dice die )
 	{
 		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
 		lbl_MaxHealthVal.setText( Integer.toString( max ) );

@@ -26,4 +26,14 @@ public class Tools
 
 	
 	
+	// consider replacing this with the custom dialog classes
+//	class PopUp
+//	{
+//		
+//		public PopUp()
+//		{
+//			
+//		}
+//	}
+	
 }

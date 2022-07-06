@@ -16,6 +16,12 @@ public class InventorySheet extends Sheet
 
 	public JFrame frame;
 
+	JLabel lbl_Platinum;
+	JLabel lbl_Gold;
+	JLabel lbl_Electrum;
+	JLabel lbl_Silver;
+	JLabel lbl_Copper;
+	JLabel lbl_SoulCoins;
 	
 	/**
 	 * Create the application.
@@ -28,7 +34,8 @@ public class InventorySheet extends Sheet
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		frame = new JFrame();
 		frame.setSize(new Dimension(970, 360));
 		frame.setResizable(false);
@@ -47,37 +54,37 @@ public class InventorySheet extends Sheet
 		JLabel lblNewLabel = new JLabel("Platinum: ");
 		panel.add(lblNewLabel, "cell 0 0");
 		
-		JLabel lbl_Platinum = new JLabel("1000");
+		lbl_Platinum = new JLabel("1000");
 		panel.add(lbl_Platinum, "cell 1 0,alignx center");
 		
 		JLabel lblNewLabel_1 = new JLabel("Gold:");
 		panel.add(lblNewLabel_1, "cell 3 0");
 		
-		JLabel lbl_Gold = new JLabel("1000");
+		lbl_Gold = new JLabel("1000");
 		panel.add(lbl_Gold, "cell 4 0,alignx center");
 		
 		JLabel lblNewLabel_2 = new JLabel("Electrum:");
 		panel.add(lblNewLabel_2, "cell 6 0");
 		
-		JLabel lbl_Electrum = new JLabel("1000");
+		lbl_Electrum = new JLabel("1000");
 		panel.add(lbl_Electrum, "cell 7 0,alignx center");
 		
 		JLabel lblNewLabel_3 = new JLabel("Silver:");
 		panel.add(lblNewLabel_3, "cell 0 1");
 		
-		JLabel lbl_Silver = new JLabel("1000");
+		lbl_Silver = new JLabel("1000");
 		panel.add(lbl_Silver, "cell 1 1,alignx center");
 		
 		JLabel lblNewLabel_4 = new JLabel("Copper:");
 		panel.add(lblNewLabel_4, "cell 3 1");
 		
-		JLabel lbl_Copper = new JLabel("1000");
+		lbl_Copper = new JLabel("1000");
 		panel.add(lbl_Copper, "cell 4 1,alignx center");
 		
 		JLabel lblNewLabel_5 = new JLabel("Soul Coins:");
 		panel.add(lblNewLabel_5, "cell 6 1");
 		
-		JLabel lbl_SoulCoins = new JLabel("1000");
+		lbl_SoulCoins = new JLabel("1000");
 		panel.add(lbl_SoulCoins, "cell 7 1,alignx center");
 		
 		JPanel panel_4 = new JPanel();
@@ -127,5 +134,14 @@ public class InventorySheet extends Sheet
 		JTextArea textArea_1 = new JTextArea();
 		scrollPane_3.setViewportView(textArea_1);
 	}
-
+	
+	public void update_Currency( int pl, int gl, int el, int sl, int cp, int sc )
+	{
+		lbl_Platinum.setText( Integer.toString(pl) );
+		lbl_Gold.setText( Integer.toString(gl) );
+		lbl_Electrum.setText( Integer.toString(el) );
+		lbl_Silver.setText( Integer.toString(sl) );
+		lbl_Copper.setText( Integer.toString(cp) );
+		lbl_SoulCoins.setText( Integer.toString(sc) );
+	}
 }
