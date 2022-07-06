@@ -105,7 +105,11 @@ public class ControlPanel extends Sheet
 		{5, 4, 3, 3, 3, 3, 2, 2, 1, 1}    	// level 20
 	};
 	
+	// Casting
+	private static int spell_save = 0;
+	private static int spell_hit_bonus = 0;
 
+	
 	// Misc
 	private static int platinum = 0;
 	private static int gold = 0;
