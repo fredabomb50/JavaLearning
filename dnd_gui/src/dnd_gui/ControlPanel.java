@@ -374,6 +374,8 @@ public class ControlPanel extends Sheet
 							lvl_up = true;
 							current_Proficiency = xp_table[index][1];
 							current_lvl = index;
+							
+							s_Sheet.update_Sheet(spell_slots_table, current_lvl, spell_save, spell_hit_bonus);
 						}
 						else
 						{
@@ -854,6 +856,10 @@ public class ControlPanel extends Sheet
 		currency.put("Gold", 0);
 		currency.put("Platinum", 0);
 		currency.put("SoulCoins", 0);
+		
+		
+		spell_save = 8 + int_mod + current_Proficiency;
+		spell_hit_bonus = int_mod + current_Proficiency;
 	}
 	
 	private static void init_sheets()
@@ -877,7 +883,7 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		
+		s_Sheet.update_Sheet(spell_slots_table, current_lvl, spell_save, spell_hit_bonus);
 		
 		n_Sheet = new NotesSheet();
 		n_Sheet.ToggleVisibility(n_Sheet.frame, false);
