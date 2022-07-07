@@ -42,6 +42,7 @@ public class ControlPanel extends Sheet
 	private static int hitdie_Current = 0;
 	private static E_Dice current_HitDie = null;
 	
+	// stat[0] == ability score ; stat[1] == ability mod
 	private static HashMap<String, int[]> stats = new HashMap<String, int[]>();
 	private static HashMap<String, Boolean> saves = new HashMap<String, Boolean>();
 	private static HashMap<String, Boolean> skills_IsProfEnabled = new HashMap<String, Boolean>();
@@ -369,17 +370,25 @@ public class ControlPanel extends Sheet
 					boolean lvl_up = false;
 					while( !lvl_up )
 					{	
-						if ( current_xp <= xp_table[index][0] )
+						try
 						{
-							lvl_up = true;
-							current_Proficiency = xp_table[index][1];
-							current_lvl = index;
-							
-							s_Sheet.update_Sheet(spell_slots_table, current_lvl, spell_save, spell_hit_bonus);
+							if ( current_xp <= xp_table[index][0] )
+							{
+								lvl_up = true;
+								current_Proficiency = xp_table[index][1];
+								current_lvl = index;
+								
+								RecalcCastingStats();
+								s_Sheet.update_Sheet(spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
+							}
+							else
+							{
+								index++;
+							}
 						}
-						else
+						catch ( ArrayIndexOutOfBoundsException fail )
 						{
-							index++;
+							break;
 						}
 					}
 				}
@@ -883,8 +892,10 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet(spell_slots_table, current_lvl, spell_save, spell_hit_bonus);
+		s_Sheet.update_Sheet(spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
 		
+		
+		// notes sheet 0 x 0
 		n_Sheet = new NotesSheet();
 		n_Sheet.ToggleVisibility(n_Sheet.frame, false);
 		n_Sheet.frame.setBounds(100, 100, 500, 500);
@@ -923,5 +934,13 @@ public class ControlPanel extends Sheet
 			skills_IsProfEnabled.replace(skill_name, true);
 			skills_ValMap.replace(skill_name, current_value + current_Proficiency);
 		}
+	}
+	
+	
+	public void RecalcCastingStats()
+	{
+		int[] temp = stats.get("Int");
+		spell_save = temp[1] + current_Proficiency + 8;
+		spell_hit_bonus = temp[1] + current_Proficiency;
 	}
 }
