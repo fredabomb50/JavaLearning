@@ -407,6 +407,13 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.add(bttn_ToggleVantage, "cell 2 1,grow");
 		
 		JButton bttn_ToggleProf = new JButton("Toggle Prof.");
+		bttn_ToggleProf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				CustomDialogs.test();
+			}
+		});
 		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
 		
 		JButton bttn_AddInsp = new JButton("Gain Insp.");
