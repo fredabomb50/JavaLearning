@@ -960,18 +960,216 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	{
 		lbl_HitDieValue.setText( Integer.toString( new_val ) + "/" + Integer.toString( lvl ) );
 	}
-	
 	public void update_Inspiration( int new_val )
 	{
 		lbl_Inspiration.setText( Integer.toString( new_val ) );
 	}
-	
-	
 	public void update_XP( int new_val, int new_lvl, int new_prof )
 	{
 		lbl_XP.setText( Integer.toString( new_val ) );
 		lbl_Level.setText( Integer.toString( new_lvl ) );
 		lbl_ProfBonus.setText( Integer.toString( new_prof ) );
+	}
+	public void update_Skill( String skill, int new_val )
+	{
+		switch ( skill )
+		{
+		  case "AnimalHandling":
+		  {
+		    lbl_AnimalHandlingVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Acrobatics":
+		  {
+		    lbl_AcrobaticsVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Arcana":
+		  {
+		    lbl_ArcanaVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Athletics":
+		  {
+		    lbl_AthleticsVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Deception":
+		  {
+		    lbl_DeceptionVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "History":
+		  {
+		    lbl_HistoryVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Insight":
+		  {
+		    lbl_InsightVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Intimidation":
+		  {
+		    lbl_IntimidationVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Investigation":
+		  {
+		    lbl_InvestigationVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Medicine":
+		  {
+		    lbl_MedicineVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Nature":
+		  {
+		    lbl_NatureVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Perception":
+		  {
+		    lbl_PerceptionVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Performance":
+		  {
+		    lbl_PerformanceVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Persuasion":
+		  {
+		    lbl_PersuasionVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Religion":
+		  {
+		    lbl_ReligionVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "SleightOfHand":
+		  {
+		    lbl_SleightOfHandVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Stealth":
+		  {
+		    lbl_StealthVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  case "Survival":
+		  {
+		    lbl_SurvivalVal.setText( Integer.toString(new_val) );
+		  } break;
+
+		  default:
+		  {
+		    // do nothing
+		  } break;
+		}
+		
+	}
+	public void update_SkillProf( String skill, boolean new_val )
+	{
+		switch ( skill )
+		{
+		  case "AnimalHandling":
+		  {
+		    lbl_AnimalHandlingProf.setVisible( new_val );
+		  } break;
+
+		  case "Acrobatics":
+		  {
+		    lbl_AcrobaticsProf.setVisible( new_val );
+		  } break;
+
+		  case "Arcana":
+		  {
+		    lbl_ArcanaProf.setVisible( new_val );
+		  } break;
+
+		  case "Athletics":
+		  {
+		    lbl_AthleticsProf.setVisible( new_val );
+		  } break;
+
+		  case "Deception":
+		  {
+		    lbl_DeceptionProf.setVisible( new_val );
+		  } break;
+
+		  case "History":
+		  {
+		    lbl_HistoryProf.setVisible( new_val );
+		  } break;
+
+		  case "Insight":
+		  {
+		    lbl_InsightProf.setVisible( new_val );
+		  } break;
+
+		  case "Intimidation":
+		  {
+		    lbl_IntimidationProf.setVisible( new_val );
+		  } break;
+
+		  case "Investigation":
+		  {
+		    lbl_InvestigationProf.setVisible( new_val );
+		  } break;
+
+		  case "Medicine":
+		  {
+		    lbl_MedicineProf.setVisible( new_val );
+		  } break;
+
+		  case "Nature":
+		  {
+		    lbl_NatureProf.setVisible( new_val );
+		  } break;
+
+		  case "Perception":
+		  {
+		    lbl_PerceptionProf.setVisible( new_val );
+		  } break;
+
+		  case "Performance":
+		  {
+		    lbl_PerformanceProf.setVisible( new_val );
+		  } break;
+
+		  case "Persuasion":
+		  {
+		    lbl_PersuasionVal.setVisible( new_val );
+		  } break;
+
+		  case "Religion":
+		  {
+		    lbl_ReligionProf.setVisible( new_val );
+		  } break;
+
+		  case "SleightOfHand":
+		  {
+		    lbl_SleightOfHandProf.setVisible( new_val );
+		  } break;
+
+		  case "Stealth":
+		  {
+		    lbl_StealthProf.setVisible( new_val );
+		  } break;
+
+		  case "Survival":
+		  {
+		    lbl_SurvivalProf.setVisible( new_val );
+		  } break;
+
+		  default:
+		  {
+		    // do nothing
+		  } break;
+		}
 	}
 	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )

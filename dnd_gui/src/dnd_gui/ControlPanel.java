@@ -407,11 +407,21 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.add(bttn_ToggleVantage, "cell 2 1,grow");
 		
 		JButton bttn_ToggleProf = new JButton("Toggle Prof.");
-		bttn_ToggleProf.addMouseListener(new MouseAdapter() {
+		bttn_ToggleProf.addMouseListener(new MouseAdapter()
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				CustomDialogs.test();
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.SelectSkill );
+				E_Skills temp_Skill = dialog.get_skill();
+				
+				for ( E_Skills element : E_Skills.values() )
+				{
+					if ( dialog.get_skill() == element )
+					{
+						ToggleProfBonus( temp_Skill.name() );
+					}
+				}
 			}
 		});
 		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
@@ -781,47 +791,26 @@ public class ControlPanel extends Sheet
 		
 		
 //		HashMap<String, Boolean> skills_ProfMap = new HashMap<String, Boolean>();
-		skills_IsProfEnabled.put("Acrobatics", false);
-		skills_IsProfEnabled.put("AnimalHandling", false);
-		skills_IsProfEnabled.put("Arcana", true);
-		skills_IsProfEnabled.put("Athletics", false);
-		skills_IsProfEnabled.put("Deception", false);
-		skills_IsProfEnabled.put("History", true);
-		skills_IsProfEnabled.put("Insight", true);
-		skills_IsProfEnabled.put("Performance", false);
-		skills_IsProfEnabled.put("Intimidation", false);
-		skills_IsProfEnabled.put("Investigation", true);
-		skills_IsProfEnabled.put("Medicine", false);
-		skills_IsProfEnabled.put("Nature", false);
-		skills_IsProfEnabled.put("Perception", true);
-		skills_IsProfEnabled.put("Persuasion", false);
-		skills_IsProfEnabled.put("Religion", false);
-		skills_IsProfEnabled.put("SleightOfHand", false);
-		skills_IsProfEnabled.put("Stealth", false);
-		skills_IsProfEnabled.put("Survival", false);		
-		
-//		HashMap<String, Boolean> skills_IsExpertEnabled = new HashMap<String, Boolean>();
-		skills_IsExpertEnabled.put("Acrobatics", false);
-		skills_IsExpertEnabled.put("AnimalHandling", false);
-		skills_IsExpertEnabled.put("Arcana", false);
-		skills_IsExpertEnabled.put("Athletics", false);
-		skills_IsExpertEnabled.put("Deception", false);
-		skills_IsExpertEnabled.put("History", false);
-		skills_IsExpertEnabled.put("Insight", false);
-		skills_IsExpertEnabled.put("Performance", false);
-		skills_IsExpertEnabled.put("Intimidation", false);
-		skills_IsExpertEnabled.put("Investigation", false);
-		skills_IsExpertEnabled.put("Medicine", false);
-		skills_IsExpertEnabled.put("Nature", false);
-		skills_IsExpertEnabled.put("Perception", false);
-		skills_IsExpertEnabled.put("Persuasion", false);
-		skills_IsExpertEnabled.put("Religion", false);
-		skills_IsExpertEnabled.put("SleightOfHand", false);
-		skills_IsExpertEnabled.put("Stealth", false);
-		skills_IsExpertEnabled.put("Survival", false);
+		for ( E_Skills element : E_Skills.values() )
+		{
+			skills_IsProfEnabled.put(element.name(), false);
+		}
 	
 		
-
+//		HashMap<String, Boolean> skills_IsExpertEnabled = new HashMap<String, Boolean>();
+		for ( E_Skills element : E_Skills.values() )
+		{
+			skills_IsExpertEnabled.put(element.name(), false);
+		}
+	
+		
+//		HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
+		for ( E_Skills element : E_Skills.values() )
+		{
+			skills_BonusMap.put(element.name(), 0);
+		}
+		
+		
 //		HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 		skills_ValMap.put("Acrobatics", dex_mod);
 		skills_ValMap.put("AnimalHandling", wis_mod);
@@ -842,25 +831,8 @@ public class ControlPanel extends Sheet
 		skills_ValMap.put("Stealth", dex_mod);
 		skills_ValMap.put("Survival", wis_mod);		
 
-//		HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
-		skills_BonusMap.put("Acrobatics", 0);
-		skills_BonusMap.put("AnimalHandling", 0);
-		skills_BonusMap.put("Arcana", 0);
-		skills_BonusMap.put("Athletics", 0);
-		skills_BonusMap.put("Deception", 0);
-		skills_BonusMap.put("History", 0);
-		skills_BonusMap.put("Insight", 0);
-		skills_BonusMap.put("Performance", 0);
-		skills_BonusMap.put("Intimidation", 0);
-		skills_BonusMap.put("Investigation", 0);
-		skills_BonusMap.put("Medicine", 0);
-		skills_BonusMap.put("Nature", 0);
-		skills_BonusMap.put("Perception", 0);
-		skills_BonusMap.put("Persuasion", 0);
-		skills_BonusMap.put("Religion", 0);
-		skills_BonusMap.put("SleightOfHand", 0);
-		skills_BonusMap.put("Stealth", 0);
-		skills_BonusMap.put("Survival", 0);
+		
+
 		
 		
 		inspiration = 0;
@@ -941,6 +913,9 @@ public class ControlPanel extends Sheet
 			skills_IsProfEnabled.replace(skill_name, true);
 			skills_ValMap.replace(skill_name, current_value + current_Proficiency);
 		}
+		
+		c_Sheet.update_Skill( skill_name, skills_ValMap.get(skill_name) );
+		c_Sheet.update_SkillProf( skill_name, skills_IsProfEnabled.get(skill_name) );
 	}
 	
 	
@@ -950,4 +925,5 @@ public class ControlPanel extends Sheet
 		spell_save = temp[1] + current_Proficiency + 8;
 		spell_hit_bonus = temp[1] + current_Proficiency;
 	}
+	
 }
