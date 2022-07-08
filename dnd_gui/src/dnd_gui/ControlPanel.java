@@ -13,7 +13,7 @@ public class ControlPanel extends Sheet
 {
 	// Utility classes
 	Tools general_tools = new Tools();
-	//CustomDialogs pop_up = new CustomDialogs();
+
 	
 	// add a toggle that unlocks core stats for editing, and maybe a refresh function to make sure all relevant stats update
 	
@@ -41,6 +41,7 @@ public class ControlPanel extends Sheet
 	
 	private static int hitdie_Current = 0;
 	private static E_Dice current_HitDie = null;
+	
 	
 	// stat[0] == ability score ; stat[1] == ability mod
 	private static HashMap<String, int[]> stats = new HashMap<String, int[]>();
@@ -130,9 +131,7 @@ public class ControlPanel extends Sheet
 	
 	// GUI elements
 	private JFrame frame;
-	private JTextField txt_CurrencyVal;
-	@SuppressWarnings("rawtypes")
-	private JComboBox combo_CurrencySelect;
+	
 	
 	public static void main(String[] args)
 	{
@@ -163,7 +162,6 @@ public class ControlPanel extends Sheet
 
 
 	// Builds GUI and button functionality
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initialize()
 	{
 		frame = new JFrame();
@@ -471,66 +469,17 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int stored_value = 0;
-				E_Currency stored_type = null;
-				boolean is_valid = true;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.EnterCurrency );
+				E_Currency temp_Currency = dialog.get_currency();
+				int temp_Val = dialog.get_value();
 				
-				try
+				for ( E_Currency element : E_Currency.values() )
 				{
-					stored_value = Integer.parseInt( txt_CurrencyVal.getText() );
-					stored_type = (E_Currency) combo_CurrencySelect.getSelectedItem();
-				}
-				catch (NumberFormatException exception)
-				{
-					is_valid = false;
-					stored_value = 0;
-				}
-				
-				if ( is_valid )
-				{
-					switch ( stored_type )
+					if ( temp_Currency == element )
 					{
-						case Platinum:
-						{
-							platinum = general_tools.ClampInt( platinum + stored_value, 0, 9999 );
-						} break;
-						
-						case Gold:
-						{
-							gold = general_tools.ClampInt( gold + stored_value, 0, 9999 );
-						} break;
-						
-						case Electrum:
-						{
-							electrum = general_tools.ClampInt( electrum + stored_value, 0, 9999 );
-						} break;
-						
-						case Silver:
-						{
-							silver = general_tools.ClampInt( silver + stored_value, 0, 9999 );
-						} break;
-						
-						case Copper:
-						{
-							copper = general_tools.ClampInt( copper + stored_value, 0, 9999 );
-						} break;
-						
-						case SoulCoins:
-						{
-							soul_coins = general_tools.ClampInt( soul_coins + stored_value, 0, 9999 );
-						} break;
-						
-						default:
-						{
-							// do nothing for now
-						} break;
+						update_Money( temp_Currency, Math.abs(temp_Val) );
+						break;
 					}
-					i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
-					txt_CurrencyVal.setText( "" );
-				}
-				else
-				{
-					txt_CurrencyVal.setText( "???" );
 				}
 			}
 		});
@@ -541,67 +490,17 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int stored_value = 0;
-				E_Currency stored_type = null;
-				boolean is_valid = true;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.EnterCurrency );
+				E_Currency temp_Currency = dialog.get_currency();
+				int temp_Val = dialog.get_value();
 				
-				try
+				for ( E_Currency element : E_Currency.values() )
 				{
-					stored_value = Integer.parseInt( txt_CurrencyVal.getText() );
-					stored_type = (E_Currency) combo_CurrencySelect.getSelectedItem();
-				}
-				catch (NumberFormatException exception)
-				{
-					is_valid = false;
-					stored_value = 0;
-				}
-				
-				if ( is_valid )
-				{
-					// for v.3 this will have to be much more robust.
-					switch ( stored_type )
+					if ( temp_Currency == element )
 					{
-						case Platinum:
-						{
-							platinum = general_tools.ClampInt( platinum - stored_value, 0, 9999 );
-						} break;
-						
-						case Gold:
-						{
-							gold = general_tools.ClampInt( gold - stored_value, 0, 9999 );
-						} break;
-						
-						case Electrum:
-						{
-							electrum = general_tools.ClampInt( electrum - stored_value, 0, 9999 );
-						} break;
-						
-						case Silver:
-						{
-							silver = general_tools.ClampInt( silver - stored_value, 0, 9999 );
-						} break;
-						
-						case Copper:
-						{
-							copper = general_tools.ClampInt( copper - stored_value, 0, 9999 );
-						} break;
-						
-						case SoulCoins:
-						{
-							soul_coins = general_tools.ClampInt( soul_coins - stored_value, 0, 9999 );
-						} break;
-						
-						default:
-						{
-							// do nothing for now
-						} break;
+						update_Money( temp_Currency, -Math.abs(temp_Val) );
+						break;
 					}
-					i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
-					txt_CurrencyVal.setText( "" );
-				}
-				else
-				{
-					txt_CurrencyVal.setText( "???" );
 				}
 			}
 		});
@@ -628,14 +527,6 @@ public class ControlPanel extends Sheet
 			}
 		});
 		panel_InventoryControls.add(bttn_RemoveItem, "cell 3 0,grow");
-		
-		txt_CurrencyVal = new JTextField();
-		panel_InventoryControls.add(txt_CurrencyVal, "cell 0 1,growx,aligny center");
-		txt_CurrencyVal.setColumns(10);
-		
-		combo_CurrencySelect = new JComboBox();
-		combo_CurrencySelect.setModel(new DefaultComboBoxModel(E_Currency.values()));
-		panel_InventoryControls.add(combo_CurrencySelect, "cell 1 1,growx,aligny center");
 		
 		JPanel panel_Sheets = new JPanel();
 		frame.getContentPane().add(panel_Sheets, "cell 0 3,alignx center,aligny center");
@@ -916,6 +807,49 @@ public class ControlPanel extends Sheet
 		
 		c_Sheet.update_Skill( skill_name, skills_ValMap.get(skill_name) );
 		c_Sheet.update_SkillProf( skill_name, skills_IsProfEnabled.get(skill_name) );
+	}
+	
+	
+	private void update_Money( E_Currency currency, int new_val )
+	{
+		switch ( currency )
+		{
+			case Platinum:
+			{
+				platinum = general_tools.ClampInt( platinum + new_val, 0, 100000 );
+			} break;
+			
+			case Gold:
+			{
+				gold = general_tools.ClampInt( gold + new_val, 0, 100000 );
+			} break;
+			
+			case Electrum:
+			{
+				electrum = general_tools.ClampInt( electrum + new_val, 0, 100000 );
+			} break;
+			
+			case Silver:
+			{
+				silver = general_tools.ClampInt( silver + new_val, 0, 100000 );
+			} break;
+			
+			case Copper:
+			{
+				copper = general_tools.ClampInt( copper + new_val, 0, 100000 );
+			} break;
+			
+			case SoulCoins:
+			{
+				soul_coins = general_tools.ClampInt( soul_coins + new_val, 0, 100000 );
+			} break;
+			
+			default:
+			{
+				// do nothing for now
+			} break;
+		}
+		i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
 	}
 	
 	

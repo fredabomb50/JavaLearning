@@ -26,7 +26,6 @@ public class CustomDialogs extends Sheet
 	
 	
 	// GUI stuff
-	private static JFrame frame;
 	private static JDialog custom;
 	private static JTextField txt_AddField;
 	
@@ -43,7 +42,7 @@ public class CustomDialogs extends Sheet
 			
 			case EnterCurrency:
 			{
-				
+				Enter_Currency( owner );
 			} break;
 			
 			default:
@@ -53,21 +52,22 @@ public class CustomDialogs extends Sheet
 		}
 	}
 
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void initialize()
+	private void Enter_Currency( JFrame owner )
 	{
-		frame = new JFrame();
-		frame.setBounds(100, 100, 365, 126);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[][grow][][grow][]", "[][][]"));
+		custom = new JDialog( owner, "Select Currency", true );
+		custom.setBounds(100, 100, 365, 126);
+		custom.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
+		custom.getContentPane().setLayout(new MigLayout("", "[][grow][][grow][]", "[][][]"));
 		
 		JComboBox combo_SelectCurrency = new JComboBox();
 		combo_SelectCurrency.setModel(new DefaultComboBoxModel(E_Currency.values()));
-		frame.getContentPane().add(combo_SelectCurrency, "cell 0 0,growx");
+		custom.getContentPane().add(combo_SelectCurrency, "cell 0 0,growx");
 		
 		txt_AddField = new JTextField();
 		txt_AddField.setHorizontalAlignment(SwingConstants.RIGHT);
-		frame.getContentPane().add(txt_AddField, "cell 1 0,growx");
+		custom.getContentPane().add(txt_AddField, "cell 1 0,growx");
 		txt_AddField.setColumns(10);
 		
 		JButton bttn_Confirm = new JButton("Confirm");
@@ -89,8 +89,8 @@ public class CustomDialogs extends Sheet
 				
 				if ( is_valid )
 				{
-					ToggleVisibility( frame, false );
-					frame.dispose();
+					custom.setVisible(false);
+					custom.dispose();
 				}
 				else
 				{
@@ -98,23 +98,21 @@ public class CustomDialogs extends Sheet
 				}
 			}
 		});
-		frame.getContentPane().add(bttn_Confirm, "cell 4 0,alignx center,aligny center");
+		custom.getContentPane().add(bttn_Confirm, "cell 4 0,alignx center,aligny center");
 		
 		JButton bttn_Cancel = new JButton("Cancel");
 		bttn_Cancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				frame.dispose();
+				custom.dispose();
 			}
 		});
-		frame.getContentPane().add(bttn_Cancel, "cell 0 2,alignx center,aligny center");
+		custom.getContentPane().add(bttn_Cancel, "cell 0 2,alignx center,aligny center");
+		custom.setVisible(true);
 	}
-
-	
-	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void Select_Skill( JFrame owner )
+	private void Select_Skill( JFrame owner )
 	{
 		custom = new JDialog( owner, "Select Skill", true );
 		custom.setBounds(100, 100, 365, 126);
@@ -152,16 +150,17 @@ public class CustomDialogs extends Sheet
 	}
 	
 	
+	
+	
+	//======================GETTERS
 	public int get_value()
 	{
 		return stored_value;
 	}
-	
 	public E_Currency get_currency()
 	{
 		return stored_currency;
 	}
-	
 	public E_Skills get_skill()
 	{
 		return stored_skill;
