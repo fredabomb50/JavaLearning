@@ -2,11 +2,22 @@ package dnd_gui;
 
 import java.awt.EventQueue;
 import javax.swing.*;
+
+import org.json.simple.parser.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.awt.Toolkit;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileReader;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class ControlPanel extends Sheet
@@ -131,6 +142,7 @@ public class ControlPanel extends Sheet
 	
 	// GUI elements
 	private JFrame frame;
+	private final Action action = new Load();
 	
 	
 	public static void main(String[] args)
@@ -619,6 +631,7 @@ public class ControlPanel extends Sheet
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Load");
+		mntmNewMenuItem_2.setAction(action);
 		mnNewMenu.add(mntmNewMenuItem_2);
 	}
 
@@ -738,9 +751,6 @@ public class ControlPanel extends Sheet
 		skills_ValMap.put("Stealth", dex_mod);
 		skills_ValMap.put("Survival", wis_mod);		
 
-		
-
-		
 		
 		inspiration = 0;
 		
@@ -876,4 +886,57 @@ public class ControlPanel extends Sheet
 		spell_hit_bonus = temp[1] + current_Proficiency;
 	}
 	
+	private class Load extends AbstractAction
+	{
+
+		private static final long serialVersionUID = 1L;
+		public Load()
+		{
+			putValue(NAME, "Load");
+			putValue(SHORT_DESCRIPTION, "Load JSON files in save folder");
+		}
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		public void actionPerformed(ActionEvent e)
+		{
+			int temp_dex_score = 0;
+			int temp_dex_mod = 0;
+			
+			try
+			{
+				Object obj = new JSONParser().parse(new FileReader("character_stats.json"));
+				JSONObject json_obj = (JSONObject) obj;
+				
+				Map temp_scores = ( (Map)json_obj.get("scores") );
+		        Iterator<Map.Entry> itr1 = temp_scores.entrySet().iterator();
+		        while ( itr1.hasNext() )
+		        {
+		            Map.Entry pair = itr1.next();
+		            if ( pair.getKey().toString().equalsIgnoreCase("dex_score") )
+		            {
+		            	temp_dex_score = Integer.parseInt( pair.getValue().toString() );
+		            }
+		        }
+		        
+				Map temp_mods = ( (Map)json_obj.get("modifiers") );
+		        itr1 = temp_mods.entrySet().iterator();
+		        while ( itr1.hasNext() )
+		        {
+		            Map.Entry pair = itr1.next();
+		            if (  pair.getKey().toString().equalsIgnoreCase("dex_mod") )
+		            {
+		            	temp_dex_mod = Integer.parseInt( pair.getValue().toString() );
+		            }
+		        }
+
+				
+				int[] temp_dex = { temp_dex_score, temp_dex_mod };
+				stats.replace("Dex", temp_dex);
+				c_Sheet.fill_Stats( stats, saves );
+			}
+			catch ( ParseException | IOException parse_fail )
+			{
+				System.out.println( "Exception caught during json test" + parse_fail.toString() );
+			}
+		}
+	}
 }

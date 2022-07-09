@@ -1,0 +1,21 @@
+{
+    "scores":
+    {
+        "dex_score": 20,
+        "str_score": 10,
+        "con_score": 10,
+        "wis_score": 10,
+        "int_score": 10,
+        "chr_score": 10
+    },
+    
+    "modifiers":
+    {
+        "dex_mod": 5,
+        "str_mod": 0,
+        "con_mod": 0,
+        "wis_mod": 0,
+        "int_mod": 0,
+        "chr_mod": 0
+    }
+}

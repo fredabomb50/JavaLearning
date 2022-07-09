@@ -1172,6 +1172,8 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		}
 	}
 	
+	
+	
 	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
 	{
 		SetLabelText( lbl_GroundSpeed, ground );
@@ -1224,9 +1226,9 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_IntStat.setText( "[ " + Integer.toString( temp_int[0] ) + " ]" );
 		lbl_ChrStat.setText( "[ " + Integer.toString( temp_chr[0] ) + " ]" );
 
-
-		lbl_StrSave.setText( "[ " + Integer.toString( temp_dex[1] ) + " ]" );
-		lbl_DexSave.setText( "[ " + Integer.toString( temp_str[1] ) + " ]" );
+		
+		lbl_StrSave.setText( "[ " + Integer.toString( temp_str[1] ) + " ]" );
+		lbl_DexSave.setText( "[ " + Integer.toString( temp_dex[1] ) + " ]" );
 		lbl_ConSave.setText( "[ " + Integer.toString( temp_con[1] ) + " ]" );
 		lbl_WisSave.setText( "[ " + Integer.toString( temp_wis[1] ) + " ]" );
 		lbl_IntSave.setText( "[ " + Integer.toString( temp_int[1] ) + " ]" );
