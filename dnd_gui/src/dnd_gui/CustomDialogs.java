@@ -30,7 +30,7 @@ public class CustomDialogs extends Sheet
 	private static JTextField txt_AddField;
 	
 	
-	
+	// Constructor
 	public CustomDialogs( JFrame owner, E_Dialog type )
 	{
 		switch ( type )
@@ -47,7 +47,7 @@ public class CustomDialogs extends Sheet
 			
 			default:
 			{
-				
+				// do nothing; invalid call
 			} break;
 		}
 	}

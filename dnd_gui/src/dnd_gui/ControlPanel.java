@@ -604,6 +604,22 @@ public class ControlPanel extends Sheet
 			}
 		});
 		panel_Sheets.add(bttn_Notes, "cell 4 0,grow");
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("File");
+		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save as");
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Load");
+		mnNewMenu.add(mntmNewMenuItem_2);
 	}
 
 	

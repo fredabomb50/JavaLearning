@@ -313,7 +313,7 @@ public class JSONParser {
 	 * Stream processing of JSON text.
 	 * 
 	 * @see ContentHandler
-	 * 
+	 *
 	 * @param in
 	 * @param contentHandler
 	 * @param isResume - Indicates if it continues previous parsing operation.
