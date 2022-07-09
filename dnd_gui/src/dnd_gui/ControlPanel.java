@@ -24,9 +24,10 @@ public class ControlPanel extends Sheet
 {
 	// Utility classes
 	Tools general_tools = new Tools();
-
+	Stats stat_values = new Stats();
 	
 	// add a toggle that unlocks core stats for editing, and maybe a refresh function to make sure all relevant stats update
+	
 	
 	
 	// CORE STATS
@@ -130,6 +131,7 @@ public class ControlPanel extends Sheet
 	private static int silver = 0;
 	private static int copper = 0;
 	private static int soul_coins = 0;
+
 	
 	
 	// GUI sheets
@@ -167,9 +169,9 @@ public class ControlPanel extends Sheet
 
 	public ControlPanel()
 	{
-		initialize();
 		init_stats();
 		init_sheets();
+		initialize();
 	}
 
 
@@ -888,7 +890,6 @@ public class ControlPanel extends Sheet
 	
 	private class Load extends AbstractAction
 	{
-
 		private static final long serialVersionUID = 1L;
 		public Load()
 		{
@@ -898,24 +899,58 @@ public class ControlPanel extends Sheet
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public void actionPerformed(ActionEvent e)
 		{
-			int temp_dex_score = 0;
-			int temp_dex_mod = 0;
+			Iterator<Map.Entry> itr1 = null;
+			int temp_str[] = { 0, 0 };
+			int temp_dex[] = { 0, 0 };
+			int temp_con[] = { 0, 0 };
+			int temp_wis[] = { 0, 0 };
+			int temp_int[] = { 0, 0 };
+			int temp_chr[] = { 0, 0 };
+			
 			
 			try
 			{
-				Object obj = new JSONParser().parse(new FileReader("character_stats.json"));
+				Object obj = new JSONParser().parse(new FileReader("save_data/character_stats.json"));
 				JSONObject json_obj = (JSONObject) obj;
 				
+				
 				Map temp_scores = ( (Map)json_obj.get("scores") );
-		        Iterator<Map.Entry> itr1 = temp_scores.entrySet().iterator();
+		        itr1 = temp_scores.entrySet().iterator();
 		        while ( itr1.hasNext() )
 		        {
 		            Map.Entry pair = itr1.next();
 		            if ( pair.getKey().toString().equalsIgnoreCase("dex_score") )
 		            {
-		            	temp_dex_score = Integer.parseInt( pair.getValue().toString() );
+		            	temp_dex[0] = Integer.parseInt( pair.getValue().toString() );
 		            }
+		            
+		            if ( pair.getKey().toString().equalsIgnoreCase("str_score") )
+		            {
+		            	temp_str[0] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if ( pair.getKey().toString().equalsIgnoreCase("con_score") )
+		            {
+		            	temp_con[0] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if ( pair.getKey().toString().equalsIgnoreCase("wis_score") )
+		            {
+		            	temp_wis[0] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if ( pair.getKey().toString().equalsIgnoreCase("int_score") )
+		            {
+		            	temp_int[0] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if ( pair.getKey().toString().equalsIgnoreCase("chr_score") )
+		            {
+		            	temp_chr[0] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
 		        }
+		        
 		        
 				Map temp_mods = ( (Map)json_obj.get("modifiers") );
 		        itr1 = temp_mods.entrySet().iterator();
@@ -924,19 +959,122 @@ public class ControlPanel extends Sheet
 		            Map.Entry pair = itr1.next();
 		            if (  pair.getKey().toString().equalsIgnoreCase("dex_mod") )
 		            {
-		            	temp_dex_mod = Integer.parseInt( pair.getValue().toString() );
+		            	temp_dex[1] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if (  pair.getKey().toString().equalsIgnoreCase("str_mod") )
+		            {
+		            	temp_str[1] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if (  pair.getKey().toString().equalsIgnoreCase("con_mod") )
+		            {
+		            	temp_con[1] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if (  pair.getKey().toString().equalsIgnoreCase("wis_mod") )
+		            {
+		            	temp_wis[1] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if (  pair.getKey().toString().equalsIgnoreCase("int_mod") )
+		            {
+		            	temp_int[1] = Integer.parseInt( pair.getValue().toString() );
+		            }
+		            
+		            if (  pair.getKey().toString().equalsIgnoreCase("chr_mod") )
+		            {
+		            	temp_chr[1] = Integer.parseInt( pair.getValue().toString() );
 		            }
 		        }
 
 				
-				int[] temp_dex = { temp_dex_score, temp_dex_mod };
+		        
+		        // update stats and propagate
 				stats.replace("Dex", temp_dex);
+				stats.replace("Str", temp_str);
+				stats.replace("Con", temp_con);
+				stats.replace("Wis", temp_wis);
+				stats.replace("Int", temp_int);
+				stats.replace("Chr", temp_chr);
 				c_Sheet.fill_Stats( stats, saves );
+				
+				
 			}
 			catch ( ParseException | IOException parse_fail )
 			{
 				System.out.println( "Exception caught during json test" + parse_fail.toString() );
 			}
 		}
+	}
+	
+	
+	private class Stats
+	{
+		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
+		private HashMap<E_Speeds, Integer> speeds = new HashMap<E_Speeds, Integer>();
+
+		
+		private HashMap<E_Abilities, int[]> abilities = new HashMap<E_Abilities, int[]>();
+		private HashMap<E_Abilities, Integer> ability_bonus = new HashMap<E_Abilities, Integer>();
+		private HashMap<E_Abilities, Boolean> save_prof = new HashMap<E_Abilities, Boolean>();
+		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();
+		
+		
+		private int health_Current = 0;
+		private int health_Max = 0;
+		private int health_Temp = 0;
+		
+		private int hitdie_Current = 0;
+		private E_Dice current_HitDie = E_Dice.D4;
+		
+		private int initiative = 0;
+		private int armor_class = 0;
+		
+		
+		public Stats()
+		{
+			// initialize class to ensure maps are not null
+			fill_money();
+			fill_speeds();
+			fill_abilities();
+		}
+		
+		
+		// Getters
+		
+		
+		// Setters
+		
+		
+		// Fillers
+		private void fill_money()
+		{
+			coins.put( E_Currency.Platinum, 0 );
+			coins.put( E_Currency.Gold, 0 );
+			coins.put( E_Currency.Electrum, 0 );
+			coins.put( E_Currency.Silver, 0 );
+			coins.put( E_Currency.Copper, 0 );
+			coins.put( E_Currency.SoulCoins, 0 );
+		}
+		private void fill_speeds()
+		{
+			speeds.put(E_Speeds.Walk, 0);
+			speeds.put(E_Speeds.Swim, 0);
+			speeds.put(E_Speeds.Fly, 0);
+			speeds.put(E_Speeds.Dig, 0);
+			speeds.put(E_Speeds.Climb, 0);	
+		}
+		private void fill_abilities()
+		{
+			int[] temp = { 0, 0 };
+			abilities.put(E_Abilities.Dex, temp );
+			abilities.put(E_Abilities.Str, temp );
+			abilities.put(E_Abilities.Con, temp );
+			abilities.put(E_Abilities.Wis, temp );
+			abilities.put(E_Abilities.Int, temp );
+			abilities.put(E_Abilities.Chr, temp );
+		}
+		
 	}
 }
