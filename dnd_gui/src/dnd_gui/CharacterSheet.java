@@ -1255,6 +1255,59 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 
 	
+	public void fill_Stats( HashMap<E_Abilities, int[]> stat_values, HashMap<E_Abilities, Boolean> save_prof )
+	{
+		boolean temp_bool = false;
+		int temp_str[] = stat_values.get( "Str" );
+		int temp_dex[] = stat_values.get( "Dex" );
+		int temp_con[] = stat_values.get( "Con" );
+		int temp_wis[] = stat_values.get( "Wis" );
+		int temp_int[] = stat_values.get( "Int" );
+		int temp_chr[] = stat_values.get( "Chr" );
+
+		
+		lbl_DexMod.setText( Integer.toString( temp_dex[1] ) );
+		lbl_StrMod.setText( Integer.toString( temp_str[1] ) );
+		lbl_ConMod.setText( Integer.toString( temp_con[1] ) );
+		lbl_WisMod.setText( Integer.toString( temp_wis[1] ) );
+		lbl_IntMod.setText( Integer.toString( temp_int[1] ) );
+		lbl_ChrMod.setText( Integer.toString( temp_chr[1] ) );
+		lbl_DexStat.setText( "[ " + Integer.toString( temp_dex[0] ) + " ]" );
+		lbl_StrStat.setText( "[ " + Integer.toString( temp_str[0] ) + " ]" );
+		lbl_ConStat.setText( "[ " + Integer.toString( temp_con[0] ) + " ]" );
+		lbl_WisStat.setText( "[ " + Integer.toString( temp_wis[0] ) + " ]" );
+		lbl_IntStat.setText( "[ " + Integer.toString( temp_int[0] ) + " ]" );
+		lbl_ChrStat.setText( "[ " + Integer.toString( temp_chr[0] ) + " ]" );
+
+		
+		lbl_StrSave.setText( "[ " + Integer.toString( temp_str[1] ) + " ]" );
+		lbl_DexSave.setText( "[ " + Integer.toString( temp_dex[1] ) + " ]" );
+		lbl_ConSave.setText( "[ " + Integer.toString( temp_con[1] ) + " ]" );
+		lbl_WisSave.setText( "[ " + Integer.toString( temp_wis[1] ) + " ]" );
+		lbl_IntSave.setText( "[ " + Integer.toString( temp_int[1] ) + " ]" );
+		lbl_ChrSave.setText( "[ " + Integer.toString( temp_chr[1] ) + " ]" );
+		
+		
+		temp_bool = save_prof.get( "Str" );
+		lbl_StrSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( "Dex" );
+		lbl_DexSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( "Con" );
+		lbl_ConSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( "Wis" );
+		lbl_WisSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( "Int" );
+		lbl_IntSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( "Chr" );
+		lbl_ChrSaveProf.setVisible( temp_bool );
+	}
+
+	
 	public void fill_Skills( HashMap<String, Boolean> skills_IsProfEnabled, HashMap<String, Boolean> skills_IsExpertEnabled,
 								HashMap<String, Integer> skills_ValMap, HashMap<String, Integer> skills_BonusMap )
 	{

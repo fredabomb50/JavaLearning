@@ -888,6 +888,7 @@ public class ControlPanel extends Sheet
 		spell_hit_bonus = temp[1] + current_Proficiency;
 	}
 	
+	
 	private class Load extends AbstractAction
 	{
 		private static final long serialVersionUID = 1L;
@@ -991,13 +992,14 @@ public class ControlPanel extends Sheet
 				
 		        
 		        // update stats and propagate
-				stats.replace("Dex", temp_dex);
-				stats.replace("Str", temp_str);
-				stats.replace("Con", temp_con);
-				stats.replace("Wis", temp_wis);
-				stats.replace("Int", temp_int);
-				stats.replace("Chr", temp_chr);
-				c_Sheet.fill_Stats( stats, saves );
+		        stat_values.set_AbilityScore( E_Abilities.Dex, temp_dex );
+		        stat_values.set_AbilityScore( E_Abilities.Str, temp_str );
+		        stat_values.set_AbilityScore( E_Abilities.Con, temp_con );
+		        stat_values.set_AbilityScore( E_Abilities.Wis, temp_wis );
+		        stat_values.set_AbilityScore( E_Abilities.Int, temp_int );
+		        stat_values.set_AbilityScore( E_Abilities.Chr, temp_chr );
+		        
+				c_Sheet.fill_Stats( stat_values.get_Abilities(), saves );
 				
 				
 			}
@@ -1042,9 +1044,61 @@ public class ControlPanel extends Sheet
 		
 		
 		// Getters
+		public int get_CurrentHealth()
+		{
+			return this.health_Current;
+		}
+		public int get_MaxHealth()
+		{
+			return this.health_Max;
+		}
+		public int get_TempHealth()
+		{
+			return this.health_Temp;
+		}		
 		
+		public int get_ArmorClass()
+		{
+			return this.armor_class;
+		}
+		
+		public HashMap<E_Abilities, int[]> get_Abilities()
+		{
+			return this.abilities;
+		}
 		
 		// Setters
+		public void set_CurrentHealth( int new_val )
+		{
+			this.health_Current = new_val;
+		}
+		public void set_MaxHealth( int new_val )
+		{
+			this.health_Max = new_val;
+		}
+		public void set_TempHealth( int new_val )
+		{
+			this.health_Temp = new_val;
+		}
+		
+		public void set_ArmorClass( int new_val )
+		{
+			this.armor_class = new_val;
+		}
+		public void set_Initiative( int new_val )
+		{
+			this.initiative = new_val;
+		}
+		
+		public void set_Currency( E_Currency coin, int new_val )
+		{
+			this.coins.replace( coin, new_val );
+		}
+		
+		public void set_AbilityScore( E_Abilities ability, int[] new_val )
+		{
+			this.abilities.replace(ability, new_val);
+		}
 		
 		
 		// Fillers
@@ -1074,7 +1128,30 @@ public class ControlPanel extends Sheet
 			abilities.put(E_Abilities.Wis, temp );
 			abilities.put(E_Abilities.Int, temp );
 			abilities.put(E_Abilities.Chr, temp );
-		}
+			
+			
+			ability_bonus.put(E_Abilities.Dex, 0);
+			ability_bonus.put(E_Abilities.Str, 0);
+			ability_bonus.put(E_Abilities.Con, 0);
+			ability_bonus.put(E_Abilities.Wis, 0);
+			ability_bonus.put(E_Abilities.Int, 0);
+			ability_bonus.put(E_Abilities.Chr, 0);
+			
 		
+			save_prof.put(E_Abilities.Dex, false);
+			save_prof.put(E_Abilities.Str, false);
+			save_prof.put(E_Abilities.Con, false);
+			save_prof.put(E_Abilities.Wis, false);
+			save_prof.put(E_Abilities.Int, false);
+			save_prof.put(E_Abilities.Chr, false);
+			
+			
+			save_bonus.put(E_Abilities.Dex, 0);
+			save_bonus.put(E_Abilities.Str, 0);
+			save_bonus.put(E_Abilities.Con, 0);
+			save_bonus.put(E_Abilities.Wis, 0);
+			save_bonus.put(E_Abilities.Int, 0);
+			save_bonus.put(E_Abilities.Chr, 0);
+		}
 	}
 }
