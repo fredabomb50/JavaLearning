@@ -956,10 +956,12 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	{
 		lbl_TempHealthVal.setText( Integer.toString( new_val ) );
 	}
-	public void update_HitDie( int new_val, int lvl )
+	public void update_HitDie( E_Dice die, int new_val, int lvl )
 	{
 		lbl_HitDieValue.setText( Integer.toString( new_val ) + "/" + Integer.toString( lvl ) );
+		lbl_HitDieType.setText( "( " + die.name() + " )" );
 	}
+
 	public void update_Inspiration( int new_val )
 	{
 		lbl_Inspiration.setText( Integer.toString( new_val ) );
@@ -1172,18 +1174,57 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		}
 	}
 	
-	
-	
-	public void fill_Speed( int ground, int fly, int swim, int dig, int climb )
+	public void update_Stat( E_Abilities skill, int new_val )
 	{
-		SetLabelText( lbl_GroundSpeed, ground );
-		SetLabelText( lbl_FlySpeed, fly );
-		SetLabelText( lbl_SwimSpeed, swim );
-		SetLabelText( lbl_DigSpeed, dig );
-		SetLabelText( lbl_ClimbSpeed, climb );
+		switch ( skill )
+		{
+			case Dex:
+			{
+				
+			} break;
+			
+			case Str:
+			{
+				
+			} break;
+			
+			case Con:
+			{
+				
+			} break;
+			
+			case Wis:
+			{
+				
+			} break;
+			
+			case Int:
+			{
+				
+			} break;
+			
+			case Chr:
+			{
+				
+			} break;
+			
+			default:
+			{
+				// error catching
+			} break;
+		}
 	}
 	
-	public void fill_Health( int current, int max, int temp, E_Dice die )
+
+	public void fill_Speeds( HashMap<E_Speeds, Integer> speeds )
+	{
+		SetLabelText( lbl_GroundSpeed, speeds.get( E_Speeds.Walk ) );
+		SetLabelText( lbl_FlySpeed, speeds.get( E_Speeds.Fly ) );
+		SetLabelText( lbl_SwimSpeed, speeds.get( E_Speeds.Swim ) );
+		SetLabelText( lbl_DigSpeed, speeds.get( E_Speeds.Dig ) );
+		SetLabelText( lbl_ClimbSpeed, speeds.get( E_Speeds.Climb ) );
+	}
+ 	public void fill_Health( int current, int max, int temp, E_Dice die )
 	{
 		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
 		lbl_MaxHealthVal.setText( Integer.toString( max ) );
@@ -1202,68 +1243,15 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_HitDieValue.setText( Integer.toString( lvl ) + "/" + Integer.toString( lvl ) );
 	}
 	
-	public void fill_Stats( HashMap<String, int[]> stat_values, HashMap<String, Boolean> save_prof )
-	{
-		boolean temp_bool = false;
-		int temp_str[] = stat_values.get( "Str" );
-		int temp_dex[] = stat_values.get( "Dex" );
-		int temp_con[] = stat_values.get( "Con" );
-		int temp_wis[] = stat_values.get( "Wis" );
-		int temp_int[] = stat_values.get( "Int" );
-		int temp_chr[] = stat_values.get( "Chr" );
-
-		
-		lbl_DexMod.setText( Integer.toString( temp_dex[1] ) );
-		lbl_StrMod.setText( Integer.toString( temp_str[1] ) );
-		lbl_ConMod.setText( Integer.toString( temp_con[1] ) );
-		lbl_WisMod.setText( Integer.toString( temp_wis[1] ) );
-		lbl_IntMod.setText( Integer.toString( temp_int[1] ) );
-		lbl_ChrMod.setText( Integer.toString( temp_chr[1] ) );
-		lbl_DexStat.setText( "[ " + Integer.toString( temp_dex[0] ) + " ]" );
-		lbl_StrStat.setText( "[ " + Integer.toString( temp_str[0] ) + " ]" );
-		lbl_ConStat.setText( "[ " + Integer.toString( temp_con[0] ) + " ]" );
-		lbl_WisStat.setText( "[ " + Integer.toString( temp_wis[0] ) + " ]" );
-		lbl_IntStat.setText( "[ " + Integer.toString( temp_int[0] ) + " ]" );
-		lbl_ChrStat.setText( "[ " + Integer.toString( temp_chr[0] ) + " ]" );
-
-		
-		lbl_StrSave.setText( "[ " + Integer.toString( temp_str[1] ) + " ]" );
-		lbl_DexSave.setText( "[ " + Integer.toString( temp_dex[1] ) + " ]" );
-		lbl_ConSave.setText( "[ " + Integer.toString( temp_con[1] ) + " ]" );
-		lbl_WisSave.setText( "[ " + Integer.toString( temp_wis[1] ) + " ]" );
-		lbl_IntSave.setText( "[ " + Integer.toString( temp_int[1] ) + " ]" );
-		lbl_ChrSave.setText( "[ " + Integer.toString( temp_chr[1] ) + " ]" );
-		
-		
-		temp_bool = save_prof.get( "Str" );
-		lbl_StrSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Dex" );
-		lbl_DexSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Con" );
-		lbl_ConSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Wis" );
-		lbl_WisSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Int" );
-		lbl_IntSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Chr" );
-		lbl_ChrSaveProf.setVisible( temp_bool );
-	}
-
-	
 	public void fill_Stats( HashMap<E_Abilities, int[]> stat_values, HashMap<E_Abilities, Boolean> save_prof )
 	{
 		boolean temp_bool = false;
-		int temp_str[] = stat_values.get( "Str" );
-		int temp_dex[] = stat_values.get( "Dex" );
-		int temp_con[] = stat_values.get( "Con" );
-		int temp_wis[] = stat_values.get( "Wis" );
-		int temp_int[] = stat_values.get( "Int" );
-		int temp_chr[] = stat_values.get( "Chr" );
+		int temp_dex[] = stat_values.get( E_Abilities.Dex );
+		int temp_str[] = stat_values.get( E_Abilities.Str );
+		int temp_con[] = stat_values.get( E_Abilities.Con );
+		int temp_wis[] = stat_values.get( E_Abilities.Wis );
+		int temp_int[] = stat_values.get( E_Abilities.Int );
+		int temp_chr[] = stat_values.get( E_Abilities.Chr );
 
 		
 		lbl_DexMod.setText( Integer.toString( temp_dex[1] ) );
@@ -1288,22 +1276,22 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_ChrSave.setText( "[ " + Integer.toString( temp_chr[1] ) + " ]" );
 		
 		
-		temp_bool = save_prof.get( "Str" );
-		lbl_StrSaveProf.setVisible( temp_bool );
-		
-		temp_bool = save_prof.get( "Dex" );
+		temp_bool = save_prof.get( E_Abilities.Dex );
 		lbl_DexSaveProf.setVisible( temp_bool );
 		
-		temp_bool = save_prof.get( "Con" );
+		temp_bool = save_prof.get( E_Abilities.Str );
+		lbl_StrSaveProf.setVisible( temp_bool );
+		
+		temp_bool = save_prof.get( E_Abilities.Con );
 		lbl_ConSaveProf.setVisible( temp_bool );
 		
-		temp_bool = save_prof.get( "Wis" );
+		temp_bool = save_prof.get( E_Abilities.Wis );
 		lbl_WisSaveProf.setVisible( temp_bool );
 		
-		temp_bool = save_prof.get( "Int" );
+		temp_bool = save_prof.get( E_Abilities.Int );
 		lbl_IntSaveProf.setVisible( temp_bool );
 		
-		temp_bool = save_prof.get( "Chr" );
+		temp_bool = save_prof.get( E_Abilities.Chr );
 		lbl_ChrSaveProf.setVisible( temp_bool );
 	}
 

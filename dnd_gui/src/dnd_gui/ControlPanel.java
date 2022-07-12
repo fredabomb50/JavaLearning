@@ -30,20 +30,7 @@ public class ControlPanel extends Sheet
 	
 	
 	
-	// CORE STATS
-	private static int str_mod = 0;
-	private static int dex_mod = 0;
-	private static int con_mod = 0;
-	private static int int_mod = 0;
-	private static int wis_mod = 0;
-	private static int chr_mod = 0;
-	
-	private static int speed_Ground = 0;
-	private static int speed_Swim = 0;
-	private static int speed_Fly = 0;
-	private static int speed_Dig = 0;
-	private static int speed_Climb = 0;
-			
+	// CORE STATS	
 	private static int initiative = 0;
 	private static int armor_class = 0;
 	
@@ -63,8 +50,7 @@ public class ControlPanel extends Sheet
 	private static HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
 	private static HashMap<String, Integer> skills_BonusMap = new HashMap<String, Integer>();
 	
-	
-	private static HashMap<String, Integer> currency = new HashMap<String, Integer>();
+
 	private static int inspiration = 0;
 	
 	
@@ -72,65 +58,11 @@ public class ControlPanel extends Sheet
 	private static int current_xp = 0;
 	private static int current_lvl = 0;
 	private static int current_Proficiency = 0;
-	private static final int[][] xp_table =
-	{
-		{0, 2}, 		// level 1
-		{300, 2},		// level 2
-		{900, 2},		// level 3
-		{2700, 2},		// level 4
-		{6500, 3},		// level 5
-		{14000, 3},		// level 6
-		{23000, 3},		// level 7
-		{34000, 3},		// level 8
-		{48000, 4},		// level 9
-		{64000, 4},		// level 10
-		{85000, 4},		// level 11
-		{100000, 4},	// level 12
-		{120000, 5},	// level 13
-		{140000, 5},	// level 14
-		{165000, 5},	// level 15
-		{195000, 5},	// level 16
-		{225000, 6},	// level 17
-		{265000, 6},	// level 18
-		{305000, 6},	// level 19
-		{355000, 6}		// level 20
-	};
-	private static final int[][] spell_slots_table =
-	{
-		{3, 2, 0, 0, 0, 0, 0, 0, 0, 0}, 	// level 1
-		{3, 3, 0, 0, 0, 0, 0, 0, 0, 0},		// level 2
-		{3, 4, 2, 0, 0, 0, 0, 0, 0, 0},		// level 3
-		{4, 4, 3, 0, 0, 0, 0, 0, 0, 0},		// level 4
-		{4, 4, 3, 2, 0, 0, 0, 0, 0, 0},		// level 5
-		{4, 4, 3, 3, 0, 0, 0, 0, 0, 0},		// level 6
-		{4, 4, 3, 3, 1, 0, 0, 0, 0, 0},		// level 7
-		{4, 4, 3, 3, 2, 0, 0, 0, 0, 0},		// level 8
-		{4, 4, 3, 3, 3, 1, 0, 0, 0, 0},		// level 9
-		{5, 4, 3, 3, 3, 2, 0, 0, 0, 0},		// level 10
-		{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},		// level 11
-		{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},	  	// level 12
-		{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	  	// level 13
-		{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	 	// level 14
-		{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 15
-		{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 16
-		{5, 4, 3, 3, 3, 2, 1, 1, 1, 1},	  	// level 17
-		{5, 4, 3, 3, 3, 3, 1, 1, 1, 1},	  	// level 18
-		{5, 4, 3, 3, 3, 3, 2, 1, 1, 1},   	// level 19
-		{5, 4, 3, 3, 3, 3, 2, 2, 1, 1}    	// level 20
-	};
+
 	
 	// Casting
 	private static int spell_save = 0;
 	private static int spell_hit_bonus = 0;
-
-	
-	// Misc
-	private static int platinum = 0;
-	private static int gold = 0;
-	private static int electrum = 0;
-	private static int silver = 0;
-	private static int copper = 0;
-	private static int soul_coins = 0;
 
 	
 	
@@ -354,7 +286,7 @@ public class ControlPanel extends Sheet
 					}
 				}
 				c_Sheet.update_CurrentHealth( health_Current );
-				c_Sheet.update_HitDie( hitdie_Current, current_lvl );
+				c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.hitdie_Count, stat_values.current_Level );
 			}
 		});
 		panel_HealthControls.add(bttn_HitDie, "cell 4 1,grow");
@@ -376,7 +308,7 @@ public class ControlPanel extends Sheet
 				try
 				{
 					incoming_temp = Math.abs( Integer.parseInt( input ) );
-					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, xp_table[19][0] + 1 );
+					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, stat_values.xp_table[19][0] + 1 );
 
 					int index = 0;
 					boolean lvl_up = false;
@@ -384,14 +316,14 @@ public class ControlPanel extends Sheet
 					{	
 						try
 						{
-							if ( current_xp <= xp_table[index][0] )
+							if ( current_xp <= stat_values.xp_table[index][0] )
 							{
 								lvl_up = true;
-								current_Proficiency = xp_table[index][1];
+								current_Proficiency = stat_values.xp_table[index][1];
 								current_lvl = index;
 								
 								RecalcCastingStats();
-								s_Sheet.update_Sheet(spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
+								s_Sheet.update_Sheet(stat_values.spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
 							}
 							else
 							{
@@ -641,60 +573,10 @@ public class ControlPanel extends Sheet
 	// NOTE (Luis): should ultimately use a json loading class to save and load player data
 	private static void init_stats()
 	{
-		int temp_str[] = { 0, 0 };
-		int temp_dex[] = { 0, 0 };
-		int temp_con[] = { 0, 0 };
-		int temp_wis[] = { 0, 0 };
-		int temp_int[] = { 0, 0 };
-		int temp_chr[] = { 0, 0 };
-		
-		
 		current_lvl = 5;
 		current_xp = 6500;
 		current_Proficiency = 3;
 		
-		
-//		HashMap<String, int[]> stats = new HashMap<String, int[]>();
-		temp_str[0] = 11;
-		temp_str[1] = GetModFromStat( temp_str[0] );
-		str_mod = temp_str[1];
-		stats.put("Str", temp_str);
-
-		temp_dex[0] = 14;
-		temp_dex[1] = GetModFromStat( temp_dex[0] );
-		dex_mod = temp_dex[1];
-		stats.put("Dex", temp_dex);
-		
-		temp_con[0] = 16;
-		temp_con[1] = GetModFromStat( temp_con[0] );
-		con_mod = temp_con[1];
-		stats.put("Con", temp_con);
-		
-		temp_wis[0] = 12;
-		temp_wis[1] = GetModFromStat( temp_wis[0] );
-		wis_mod = temp_wis[1];
-		stats.put("Wis", temp_wis);
-		
-		temp_int[0] = 20;
-		temp_int[1] = GetModFromStat( temp_int[0] );
-		int_mod = temp_int[1];
-		stats.put("Int", temp_int);
-		
-		temp_chr[0] = 12;
-		temp_chr[1] = GetModFromStat( temp_chr[0] );
-		chr_mod = temp_chr[1];
-		stats.put("Chr", temp_chr);
-		
-		
-		speed_Ground = 30;
-		speed_Swim = 0;
-		speed_Fly = 0;
-		speed_Dig = 0;
-		speed_Climb = 0;
-
-		
-		initiative = dex_mod;
-		armor_class = 10 + dex_mod;
 
 		
 		health_Current = 45;
@@ -733,55 +615,26 @@ public class ControlPanel extends Sheet
 		}
 		
 		
-//		HashMap<String, Integer> skills_ValMap = new HashMap<String, Integer>();
-		skills_ValMap.put("Acrobatics", dex_mod);
-		skills_ValMap.put("AnimalHandling", wis_mod);
-		skills_ValMap.put("Arcana", int_mod);
-		skills_ValMap.put("Athletics", str_mod);
-		skills_ValMap.put("Deception", chr_mod);
-		skills_ValMap.put("History", int_mod);
-		skills_ValMap.put("Insight", wis_mod);
-		skills_ValMap.put("Performance", chr_mod);
-		skills_ValMap.put("Intimidation", chr_mod);
-		skills_ValMap.put("Investigation", int_mod);
-		skills_ValMap.put("Medicine", wis_mod);
-		skills_ValMap.put("Nature", int_mod);
-		skills_ValMap.put("Perception", wis_mod);
-		skills_ValMap.put("Persuasion", chr_mod);
-		skills_ValMap.put("Religion", int_mod);
-		skills_ValMap.put("SleightOfHand", dex_mod);
-		skills_ValMap.put("Stealth", dex_mod);
-		skills_ValMap.put("Survival", wis_mod);		
-
 		
 		inspiration = 0;
-		
-		
-		currency.put("Copper", 0);
-		currency.put("Silver", 0);
-		currency.put("Electrum", 0);
-		currency.put("Gold", 0);
-		currency.put("Platinum", 0);
-		currency.put("SoulCoins", 0);
-		
-		
-		spell_save = 8 + int_mod + current_Proficiency;
-		spell_hit_bonus = int_mod + current_Proficiency;
 	}
 	
-	private static void init_sheets()
+	private void init_sheets()
 	{
 		// character sheet: 830 x 750
 		c_Sheet = new CharacterSheet();
 		c_Sheet.ToggleVisibility(c_Sheet.frame, false);
 		c_Sheet.frame.setBounds(100, 100, 830, 750);
-		c_Sheet.fill_Health( health_Current, health_Max, health_Temp, current_HitDie );
-		c_Sheet.fill_Stats(stats, saves);
-		c_Sheet.fill_Skills(skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
-		c_Sheet.fill_Speed(speed_Ground, speed_Fly, speed_Swim, speed_Dig, speed_Climb);
-		c_Sheet.fill_Misc(current_lvl, current_xp, current_Proficiency, initiative, armor_class);
+		c_Sheet.update_CurrentHealth( stat_values.health_Current );
+		c_Sheet.update_MaxHealth( stat_values.health_Max );
+		c_Sheet.update_TempHealth( stat_values.health_Temp );
+		c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.hitdie_Count, stat_values.current_Level );
+		c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
+		c_Sheet.fill_Skills( skills_IsProfEnabled, skills_IsExpertEnabled, skills_ValMap, skills_BonusMap);
+		c_Sheet.fill_Misc( stat_values.current_Level, stat_values.current_XP, stat_values.current_Prof, stat_values.initiative, stat_values.armor_class);
+		c_Sheet.fill_Speeds( stat_values.speeds );
 		
-		
+		// Details sheet: ? x ?
 		d_Sheet = new DetailsSheet();
 		d_Sheet.ToggleVisibility(d_Sheet.frame, false);
 		d_Sheet.frame.setBounds(100, 100, 830, 750);
@@ -790,7 +643,7 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet(spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
+		s_Sheet.update_Sheet( stat_values.spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus );
 		
 		
 		// notes sheet 0 x 0
@@ -802,18 +655,18 @@ public class ControlPanel extends Sheet
 		// Inventory sheet : 970 x 360
 		i_Sheet = new InventorySheet();
 		i_Sheet.ToggleVisibility(n_Sheet.frame, false);
-		i_Sheet.frame.setBounds(100, 500, 970, 360); 
-		i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
+		i_Sheet.frame.setBounds(100, 500, 970, 360);
+		i_Sheet.update_Currency( stat_values.coins );
 	}
 	
 	public void UpdateXP( int xp_received )
 	{
 		// NOTE (Luis): Player level is always 1 or greater, 
 		// and is also used as the index for the 2d array, index 0 never accessed
-		if (current_xp + xp_received >= xp_table[current_lvl][0])
+		if (current_xp + xp_received >= stat_values.xp_table[current_lvl][0])
 		{
 			current_lvl++;
-			current_Proficiency = xp_table[current_lvl][1];	
+			current_Proficiency = stat_values.xp_table[current_lvl][1];	
 		}
 		current_xp += xp_received;
 	}
@@ -838,52 +691,16 @@ public class ControlPanel extends Sheet
 	}
 	
 	
-	private void update_Money( E_Currency currency, int new_val )
+	private void update_Money( E_Currency coin, int new_val )
 	{
-		switch ( currency )
-		{
-			case Platinum:
-			{
-				platinum = general_tools.ClampInt( platinum + new_val, 0, 100000 );
-			} break;
-			
-			case Gold:
-			{
-				gold = general_tools.ClampInt( gold + new_val, 0, 100000 );
-			} break;
-			
-			case Electrum:
-			{
-				electrum = general_tools.ClampInt( electrum + new_val, 0, 100000 );
-			} break;
-			
-			case Silver:
-			{
-				silver = general_tools.ClampInt( silver + new_val, 0, 100000 );
-			} break;
-			
-			case Copper:
-			{
-				copper = general_tools.ClampInt( copper + new_val, 0, 100000 );
-			} break;
-			
-			case SoulCoins:
-			{
-				soul_coins = general_tools.ClampInt( soul_coins + new_val, 0, 100000 );
-			} break;
-			
-			default:
-			{
-				// do nothing for now
-			} break;
-		}
-		i_Sheet.update_Currency( platinum, gold, electrum, silver, copper, soul_coins );
+		stat_values.set_Currency( coin, new_val );
+		i_Sheet.update_Currency( stat_values.coins );
 	}
 	
 	
 	public void RecalcCastingStats()
 	{
-		int[] temp = stats.get("Int");
+		int[] temp = stat_values.abilities.get( E_Abilities.Int );
 		spell_save = temp[1] + current_Proficiency + 8;
 		spell_hit_bonus = temp[1] + current_Proficiency;
 	}
@@ -999,7 +816,7 @@ public class ControlPanel extends Sheet
 		        stat_values.set_AbilityScore( E_Abilities.Int, temp_int );
 		        stat_values.set_AbilityScore( E_Abilities.Chr, temp_chr );
 		        
-				c_Sheet.fill_Stats( stat_values.get_Abilities(), saves );
+				c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
 				
 				
 			}
@@ -1013,6 +830,62 @@ public class ControlPanel extends Sheet
 	
 	private class Stats
 	{
+		// CONSTANTS
+		private final int[][] xp_table =
+			{
+				{0, 2}, 		// level 1
+				{300, 2},		// level 2
+				{900, 2},		// level 3
+				{2700, 2},		// level 4
+				{6500, 3},		// level 5
+				{14000, 3},		// level 6
+				{23000, 3},		// level 7
+				{34000, 3},		// level 8
+				{48000, 4},		// level 9
+				{64000, 4},		// level 10
+				{85000, 4},		// level 11
+				{100000, 4},	// level 12
+				{120000, 5},	// level 13
+				{140000, 5},	// level 14
+				{165000, 5},	// level 15
+				{195000, 5},	// level 16
+				{225000, 6},	// level 17
+				{265000, 6},	// level 18
+				{305000, 6},	// level 19
+				{355000, 6}		// level 20
+			};
+		private final int[][] spell_slots_table =
+			{
+				{3, 2, 0, 0, 0, 0, 0, 0, 0, 0}, 	// level 1
+				{3, 3, 0, 0, 0, 0, 0, 0, 0, 0},		// level 2
+				{3, 4, 2, 0, 0, 0, 0, 0, 0, 0},		// level 3
+				{4, 4, 3, 0, 0, 0, 0, 0, 0, 0},		// level 4
+				{4, 4, 3, 2, 0, 0, 0, 0, 0, 0},		// level 5
+				{4, 4, 3, 3, 0, 0, 0, 0, 0, 0},		// level 6
+				{4, 4, 3, 3, 1, 0, 0, 0, 0, 0},		// level 7
+				{4, 4, 3, 3, 2, 0, 0, 0, 0, 0},		// level 8
+				{4, 4, 3, 3, 3, 1, 0, 0, 0, 0},		// level 9
+				{5, 4, 3, 3, 3, 2, 0, 0, 0, 0},		// level 10
+				{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},		// level 11
+				{5, 4, 3, 3, 3, 2, 1, 0, 0, 0},	  	// level 12
+				{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	  	// level 13
+				{5, 4, 3, 3, 3, 2, 1, 1, 0, 0},	 	// level 14
+				{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 15
+				{5, 4, 3, 3, 3, 2, 1, 1, 1, 0},	  	// level 16
+				{5, 4, 3, 3, 3, 2, 1, 1, 1, 1},	  	// level 17
+				{5, 4, 3, 3, 3, 3, 1, 1, 1, 1},	  	// level 18
+				{5, 4, 3, 3, 3, 3, 2, 1, 1, 1},   	// level 19
+				{5, 4, 3, 3, 3, 3, 2, 2, 1, 1}    	// level 20
+			};
+		
+		
+		private int current_Level = 0;
+		private int current_XP = 0;
+		private int current_Prof = 0;
+		private int initiative = 0;
+		private int armor_class = 0;
+		
+		// consider adding separate values for casting
 		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
 		private HashMap<E_Speeds, Integer> speeds = new HashMap<E_Speeds, Integer>();
 
@@ -1027,13 +900,13 @@ public class ControlPanel extends Sheet
 		private int health_Max = 0;
 		private int health_Temp = 0;
 		
-		private int hitdie_Current = 0;
-		private E_Dice current_HitDie = E_Dice.D4;
+		// move to hashmap for future multi-class support
+		private int hitdie_Count = 0;
+		private E_Dice hitdie_Type = E_Dice.D4;
 		
-		private int initiative = 0;
-		private int armor_class = 0;
+
 		
-		
+		// Constructors
 		public Stats()
 		{
 			// initialize class to ensure maps are not null
@@ -1042,49 +915,33 @@ public class ControlPanel extends Sheet
 			fill_abilities();
 		}
 		
-		
-		// Getters
-		public int get_CurrentHealth()
-		{
-			return this.health_Current;
-		}
-		public int get_MaxHealth()
-		{
-			return this.health_Max;
-		}
-		public int get_TempHealth()
-		{
-			return this.health_Temp;
-		}		
-		
-		public int get_ArmorClass()
-		{
-			return this.armor_class;
-		}
-		
-		public HashMap<E_Abilities, int[]> get_Abilities()
-		{
-			return this.abilities;
-		}
-		
+	
 		// Setters
 		public void set_CurrentHealth( int new_val )
 		{
-			this.health_Current = new_val;
+			this.health_Current = general_tools.ClampInt( this.health_Current + new_val, 0, this.health_Max );
 		}
+		
 		public void set_MaxHealth( int new_val )
 		{
-			this.health_Max = new_val;
+			this.health_Max += new_val;
 		}
+		
 		public void set_TempHealth( int new_val )
 		{
-			this.health_Temp = new_val;
+			this.health_Temp = general_tools.ClampInt( this.health_Temp + new_val, 0, 999 );
+		}
+		
+		public void set_HitDieCount( int new_val )
+		{
+			this.hitdie_Count = general_tools.ClampInt( this.hitdie_Count + new_val, 0, this.current_Level );
 		}
 		
 		public void set_ArmorClass( int new_val )
 		{
 			this.armor_class = new_val;
 		}
+		
 		public void set_Initiative( int new_val )
 		{
 			this.initiative = new_val;
@@ -1092,7 +949,8 @@ public class ControlPanel extends Sheet
 		
 		public void set_Currency( E_Currency coin, int new_val )
 		{
-			this.coins.replace( coin, new_val );
+			int temp = general_tools.ClampInt( this.coins.get(coin) + new_val, 0, 9999 );
+			this.coins.replace( coin, temp );
 		}
 		
 		public void set_AbilityScore( E_Abilities ability, int[] new_val )

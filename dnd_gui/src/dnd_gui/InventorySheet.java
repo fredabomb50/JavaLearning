@@ -1,6 +1,7 @@
 package dnd_gui;
 
 import java.awt.EventQueue;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import net.miginfocom.swing.MigLayout;
@@ -135,13 +136,13 @@ public class InventorySheet extends Sheet
 		scrollPane_3.setViewportView(textArea_1);
 	}
 	
-	public void update_Currency( int pl, int gl, int el, int sl, int cp, int sc )
+	public void update_Currency( HashMap<E_Currency, Integer> coins )
 	{
-		lbl_Platinum.setText( Integer.toString(pl) );
-		lbl_Gold.setText( Integer.toString(gl) );
-		lbl_Electrum.setText( Integer.toString(el) );
-		lbl_Silver.setText( Integer.toString(sl) );
-		lbl_Copper.setText( Integer.toString(cp) );
-		lbl_SoulCoins.setText( Integer.toString(sc) );
+		lbl_Platinum.setText( Integer.toString( coins.get( E_Currency.Platinum ) ) );
+		lbl_Gold.setText( Integer.toString( coins.get( E_Currency.Gold ) ) );
+		lbl_Electrum.setText( Integer.toString( coins.get( E_Currency.Electrum ) ) );
+		lbl_Silver.setText( Integer.toString( coins.get( E_Currency.Silver ) ) );
+		lbl_Copper.setText( Integer.toString( coins.get( E_Currency.Copper ) ) );
+		lbl_SoulCoins.setText( Integer.toString( coins.get( E_Currency.SoulCoins ) ) );
 	}
 }
