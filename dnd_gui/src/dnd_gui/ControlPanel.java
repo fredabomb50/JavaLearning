@@ -30,15 +30,6 @@ public class ControlPanel extends Sheet
 	// add a toggle that unlocks any value for override, and maybe a refresh function to make sure all relevant stats update
 	
 	
-	// stat[0] == ability score ; stat[1] == ability mod
-
-	
-	// Casting
-	private static int spell_save = 0;
-	private static int spell_hit_bonus = 0;
-
-	
-	
 	// GUI sheets
 	private static CharacterSheet c_Sheet = null;
 	private static DetailsSheet d_Sheet = null;
@@ -104,7 +95,8 @@ public class ControlPanel extends Sheet
 				try
 				{
 					incoming_health = Math.abs( Integer.parseInt( input ) );
-					stat_values.health_Current = general_tools.ClampInt( stat_values.health_Current + incoming_health, 0, stat_values.health_Max );
+					stat_values.set_CurrentHealth( incoming_health );
+//					stat_values.health_Current = general_tools.ClampInt( stat_values.health_Current + incoming_health, 0, stat_values.health_Max );
 				}
 				catch (NumberFormatException e1)
 				{
@@ -298,8 +290,8 @@ public class ControlPanel extends Sheet
 								current_prof = stat_values.xp_table[index][1];
 								current_lvl = index;
 								
-								RecalcCastingStats();
-								s_Sheet.update_Sheet(stat_values.spell_slots_table, current_lvl - 1, spell_save, spell_hit_bonus);
+								stat_values.set_Casting();
+								s_Sheet.update_Sheet(stat_values.spell_slots_table, current_lvl - 1, stat_values.spell_save, stat_values.spell_hit_bonus);
 							}
 							else
 							{
@@ -553,8 +545,10 @@ public class ControlPanel extends Sheet
 	// NOTE (Luis): should ultimately use a json loading class to save and load player data
 	private static void init_stats()
 	{
-		
+		// RUN A SUCCESSFUL BUILD FIRST, AND THEN START ADDING LOAD FUNCTIONS
+		// MOVE CASTING STATS TO STATS CLASS
 	}
+	
 	
 	private void init_sheets()
 	{
@@ -580,7 +574,7 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.current_Level - 1, spell_save, spell_hit_bonus );
+		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.current_Level - 1, stat_values.spell_save, stat_values.spell_hit_bonus );
 		
 		
 		// notes sheet 0 x 0
@@ -633,9 +627,7 @@ public class ControlPanel extends Sheet
 	
 	public void RecalcCastingStats()
 	{
-		int[] temp = stat_values.abilities.get( E_Abilities.Int );
-		spell_save = temp[1] + stat_values.current_Prof + 8;
-		spell_hit_bonus = temp[1] + stat_values.current_Prof;
+
 	}
 	
 	
@@ -819,11 +811,12 @@ public class ControlPanel extends Sheet
 		private int armor_class = 0;
 		private int inspiration = 0;
 		
-		// consider adding separate values for casting
+		
 		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
 		private HashMap<E_Speeds, Integer> speeds = new HashMap<E_Speeds, Integer>();
 
 		
+		// ability[0] = score, ability[1] = mod
 		private HashMap<E_Abilities, int[]> abilities = new HashMap<E_Abilities, int[]>();
 		private HashMap<E_Abilities, Integer> ability_bonus = new HashMap<E_Abilities, Integer>();
 		private HashMap<E_Abilities, Boolean> save_prof = new HashMap<E_Abilities, Boolean>();
@@ -843,6 +836,12 @@ public class ControlPanel extends Sheet
 		private E_Dice hitdie_Type = E_Dice.D4;
 		
 
+		// 8 + prof + spell_mod
+		private int spell_save = 0;
+		
+		// prof + spell_mod
+		private int spell_hit_bonus = 0;
+		
 		
 		// Constructors
 		public Stats()
@@ -914,6 +913,12 @@ public class ControlPanel extends Sheet
 			this.skills_ProfStatus.replace( skill, temp );
 		}
 		
+		public void set_Casting()
+		{
+			int[] temp = stat_values.abilities.get( E_Abilities.Int );
+			spell_save = 8 + current_Prof + temp[1];
+			spell_hit_bonus = current_Prof + temp[1];
+		}
 		
 		// Fillers
 		private void fill_money()
@@ -968,6 +973,9 @@ public class ControlPanel extends Sheet
 			save_bonus.put(E_Abilities.Wis, 0);
 			save_bonus.put(E_Abilities.Int, 0);
 			save_bonus.put(E_Abilities.Chr, 0);
+			
+		
+			set_Casting();
 		}
 	
 		private void fill_skills()

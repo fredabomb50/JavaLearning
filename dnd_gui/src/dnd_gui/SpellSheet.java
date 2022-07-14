@@ -246,7 +246,7 @@ public class SpellSheet extends Sheet
 		lbl_8thLevelSlots.setText( prefix + ( Integer.toString(slots[lvl][8]) ) );
 		lbl_9thLevelSlots.setText( prefix + ( Integer.toString(slots[lvl][9]) ) );
 		
-		lbl_SpellSaveDC.setText( Integer.toString(new_save) );
-		lbl_SpellHitBonus.setText( Integer.toString(new_hit) );
+		lbl_SpellSaveDC.setText( Integer.toString( new_save ) );
+		lbl_SpellHitBonus.setText( Integer.toString( new_hit ) );
 	}
 }
