@@ -221,9 +221,75 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JLabel lbl_Inspiration;
 
 
-	/**
-	 * Create the application.
-	 */
+	
+	private final JLabel[] skill_value_labels = 
+		{
+		  lbl_AnimalHandlingVal,
+		  lbl_AcrobaticsVal,
+		  lbl_ArcanaVal,
+		  lbl_AthleticsVal,
+		  lbl_DeceptionVal,
+		  lbl_HistoryVal,
+		  lbl_InsightVal,
+		  lbl_IntimidationVal,
+		  lbl_InvestigationVal,
+		  lbl_MedicineVal,
+		  lbl_NatureVal,
+		  lbl_PerceptionVal,
+		  lbl_PerformanceVal,
+		  lbl_PersuasionVal,
+		  lbl_ReligionVal,
+		  lbl_SleightOfHandVal,
+		  lbl_StealthVal,
+		  lbl_SurvivalVal
+		};
+	
+	private final JLabel[] skill_prof_labels = 
+	{
+	  lbl_AnimalHandlingProf,
+	  lbl_AcrobaticsProf,
+	  lbl_ArcanaProf,
+	  lbl_AthleticsProf,
+	  lbl_DeceptionProf,
+	  lbl_HistoryProf,
+	  lbl_InsightProf,
+	  lbl_IntimidationProf,
+	  lbl_InvestigationProf,
+	  lbl_MedicineProf,
+	  lbl_NatureProf,
+	  lbl_PerceptionProf,
+	  lbl_PerformanceProf,
+	  lbl_PersuasionProf,
+	  lbl_ReligionProf,
+	  lbl_SleightOfHandProf,
+	  lbl_StealthProf,
+	  lbl_SurvivalProf
+	};
+	
+	private final JLabel[] skill_expert_labels = 
+	{
+	  lbl_AnimalHandlingExpert,
+	  lbl_AcrobaticsExpert,
+	  lbl_ArcanaExpert,
+	  lbl_AthleticsExpert,
+	  lbl_DeceptionExpert,
+	  lbl_HistoryExpert,
+	  lbl_InsightExpert,
+	  lbl_IntimidationExpert,
+	  lbl_InvestigationExpert,
+	  lbl_MedicineExpert,
+	  lbl_NatureExpert,
+	  lbl_PerceptionExpert,
+	  lbl_PerformanceExpert,
+	  lbl_PersuasionExpert,
+	  lbl_ReligionExpert,
+	  lbl_SleightOfHandExpert,
+	  lbl_StealthExpert,
+	  lbl_SurvivalExpert
+	};
+	
+	
+	
 	public CharacterSheet()
 	{
 		initialize();
@@ -972,205 +1038,26 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_Level.setText( Integer.toString( new_lvl ) );
 		lbl_ProfBonus.setText( Integer.toString( new_prof ) );
 	}
-	public void update_Skill( String skill, int new_val )
+	public void update_SkillValue( E_Skills skill, int new_val )
 	{
-		switch ( skill )
+		for (int i = 0; i < skill_value_labels.length; i++)
 		{
-		  case "AnimalHandling":
-		  {
-		    lbl_AnimalHandlingVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Acrobatics":
-		  {
-		    lbl_AcrobaticsVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Arcana":
-		  {
-		    lbl_ArcanaVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Athletics":
-		  {
-		    lbl_AthleticsVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Deception":
-		  {
-		    lbl_DeceptionVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "History":
-		  {
-		    lbl_HistoryVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Insight":
-		  {
-		    lbl_InsightVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Intimidation":
-		  {
-		    lbl_IntimidationVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Investigation":
-		  {
-		    lbl_InvestigationVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Medicine":
-		  {
-		    lbl_MedicineVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Nature":
-		  {
-		    lbl_NatureVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Perception":
-		  {
-		    lbl_PerceptionVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Performance":
-		  {
-		    lbl_PerformanceVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Persuasion":
-		  {
-		    lbl_PersuasionVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Religion":
-		  {
-		    lbl_ReligionVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "SleightOfHand":
-		  {
-		    lbl_SleightOfHandVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Stealth":
-		  {
-		    lbl_StealthVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  case "Survival":
-		  {
-		    lbl_SurvivalVal.setText( Integer.toString(new_val) );
-		  } break;
-
-		  default:
-		  {
-		    // do nothing
-		  } break;
+			if ( E_Skills.values()[i] == skill )
+			{
+				skill_value_labels[i].setText( Integer.toString( new_val ) );
+				break;
+			}
 		}
-		
 	}
-	public void update_SkillProf( String skill, boolean new_val )
+	public void update_SkillProf( E_Skills skill, boolean new_val )
 	{
-		switch ( skill )
+		for (int i = 0; i < skill_prof_labels.length; i++)
 		{
-		  case "AnimalHandling":
-		  {
-		    lbl_AnimalHandlingProf.setVisible( new_val );
-		  } break;
-
-		  case "Acrobatics":
-		  {
-		    lbl_AcrobaticsProf.setVisible( new_val );
-		  } break;
-
-		  case "Arcana":
-		  {
-		    lbl_ArcanaProf.setVisible( new_val );
-		  } break;
-
-		  case "Athletics":
-		  {
-		    lbl_AthleticsProf.setVisible( new_val );
-		  } break;
-
-		  case "Deception":
-		  {
-		    lbl_DeceptionProf.setVisible( new_val );
-		  } break;
-
-		  case "History":
-		  {
-		    lbl_HistoryProf.setVisible( new_val );
-		  } break;
-
-		  case "Insight":
-		  {
-		    lbl_InsightProf.setVisible( new_val );
-		  } break;
-
-		  case "Intimidation":
-		  {
-		    lbl_IntimidationProf.setVisible( new_val );
-		  } break;
-
-		  case "Investigation":
-		  {
-		    lbl_InvestigationProf.setVisible( new_val );
-		  } break;
-
-		  case "Medicine":
-		  {
-		    lbl_MedicineProf.setVisible( new_val );
-		  } break;
-
-		  case "Nature":
-		  {
-		    lbl_NatureProf.setVisible( new_val );
-		  } break;
-
-		  case "Perception":
-		  {
-		    lbl_PerceptionProf.setVisible( new_val );
-		  } break;
-
-		  case "Performance":
-		  {
-		    lbl_PerformanceProf.setVisible( new_val );
-		  } break;
-
-		  case "Persuasion":
-		  {
-		    lbl_PersuasionVal.setVisible( new_val );
-		  } break;
-
-		  case "Religion":
-		  {
-		    lbl_ReligionProf.setVisible( new_val );
-		  } break;
-
-		  case "SleightOfHand":
-		  {
-		    lbl_SleightOfHandProf.setVisible( new_val );
-		  } break;
-
-		  case "Stealth":
-		  {
-		    lbl_StealthProf.setVisible( new_val );
-		  } break;
-
-		  case "Survival":
-		  {
-		    lbl_SurvivalProf.setVisible( new_val );
-		  } break;
-
-		  default:
-		  {
-		    // do nothing
-		  } break;
+			if ( E_Skills.values()[i] == skill )
+			{
+				skill_value_labels[i].setVisible( new_val );
+				break;
+			}
 		}
 	}
 	
@@ -1294,67 +1181,25 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		temp_bool = save_prof.get( E_Abilities.Chr );
 		lbl_ChrSaveProf.setVisible( temp_bool );
 	}
-
 	
-	public void fill_Skills( HashMap<String, Boolean> skills_IsProfEnabled, HashMap<String, Boolean> skills_IsExpertEnabled,
-								HashMap<String, Integer> skills_ValMap, HashMap<String, Integer> skills_BonusMap )
+	public void fill_Skills( HashMap<E_Skills, boolean[]> skills_profs, HashMap<E_Skills, int[]> skills_values )
 	{
-		lbl_AnimalHandlingVal.setText( Integer.toString( ( skills_ValMap.get( "AnimalHandling" ) + skills_BonusMap.get( "AnimalHandling" ) ) ) );
-		lbl_AcrobaticsVal.setText( Integer.toString( ( skills_ValMap.get( "Acrobatics" ) + skills_BonusMap.get( "Acrobatics" ) ) ) );
-		lbl_ArcanaVal.setText( Integer.toString( ( skills_ValMap.get( "Arcana" ) + skills_BonusMap.get( "Arcana" ) ) ) );
-		lbl_AthleticsVal.setText( Integer.toString( ( skills_ValMap.get( "Athletics" ) + skills_BonusMap.get( "Athletics" ) ) ) );
-		lbl_DeceptionVal.setText( Integer.toString( ( skills_ValMap.get( "Deception" ) + skills_BonusMap.get( "Deception" ) ) ) );
-		lbl_HistoryVal.setText( Integer.toString( ( skills_ValMap.get( "History" ) + skills_BonusMap.get( "History" ) ) ) );
-		lbl_InsightVal.setText( Integer.toString( ( skills_ValMap.get( "Insight" ) + skills_BonusMap.get( "Insight" ) ) ) );
-		lbl_IntimidationVal.setText( Integer.toString( ( skills_ValMap.get( "Intimidation" ) + skills_BonusMap.get( "Intimidation" ) ) ) );
-		lbl_InvestigationVal.setText( Integer.toString( ( skills_ValMap.get( "Investigation" ) + skills_BonusMap.get( "Investigation" ) ) ) );
-		lbl_MedicineVal.setText( Integer.toString( ( skills_ValMap.get( "Medicine" ) + skills_BonusMap.get( "Medicine" ) ) ) );
-		lbl_NatureVal.setText( Integer.toString( ( skills_ValMap.get( "Nature" ) + skills_BonusMap.get( "Nature" ) ) ) );
-		lbl_PerceptionVal.setText( Integer.toString( ( skills_ValMap.get( "Perception" ) + skills_BonusMap.get( "Perception" ) ) ) );
-		lbl_PerformanceVal.setText( Integer.toString( ( skills_ValMap.get( "Performance" ) + skills_BonusMap.get( "Performance" ) ) ) );
-		lbl_PersuasionVal.setText( Integer.toString( ( skills_ValMap.get( "Persuasion" ) + skills_BonusMap.get( "Persuasion" ) ) ) );
-		lbl_ReligionVal.setText( Integer.toString( ( skills_ValMap.get( "Religion" ) + skills_BonusMap.get( "Religion" ) ) ) );
-		lbl_SleightOfHandVal.setText( Integer.toString( ( skills_ValMap.get( "SleightOfHand" ) + skills_BonusMap.get( "SleightOfHand" ) ) ) );
-		lbl_StealthVal.setText( Integer.toString( ( skills_ValMap.get( "Stealth" ) + skills_BonusMap.get( "Stealth" ) ) ) );
-		lbl_SurvivalVal.setText( Integer.toString( ( skills_ValMap.get( "Survival" ) + skills_BonusMap.get( "Survival" ) ) ) );
+		boolean[] temp = skills_profs.get( E_Skills.AnimalHandling );
+		int[] temp_vals = skills_values.get( E_Skills.AnimalHandling );
+		
+		for (int i = 0; i < skill_value_labels.length; i++)
+		{
+			temp_vals = skills_values.get( E_Skills.values()[i] );
+			skill_value_labels[i].setText( Integer.toString( temp_vals[0] + temp_vals[1] ) );
+		}
 
-		lbl_AnimalHandlingProf.setVisible( skills_IsProfEnabled.get( "AnimalHandling" ) );
-		lbl_AcrobaticsProf.setVisible( skills_IsProfEnabled.get( "Acrobatics" ) );
-		lbl_ArcanaProf.setVisible( skills_IsProfEnabled.get( "Arcana" ) );
-		lbl_AthleticsProf.setVisible( skills_IsProfEnabled.get( "Athletics" ) );
-		lbl_DeceptionProf.setVisible( skills_IsProfEnabled.get( "Deception" ) );
-		lbl_HistoryProf.setVisible( skills_IsProfEnabled.get( "History" ) );
-		lbl_InsightProf.setVisible( skills_IsProfEnabled.get( "Insight" ) );
-		lbl_IntimidationProf.setVisible( skills_IsProfEnabled.get( "Intimidation" ) );
-		lbl_InvestigationProf.setVisible( skills_IsProfEnabled.get( "Investigation" ) );
-		lbl_MedicineProf.setVisible( skills_IsProfEnabled.get( "Medicine" ) );
-		lbl_NatureProf.setVisible( skills_IsProfEnabled.get( "Nature" ) );
-		lbl_PerceptionProf.setVisible( skills_IsProfEnabled.get( "Perception" ) );
-		lbl_PerformanceProf.setVisible( skills_IsProfEnabled.get( "Performance" ) );
-		lbl_PersuasionProf.setVisible( skills_IsProfEnabled.get( "Persuasion" ) );
-		lbl_ReligionProf.setVisible( skills_IsProfEnabled.get( "Religion" ) );
-		lbl_SleightOfHandProf.setVisible( skills_IsProfEnabled.get( "SleightOfHand" ) );
-		lbl_StealthProf.setVisible( skills_IsProfEnabled.get( "Stealth" ) );
-		lbl_SurvivalProf.setVisible( skills_IsProfEnabled.get( "Survival" ) );
-
-		lbl_AnimalHandlingExpert.setVisible( skills_IsExpertEnabled.get( "AnimalHandling" ) );
-		lbl_AcrobaticsExpert.setVisible( skills_IsExpertEnabled.get( "Acrobatics" ) );
-		lbl_ArcanaExpert.setVisible( skills_IsExpertEnabled.get( "Arcana" ) );
-		lbl_AthleticsExpert.setVisible( skills_IsExpertEnabled.get( "Athletics" ) );
-		lbl_DeceptionExpert.setVisible( skills_IsExpertEnabled.get( "Deception" ) );
-		lbl_HistoryExpert.setVisible( skills_IsExpertEnabled.get( "History" ) );
-		lbl_InsightExpert.setVisible( skills_IsExpertEnabled.get( "Insight" ) );
-		lbl_IntimidationExpert.setVisible( skills_IsExpertEnabled.get( "Intimidation" ) );
-		lbl_InvestigationExpert.setVisible( skills_IsExpertEnabled.get( "Investigation" ) );
-		lbl_MedicineExpert.setVisible( skills_IsExpertEnabled.get( "Medicine" ) );
-		lbl_NatureExpert.setVisible( skills_IsExpertEnabled.get( "Nature" ) );
-		lbl_PerceptionExpert.setVisible( skills_IsExpertEnabled.get( "Perception" ) );
-		lbl_PerformanceExpert.setVisible( skills_IsExpertEnabled.get( "Performance" ) );
-		lbl_PersuasionExpert.setVisible( skills_IsExpertEnabled.get( "Persuasion" ) );
-		lbl_ReligionExpert.setVisible( skills_IsExpertEnabled.get( "Religion" ) );
-		lbl_SleightOfHandExpert.setVisible( skills_IsExpertEnabled.get( "SleightOfHand" ) );
-		lbl_StealthExpert.setVisible( skills_IsExpertEnabled.get( "Stealth" ) );
-		lbl_SurvivalExpert.setVisible( skills_IsExpertEnabled.get( "Survival" ) );
+		
+		for (int i = 0; i < skill_prof_labels.length; i++)
+		{
+			temp = skills_profs.get( E_Skills.values()[i] );
+			skill_prof_labels[i].setVisible( temp[0] );
+			skill_expert_labels[i].setVisible( temp[1] );
+		}
 	}
 	
 	
