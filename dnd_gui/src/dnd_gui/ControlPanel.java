@@ -121,7 +121,7 @@ public class ControlPanel extends Sheet
 					incoming_pain = Math.abs( Integer.parseInt( input ) );
 					if ( stat_values.health_Temp <= 0 )
 					{
-						stat_values.health_Current = general_tools.ClampInt( stat_values.health_Current - incoming_pain, 0, stat_values.health_Max );
+						stat_values.set_CurrentHealth( -incoming_pain );
 					}
 					else
 					{
@@ -129,8 +129,8 @@ public class ControlPanel extends Sheet
 						if ( stat_values.health_Temp <= 0 )
 						{
 							int remainder = Math.abs( stat_values.health_Temp );
-							stat_values.health_Temp = 0;
-							stat_values.health_Current = general_tools.ClampInt( stat_values.health_Current - remainder, 0, stat_values.health_Max );
+							stat_values.set_TempHealth( -999 );
+							stat_values.set_CurrentHealth( -remainder );
 						}
 					}
 				}
@@ -156,7 +156,7 @@ public class ControlPanel extends Sheet
 				try
 				{
 					incoming_bump = Math.abs( Integer.parseInt( input ) );
-					stat_values.health_Max = general_tools.ClampInt( stat_values.health_Max + incoming_bump, 0, 999 );
+					stat_values.set_MaxHealth( incoming_bump );
 				}
 				catch (NumberFormatException e1)
 				{
@@ -179,7 +179,7 @@ public class ControlPanel extends Sheet
 				try
 				{
 					incoming_temp = Math.abs( Integer.parseInt( input ) );
-					stat_values.health_Temp = general_tools.ClampInt( stat_values.health_Temp + incoming_temp, 0, stat_values.health_Max );
+					stat_values.set_TempHealth( incoming_temp );
 				}
 				catch (NumberFormatException e1)
 				{
@@ -241,8 +241,8 @@ public class ControlPanel extends Sheet
 					{
 						incoming_heal = Math.abs( Integer.parseInt( input ) );
 						incoming_heal = general_tools.ClampInt( incoming_heal, 1, max_roll );
-						stat_values.health_Current = general_tools.ClampInt( stat_values.health_Current + incoming_heal + temp[1], 0, stat_values.health_Max );
-						stat_values.hitdie_Count = general_tools.ClampInt( --stat_values.hitdie_Count, 0, stat_values.current_Level );
+						stat_values.set_CurrentHealth( incoming_heal + temp[1] );
+						stat_values.set_HitDieCount( -1 );
 					}
 					catch (NumberFormatException e1)
 					{
@@ -546,7 +546,6 @@ public class ControlPanel extends Sheet
 	private static void init_stats()
 	{
 		// RUN A SUCCESSFUL BUILD FIRST, AND THEN START ADDING LOAD FUNCTIONS
-		// MOVE CASTING STATS TO STATS CLASS
 	}
 	
 	
@@ -854,6 +853,14 @@ public class ControlPanel extends Sheet
 		}
 		
 	
+		// Getters
+		private int get_AbilityMod( E_Abilities ability )
+		{
+			int[] temp = this.abilities.get( ability );
+			return temp[1];
+		}
+		
+		
 		// Setters
 		public void set_CurrentHealth( int new_val )
 		{
@@ -877,12 +884,12 @@ public class ControlPanel extends Sheet
 		
 		public void set_ArmorClass( int new_val )
 		{
-			this.armor_class = new_val;
+			this.armor_class = new_val + get_AbilityMod( E_Abilities.Dex );
 		}
 		
 		public void set_Initiative( int new_val )
 		{
-			this.initiative = new_val;
+			this.initiative = new_val + get_AbilityMod( E_Abilities.Dex );;
 		}
 		
 		public void set_Currency( E_Currency coin, int new_val )
@@ -898,7 +905,7 @@ public class ControlPanel extends Sheet
 		
 		public void set_Inspiration( int new_val )
 		{
-			this.inspiration = new_val;
+			this.inspiration = general_tools.ClampInt( this.inspiration + new_val, 0, 10 );
 		}
 		
 		public void set_SkillValues( E_Skills skill, int new_val, int new_bonus )
@@ -915,9 +922,8 @@ public class ControlPanel extends Sheet
 		
 		public void set_Casting()
 		{
-			int[] temp = stat_values.abilities.get( E_Abilities.Int );
-			spell_save = 8 + current_Prof + temp[1];
-			spell_hit_bonus = current_Prof + temp[1];
+			spell_save = 8 + current_Prof + get_AbilityMod( E_Abilities.Int );
+			spell_hit_bonus = current_Prof + get_AbilityMod( E_Abilities.Int );
 		}
 		
 		// Fillers
