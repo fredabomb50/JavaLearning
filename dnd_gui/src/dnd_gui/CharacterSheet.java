@@ -222,7 +222,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 
 
 	
-	private final JLabel[] skill_value_labels = 
+	private JLabel[] skill_value_labels = 
 		{
 		  lbl_AnimalHandlingVal,
 		  lbl_AcrobaticsVal,
@@ -244,7 +244,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		  lbl_SurvivalVal
 		};
 	
-	private final JLabel[] skill_prof_labels = 
+	private JLabel[] skill_prof_labels = 
 	{
 	  lbl_AnimalHandlingProf,
 	  lbl_AcrobaticsProf,
@@ -266,7 +266,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	  lbl_SurvivalProf
 	};
 	
-	private final JLabel[] skill_expert_labels = 
+	private JLabel[] skill_expert_labels = 
 	{
 	  lbl_AnimalHandlingExpert,
 	  lbl_AcrobaticsExpert,
@@ -1007,6 +1007,79 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_SurvivalExpert.setVisible(false);
 		lbl_SurvivalExpert.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Skills.add(lbl_SurvivalExpert, "cell 3 17");
+	
+	
+	
+		JLabel[] temp_value_labels = 
+		{
+		  lbl_AnimalHandlingVal,
+		  lbl_AcrobaticsVal,
+		  lbl_ArcanaVal,
+		  lbl_AthleticsVal,
+		  lbl_DeceptionVal,
+		  lbl_HistoryVal,
+		  lbl_InsightVal,
+		  lbl_IntimidationVal,
+		  lbl_InvestigationVal,
+		  lbl_MedicineVal,
+		  lbl_NatureVal,
+		  lbl_PerceptionVal,
+		  lbl_PerformanceVal,
+		  lbl_PersuasionVal,
+		  lbl_ReligionVal,
+		  lbl_SleightOfHandVal,
+		  lbl_StealthVal,
+		  lbl_SurvivalVal
+		};
+		skill_value_labels = temp_value_labels;
+		
+		
+		JLabel[] temp_prof_labels = 
+		{
+		  lbl_AnimalHandlingProf,
+		  lbl_AcrobaticsProf,
+		  lbl_ArcanaProf,
+		  lbl_AthleticsProf,
+		  lbl_DeceptionProf,
+		  lbl_HistoryProf,
+		  lbl_InsightProf,
+		  lbl_IntimidationProf,
+		  lbl_InvestigationProf,
+		  lbl_MedicineProf,
+		  lbl_NatureProf,
+		  lbl_PerceptionProf,
+		  lbl_PerformanceProf,
+		  lbl_PersuasionProf,
+		  lbl_ReligionProf,
+		  lbl_SleightOfHandProf,
+		  lbl_StealthProf,
+		  lbl_SurvivalProf
+		};
+		skill_prof_labels = temp_prof_labels;
+		
+		
+		JLabel[] temp_expert_labels = 
+		{
+		  lbl_AnimalHandlingExpert,
+		  lbl_AcrobaticsExpert,
+		  lbl_ArcanaExpert,
+		  lbl_AthleticsExpert,
+		  lbl_DeceptionExpert,
+		  lbl_HistoryExpert,
+		  lbl_InsightExpert,
+		  lbl_IntimidationExpert,
+		  lbl_InvestigationExpert,
+		  lbl_MedicineExpert,
+		  lbl_NatureExpert,
+		  lbl_PerceptionExpert,
+		  lbl_PerformanceExpert,
+		  lbl_PersuasionExpert,
+		  lbl_ReligionExpert,
+		  lbl_SleightOfHandExpert,
+		  lbl_StealthExpert,
+		  lbl_SurvivalExpert
+		};
+		skill_expert_labels = temp_expert_labels;
 	}
 	
 	

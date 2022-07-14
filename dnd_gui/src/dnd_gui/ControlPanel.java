@@ -573,7 +573,7 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.current_Level - 1, stat_values.spell_save, stat_values.spell_hit_bonus );
+		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.current_Level, stat_values.spell_save, stat_values.spell_hit_bonus );
 		
 		
 		// notes sheet 0 x 0
@@ -803,12 +803,12 @@ public class ControlPanel extends Sheet
 			};
 		
 		
-		private int current_Level = 0;
+		private int current_Level = 1;
 		private int current_XP = 0;
-		private int current_Prof = 0;
+		private int current_Prof = 2;
 		private int initiative = 0;
 		private int armor_class = 0;
-		private int inspiration = 0;
+		private int inspiration = 2;
 		
 		
 		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
@@ -826,13 +826,13 @@ public class ControlPanel extends Sheet
 		private HashMap<E_Skills, int[]> skills_Values = new HashMap<E_Skills, int[]>();
 
 		
-		private int health_Current = 0;
-		private int health_Max = 0;
-		private int health_Temp = 0;
+		private int health_Current = 100;
+		private int health_Max = 100;
+		private int health_Temp = 15;
 		
 		// move to hashmap for future multi-class support
-		private int hitdie_Count = 0;
-		private E_Dice hitdie_Type = E_Dice.D4;
+		private int hitdie_Count = 1;
+		private E_Dice hitdie_Type = E_Dice.D6;
 		
 
 		// 8 + prof + spell_mod
