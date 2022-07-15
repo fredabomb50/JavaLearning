@@ -17,5 +17,71 @@
         "wis_mod": 0,
         "int_mod": 0,
         "chr_mod": 0
+    },
+    
+    "skill_values":
+	{
+	    "Acrobatics": 0,
+	    "AnimalHandling": 0,
+	    "Arcana": 0,
+	    "Athletics": 0,
+	    "Deception": 0,
+	    "History": 0,
+	    "Insight": 0,
+	    "Intimidation": 0,
+	    "Investigation": 0,
+	    "Medicine": 0,
+	    "Nature": 0,
+	    "Perception": 0,
+	    "Performance": 0,
+	    "Persuasion": 0,
+	    "Religion": 0,
+	    "SleightOfHand": 0,
+	    "Stealth": 0,
+	    "Survival": 0
+	},
+    
+    "skill_profs":
+    {
+	    "Acrobatics": false,
+	    "AnimalHandling": false,
+	    "Arcana": false,
+	    "Athletics": false,
+	    "Deception": false,
+	    "History": false,
+	    "Insight": false,
+	    "Intimidation": false,
+	    "Investigation": false,
+	    "Medicine": false,
+	    "Nature": false,
+	    "Perception": false,
+	    "Performance": false,
+	    "Persuasion": false,
+	    "Religion": false,
+	    "SleightOfHand": false,
+	    "Stealth": false,
+	    "Survival": false
+    },
+    
+    "skill_expertise":
+    {
+	    "Acrobatics": false,
+	    "AnimalHandling": false,
+	    "Arcana": false,
+	    "Athletics": false,
+	    "Deception": false,
+	    "History": false,
+	    "Insight": false,
+	    "Intimidation": false,
+	    "Investigation": false,
+	    "Medicine": false,
+	    "Nature": false,
+	    "Perception": false,
+	    "Performance": false,
+	    "Persuasion": false,
+	    "Religion": false,
+	    "SleightOfHand": false,
+	    "Stealth": false,
+	    "Survival": false
     }
 }

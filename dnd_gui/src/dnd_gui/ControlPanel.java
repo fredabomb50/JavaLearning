@@ -331,9 +331,13 @@ public class ControlPanel extends Sheet
 				{
 					if ( dialog.get_skill() == element )
 					{
-						ToggleProfBonus( temp_Skill );
+						stat_values.ToggleSkillProf( temp_Skill );
+						break;
 					}
 				}
+				
+				c_Sheet.update_SkillProf( temp_Skill, stat_values.get_SkillProfStatus( temp_Skill ) );
+				c_Sheet.update_SkillValue( temp_Skill, stat_values.get_SkillVal( temp_Skill ) );
 			}
 		});
 		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
@@ -589,17 +593,6 @@ public class ControlPanel extends Sheet
 		i_Sheet.update_Currency( stat_values.coins );
 	}
 	
-	public void UpdateXP( int xp_received )
-	{
-		// NOTE (Luis): Player level is always 1 or greater, 
-		// and is also used as the index for the 2d array, index 0 never accessed
-		if (stat_values.current_XP + xp_received >= stat_values.xp_table[stat_values.current_Level][0])
-		{
-			stat_values.current_Level++;
-			stat_values.current_Prof = stat_values.xp_table[stat_values.current_Level][1];	
-		}
-		stat_values.current_XP += xp_received;
-	}
 	
 	public void ToggleProfBonus( E_Skills skill )
 	{
@@ -621,12 +614,6 @@ public class ControlPanel extends Sheet
 		stat_values.skills_Values.replace( skill, current );
 		c_Sheet.update_SkillValue( skill, current[0] );
 		c_Sheet.update_SkillProf( skill, profs[0] );
-	}
-	
-	
-	public void RecalcCastingStats()
-	{
-
 	}
 	
 	
@@ -821,8 +808,10 @@ public class ControlPanel extends Sheet
 		private HashMap<E_Abilities, Boolean> save_prof = new HashMap<E_Abilities, Boolean>();
 		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();
 		
-		
+		// skill[0] = proficiency ; skill[1] = expertise
 		private HashMap<E_Skills, boolean[]> skills_ProfStatus = new HashMap<E_Skills, boolean[]>();
+		
+		// skill[0] = base ; skill[1] = bonus ( equipment, spell, etc. )
 		private HashMap<E_Skills, int[]> skills_Values = new HashMap<E_Skills, int[]>();
 
 		
@@ -860,6 +849,17 @@ public class ControlPanel extends Sheet
 			return temp[1];
 		}
 		
+		private boolean get_SkillProfStatus( E_Skills skill )
+		{
+			boolean[] temp = this.skills_ProfStatus.get( skill );
+			return temp[0];
+		}
+		
+		private int get_SkillVal( E_Skills skill )
+		{
+			int[] temp = this.skills_Values.get( skill );
+			return temp[0] + temp[1];
+		}
 		
 		// Setters
 		public void set_CurrentHealth( int new_val )
@@ -908,23 +908,35 @@ public class ControlPanel extends Sheet
 			this.inspiration = general_tools.ClampInt( this.inspiration + new_val, 0, 10 );
 		}
 		
-		public void set_SkillValues( E_Skills skill, int new_val, int new_bonus )
-		{
-			int[] temp = { new_val, new_bonus };
-			this.skills_Values.replace( skill, temp );
-		}
-		
-		public void set_SkillProfStatus(E_Skills skill, boolean is_prof, boolean is_expert )
-		{
-			boolean[] temp = { is_prof, is_expert };
-			this.skills_ProfStatus.replace( skill, temp );
-		}
-		
 		public void set_Casting()
 		{
 			spell_save = 8 + current_Prof + get_AbilityMod( E_Abilities.Int );
 			spell_hit_bonus = current_Prof + get_AbilityMod( E_Abilities.Int );
 		}
+				
+		public void ToggleSkillProf( E_Skills skill )
+		{
+			boolean[] temp = this.skills_ProfStatus.get( skill );
+			int[] temp_val = this.skills_Values.get( skill );
+			
+			if ( temp[0] )
+			{
+				temp[0] = false;
+				temp_val[0] -= this.current_Prof;
+			}
+			else
+			{
+				temp[0] = true;
+				temp_val[0] += this.current_Prof;
+			}
+			
+			this.skills_ProfStatus.replace( skill, temp );
+			this.skills_Values.replace( skill, temp_val );
+		}
+		
+		// ToggleSkillExpertise
+		// AddSkillBonus
+		
 		
 		// Fillers
 		private void fill_money()
