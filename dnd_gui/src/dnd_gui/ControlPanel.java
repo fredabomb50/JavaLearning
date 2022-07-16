@@ -25,7 +25,7 @@ public class ControlPanel extends Sheet
 	// Utility classes
 	Tools general_tools = new Tools();
 	Stats stat_values = new Stats();
-	
+	Json_Tools json_tools = new Json_Tools();
 	
 	// add a toggle that unlocks any value for override, and maybe a refresh function to make sure all relevant stats update
 	
@@ -625,116 +625,18 @@ public class ControlPanel extends Sheet
 			putValue(NAME, "Load");
 			putValue(SHORT_DESCRIPTION, "Load JSON files in save folder");
 		}
-		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public void actionPerformed(ActionEvent e)
 		{
-			Iterator<Map.Entry> itr1 = null;
-			int temp_str[] = { 0, 0 };
-			int temp_dex[] = { 0, 0 };
-			int temp_con[] = { 0, 0 };
-			int temp_wis[] = { 0, 0 };
-			int temp_int[] = { 0, 0 };
-			int temp_chr[] = { 0, 0 };
+			// Character Sheet loaders
+			stat_values.abilities = json_tools.load_Abilities();
+			stat_values.save_prof = json_tools.load_SaveProfs();
+			stat_values.save_bonus = json_tools.load_SaveBonuses();
+			c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
 			
 			
-			try
-			{
-				Object obj = new JSONParser().parse(new FileReader("save_data/character_stats.json"));
-				JSONObject json_obj = (JSONObject) obj;
-				
-				
-				Map temp_scores = ( (Map)json_obj.get("scores") );
-		        itr1 = temp_scores.entrySet().iterator();
-		        while ( itr1.hasNext() )
-		        {
-		            Map.Entry pair = itr1.next();
-		            if ( pair.getKey().toString().equalsIgnoreCase("dex_score") )
-		            {
-		            	temp_dex[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if ( pair.getKey().toString().equalsIgnoreCase("str_score") )
-		            {
-		            	temp_str[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if ( pair.getKey().toString().equalsIgnoreCase("con_score") )
-		            {
-		            	temp_con[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if ( pair.getKey().toString().equalsIgnoreCase("wis_score") )
-		            {
-		            	temp_wis[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if ( pair.getKey().toString().equalsIgnoreCase("int_score") )
-		            {
-		            	temp_int[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if ( pair.getKey().toString().equalsIgnoreCase("chr_score") )
-		            {
-		            	temp_chr[0] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		        }
-		        
-		        
-				Map temp_mods = ( (Map)json_obj.get("modifiers") );
-		        itr1 = temp_mods.entrySet().iterator();
-		        while ( itr1.hasNext() )
-		        {
-		            Map.Entry pair = itr1.next();
-		            if (  pair.getKey().toString().equalsIgnoreCase("dex_mod") )
-		            {
-		            	temp_dex[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if (  pair.getKey().toString().equalsIgnoreCase("str_mod") )
-		            {
-		            	temp_str[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if (  pair.getKey().toString().equalsIgnoreCase("con_mod") )
-		            {
-		            	temp_con[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if (  pair.getKey().toString().equalsIgnoreCase("wis_mod") )
-		            {
-		            	temp_wis[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if (  pair.getKey().toString().equalsIgnoreCase("int_mod") )
-		            {
-		            	temp_int[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		            
-		            if (  pair.getKey().toString().equalsIgnoreCase("chr_mod") )
-		            {
-		            	temp_chr[1] = Integer.parseInt( pair.getValue().toString() );
-		            }
-		        }
-
-				
-		        
-		        // update stats and propagate
-		        stat_values.set_AbilityScore( E_Abilities.Dex, temp_dex );
-		        stat_values.set_AbilityScore( E_Abilities.Str, temp_str );
-		        stat_values.set_AbilityScore( E_Abilities.Con, temp_con );
-		        stat_values.set_AbilityScore( E_Abilities.Wis, temp_wis );
-		        stat_values.set_AbilityScore( E_Abilities.Int, temp_int );
-		        stat_values.set_AbilityScore( E_Abilities.Chr, temp_chr );
-		        
-				c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
-				
-				
-			}
-			catch ( ParseException | IOException parse_fail )
-			{
-				System.out.println( "Exception caught during json test" + parse_fail.toString() );
-			}
+			// Inventory Sheet Loaders
+			stat_values.coins = json_tools.load_Money();
+			i_Sheet.update_Currency( stat_values.coins );
 		}
 	}
 	

@@ -1,0 +1,11 @@
+{
+    "money":
+    {
+        "platinum": 100,
+        "gold": 100,
+        "electrum": 100,
+        "silver": 100,
+        "copper": 100,
+        "soul_coins": 100
+    }
+}

@@ -1,24 +1,31 @@
 {
-    "scores":
+    "abilities":
     {
-        "dex_score": 20,
-        "str_score": 10,
-        "con_score": 10,
-        "wis_score": 10,
-        "int_score": 10,
-        "chr_score": 10
+        "dex": 20,
+        "str": 20,
+        "con": 20,
+        "wis": 20,
+        "int": 20,
+        "chr": 20
+    },
+   
+    "saves":
+    {
+        "dex": 0,
+        "str": 0,
+        "con": 0,
+        "wis": 0,
+        "int": 0,
+        "chr": 0,
+        "dex_prof": false,
+        "str_prof": false,
+        "con_prof": false,
+        "wis_prof": false,
+        "int_prof": false,
+        "chr_prof": false
     },
     
-    "modifiers":
-    {
-        "dex_mod": 5,
-        "str_mod": 0,
-        "con_mod": 0,
-        "wis_mod": 0,
-        "int_mod": 0,
-        "chr_mod": 0
-    },
-    
+
     "skill_values":
 	{
 	    "Acrobatics": 0,

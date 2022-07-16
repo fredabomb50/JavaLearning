@@ -1105,12 +1105,14 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	{
 		lbl_Inspiration.setText( Integer.toString( new_val ) );
 	}
+	
 	public void update_XP( int new_val, int new_lvl, int new_prof )
 	{
 		lbl_XP.setText( Integer.toString( new_val ) );
 		lbl_Level.setText( Integer.toString( new_lvl ) );
 		lbl_ProfBonus.setText( Integer.toString( new_prof ) );
 	}
+	
 	public void update_SkillValue( E_Skills skill, int new_val )
 	{
 		for (int i = 0; i < skill_value_labels.length; i++)
@@ -1122,6 +1124,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 			}
 		}
 	}
+	
 	public void update_SkillProf( E_Skills skill, boolean new_val )
 	{
 		for (int i = 0; i < skill_prof_labels.length; i++)
