@@ -1,94 +1,93 @@
 {
-    "abilities":
-    {
-        "dex": 20,
-        "str": 20,
-        "con": 20,
-        "wis": 20,
-        "int": 20,
-        "chr": 20
-    },
-   
-    "saves":
-    {
-        "dex": 0,
-        "str": 0,
-        "con": 0,
-        "wis": 0,
-        "int": 0,
-        "chr": 0,
-        "dex_prof": false,
-        "str_prof": false,
-        "con_prof": false,
-        "wis_prof": false,
-        "int_prof": false,
-        "chr_prof": false
-    },
-    
+  "abilities":
+  {
+      "dex": 20,
+      "str": 20,
+      "con": 20,
+      "wis": 20,
+      "int": 20,
+      "chr": 20
+  },
 
-    "skill_values":
-	{
-	    "Acrobatics": 0,
-	    "AnimalHandling": 0,
-	    "Arcana": 0,
-	    "Athletics": 0,
-	    "Deception": 0,
-	    "History": 0,
-	    "Insight": 0,
-	    "Intimidation": 0,
-	    "Investigation": 0,
-	    "Medicine": 0,
-	    "Nature": 0,
-	    "Perception": 0,
-	    "Performance": 0,
-	    "Persuasion": 0,
-	    "Religion": 0,
-	    "SleightOfHand": 0,
-	    "Stealth": 0,
-	    "Survival": 0
-	},
-    
-    "skill_profs":
-    {
-	    "Acrobatics": false,
-	    "AnimalHandling": false,
-	    "Arcana": false,
-	    "Athletics": false,
-	    "Deception": false,
-	    "History": false,
-	    "Insight": false,
-	    "Intimidation": false,
-	    "Investigation": false,
-	    "Medicine": false,
-	    "Nature": false,
-	    "Perception": false,
-	    "Performance": false,
-	    "Persuasion": false,
-	    "Religion": false,
-	    "SleightOfHand": false,
-	    "Stealth": false,
-	    "Survival": false
-    },
-    
-    "skill_expertise":
-    {
-	    "Acrobatics": false,
-	    "AnimalHandling": false,
-	    "Arcana": false,
-	    "Athletics": false,
-	    "Deception": false,
-	    "History": false,
-	    "Insight": false,
-	    "Intimidation": false,
-	    "Investigation": false,
-	    "Medicine": false,
-	    "Nature": false,
-	    "Perception": false,
-	    "Performance": false,
-	    "Persuasion": false,
-	    "Religion": false,
-	    "SleightOfHand": false,
-	    "Stealth": false,
-	    "Survival": false
-    }
+  "saves":
+  {
+      "dex": 0,
+      "str": 0,
+      "con": 0,
+      "wis": 0,
+      "int": 0,
+      "chr": 0,
+      "dex_prof": false,
+      "str_prof": false,
+      "con_prof": false,
+      "wis_prof": false,
+      "int_prof": false,
+      "chr_prof": false
+  },
+
+  "skill_profs":
+  {
+    "Acrobatics": false,
+    "AnimalHandling": false,
+    "Arcana": false,
+    "Athletics": false,
+    "Deception": false,
+    "History": false,
+    "Insight": false,
+    "Intimidation": false,
+    "Investigation": false,
+    "Medicine": false,
+    "Nature": false,
+    "Perception": false,
+    "Performance": false,
+    "Persuasion": false,
+    "Religion": false,
+    "SleightOfHand": false,
+    "Stealth": false,
+    "Survival": false
+  },
+
+  "skill_expertise":
+  {
+    "Acrobatics": false,
+    "AnimalHandling": false,
+    "Arcana": false,
+    "Athletics": false,
+    "Deception": false,
+    "History": false,
+    "Insight": false,
+    "Intimidation": false,
+    "Investigation": false,
+    "Medicine": false,
+    "Nature": false,
+    "Perception": false,
+    "Performance": false,
+    "Persuasion": false,
+    "Religion": false,
+    "SleightOfHand": false,
+    "Stealth": false,
+    "Survival": false
+  },
+
+  "skill_bonuses":
+   {
+    "Acrobatics": 0,
+    "AnimalHandling": 0,
+    "Arcana": 0,
+    "Athletics": 0,
+    "Deception": 0,
+    "History": 0,
+    "Insight": 0,
+    "Intimidation": 0,
+    "Investigation": 0,
+    "Medicine": 0,
+    "Nature": 0,
+    "Perception": 0,
+    "Performance": 0,
+    "Persuasion": 0,
+    "Religion": 0,
+    "SleightOfHand": 0,
+    "Stealth": 0,
+    "Survival": 0
+   }
 }
