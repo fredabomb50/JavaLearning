@@ -1,6 +1,6 @@
 package dnd_gui;
 
-public enum E_Stat
+public enum E_Stats
 {
 	HealthCurrent,
 	HealthMax,

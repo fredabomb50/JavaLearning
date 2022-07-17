@@ -716,10 +716,11 @@ public class ControlPanel extends Sheet
 		// skill[0] = base ; skill[1] = bonus ( equipment, spell, etc. )
 		private HashMap<E_Skills, int[]> skills_Values = new HashMap<E_Skills, int[]>();
 
-		
+		private HashMap<E_Stats, Integer> health_Values = new HashMap<E_Stats, Integer>();
 		private int health_Current = 100;
 		private int health_Max = 100;
 		private int health_Temp = 15;
+		
 		
 		// move to hashmap for future multi-class support
 		private int hitdie_Count = 1;
@@ -737,6 +738,9 @@ public class ControlPanel extends Sheet
 		public Stats()
 		{
 			// initialize class to ensure maps are not null
+
+			// Fillers
+			fill_health();
 			fill_money();
 			fill_speeds();
 			fill_abilities();
@@ -846,6 +850,14 @@ public class ControlPanel extends Sheet
 		
 		
 		// Fillers
+		private void fill_health()
+		{
+			HashMap<E_Stats, Integer> temp = new HashMap<E_Stats, Integer>();
+			temp.put(E_Stats.HealthCurrent, 0);
+			temp.put(E_Stats.HealthMax, 0);
+			temp.put(E_Stats.HealthTemp, 0);
+		}
+		
 		private void fill_money()
 		{
 			coins.put( E_Currency.Platinum, 0 );

@@ -353,6 +353,53 @@ public class Json_Tools
 	}
 	
 	// may separate linked data like health into their own maps, using the E_Stat, int format
+	public HashMap<E_Stats, Integer> load_Health()
+	{
+		HashMap<E_Stats, Integer> temp_map = null;
+		Iterator<Map.Entry> itr1 = null;
+		int current = 0;
+		int max = 0;
+		int temp = 0;
+
+		try
+		{
+			Map temp_scores = ( (Map)stats_json.get("speeds") );
+	        itr1 = temp_scores.entrySet().iterator();
+	        while ( itr1.hasNext() )
+	        {
+	            
+				Map.Entry pair = itr1.next();
+	            if ( pair.getKey().toString().equalsIgnoreCase("CurrentHealth") )
+	            {
+	            	current = util.IntFromObj( pair );
+	            }
+	            
+	            if ( pair.getKey().toString().equalsIgnoreCase("MaxHealth") )
+	            {
+	            	max = util.IntFromObj( pair );
+	            }
+	            
+	            if ( pair.getKey().toString().equalsIgnoreCase("TempHealth") )
+	            {
+	            	temp = util.IntFromObj( pair );
+	            }
+	        }
+
+	        temp_map = new HashMap<E_Stats, Integer>();
+	        temp_map.replace( E_Stats.HealthCurrent, current );
+	        temp_map.replace( E_Stats.HealthMax, max );
+	        temp_map.replace( E_Stats.HealthTemp, temp );
+	        
+		}
+		catch ( IllegalStateException json_error )
+		{
+			json_logger( json_error, "Exception caught during json test");
+			return null;
+		}
+
+		return temp_map;
+	}
+
 	public HashMap<E_Speeds, Integer> load_Core()
 	{
 		HashMap<E_Speeds, Integer> temp_map = null;;
@@ -406,7 +453,7 @@ public class Json_Tools
 	            
 	        }
 
-	        temp_map = new HashMap<E_Speeds, Integer>();
+	        //temp_map = new HashMap<E_Stats, Integer>();
  
 		}
 		catch ( IllegalStateException json_error )
