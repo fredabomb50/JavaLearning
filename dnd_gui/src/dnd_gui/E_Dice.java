@@ -2,6 +2,7 @@ package dnd_gui;
 
 public enum E_Dice
 {
+	D2,
 	D4,
 	D6,
 	D8,

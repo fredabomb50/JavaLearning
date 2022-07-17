@@ -1,4 +1,19 @@
 {
+  "hitdie_type": 2,
+
+  "core":
+  {
+    "level": 1,
+    "xp": 0,
+    "prof": 2,
+    "ac": 12,
+    "initiative": 0,
+    "current_health": 100,
+    "max_health": 100,
+    "temp_health": 5,
+    "hitdie_count": 1
+  },
+
   "abilities":
   {
       "dex": 20,
@@ -89,5 +104,14 @@
     "SleightOfHand": 0,
     "Stealth": 0,
     "Survival": 0
-   }
+  },
+
+  "speeds":
+  {
+    "Walk": 30,
+    "Swim": 30,
+    "Fly": 30,
+    "Dig": 30,
+    "Climb": 30
+  }
 }

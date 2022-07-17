@@ -27,6 +27,7 @@ public class ControlPanel extends Sheet
 	Stats stat_values = new Stats();
 	Json_Tools json_tools = new Json_Tools();
 	
+	
 	// add a toggle that unlocks any value for override, and maybe a refresh function to make sure all relevant stats update
 	
 	
@@ -347,10 +348,8 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int temp = stat_values.inspiration;
-				temp = general_tools.ClampInt( temp + 1, 0, 10 );
-				stat_values.set_Inspiration( temp );
-				c_Sheet.update_Inspiration( temp );
+				stat_values.set_Currency( E_Currency.Inspiration, 1 );
+				c_Sheet.update_Inspiration( stat_values.coins.get( E_Currency.Inspiration ) );
 			}
 		});
 		panel_GenericControls.add(bttn_AddInsp, "cell 4 1,grow");
@@ -372,10 +371,8 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				int temp = stat_values.inspiration;
-				temp = general_tools.ClampInt( temp - 1, 0, 10 );
-				stat_values.set_Inspiration( temp );
-				c_Sheet.update_Inspiration( temp );
+				stat_values.set_Currency( E_Currency.Inspiration, -1 );
+				c_Sheet.update_Inspiration( stat_values.coins.get( E_Currency.Inspiration ) );
 			}
 		});
 		panel_GenericControls.add(bttn_BurnInsp, "cell 4 2,grow");
@@ -631,7 +628,11 @@ public class ControlPanel extends Sheet
 			stat_values.abilities = json_tools.load_Abilities();
 			stat_values.save_prof = json_tools.load_SaveProfs();
 			stat_values.save_bonus = json_tools.load_SaveBonuses();
+			stat_values.speeds = json_tools.load_Speeds();
+			stat_values.hitdie_Type = json_tools.load_HitdieType();
+			
 			c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
+			c_Sheet.fill_Speeds( stat_values.speeds );
 			
 			
 			// Inventory Sheet Loaders
@@ -697,7 +698,6 @@ public class ControlPanel extends Sheet
 		private int current_Prof = 2;
 		private int initiative = 0;
 		private int armor_class = 0;
-		private int inspiration = 2;
 		
 		
 		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
@@ -796,8 +796,17 @@ public class ControlPanel extends Sheet
 		
 		public void set_Currency( E_Currency coin, int new_val )
 		{
-			int temp = general_tools.ClampInt( this.coins.get(coin) + new_val, 0, 9999 );
-			this.coins.replace( coin, temp );
+			if ( coin == E_Currency.Inspiration )
+			{
+				int temp = general_tools.ClampInt( this.coins.get(coin) + new_val, 0, 10 );
+				this.coins.replace( coin, temp );
+			}
+			else
+			{
+				int temp = general_tools.ClampInt( this.coins.get(coin) + new_val, 0, 9999 );
+				this.coins.replace( coin, temp );
+			}
+
 		}
 		
 		public void set_AbilityScore( E_Abilities ability, int[] new_val )
@@ -805,10 +814,6 @@ public class ControlPanel extends Sheet
 			this.abilities.replace(ability, new_val);
 		}
 		
-		public void set_Inspiration( int new_val )
-		{
-			this.inspiration = general_tools.ClampInt( this.inspiration + new_val, 0, 10 );
-		}
 		
 		public void set_Casting()
 		{
@@ -849,6 +854,7 @@ public class ControlPanel extends Sheet
 			coins.put( E_Currency.Silver, 0 );
 			coins.put( E_Currency.Copper, 0 );
 			coins.put( E_Currency.SoulCoins, 0 );
+			coins.put( E_Currency.Inspiration, 0);
 		}
 
 		private void fill_speeds()

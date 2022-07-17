@@ -7,5 +7,6 @@ public enum E_Currency
 	Electrum,
 	Silver,
 	Copper,
-	SoulCoins
+	SoulCoins,
+	Inspiration
 }

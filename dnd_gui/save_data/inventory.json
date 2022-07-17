@@ -6,6 +6,7 @@
         "electrum": 100,
         "silver": 100,
         "copper": 100,
-        "soul_coins": 100
+        "soul_coins": 100,
+        "inspiration": 10
     }
 }
