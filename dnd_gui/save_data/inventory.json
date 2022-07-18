@@ -1,12 +1,12 @@
 {
     "money":
     {
-        "platinum": 100,
-        "gold": 100,
-        "electrum": 100,
-        "silver": 100,
-        "copper": 100,
-        "soul_coins": 100,
-        "inspiration": 10
+        "Platinum": 100,
+        "Gold": 100,
+        "Electrum": 100,
+        "Silver": 100,
+        "Copper": 100,
+        "SoulCoins": 100,
+        "Inspiration": 10
     }
 }

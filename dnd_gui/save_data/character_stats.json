@@ -1,43 +1,51 @@
 {
   "hitdie_type": 2,
 
+  "health":
+  {
+    "HealthCurrent": 100,
+    "HealthMax": 100,
+    "HealthTemp": 5
+  },
+
   "core":
   {
-    "level": 1,
-    "xp": 0,
-    "prof": 2,
-    "ac": 12,
-    "initiative": 0,
-    "current_health": 100,
-    "max_health": 100,
-    "temp_health": 5,
-    "hitdie_count": 1
+    "Level": 1,
+    "XP": 0,
+    "Prof": 2,
+    "ArmorClass": 12,
+    "Initiative": 0,
+    "HitDieCount": 1
   },
 
   "abilities":
   {
-      "dex": 20,
-      "str": 20,
-      "con": 20,
-      "wis": 20,
-      "int": 20,
-      "chr": 20
+      "Dex": 20,
+      "Str": 20,
+      "Con": 20,
+      "Wis": 20,
+      "Int": 20,
+      "Chr": 20
   },
 
-  "saves":
+  "save_profs":
   {
-      "dex": 0,
-      "str": 0,
-      "con": 0,
-      "wis": 0,
-      "int": 0,
-      "chr": 0,
-      "dex_prof": false,
-      "str_prof": false,
-      "con_prof": false,
-      "wis_prof": false,
-      "int_prof": false,
-      "chr_prof": false
+      "Dex": false,
+      "Str": false,
+      "Con": false,
+      "Wis": false,
+      "Int": false,
+      "Chr": false
+  },
+
+  "save_bonuses":
+  {
+      "Dex": 0,
+      "Str": 0,
+      "Con": 0,
+      "Wis": 0,
+      "Int": 0,
+      "Chr": 0
   },
 
   "skill_profs":
