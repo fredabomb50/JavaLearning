@@ -621,7 +621,17 @@ public class ControlPanel extends Sheet
 			//stat_values.skills_Values = json_tools.load_SkillBonuses();
 			c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
 			c_Sheet.fill_Speeds( stat_values.speeds );
-			
+			c_Sheet.load_ActionNames( json_tools.load_cs_ActionNames() );
+			c_Sheet.load_ActionRanges( json_tools.load_cs_ActionRanges() );
+			c_Sheet.load_ActionHits( json_tools.load_cs_ActionHits() );
+			c_Sheet.load_ActionDmg( json_tools.load_cs_ActionDmg() );
+			c_Sheet.load_ActionDmgBonuses( json_tools.load_cs_ActionDmgBonus() );
+			c_Sheet.load_ActionAmmo( json_tools.load_cs_ActionAmmo() );
+			c_Sheet.load_ActionMisc( json_tools.load_cs_ActionMisc() );
+			c_Sheet.load_Advantages( json_tools.load_cs_Advantages() );
+			c_Sheet.load_Disadvantages( json_tools.load_cs_Disadvantages() );
+			c_Sheet.load_Bonuses( json_tools.load_cs_Bonuses() );
+			c_Sheet.load_Proficiences( json_tools.load_cs_Proficiencies() );
 			
 			// Inventory Sheet Loaders
 			stat_values.coins = json_tools.load_Money();

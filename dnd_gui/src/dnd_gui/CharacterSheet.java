@@ -207,15 +207,15 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	private JLabel lbl_DigSpeed;
 	private JLabel lblNewLabel_21;
 	private JLabel lbl_ClimbSpeed;
-	private JTextArea area_Actions;
-	private JTextArea textArea;
-	private JTextArea textArea_1;
-	private JTextArea textArea_2;
-	private JTextArea textArea_3;
+	private JTextArea area_ActionNames;
+	private JTextArea area_ActionRanges;
+	private JTextArea area_ActionHits;
+	private JTextArea area_ActionDmg;
+	private JTextArea area_ActionDmgBonuses;
 	private JLabel lblNewLabel_22;
-	private JTextArea textArea_4;
+	private JTextArea area_ActionAmmo;
 	private JLabel lblNewLabel_23;
-	private JTextArea textArea_5;
+	private JTextArea area_ActionMisc;
 	private JLabel lbl_HitDieType;
 	private JLabel lblNewLabel_24;
 	private JLabel lbl_Inspiration;
@@ -615,26 +615,26 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lblNewLabel_23 = new JLabel("Misc.");
 		panel_ActionsTab.add(lblNewLabel_23, "cell 6 0,alignx center");
 		
-		area_Actions = new JTextArea();
-		panel_ActionsTab.add(area_Actions, "cell 0 1,grow");
+		area_ActionNames = new JTextArea();
+		panel_ActionsTab.add(area_ActionNames, "cell 0 1,grow");
 		
-		textArea = new JTextArea();
-		panel_ActionsTab.add(textArea, "cell 1 1,grow");
+		area_ActionRanges = new JTextArea();
+		panel_ActionsTab.add(area_ActionRanges, "cell 1 1,grow");
 		
-		textArea_1 = new JTextArea();
-		panel_ActionsTab.add(textArea_1, "cell 2 1,grow");
+		area_ActionHits = new JTextArea();
+		panel_ActionsTab.add(area_ActionHits, "cell 2 1,grow");
 		
-		textArea_2 = new JTextArea();
-		panel_ActionsTab.add(textArea_2, "cell 3 1,grow");
+		area_ActionDmg = new JTextArea();
+		panel_ActionsTab.add(area_ActionDmg, "cell 3 1,grow");
 		
-		textArea_3 = new JTextArea();
-		panel_ActionsTab.add(textArea_3, "cell 4 1,grow");
+		area_ActionDmgBonuses = new JTextArea();
+		panel_ActionsTab.add(area_ActionDmgBonuses, "cell 4 1,grow");
 		
-		textArea_4 = new JTextArea();
-		panel_ActionsTab.add(textArea_4, "cell 5 1,grow");
+		area_ActionAmmo = new JTextArea();
+		panel_ActionsTab.add(area_ActionAmmo, "cell 5 1,grow");
 		
-		textArea_5 = new JTextArea();
-		panel_ActionsTab.add(textArea_5, "cell 6 1,grow");
+		area_ActionMisc = new JTextArea();
+		panel_ActionsTab.add(area_ActionMisc, "cell 6 1,grow");
 		
 		JPanel panel_Proficiences = new JPanel();
 		tabs_Actions.addTab("Proficiencies", null, panel_Proficiences, null);
@@ -1284,6 +1284,52 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	{
 		// TODO (Luis): Check if one textfield is editable, and set the rest accordingly
 		
+	}
+
+
+	public void load_ActionNames( String text )
+	{
+		area_ActionNames.setText(text);
+	}
+	public void load_ActionRanges( String text )
+	{
+		area_ActionRanges.setText(text);
+	}
+	public void load_ActionHits( String text )
+	{
+		area_ActionHits.setText(text);
+	}
+	public void load_ActionDmg( String text )
+	{
+		area_ActionDmg.setText(text);
+	}
+	public void load_ActionDmgBonuses( String text )
+	{
+		area_ActionDmgBonuses.setText(text);
+	}
+	public void load_ActionAmmo( String text )
+	{
+		area_ActionAmmo.setText(text);
+	}
+	public void load_ActionMisc( String text )
+	{
+		area_ActionMisc.setText(text);
+	}
+	public void load_Advantages( String text )
+	{
+		area_Adv.setText(text);
+	}
+	public void load_Disadvantages( String text )
+	{
+		area_Disadv.setText(text);
+	}
+	public void load_Bonuses( String text )
+	{
+		area_Bonuses.setText(text);
+	}
+	public void load_Proficiences( String text )
+	{
+		area_Proficiences.setText(text);
 	}
 }
 

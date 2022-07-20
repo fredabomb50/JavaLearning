@@ -23,15 +23,33 @@ public class Json_Tools
 {	
 	// Pathing
 	private static final String path_SaveData = "save_data/";
-	private static final String path_CharacterStats = path_SaveData + "character_stats.json";
-	private static final String path_Inventory = path_SaveData + "inventory.json";
-	private static final String path_N_People = path_SaveData + "notes_People.txt";
-	private static final String path_N_Places = path_SaveData + "notes_Places.txt";
-	private static final String path_N_History = path_SaveData + "notes_History.txt";
-	private static final String path_N_Factions = path_SaveData + "notes_Factions.txt";
-	private static final String path_N_Quests = path_SaveData + "notes_Quests.txt";
-	private static final String path_N_Fauna = path_SaveData + "notes_Fauna.txt";
-	private static final String path_N_Flora = path_SaveData + "notes_Flora.txt";
+	private static final String path_CharacterStats = path_SaveData + "character-sheet/character_stats.json";
+	private static final String path_cs_Advantages = path_SaveData + "character-sheet/cs_Advantages.txt";
+	private static final String path_cs_Disadvantages = path_SaveData + "character-sheet/cs_Disadvantages.txt";
+	private static final String path_cs_Bonuses = path_SaveData + "character-sheet/cs_Bonuses.txt";
+	private static final String path_cs_Proficiencies = path_SaveData + "character-sheet/cs_Proficiencies.txt";
+	private static final String path_cs_ActionNames = path_SaveData + "character-sheet/actions/cs_Action_Names.txt";
+	private static final String path_cs_ActionAmmo = path_SaveData + "character-sheet/actions/cs_Action_Ammo.txt";
+	private static final String path_cs_ActionHits = path_SaveData + "character-sheet/actions/cs_Action_Hits.txt";
+	private static final String path_cs_ActionRanges = path_SaveData + "character-sheet/actions/cs_Action_Ranges.txt";
+	private static final String path_cs_ActionDmg = path_SaveData + "character-sheet/actions/cs_Action_Damages.txt";
+	private static final String path_cs_ActionDmgBonus = path_SaveData + "character-sheet/actions/cs_Action_DamageBonuses.txt";
+	private static final String path_cs_ActionMisc = path_SaveData + "character-sheet/actions/cs_Action_Misc.txt";
+	private static final String path_cd_AboutMe = path_SaveData + "character-details/cd_AboutMe.txt";
+	private static final String path_cd_Backstory = path_SaveData + "character-details/cd_Backstory.txt";
+	private static final String path_cd_EmotionalStatus = path_SaveData + "character-details/cd_EmotionalStatus.txt";
+	private static final String path_cd_Goals = path_SaveData + "character-details/cd_Goals.txt";
+
+	private static final String path_N_People = path_SaveData + "notes/notes_People.txt";
+	private static final String path_N_Places = path_SaveData + "notes/notes_Places.txt";
+	private static final String path_N_History = path_SaveData + "notes/notes_History.txt";
+	private static final String path_N_Factions = path_SaveData + "notes/notes_Factions.txt";
+	private static final String path_N_Quests = path_SaveData + "notes/notes_Quests.txt";
+	private static final String path_N_Fauna = path_SaveData + "notes/notes_Fauna.txt";
+	private static final String path_N_Flora = path_SaveData + "notes/notes_Flora.txt";
+	
+	
+	private static final String path_Inventory = path_SaveData + "inventory/inventory.json";
 	
 	
 	// Json objects
@@ -374,7 +392,69 @@ public class Json_Tools
 	}
 	
 
-	// NOTES
+	// TEXT FILE LOADERS
+	public String load_cs_Advantages()
+	{
+		return txt_loader.readFile( path_cs_Advantages );
+	}
+	public String load_cs_Disadvantages()
+	{
+		return txt_loader.readFile( path_cs_Disadvantages );
+	}
+	public String load_cs_Proficiencies()
+	{
+		return txt_loader.readFile( path_cs_Proficiencies );
+	}
+	public String load_cs_Bonuses()
+	{
+		return txt_loader.readFile( path_cs_Bonuses );
+	}
+	public String load_cs_ActionNames()
+	{
+		return txt_loader.readFile( path_cs_ActionNames );
+	}
+	public String load_cs_ActionAmmo()
+	{
+		return txt_loader.readFile( path_cs_ActionAmmo );
+	}
+	public String load_cs_ActionHits()
+	{
+		return txt_loader.readFile( path_cs_ActionHits );
+	}
+	public String load_cs_ActionRanges()
+	{
+		return txt_loader.readFile( path_cs_ActionRanges );
+	}
+	public String load_cs_ActionDmg()
+	{
+		return txt_loader.readFile( path_cs_ActionDmg );
+	}
+	public String load_cs_ActionDmgBonus()
+	{
+		return txt_loader.readFile( path_cs_ActionDmgBonus );
+	}
+	public String load_cs_ActionMisc()
+	{
+		return txt_loader.readFile( path_cs_ActionMisc );
+	}
+	public String load_cd_AboutMe()
+	{
+		return txt_loader.readFile( path_cd_AboutMe );
+	}
+	public String load_cd_Backstory()
+	{
+		return txt_loader.readFile( path_cd_Backstory );
+	}
+	public String load_cd_EmotionalStatus()
+	{
+		return txt_loader.readFile( path_cd_EmotionalStatus );
+	}
+	public String load_cd_Goals()
+	{
+		return txt_loader.readFile( path_cd_Goals );
+	}
+	
+	
 	public String load_N_People()
 	{
 		return txt_loader.readFile( path_N_People );
