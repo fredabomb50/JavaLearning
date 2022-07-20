@@ -1,11 +1,10 @@
 package dnd_gui;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import org.json.simple.parser.*;
 
 
@@ -22,6 +21,20 @@ import org.json.simple.parser.*;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class Json_Tools 
 {	
+	// Pathing
+	private static final String path_SaveData = "save_data/";
+	private static final String path_CharacterStats = path_SaveData + "character_stats.json";
+	private static final String path_Inventory = path_SaveData + "inventory.json";
+	private static final String path_N_People = path_SaveData + "notes_People.txt";
+	private static final String path_N_Places = path_SaveData + "notes_Places.txt";
+	private static final String path_N_History = path_SaveData + "notes_History.txt";
+	private static final String path_N_Factions = path_SaveData + "notes_Factions.txt";
+	private static final String path_N_Quests = path_SaveData + "notes_Quests.txt";
+	private static final String path_N_Fauna = path_SaveData + "notes_Fauna.txt";
+	private static final String path_N_Flora = path_SaveData + "notes_Flora.txt";
+	
+	
+	// Json objects
 	private static Object stats_obj = null;
 	private static Object inv_obj = null;
 	private static JSONObject stats_json = null;
@@ -32,7 +45,7 @@ public class Json_Tools
 	{
 		try
 		{
-			stats_obj = new JSONParser().parse(new FileReader("save_data/character_stats.json"));
+			stats_obj = new JSONParser().parse(new FileReader( path_CharacterStats ));
 			stats_json = (JSONObject) stats_obj;
 		}
 		catch  ( ParseException | IOException json_error )
@@ -43,7 +56,7 @@ public class Json_Tools
 		
 		try
 		{
-			inv_obj = new JSONParser().parse(new FileReader("save_data/character_stats.json"));
+			inv_obj = new JSONParser().parse(new FileReader( path_Inventory ));
 			inv_json = (JSONObject) inv_obj;
 		}
 		catch  ( ParseException | IOException json_error )
@@ -51,17 +64,20 @@ public class Json_Tools
 			json_logger( json_error, "Exception caught while constructing inventory json" );
 		}
 	}
-	
+	public void json_logger( Exception exception, String errMsg )
+	{
+		System.out.println( errMsg + ": " + exception );
+	}
 	
 	
 	// CHARACTER SHEET
-	public E_Dice load_HitdieType()
+ 	public E_Dice load_HitdieType()
 	{
 		E_Dice temp_type = null;
 		
 		try
 		{
-			int enum_index = (int) stats_json.get("hitdie_type");
+			int enum_index = util.IntFromObj( stats_json.get("hitdie_type") );
 	        temp_type = E_Dice.values()[enum_index];
 		}
 		catch ( IllegalStateException | ArrayIndexOutOfBoundsException json_error )
@@ -82,12 +98,12 @@ public class Json_Tools
 		
 		try
 		{			
-			Map temp_scores = ( (Map)stats_json.get("abilities") );
+			Map temp_scores = (Map) stats_json.get("abilities");
 	        itr1 = temp_scores.entrySet().iterator();
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp[0] = (int) pair.getValue();
+				temp[0] = util.IntFromObj( pair.getValue() );
 				temp[1] = ( temp[0] - 10 ) / 2;
 				temp_ability = E_Abilities.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_ability , temp );    
@@ -144,7 +160,7 @@ public class Json_Tools
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_speed = E_Abilities.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_speed , temp );    
 	        }
@@ -172,7 +188,7 @@ public class Json_Tools
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_speed = E_Speeds.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_speed , temp );    
 	        }
@@ -200,7 +216,7 @@ public class Json_Tools
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_stat = E_Stats.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_stat , temp );    
 	        }
@@ -228,7 +244,7 @@ public class Json_Tools
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_stat = E_Stats.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_stat , temp );    
 	        }
@@ -312,7 +328,7 @@ public class Json_Tools
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_skill = E_Skills.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_skill , temp );    
 	        }
@@ -326,6 +342,8 @@ public class Json_Tools
 		return temp_map;
 	}
 	
+	
+	
 	// INVENTORY
 	public HashMap<E_Currency, Integer> load_Money()
 	{
@@ -336,12 +354,12 @@ public class Json_Tools
 		
 		try
 		{			
-			Map temp_scores = ( (Map)inv_json.get("money") );
+			Map temp_scores = (Map) inv_json.get("money") ;
 	        itr1 = temp_scores.entrySet().iterator();
 	        while ( itr1.hasNext() )
 	        {    
 				Map.Entry pair = itr1.next();
-				temp = (int) pair.getValue();
+				temp = util.IntFromObj( pair.getValue() );
 				temp_coin = E_Currency.valueOf( pair.getKey().toString() );
 				temp_map.put( temp_coin , temp );    
 	        }
@@ -355,13 +373,57 @@ public class Json_Tools
 		return temp_map;
 	}
 	
-	
-	
-	
-	public void json_logger( Exception exception, String errMsg )
+
+	// NOTES
+	public String load_N_People()
 	{
-		System.out.println( errMsg + ": " + exception );
+		return txt_loader.readFile( path_N_People );
 	}
+	public String load_N_Places()
+	{
+		return txt_loader.readFile( path_N_Places );
+	}
+	public String load_N_History()
+	{
+		return txt_loader.readFile( path_N_History );
+	}
+	public String load_N_Quests()
+	{
+		return txt_loader.readFile( path_N_Quests );
+	}
+	public String load_N_Factions()
+	{
+		return txt_loader.readFile( path_N_Factions );
+	}
+	public String load_N_Fauna()
+	{
+		return txt_loader.readFile( path_N_Fauna );
+	}
+	public String load_N_Flora()
+	{
+		return txt_loader.readFile( path_N_Flora );
+	}
+	
+	
+	class txt_loader
+	{
+	    public static String readFile( String path )
+	    {
+	    	byte[] encoded = null;
+	    	
+			try
+			{
+		        encoded = Files.readAllBytes(Paths.get(path));
+			}
+			catch ( IOException e )
+			{
+				System.out.println( "failure during readFile method: " + e.toString() );
+			}
+
+			return new String(encoded, Charset.defaultCharset() );
+	    }
+	}
+	
 	
 	class util
 	{		
@@ -370,9 +432,24 @@ public class Json_Tools
 			return Integer.parseInt( string );
 		}
 		
-		public static int IntFromObj( Map.Entry obj )
+		public static int IntFromEntry( Map.Entry obj )
 		{
 			return Integer.parseInt( obj.getValue().toString() );
+		}
+		
+		public static int IntFromObj( Object obj )
+		{
+			int temp = 0;
+			try
+			{
+				temp = Math.toIntExact( (Long) obj );
+			}
+			catch ( ArithmeticException e )
+			{
+				System.out.println( "failure during IntFromObj method: " + e.toString() );
+			}
+	
+			return temp;
 		}
 	}
 }

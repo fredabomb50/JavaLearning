@@ -626,6 +626,17 @@ public class ControlPanel extends Sheet
 			// Inventory Sheet Loaders
 			stat_values.coins = json_tools.load_Money();
 			i_Sheet.update_Currency( stat_values.coins );
+			
+			
+			// NOTES
+			n_Sheet.load_People( json_tools.load_N_People() );
+			n_Sheet.load_Places( json_tools.load_N_Places() );
+			n_Sheet.load_History( json_tools.load_N_History() );
+			n_Sheet.load_Quests( json_tools.load_N_Quests() );
+			n_Sheet.load_Factions( json_tools.load_N_Factions() );
+			n_Sheet.load_Fauna( json_tools.load_N_Fauna() );
+			n_Sheet.load_Flora( json_tools.load_N_Flora() );
+			
 		}
 	}
 	
@@ -718,8 +729,6 @@ public class ControlPanel extends Sheet
 		// Constructors
 		public Stats()
 		{
-			// initialize class to ensure maps are not null
-
 			// Fillers
 			fill_health();
 			fill_misc();
@@ -751,7 +760,7 @@ public class ControlPanel extends Sheet
 		
 		private int get_CurrentHealth()
 		{
-			return this.health_Values.get(E_Stats.HealthCurrent );
+			return this.health_Values.get( E_Stats.HealthCurrent );
 		}
 		
 		private int get_TempHealth()
@@ -897,10 +906,9 @@ public class ControlPanel extends Sheet
 		
 		private void fill_health()
 		{
-			HashMap<E_Stats, Integer> temp = new HashMap<E_Stats, Integer>();
-			temp.put(E_Stats.HealthCurrent, 0);
-			temp.put(E_Stats.HealthMax, 0);
-			temp.put(E_Stats.HealthTemp, 0);
+			this.health_Values.put(E_Stats.HealthCurrent, 0);
+			this.health_Values.put(E_Stats.HealthMax, 0);
+			this.health_Values.put(E_Stats.HealthTemp, 0);
 		}
 		
 		private void fill_money()

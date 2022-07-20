@@ -13,19 +13,25 @@ public class NotesSheet extends Sheet
 {
 
 	public JFrame frame;
+	private JTextArea area_People = null;
+	private JTextArea area_Places = null;
+	private JTextArea area_History = null;
+	private JTextArea area_Quests = null;
+	private JTextArea area_Factions = null;
+	private JTextArea area_Fauna = null;
+	private JTextArea area_Flora = null;
 
-
-	/**
-	 * Create the application.
-	 */
-	public NotesSheet() {
+	
+	public NotesSheet()
+	 {
 		initialize();
-	}
+	 }
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		frame = new JFrame();
 		frame.setTitle("Notes");
 		frame.setBounds(100, 100, 630, 520);
@@ -38,50 +44,79 @@ public class NotesSheet extends Sheet
 		tabs_Notes.addTab("People", null, panel_People, null);
 		panel_People.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_6 = new JTextArea();
-		panel_People.add(textArea_6);
+		area_People = new JTextArea();
+		panel_People.add(area_People);
 		
 		JPanel panel_Places = new JPanel();
 		tabs_Notes.addTab("Places", null, panel_Places, null);
 		panel_Places.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_5 = new JTextArea();
-		panel_Places.add(textArea_5);
+		area_Places = new JTextArea();
+		panel_Places.add(area_Places);
 		
 		JPanel panel_History = new JPanel();
 		tabs_Notes.addTab("History", null, panel_History, null);
 		panel_History.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_4 = new JTextArea();
-		panel_History.add(textArea_4);
+		area_History = new JTextArea();
+		panel_History.add(area_History);
 		
 		JPanel panel_Quests = new JPanel();
 		tabs_Notes.addTab("Quests", null, panel_Quests, null);
 		panel_Quests.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_3 = new JTextArea();
-		panel_Quests.add(textArea_3);
+		area_Quests = new JTextArea();
+		panel_Quests.add(area_Quests);
 		
 		JPanel panel_Factions = new JPanel();
 		tabs_Notes.addTab("Factions", null, panel_Factions, null);
 		panel_Factions.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_2 = new JTextArea();
-		panel_Factions.add(textArea_2);
+		area_Factions = new JTextArea();
+		panel_Factions.add(area_Factions);
 		
 		JPanel panel_Fauna = new JPanel();
 		tabs_Notes.addTab("Fauna", null, panel_Fauna, null);
 		panel_Fauna.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea_1 = new JTextArea();
-		panel_Fauna.add(textArea_1);
+		area_Fauna = new JTextArea();
+		panel_Fauna.add(area_Fauna);
 		
 		JPanel panel_Flora = new JPanel();
 		tabs_Notes.addTab("Flora", null, panel_Flora, null);
 		panel_Flora.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JTextArea textArea = new JTextArea();
-		panel_Flora.add(textArea);
+		area_Flora = new JTextArea();
+		panel_Flora.add(area_Flora);
 	}
 
+	
+	public void load_Flora( String saved_text )
+	{
+		area_Flora.setText( saved_text );
+	}
+	public void load_Fauna( String saved_text )
+	{
+		area_Fauna.setText( saved_text );
+	}
+	public void load_Factions( String saved_text )
+	{
+		area_Factions.setText( saved_text );
+	}
+	public void load_Quests( String saved_text )
+	{
+		area_Quests.setText( saved_text );
+	}
+	public void load_History( String saved_text )
+	{
+		area_History.setText( saved_text );
+	}
+	public void load_Places( String saved_text )
+	{
+		area_Places.setText( saved_text );
+	}
+	public void load_People( String saved_text )
+	{
+		area_People.setText( saved_text );
+	}
 }
