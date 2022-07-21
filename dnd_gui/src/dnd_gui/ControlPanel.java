@@ -610,7 +610,7 @@ public class ControlPanel extends Sheet
 		}
 		public void actionPerformed(ActionEvent e)
 		{
-			// Character Sheet loaders
+			// CHARACTER SHEET
 			stat_values.abilities = json_tools.load_Abilities();
 			stat_values.save_prof = json_tools.load_SaveProfs();
 			stat_values.save_bonus = json_tools.load_SaveBonuses();
@@ -618,7 +618,6 @@ public class ControlPanel extends Sheet
 			stat_values.hitdie_Type = json_tools.load_HitdieType();
 			stat_values.health_Values = json_tools.load_Health();
 			stat_values.misc_Values = json_tools.load_Core();
-			//stat_values.skills_Values = json_tools.load_SkillBonuses();
 			c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
 			c_Sheet.fill_Speeds( stat_values.speeds );
 			c_Sheet.load_ActionNames( json_tools.load_cs_ActionNames() );
@@ -633,9 +632,16 @@ public class ControlPanel extends Sheet
 			c_Sheet.load_Bonuses( json_tools.load_cs_Bonuses() );
 			c_Sheet.load_Proficiences( json_tools.load_cs_Proficiencies() );
 			
-			// Inventory Sheet Loaders
+			// INVENTORY
 			stat_values.coins = json_tools.load_Money();
 			i_Sheet.update_Currency( stat_values.coins );
+			
+			
+			// CHARACTER DETAILS
+			d_Sheet.load_AboutMe( json_tools.load_cd_AboutMe() );
+			d_Sheet.load_Goals( json_tools.load_cd_Goals() );
+			d_Sheet.load_Backstory( json_tools.load_cd_Backstory() );
+			d_Sheet.load_EmotionalStatus( json_tools.load_cd_EmotionalStatus() );
 			
 			
 			// NOTES
@@ -645,8 +651,20 @@ public class ControlPanel extends Sheet
 			n_Sheet.load_Quests( json_tools.load_N_Quests() );
 			n_Sheet.load_Factions( json_tools.load_N_Factions() );
 			n_Sheet.load_Fauna( json_tools.load_N_Fauna() );
-			n_Sheet.load_Flora( json_tools.load_N_Flora() );
+			n_Sheet.load_Flora( json_tools.load_N_Flora() );		
 			
+			
+			// CASTING
+			s_Sheet.load_Cantrips( json_tools.load_Cantrips() );
+			s_Sheet.load_1stLevel( json_tools.load_1stLevel() );
+			s_Sheet.load_2ndLevel( json_tools.load_2ndLevel() );
+			s_Sheet.load_3rdLevel( json_tools.load_3rdLevel() );
+			s_Sheet.load_4thLevel( json_tools.load_4thLevel() );
+			s_Sheet.load_5thLevel( json_tools.load_5thLevel() );
+			s_Sheet.load_6thLevel( json_tools.load_6thLevel() );
+			s_Sheet.load_7thLevel( json_tools.load_7thLevel() );
+			s_Sheet.load_8thLevel( json_tools.load_8thLevel() );
+			s_Sheet.load_9thLevel( json_tools.load_9thLevel() );
 		}
 	}
 	

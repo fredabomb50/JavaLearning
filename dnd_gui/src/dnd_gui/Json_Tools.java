@@ -39,7 +39,16 @@ public class Json_Tools
 	private static final String path_cd_Backstory = path_SaveData + "character-details/cd_Backstory.txt";
 	private static final String path_cd_EmotionalStatus = path_SaveData + "character-details/cd_EmotionalStatus.txt";
 	private static final String path_cd_Goals = path_SaveData + "character-details/cd_Goals.txt";
-
+	private static final String path_Cantrips = path_SaveData + "spells/cantrips.txt";
+	private static final String path_1stLevel = path_SaveData + "spells/1st_level.txt";
+	private static final String path_2ndLevel = path_SaveData + "spells/2nd_level.txt";
+	private static final String path_3rdLevel = path_SaveData + "spells/3rd_level.txt";
+	private static final String path_4thLevel = path_SaveData + "spells/4th_level.txt";
+	private static final String path_5thLevel = path_SaveData + "spells/5th_level.txt";
+	private static final String path_6thLevel = path_SaveData + "spells/6th_level.txt";
+	private static final String path_7thLevel = path_SaveData + "spells/7th_level.txt";
+	private static final String path_8thLevel = path_SaveData + "spells/8th_level.txt";
+	private static final String path_9thLevel = path_SaveData + "spells/9th_level.txt";
 	private static final String path_N_People = path_SaveData + "notes/notes_People.txt";
 	private static final String path_N_Places = path_SaveData + "notes/notes_Places.txt";
 	private static final String path_N_History = path_SaveData + "notes/notes_History.txt";
@@ -454,6 +463,46 @@ public class Json_Tools
 		return txt_loader.readFile( path_cd_Goals );
 	}
 	
+	public String load_Cantrips()
+	{
+		return txt_loader.readFile( path_Cantrips );
+	}
+	public String load_1stLevel()
+	{
+		return txt_loader.readFile( path_1stLevel );
+	}
+	public String load_2ndLevel()
+	{
+	  return txt_loader.readFile( path_2ndLevel );
+	}
+	public String load_3rdLevel()
+	{
+	  return txt_loader.readFile( path_3rdLevel );
+	}
+	public String load_4thLevel()
+	{
+	  return txt_loader.readFile( path_4thLevel );
+	}
+	public String load_5thLevel()
+	{
+	  return txt_loader.readFile( path_5thLevel );
+	}
+	public String load_6thLevel()
+	{
+	  return txt_loader.readFile( path_6thLevel );
+	}
+	public String load_7thLevel()
+	{
+	  return txt_loader.readFile( path_7thLevel );
+	}
+	public String load_8thLevel()
+	{
+	  return txt_loader.readFile( path_8thLevel );
+	}
+	public String load_9thLevel()
+	{
+	  return txt_loader.readFile( path_9thLevel );
+	}
 	
 	public String load_N_People()
 	{

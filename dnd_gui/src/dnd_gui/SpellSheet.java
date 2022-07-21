@@ -38,6 +38,18 @@ public class SpellSheet extends Sheet
 	private JLabel lbl_8thLevelSlots;
 	private JLabel lbl_9thLevelSlots;
 	
+	private JTextArea area_Cantrips = null;
+	private JTextArea area_1stLevel = null;
+	private JTextArea area_2ndLevel = null;
+	private JTextArea area_3rdLevel = null;
+	private JTextArea area_4thLevel = null;
+	private JTextArea area_5thLevel = null;
+	private JTextArea area_6thLevel = null;
+	private JTextArea area_7thLevel = null;
+	private JTextArea area_8thLevel = null;
+	private JTextArea area_9thLevel = null;
+	
+	
 	public SpellSheet()
 	{
 		initialize();
@@ -100,7 +112,7 @@ public class SpellSheet extends Sheet
 		lbl_CantripSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane.setColumnHeaderView(lbl_CantripSlots);
 		
-		JTextArea area_Cantrips = new JTextArea();
+		area_Cantrips = new JTextArea();
 		scrollPane.setViewportView(area_Cantrips);
 		
 		JPanel panel_1stLevel = new JPanel();
@@ -114,7 +126,7 @@ public class SpellSheet extends Sheet
 		lbl_1stLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_1.setColumnHeaderView(lbl_1stLevelSlots);
 		
-		JTextArea area_1stLevel = new JTextArea();
+		area_1stLevel = new JTextArea();
 		scrollPane_1.setViewportView(area_1stLevel);
 		
 		JPanel panel_2ndLevel = new JPanel();
@@ -128,7 +140,7 @@ public class SpellSheet extends Sheet
 		lbl_2ndLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_2.setColumnHeaderView(lbl_2ndLevelSlots);
 		
-		JTextArea area_2ndLevel = new JTextArea();
+		area_2ndLevel = new JTextArea();
 		scrollPane_2.setViewportView(area_2ndLevel);
 		
 		JPanel panel_3rdLevel = new JPanel();
@@ -142,7 +154,7 @@ public class SpellSheet extends Sheet
 		lbl_3rdLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_3.setColumnHeaderView(lbl_3rdLevelSlots);
 		
-		JTextArea area_3rdLevel = new JTextArea();
+		area_3rdLevel = new JTextArea();
 		scrollPane_3.setViewportView(area_3rdLevel);
 		
 		JPanel panel_4thLevel = new JPanel();
@@ -156,7 +168,7 @@ public class SpellSheet extends Sheet
 		lbl_4thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_4.setColumnHeaderView(lbl_4thLevelSlots);
 		
-		JTextArea area_4thLevel = new JTextArea();
+		area_4thLevel = new JTextArea();
 		scrollPane_4.setViewportView(area_4thLevel);
 		
 		JPanel panel_5thLevel = new JPanel();
@@ -170,7 +182,7 @@ public class SpellSheet extends Sheet
 		lbl_5thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_5.setColumnHeaderView(lbl_5thLevelSlots);
 		
-		JTextArea area_5thLevel = new JTextArea();
+		area_5thLevel = new JTextArea();
 		scrollPane_5.setViewportView(area_5thLevel);
 		
 		JPanel panel_6thLevel = new JPanel();
@@ -184,8 +196,8 @@ public class SpellSheet extends Sheet
 		lbl_6thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_6.setColumnHeaderView(lbl_6thLevelSlots);
 		
-		JTextArea textArea = new JTextArea();
-		scrollPane_6.setViewportView(textArea);
+		area_6thLevel = new JTextArea();
+		scrollPane_6.setViewportView(area_6thLevel);
 		
 		JPanel panel_7thLevel = new JPanel();
 		tabs_SpellLevels.addTab("7th Level", null, panel_7thLevel, null);
@@ -198,8 +210,8 @@ public class SpellSheet extends Sheet
 		lbl_7thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_7.setColumnHeaderView(lbl_7thLevelSlots);
 		
-		JTextArea textArea_1 = new JTextArea();
-		scrollPane_7.setViewportView(textArea_1);
+		area_7thLevel = new JTextArea();
+		scrollPane_7.setViewportView(area_7thLevel);
 		
 		JPanel panel_8thLevel = new JPanel();
 		tabs_SpellLevels.addTab("8th Level", null, panel_8thLevel, null);
@@ -212,8 +224,8 @@ public class SpellSheet extends Sheet
 		lbl_8thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_8.setColumnHeaderView(lbl_8thLevelSlots);
 		
-		JTextArea textArea_2 = new JTextArea();
-		scrollPane_8.setViewportView(textArea_2);
+		area_8thLevel = new JTextArea();
+		scrollPane_8.setViewportView(area_8thLevel);
 		
 		JPanel panel_9thLevel = new JPanel();
 		tabs_SpellLevels.addTab("9th Level", null, panel_9thLevel, null);
@@ -226,8 +238,8 @@ public class SpellSheet extends Sheet
 		lbl_9thLevelSlots.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_9.setColumnHeaderView(lbl_9thLevelSlots);
 		
-		JTextArea textArea_3 = new JTextArea();
-		scrollPane_9.setViewportView(textArea_3);
+		area_9thLevel = new JTextArea();
+		scrollPane_9.setViewportView(area_9thLevel);
 	}
 
 	
@@ -248,5 +260,47 @@ public class SpellSheet extends Sheet
 		
 		lbl_SpellSaveDC.setText( Integer.toString( new_save ) );
 		lbl_SpellHitBonus.setText( Integer.toString( new_hit ) );
+	}
+
+	
+	public void load_Cantrips( String text )
+	{
+		area_Cantrips.setText( text );
+	}
+	public void load_1stLevel( String text )
+	{
+		area_1stLevel.setText( text );
+	}
+	public void load_2ndLevel( String text )
+	{
+		area_2ndLevel.setText( text );
+	}
+	public void load_3rdLevel( String text )
+	{
+		area_3rdLevel.setText( text );
+	}
+	public void load_4thLevel( String text )
+	{
+		area_4thLevel.setText( text );
+	}
+	public void load_5thLevel( String text )
+	{
+		area_5thLevel.setText( text );
+	}
+	public void load_6thLevel( String text )
+	{
+		area_6thLevel.setText( text );
+	}
+	public void load_7thLevel( String text )
+	{
+		area_7thLevel.setText( text );
+	}
+	public void load_8thLevel( String text )
+	{
+		area_8thLevel.setText( text );
+	}
+	public void load_9thLevel( String text )
+	{
+		area_9thLevel.setText( text );
 	}
 }

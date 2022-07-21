@@ -35,6 +35,12 @@ public class DetailsSheet extends Sheet
 	private JTextField txtDamp;
 	private JTextField txtBowlCut;
 
+	private JTextArea area_AboutMe = null;
+	private JTextArea area_Goals = null;
+	private JTextArea area_Backstory = null;
+	private JTextArea area_EmotionalStatus = null;
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -151,22 +157,22 @@ public class DetailsSheet extends Sheet
 		JLabel lbl_Evil = new JLabel("Racist: 20%");
 		panel.add(lbl_Evil);
 		
-		JTextArea txtrShortAndSweet = new JTextArea();
-		txtrShortAndSweet.setText("        Short and Sweet\r\n  ========================== \r\nOur spores collide\r\nand in sweet ecstasy \r\nwe meld,\r\nlooking deep in eachother's eyes.\r\n\r\nOur circle of two,\r\neven when death is due,\r\nwill meld onwards into life.\r\n--Psilofyr, 2:20");
-		panel_Header.add(txtrShortAndSweet, "cell 3 1,grow");
+		area_EmotionalStatus = new JTextArea();
+		area_EmotionalStatus.setText("        Short and Sweet\r\n  ========================== \r\nOur spores collide\r\nand in sweet ecstasy \r\nwe meld,\r\nlooking deep in eachother's eyes.\r\n\r\nOur circle of two,\r\neven when death is due,\r\nwill meld onwards into life.\r\n--Psilofyr, 2:20");
+		panel_Header.add(area_EmotionalStatus, "cell 3 1,grow");
 		
 		JTabbedPane tabs_Details = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabs_Details, "cell 0 1,grow");
 		
-		JTextArea area_AboutMe = new JTextArea();
+		area_AboutMe = new JTextArea();
 		area_AboutMe.setText("== Personality ==\r\n- Easy-going, mute.\r\n\r\nLikes:\r\n\t- Long melds in the swamps.\r\n\t- The circle.\r\nDislikes:\r\n\t- Most underdark inhabitants\r\n\t- Violence\r\n\r\n== Ideals ==\r\n- The pursuit of self-deification is the only valid path for any magically-inclined being.\r\n- Meld is life.\r\n\r\n== Bonds ==\r\n- My circle <3\r\n- Praise Psilofyr\r\n\r\n== Flaws ==\r\n- Slight xenophobia\r\n- PTSD");
 		tabs_Details.addTab("About Me", null, area_AboutMe, null);
 		
-		JTextArea area_Goals = new JTextArea();
+		area_Goals = new JTextArea();
 		area_Goals.setText("The only thing I wish for is to unite all fellow Myconids under a single, grand\r\ncircle in order to meld, commune with Psilofyr, and ultimately ascend\r\nto Godhood.");
 		tabs_Details.addTab("Goals", null, area_Goals, null);
 		
-		JTextArea area_Backstory = new JTextArea();
+		area_Backstory = new JTextArea();
 		tabs_Details.addTab("Backstory", null, area_Backstory, null);
 		
 		JPanel panel_XXX = new JPanel();
@@ -183,5 +189,22 @@ public class DetailsSheet extends Sheet
 		panel_XXX.add(lbl_PayPlease, "cell 0 1");
 	}
 	
+	
+	public void load_AboutMe( String text )
+	{
+		area_AboutMe.setText(text);
+	}
+	public void load_Goals( String text )
+	{
+		area_Goals.setText(text);
+	}
+	public void load_Backstory( String text )
+	{
+		area_Backstory.setText(text);
+	}
+	public void load_EmotionalStatus( String text )
+	{
+		area_EmotionalStatus.setText(text);
+	}
 	
 }
