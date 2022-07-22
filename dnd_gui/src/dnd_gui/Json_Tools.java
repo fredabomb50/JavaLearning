@@ -56,9 +56,12 @@ public class Json_Tools
 	private static final String path_N_Quests = path_SaveData + "notes/notes_Quests.txt";
 	private static final String path_N_Fauna = path_SaveData + "notes/notes_Fauna.txt";
 	private static final String path_N_Flora = path_SaveData + "notes/notes_Flora.txt";
-	
-	
 	private static final String path_Inventory = path_SaveData + "inventory/inventory.json";
+	private static final String path_Valuables = path_SaveData + "inventory/valuables.txt";
+	private static final String path_Equipment = path_SaveData + "inventory/equipment.txt";
+	private static final String path_Weapons = path_SaveData + "inventory/weapons.txt";
+	private static final String path_Consumables = path_SaveData + "inventory/consumables.txt";
+	private static final String path_Materials = path_SaveData + "inventory/materials.txt";
 	
 	
 	// Json objects
@@ -68,6 +71,7 @@ public class Json_Tools
 	private static JSONObject inv_json = null;
 	
 	
+	// Constructor and Logger
 	public Json_Tools()
 	{
 		try
@@ -114,8 +118,7 @@ public class Json_Tools
 		}
 		
 		return temp_type;
-	}
-	
+	}	
 	public HashMap<E_Abilities, int[]> load_Abilities()
 	{
 		HashMap<E_Abilities, int[]> temp_map = new HashMap<E_Abilities, int[]>();
@@ -144,7 +147,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-
 	public HashMap<E_Abilities, Boolean> load_SaveProfs()
 	{
 		HashMap<E_Abilities, Boolean> temp_map = new HashMap<E_Abilities, Boolean>();
@@ -172,7 +174,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-		
 	public HashMap<E_Abilities, Integer> load_SaveBonuses()
 	{
 		HashMap<E_Abilities, Integer> temp_map = new HashMap<E_Abilities, Integer>();
@@ -200,7 +201,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-	
 	public HashMap<E_Speeds, Integer> load_Speeds()
 	{
 		HashMap<E_Speeds, Integer> temp_map = new HashMap<E_Speeds, Integer>();
@@ -227,8 +227,7 @@ public class Json_Tools
 		}
 		
 		return temp_map;
-	}
-	
+	}	
 	public HashMap<E_Stats, Integer> load_Health()
 	{
 		HashMap<E_Stats, Integer> temp_map = new HashMap<E_Stats, Integer>();
@@ -256,7 +255,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-
 	public HashMap<E_Stats, Integer> load_Core()
 	{
 		HashMap<E_Stats, Integer> temp_map = new HashMap<E_Stats, Integer>();
@@ -284,7 +282,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-
 	public HashMap<E_Skills, Boolean> load_SkillProfs()
 	{
 		HashMap<E_Skills, Boolean> temp_map = new HashMap<E_Skills, Boolean>();
@@ -311,8 +308,7 @@ public class Json_Tools
 		}
 		
 		return temp_map;
-	}
-	
+	}	
 	public HashMap<E_Skills, Boolean> load_SkillExpertise()
 	{
 		HashMap<E_Skills, Boolean> temp_map = new HashMap<E_Skills, Boolean>();
@@ -339,8 +335,7 @@ public class Json_Tools
 		}
 		
 		return temp_map;
-	}
-	
+	}	
 	public HashMap<E_Skills, Integer> load_SkillBonuses()
 	{
 		HashMap<E_Skills, Integer> temp_map = new HashMap<E_Skills, Integer>();
@@ -368,40 +363,6 @@ public class Json_Tools
 		
 		return temp_map;
 	}
-	
-	
-	
-	// INVENTORY
-	public HashMap<E_Currency, Integer> load_Money()
-	{
-		HashMap<E_Currency, Integer> temp_map = new HashMap<E_Currency, Integer>();
-		Iterator<Map.Entry> itr1 = null;
-		int temp = 0;
-		E_Currency temp_coin = null;
-		
-		try
-		{			
-			Map temp_scores = (Map) inv_json.get("money") ;
-	        itr1 = temp_scores.entrySet().iterator();
-	        while ( itr1.hasNext() )
-	        {    
-				Map.Entry pair = itr1.next();
-				temp = util.IntFromObj( pair.getValue() );
-				temp_coin = E_Currency.valueOf( pair.getKey().toString() );
-				temp_map.put( temp_coin , temp );    
-	        }
-		}
-		catch ( IllegalStateException | IllegalArgumentException json_error )
-		{
-			json_logger( json_error, "Exception caught while loading health values" );
-			return null;
-		}
-		
-		return temp_map;
-	}
-	
-
-	// TEXT FILE LOADERS
 	public String load_cs_Advantages()
 	{
 		return txt_loader.readFile( path_cs_Advantages );
@@ -446,6 +407,59 @@ public class Json_Tools
 	{
 		return txt_loader.readFile( path_cs_ActionMisc );
 	}
+	
+	
+	// INVENTORY
+	public HashMap<E_Currency, Integer> load_Money()
+	{
+		HashMap<E_Currency, Integer> temp_map = new HashMap<E_Currency, Integer>();
+		Iterator<Map.Entry> itr1 = null;
+		int temp = 0;
+		E_Currency temp_coin = null;
+		
+		try
+		{			
+			Map temp_scores = (Map) inv_json.get("money") ;
+	        itr1 = temp_scores.entrySet().iterator();
+	        while ( itr1.hasNext() )
+	        {    
+				Map.Entry pair = itr1.next();
+				temp = util.IntFromObj( pair.getValue() );
+				temp_coin = E_Currency.valueOf( pair.getKey().toString() );
+				temp_map.put( temp_coin , temp );    
+	        }
+		}
+		catch ( IllegalStateException | IllegalArgumentException json_error )
+		{
+			json_logger( json_error, "Exception caught while loading health values" );
+			return null;
+		}
+		
+		return temp_map;
+	}
+	public String load_Valubles()
+	{
+		return txt_loader.readFile( path_Valuables );
+	}
+	public String load_Equipment()
+	{
+		return txt_loader.readFile( path_Equipment );
+	}
+	public String load_Weapons()
+	{
+		return txt_loader.readFile( path_Weapons );
+	}
+	public String load_Consumables()
+	{
+		return txt_loader.readFile( path_Consumables );
+	}
+	public String load_Materials()
+	{
+		return txt_loader.readFile( path_Materials );
+	}
+	
+	
+	// CHARACTER DETAILS
 	public String load_cd_AboutMe()
 	{
 		return txt_loader.readFile( path_cd_AboutMe );
@@ -463,6 +477,8 @@ public class Json_Tools
 		return txt_loader.readFile( path_cd_Goals );
 	}
 	
+	
+	// CASTING
 	public String load_Cantrips()
 	{
 		return txt_loader.readFile( path_Cantrips );
@@ -504,6 +520,8 @@ public class Json_Tools
 	  return txt_loader.readFile( path_9thLevel );
 	}
 	
+	
+	// NOTES
 	public String load_N_People()
 	{
 		return txt_loader.readFile( path_N_People );

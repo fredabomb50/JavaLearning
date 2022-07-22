@@ -24,9 +24,17 @@ public class InventorySheet extends Sheet
 	JLabel lbl_Copper;
 	JLabel lbl_SoulCoins;
 	
+	private JTextArea area_Valuables = null;
+	private JTextArea area_Equipment = null;
+	private JTextArea area_Weapons = null;
+	private JTextArea area_Consumables = null;
+	private JTextArea area_Materials = null;
+	
+	
 	/**
 	 * Create the application.
 	 */
+
 	public InventorySheet()
 	{
 		initialize();
@@ -92,7 +100,7 @@ public class InventorySheet extends Sheet
 		panel_Valubles.add(panel_4, "cell 0 1,grow");
 		panel_4.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
-		JTextArea area_Valuables = new JTextArea();
+		area_Valuables = new JTextArea();
 		panel_4.add(area_Valuables, "cell 0 0,grow");
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -102,8 +110,8 @@ public class InventorySheet extends Sheet
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane.setColumnHeaderView(lblNewLabel_6);
 		
-		JTextArea textArea_3 = new JTextArea();
-		scrollPane.setViewportView(textArea_3);
+		area_Equipment = new JTextArea();
+		scrollPane.setViewportView(area_Equipment);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		frame.getContentPane().add(scrollPane_1, "cell 2 0,grow");
@@ -112,8 +120,8 @@ public class InventorySheet extends Sheet
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_1.setColumnHeaderView(lblNewLabel_7);
 		
-		JTextArea textArea_2 = new JTextArea();
-		scrollPane_1.setViewportView(textArea_2);
+		area_Weapons = new JTextArea();
+		scrollPane_1.setViewportView(area_Weapons);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		frame.getContentPane().add(scrollPane_2, "cell 3 0,grow");
@@ -122,8 +130,8 @@ public class InventorySheet extends Sheet
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_2.setColumnHeaderView(lblNewLabel_8);
 		
-		JTextArea textArea = new JTextArea();
-		scrollPane_2.setViewportView(textArea);
+		area_Consumables = new JTextArea();
+		scrollPane_2.setViewportView(area_Consumables);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		frame.getContentPane().add(scrollPane_3, "cell 4 0,grow");
@@ -132,8 +140,8 @@ public class InventorySheet extends Sheet
 		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		scrollPane_3.setColumnHeaderView(lblNewLabel_9);
 		
-		JTextArea textArea_1 = new JTextArea();
-		scrollPane_3.setViewportView(textArea_1);
+		area_Materials = new JTextArea();
+		scrollPane_3.setViewportView(area_Materials);
 	}
 	
 	public void update_Currency( HashMap<E_Currency, Integer> coins )
@@ -144,5 +152,27 @@ public class InventorySheet extends Sheet
 		lbl_Silver.setText( Integer.toString( coins.get( E_Currency.Silver ) ) );
 		lbl_Copper.setText( Integer.toString( coins.get( E_Currency.Copper ) ) );
 		lbl_SoulCoins.setText( Integer.toString( coins.get( E_Currency.SoulCoins ) ) );
+	}
+
+	
+	public void load_Valuables( String text )
+	{
+		area_Valuables.setText( text );
+	}
+	public void load_Equipment( String text )
+	{
+		area_Equipment.setText( text );
+	}
+	public void load_Weapons( String text )
+	{
+		area_Weapons.setText( text );
+	}
+	public void load_Consumables( String text )
+	{
+		area_Consumables.setText( text );
+	}
+	public void load_Materials( String text )
+	{
+		area_Materials.setText( text );
 	}
 }

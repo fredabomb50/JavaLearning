@@ -3,21 +3,10 @@ package dnd_gui;
 import java.awt.EventQueue;
 import javax.swing.*;
 
-import org.json.simple.parser.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.awt.Toolkit;
 import net.miginfocom.swing.MigLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.FileReader;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 
 
 public class ControlPanel extends Sheet
@@ -632,9 +621,15 @@ public class ControlPanel extends Sheet
 			c_Sheet.load_Bonuses( json_tools.load_cs_Bonuses() );
 			c_Sheet.load_Proficiences( json_tools.load_cs_Proficiencies() );
 			
+			
 			// INVENTORY
 			stat_values.coins = json_tools.load_Money();
 			i_Sheet.update_Currency( stat_values.coins );
+			i_Sheet.load_Valuables( json_tools.load_Valubles() );
+			i_Sheet.load_Equipment( json_tools.load_Equipment() );
+			i_Sheet.load_Weapons( json_tools.load_Weapons() );
+			i_Sheet.load_Consumables( json_tools.load_Consumables() );
+			i_Sheet.load_Materials( json_tools.load_Materials() );
 			
 			
 			// CHARACTER DETAILS
