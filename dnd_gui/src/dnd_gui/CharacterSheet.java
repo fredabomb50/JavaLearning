@@ -1083,6 +1083,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 	
 	
+	// UPDATES
 	public void update_CurrentHealth( int new_val )
 	{
 		lbl_CurrentHealthVal.setText( Integer.toString( new_val ) );
@@ -1100,19 +1101,16 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		lbl_HitDieValue.setText( Integer.toString( new_val ) + "/" + Integer.toString( lvl ) );
 		lbl_HitDieType.setText( "( " + die.name() + " )" );
 	}
-
 	public void update_Inspiration( int new_val )
 	{
 		lbl_Inspiration.setText( Integer.toString( new_val ) );
-	}
-	
+	}	
 	public void update_XP( int new_val, int new_lvl, int new_prof )
 	{
 		lbl_XP.setText( Integer.toString( new_val ) );
 		lbl_Level.setText( Integer.toString( new_lvl ) );
 		lbl_ProfBonus.setText( Integer.toString( new_prof ) );
 	}
-	
 	public void update_SkillValue( E_Skills skill, int new_val )
 	{
 		for (int i = 0; i < skill_value_labels.length; i++)
@@ -1124,7 +1122,6 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 			}
 		}
 	}
-	
 	public void update_SkillProf( E_Skills skill, boolean new_val )
 	{
 		for (int i = 0; i < skill_prof_labels.length; i++)
@@ -1136,7 +1133,6 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 			}
 		}
 	}
-	
 	public void update_Stat( E_Abilities skill, int new_val )
 	{
 		switch ( skill )
@@ -1179,34 +1175,8 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 	
 
-	public void fill_Speeds( HashMap<E_Speeds, Integer> speeds )
-	{
-		SetLabelText( lbl_GroundSpeed, speeds.get( E_Speeds.Walk ) );
-		SetLabelText( lbl_FlySpeed, speeds.get( E_Speeds.Fly ) );
-		SetLabelText( lbl_SwimSpeed, speeds.get( E_Speeds.Swim ) );
-		SetLabelText( lbl_DigSpeed, speeds.get( E_Speeds.Dig ) );
-		SetLabelText( lbl_ClimbSpeed, speeds.get( E_Speeds.Climb ) );
-	}
- 	public void fill_Health( int current, int max, int temp, E_Dice die )
-	{
-		lbl_CurrentHealthVal.setText( Integer.toString( current ) );
-		lbl_MaxHealthVal.setText( Integer.toString( max ) );
-		lbl_TempHealthVal.setText( Integer.toString( temp ) );
-		lbl_HitDieType.setText( die.toString() );
-	}
-	
-	public void fill_Misc(int lvl, int xp, int prof, int initiative, int ac)
-	{		
-		SetLabelText( lbl_Level, lvl );
-		SetLabelText( lbl_XP, xp );
-		SetLabelText( lbl_AC, ac );
-		SetLabelText( lbl_Initiative, initiative );
-		SetLabelText( lbl_ProfBonus, prof );
-		
-		lbl_HitDieValue.setText( Integer.toString( lvl ) + "/" + Integer.toString( lvl ) );
-	}
-	
-	public void fill_Stats( HashMap<E_Abilities, int[]> stat_values, HashMap<E_Abilities, Boolean> save_prof )
+	// LOADERS
+	public void load_Abilities( HashMap<E_Abilities, int[]> stat_values, HashMap<E_Abilities, Boolean> save_prof )
 	{
 		boolean temp_bool = false;
 		int temp_dex[] = stat_values.get( E_Abilities.Dex );
@@ -1257,36 +1227,49 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		temp_bool = save_prof.get( E_Abilities.Chr );
 		lbl_ChrSaveProf.setVisible( temp_bool );
 	}
-	
-	public void fill_Skills( HashMap<E_Skills, boolean[]> skills_profs, HashMap<E_Skills, int[]> skills_values )
-	{
-		boolean[] temp = skills_profs.get( E_Skills.AnimalHandling );
-		int[] temp_vals = skills_values.get( E_Skills.AnimalHandling );
+	public void load_Misc(int lvl, int xp, int prof, int initiative, int ac)
+	{		
+		SetLabelText( lbl_Level, lvl );
+		SetLabelText( lbl_XP, xp );
+		SetLabelText( lbl_AC, ac );
+		SetLabelText( lbl_Initiative, initiative );
+		SetLabelText( lbl_ProfBonus, prof );
 		
-		for (int i = 0; i < skill_value_labels.length; i++)
+		lbl_HitDieValue.setText( Integer.toString( lvl ) + "/" + Integer.toString( lvl ) );
+	}
+	public void load_Speeds( HashMap<E_Speeds, Integer> speeds )
+	{
+		SetLabelText( lbl_GroundSpeed, speeds.get( E_Speeds.Walk ) );
+		SetLabelText( lbl_FlySpeed, speeds.get( E_Speeds.Fly ) );
+		SetLabelText( lbl_SwimSpeed, speeds.get( E_Speeds.Swim ) );
+		SetLabelText( lbl_DigSpeed, speeds.get( E_Speeds.Dig ) );
+		SetLabelText( lbl_ClimbSpeed, speeds.get( E_Speeds.Climb ) );
+	}
+	public void load_Skills( HashMap<E_Skills, Boolean> profs, HashMap<E_Skills, Boolean> expert, HashMap<E_Skills, Integer> values )
+	{
+		int temp_int = 0;
+		boolean temp_bool = false;
+		
+		
+		for ( int i = 0; i < profs.size(); i++ )
 		{
-			temp_vals = skills_values.get( E_Skills.values()[i] );
-			skill_value_labels[i].setText( Integer.toString( temp_vals[0] + temp_vals[1] ) );
+			temp_bool = profs.get( E_Skills.values()[i] );
+			skill_prof_labels[i].setVisible( temp_bool );
 		}
 
-		
-		for (int i = 0; i < skill_prof_labels.length; i++)
+		for ( int i = 0; i < expert.size(); i++ )
 		{
-			temp = skills_profs.get( E_Skills.values()[i] );
-			skill_prof_labels[i].setVisible( temp[0] );
-			skill_expert_labels[i].setVisible( temp[1] );
+			temp_bool = expert.get( E_Skills.values()[i] );
+			skill_expert_labels[i].setVisible( temp_bool );
+		}
+		
+		
+		for (int i = 0; i < values.size(); i++)
+		{
+			temp_int = values.get( E_Skills.values()[i] );
+			skill_value_labels[i].setText( Integer.toString( temp_int ) );
 		}
 	}
-	
-	
-	@Override
-	public void ToggleEdits()
-	{
-		// TODO (Luis): Check if one textfield is editable, and set the rest accordingly
-		
-	}
-
-
 	public void load_ActionNames( String text )
 	{
 		area_ActionNames.setText(text);
@@ -1330,6 +1313,15 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	public void load_Proficiences( String text )
 	{
 		area_Proficiences.setText(text);
+	}
+
+
+
+	@Override
+	public void ToggleEdits()
+	{
+		// TODO (Luis): Check if one textfield is editable, and set the rest accordingly
+		
 	}
 }
 

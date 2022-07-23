@@ -535,10 +535,10 @@ public class ControlPanel extends Sheet
 		c_Sheet.update_MaxHealth( stat_values.get_MaxHealth() );
 		c_Sheet.update_TempHealth( stat_values.get_TempHealth() );
 		c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.hitdie_Count, stat_values.current_Level );
-		c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
-		c_Sheet.fill_Skills( stat_values.skills_ProfStatus, stat_values.skills_Values );
-		c_Sheet.fill_Misc( stat_values.current_Level, stat_values.current_XP, stat_values.current_Prof, stat_values.initiative, stat_values.armor_class);
-		c_Sheet.fill_Speeds( stat_values.speeds );
+		c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
+		//c_Sheet.load_Skills( stat_values.skills_Proficiency, stat_values.skills_Expertise );
+		c_Sheet.load_Misc( stat_values.current_Level, stat_values.current_XP, stat_values.current_Prof, stat_values.initiative, stat_values.armor_class);
+		c_Sheet.load_Speeds( stat_values.speeds );
 		
 		// Details sheet: ? x ?
 		d_Sheet = new DetailsSheet();
@@ -607,8 +607,8 @@ public class ControlPanel extends Sheet
 			stat_values.hitdie_Type = json_tools.load_HitdieType();
 			stat_values.health_Values = json_tools.load_Health();
 			stat_values.misc_Values = json_tools.load_Core();
-			c_Sheet.fill_Stats( stat_values.abilities, stat_values.save_prof );
-			c_Sheet.fill_Speeds( stat_values.speeds );
+			c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
+			c_Sheet.load_Speeds( stat_values.speeds );
 			c_Sheet.load_ActionNames( json_tools.load_cs_ActionNames() );
 			c_Sheet.load_ActionRanges( json_tools.load_cs_ActionRanges() );
 			c_Sheet.load_ActionHits( json_tools.load_cs_ActionHits() );
@@ -714,24 +714,15 @@ public class ControlPanel extends Sheet
 				{5, 4, 3, 3, 3, 3, 2, 2, 1, 1}    	// level 20
 			};
 		
+
 		
 		
-		private E_Dice hitdie_Type = E_Dice.D2;
-		
-		// 8 + prof + spell_mod
+		// spell save = 8 + prof + spell_mod
+		// spell hit bonus = prof + spell_mod
 		private int spell_save = 0;
-		
-		// prof + spell_mod
 		private int spell_hit_bonus = 0;
-		
-		private HashMap<E_Stats, Integer> misc_Values = new HashMap<E_Stats, Integer>();
-		private int current_Level = 1;
-		private int current_XP = 0;
-		private int current_Prof = 2;
-		private int initiative = 0;
-		private int armor_class = 0;
-		private int hitdie_Count = 1;
-		
+		private E_Dice hitdie_Type = E_Dice.D2;
+		private HashMap<E_Stats, Integer> misc_Values = new HashMap<E_Stats, Integer>();	
 		private HashMap<E_Currency, Integer> coins = new HashMap<E_Currency, Integer>();
 		private HashMap<E_Speeds, Integer> speeds = new HashMap<E_Speeds, Integer>();
 		private HashMap<E_Stats, Integer> health_Values = new HashMap<E_Stats, Integer>();
@@ -740,10 +731,10 @@ public class ControlPanel extends Sheet
 		private HashMap<E_Abilities, int[]> abilities = new HashMap<E_Abilities, int[]>();
 		private HashMap<E_Abilities, Integer> ability_bonus = new HashMap<E_Abilities, Integer>();
 		private HashMap<E_Abilities, Boolean> save_prof = new HashMap<E_Abilities, Boolean>();
-		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();
-		
-		// skill[0] = proficiency ; skill[1] = expertise
-		private HashMap<E_Skills, boolean[]> skills_ProfStatus = new HashMap<E_Skills, boolean[]>();
+		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();	
+		private HashMap<E_Skills, Boolean> skills_Proficiency = null;
+		private HashMap<E_Skills, Boolean> skills_Expertise = null;
+		private HashMap<E_Skills, Integer> skills_Bonus = null;
 		
 		// skill[0] = base ; skill[1] = bonus ( equipment, spell, etc. )
 		private HashMap<E_Skills, int[]> skills_Values = new HashMap<E_Skills, int[]>();
@@ -994,13 +985,15 @@ public class ControlPanel extends Sheet
 	
 		private void fill_skills()
 		{
-			boolean[] temp_bools = { false, false };
-			int[] temp_ints = { 0, 0 };
-			
+			skills_Proficiency = new HashMap<E_Skills, Boolean>();
+			skills_Expertise = new HashMap<E_Skills, Boolean>();
+			skills_Bonus = new HashMap<E_Skills, Integer>();
+
 			for ( E_Skills element : E_Skills.values() )
 			{
-				skills_ProfStatus.put( element, temp_bools );
-				skills_Values.put( element, temp_ints );
+				skills_Proficiency.put( element, false );
+				skills_Expertise.put( element, false );
+				skills_Bonus.put( element, 0 );
 			}
 		}
 	}
