@@ -173,7 +173,7 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				if ( stat_values.hitdie_Count > 0 )
+				if ( stat_values.get_HitdieCount() > 0 )
 				{
 					int max_roll = 0;
 					switch ( stat_values.hitdie_Type )
@@ -227,7 +227,7 @@ public class ControlPanel extends Sheet
 					}
 				}
 				c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
-				c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.hitdie_Count, stat_values.current_Level );
+				c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
 			}
 		});
 		panel_HealthControls.add(bttn_HitDie, "cell 4 1,grow");
@@ -245,9 +245,9 @@ public class ControlPanel extends Sheet
 			public void mouseClicked(MouseEvent e)
 			{
 				String input = JOptionPane.showInputDialog( "Amount to add: " );
-				int current_xp = stat_values.current_XP;
-				int current_lvl = stat_values.current_Level;
-				int current_prof = stat_values.current_Prof;
+				int current_xp = stat_values.get_XP();
+				int current_lvl = stat_values.get_Level();
+				int current_prof = stat_values.get_ProfBonus();
 				int incoming_temp;
 				try
 				{
@@ -265,9 +265,6 @@ public class ControlPanel extends Sheet
 								lvl_up = true;
 								current_prof = stat_values.xp_table[index][1];
 								current_lvl = index;
-								
-								stat_values.set_Casting();
-								s_Sheet.update_Sheet(stat_values.spell_slots_table, current_lvl - 1, stat_values.spell_save, stat_values.spell_hit_bonus);
 							}
 							else
 							{
@@ -280,13 +277,20 @@ public class ControlPanel extends Sheet
 						}
 					}
 				}
-				catch (NumberFormatException e1)
+				catch ( NumberFormatException e1 )
 				{
 					// Re-prompt user
 					mouseClicked( e );
 				}
 
-				c_Sheet.update_XP( current_xp, current_lvl, current_prof );
+				
+				stat_values.set_Level( current_lvl );
+				stat_values.set_XP( current_xp );
+				stat_values.set_ProfBonus( current_prof );
+				stat_values.set_Casting();
+				
+				s_Sheet.update_Sheet(stat_values.spell_slots_table, stat_values.get_Level(), stat_values.spell_save, stat_values.spell_hit_bonus);
+				c_Sheet.update_XP( stat_values.get_XP(), stat_values.get_Level(), stat_values.get_ProfBonus() );
 			}
 		});
 		panel_GenericControls.add(bttn_AddXP, "cell 1 1,grow");
@@ -534,10 +538,12 @@ public class ControlPanel extends Sheet
 		c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
 		c_Sheet.update_MaxHealth( stat_values.get_MaxHealth() );
 		c_Sheet.update_TempHealth( stat_values.get_TempHealth() );
-		c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.hitdie_Count, stat_values.current_Level );
+		c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
 		c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
+		
 		//c_Sheet.load_Skills( stat_values.skills_Proficiency, stat_values.skills_Expertise );
-		c_Sheet.load_Misc( stat_values.current_Level, stat_values.current_XP, stat_values.current_Prof, stat_values.initiative, stat_values.armor_class);
+		
+		c_Sheet.load_Misc( stat_values.get_Level(), stat_values.get_XP(), stat_values.get_ProfBonus(), stat_values.get_Initiative(), stat_values.get_ArmorClass());
 		c_Sheet.load_Speeds( stat_values.speeds );
 		
 		// Details sheet: ? x ?
@@ -549,7 +555,7 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.current_Level, stat_values.spell_save, stat_values.spell_hit_bonus );
+		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.get_Level(), stat_values.spell_save, stat_values.spell_hit_bonus );
 		
 		
 		// notes sheet 0 x 0
@@ -566,29 +572,6 @@ public class ControlPanel extends Sheet
 	}
 	
 	
-	public void ToggleProfBonus( E_Skills skill )
-	{
-		int[] current = stat_values.skills_Values.get( skill );
-		boolean[] profs = stat_values.skills_ProfStatus.get( skill );
-		
-		if( profs[0] )
-		{
-			profs[0] = false;
-			current[0] = current[0] - stat_values.current_Prof;	
-		}
-		else
-		{
-			profs[0] = true;
-			current[0] = current[0] + stat_values.current_Prof;	
-		}
-		
-		stat_values.skills_ProfStatus.replace( skill, profs );
-		stat_values.skills_Values.replace( skill, current );
-		c_Sheet.update_SkillValue( skill, current[0] );
-		c_Sheet.update_SkillProf( skill, profs[0] );
-	}
-	
-	
 	private class Load extends AbstractAction
 	{
 		private static final long serialVersionUID = 1L;
@@ -601,6 +584,7 @@ public class ControlPanel extends Sheet
 		{
 			// CHARACTER SHEET
 			stat_values.abilities = json_tools.load_Abilities();
+			stat_values.skills_Values = json_tools.load_SkillValues();
 			stat_values.save_prof = json_tools.load_SaveProfs();
 			stat_values.save_bonus = json_tools.load_SaveBonuses();
 			stat_values.speeds = json_tools.load_Speeds();
@@ -731,13 +715,11 @@ public class ControlPanel extends Sheet
 		private HashMap<E_Abilities, int[]> abilities = new HashMap<E_Abilities, int[]>();
 		private HashMap<E_Abilities, Integer> ability_bonus = new HashMap<E_Abilities, Integer>();
 		private HashMap<E_Abilities, Boolean> save_prof = new HashMap<E_Abilities, Boolean>();
-		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();	
+		private HashMap<E_Abilities, Integer> save_bonus = new HashMap<E_Abilities, Integer>();
+		private HashMap<E_Skills, Integer> skills_Values = new HashMap<E_Skills, Integer>();
 		private HashMap<E_Skills, Boolean> skills_Proficiency = null;
 		private HashMap<E_Skills, Boolean> skills_Expertise = null;
 		private HashMap<E_Skills, Integer> skills_Bonus = null;
-		
-		// skill[0] = base ; skill[1] = bonus ( equipment, spell, etc. )
-		private HashMap<E_Skills, int[]> skills_Values = new HashMap<E_Skills, int[]>();
 
 		
 		// Constructors
@@ -762,14 +744,14 @@ public class ControlPanel extends Sheet
 		
 		private boolean get_SkillProfStatus( E_Skills skill )
 		{
-			boolean[] temp = this.skills_ProfStatus.get( skill );
-			return temp[0];
+			return this.skills_Proficiency.get( skill );
 		}
 		
 		private int get_SkillVal( E_Skills skill )
 		{
-			int[] temp = this.skills_Values.get( skill );
-			return temp[0] + temp[1];
+			int val = this.skills_Values.get( skill );
+			int bonus = this.skills_Bonus.get( skill );
+			return val + bonus;
 		}
 		
 		private int get_CurrentHealth()
@@ -786,22 +768,74 @@ public class ControlPanel extends Sheet
 		{
 			return this.health_Values.get(E_Stats.HealthMax );
 		}
+				
+		private int get_Level()
+		{
+			return this.misc_Values.get( E_Stats.Level );
+		}
 		
+		private int get_ProfBonus()
+		{
+			return misc_Values.get( E_Stats.Prof );
+		}
+		
+		private int get_HitdieCount()
+		{
+			return this.misc_Values.get( E_Stats.HitDieCount );
+		}
+	
+		private int get_XP()
+		{
+			return this.misc_Values.get( E_Stats.XP );
+		}
+		
+		private int get_Initiative()
+		{
+			return this.misc_Values.get( E_Stats.Initiative );
+		}
+		
+		private int get_ArmorClass()
+		{
+			return this.misc_Values.get( E_Stats.ArmorClass );
+		}
+
 		
 		// Setters		
+		public void set_Level( int new_val )
+		{
+			int temp = general_tools.ClampInt( new_val, 1, 20 );
+			this.misc_Values.replace( E_Stats.Level, temp );
+		}
+		
+		public void set_XP( int new_val )
+		{
+			int temp = general_tools.ClampInt( new_val, 0, 500000 );
+			this.misc_Values.replace( E_Stats.XP, temp );
+		}
+		
+		public void set_ProfBonus( int new_val )
+		{
+			int temp = general_tools.ClampInt( new_val, 1, 10 );
+			this.misc_Values.replace( E_Stats.Prof, temp );
+		}
+
 		public void set_HitDieCount( int new_val )
 		{
-			this.hitdie_Count = general_tools.ClampInt( this.hitdie_Count + new_val, 0, this.current_Level );
+			int temp = misc_Values.get( E_Stats.HitDieCount );
+			temp = general_tools.ClampInt(temp, 0, get_Level() );
+			misc_Values.replace( E_Stats.HitDieCount, new_val + temp );
 		}
 		
 		public void set_ArmorClass( int new_val )
 		{
-			this.armor_class = new_val + get_AbilityMod( E_Abilities.Dex );
+			int temp = get_AbilityMod( E_Abilities.Dex );
+			misc_Values.replace( E_Stats.ArmorClass, new_val + temp );
 		}
 		
 		public void set_Initiative( int new_val )
 		{
-			this.initiative = new_val + get_AbilityMod( E_Abilities.Dex );;
+			int temp = get_AbilityMod( E_Abilities.Dex );
+			misc_Values.replace( E_Stats.Initiative, new_val + temp );
 		}
 		
 		public void set_Currency( E_Currency coin, int new_val )
@@ -823,15 +857,14 @@ public class ControlPanel extends Sheet
 		{
 			this.abilities.replace(ability, new_val);
 		}
-		
-		
+				
 		public void set_Casting()
 		{
-			spell_save = 8 + current_Prof + get_AbilityMod( E_Abilities.Int );
-			spell_hit_bonus = current_Prof + get_AbilityMod( E_Abilities.Int );
+			int prof = misc_Values.get( E_Stats.Prof );
+			spell_save = 8 + prof + get_AbilityMod( E_Abilities.Int );
+			spell_hit_bonus = prof + get_AbilityMod( E_Abilities.Int );
 		}
 				
-	
 		public void update_Health( E_Stats health_stat, int new_val )
 		{
 			int temp_current = this.health_Values.get( E_Stats.HealthCurrent );
@@ -882,24 +915,23 @@ public class ControlPanel extends Sheet
 			this.health_Values.replace( E_Stats.HealthTemp, temp_temp );
 		}
 		
-		
 	 	public void toggle_SkillProf( E_Skills skill )
 		{
-			boolean[] temp = this.skills_ProfStatus.get( skill );
-			int[] temp_val = this.skills_Values.get( skill );
+			boolean temp = this.skills_Proficiency.get( skill );
+			int temp_val = this.skills_Values.get( skill );
 			
-			if ( temp[0] )
+			if ( temp )
 			{
-				temp[0] = false;
-				temp_val[0] -= this.current_Prof;
+				temp = false;
+				temp_val -= get_ProfBonus();
 			}
 			else
 			{
-				temp[0] = true;
-				temp_val[0] += this.current_Prof;
+				temp = true;
+				temp_val += get_ProfBonus();
 			}
 			
-			this.skills_ProfStatus.replace( skill, temp );
+			this.skills_Proficiency.replace( skill, temp );
 			this.skills_Values.replace( skill, temp_val );
 		}
 		

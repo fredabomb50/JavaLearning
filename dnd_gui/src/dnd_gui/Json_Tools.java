@@ -363,6 +363,36 @@ public class Json_Tools
 		
 		return temp_map;
 	}
+	public HashMap<E_Skills, Integer> load_SkillValues()
+	{
+		HashMap<E_Skills, Integer> temp_map = new HashMap<E_Skills, Integer>();
+		Iterator<Map.Entry> itr1 = null;
+		int temp = 0;
+		E_Skills temp_skill = null;
+		
+		try
+		{			
+			Map temp_scores = ( (Map)stats_json.get("skill_values") );
+	        itr1 = temp_scores.entrySet().iterator();
+	        while ( itr1.hasNext() )
+	        {    
+				Map.Entry pair = itr1.next();
+				temp = util.IntFromObj( pair.getValue() );
+				temp_skill = E_Skills.valueOf( pair.getKey().toString() );
+				temp_map.put( temp_skill , temp );    
+	        }
+		}
+		catch ( IllegalStateException | IllegalArgumentException json_error )
+		{
+			json_logger( json_error, "Exception caught while loading skill values" );
+			return null;
+		}
+		
+		return temp_map;
+	}
+
+	
+	
 	public String load_cs_Advantages()
 	{
 		return txt_loader.readFile( path_cs_Advantages );
