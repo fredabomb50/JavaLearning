@@ -307,17 +307,20 @@ public class ControlPanel extends Sheet
 				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.SelectSkill );
 				E_Skills temp_Skill = dialog.get_skill();
 				
-				for ( E_Skills element : E_Skills.values() )
-				{
-					if ( dialog.get_skill() == element )
+		 		if ( temp_Skill != null )
+		 		{
+					for ( E_Skills element : E_Skills.values() )
 					{
-						stat_values.toggle_SkillProf( temp_Skill );
-						break;
+						if ( dialog.get_skill() == element )
+						{
+							stat_values.toggle_SkillProf( temp_Skill );
+							break;
+						}
 					}
-				}
-				
-				c_Sheet.update_SkillProf( temp_Skill, stat_values.get_SkillProfStatus( temp_Skill ) );
-				c_Sheet.update_SkillValue( temp_Skill, stat_values.get_SkillVal( temp_Skill ) );
+					
+					c_Sheet.update_SkillProf( temp_Skill, stat_values.get_SkillProfStatus( temp_Skill ) );
+					c_Sheet.update_SkillValue( temp_Skill, stat_values.get_SkillVal( temp_Skill ) );
+		 		}
 			}
 		});
 		panel_GenericControls.add(bttn_ToggleProf, "cell 3 1,grow");
@@ -592,6 +595,7 @@ public class ControlPanel extends Sheet
 			stat_values.health_Values = json_tools.load_Health();
 			stat_values.misc_Values = json_tools.load_Core();
 			c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
+			c_Sheet.load_Skills( stat_values.skills_Proficiency, stat_values.skills_Expertise, stat_values.skills_Values );
 			c_Sheet.load_Speeds( stat_values.speeds );
 			c_Sheet.load_ActionNames( json_tools.load_cs_ActionNames() );
 			c_Sheet.load_ActionRanges( json_tools.load_cs_ActionRanges() );

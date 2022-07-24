@@ -111,6 +111,8 @@ public class CustomDialogs extends Sheet
 		custom.getContentPane().add(bttn_Cancel, "cell 0 2,alignx center,aligny center");
 		custom.setVisible(true);
 	}
+	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void Select_Skill( JFrame owner )
 	{
@@ -142,6 +144,7 @@ public class CustomDialogs extends Sheet
 			public void mouseClicked(MouseEvent e)
 			{
 				custom.setVisible(false);
+				stored_skill = null;
 				custom.dispose();
 			}
 		});

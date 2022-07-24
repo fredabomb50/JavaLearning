@@ -1117,7 +1117,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		{
 			if ( E_Skills.values()[i] == skill )
 			{
-				skill_value_labels[i].setText( Integer.toString( new_val ) );
+				skill_value_labels[i].setText( "[ " + Integer.toString( new_val ) + " ]" );
 				break;
 			}
 		}
@@ -1128,7 +1128,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		{
 			if ( E_Skills.values()[i] == skill )
 			{
-				skill_value_labels[i].setVisible( new_val );
+				skill_prof_labels[i].setVisible( new_val );
 				break;
 			}
 		}
@@ -1267,7 +1267,7 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 		for (int i = 0; i < values.size(); i++)
 		{
 			temp_int = values.get( E_Skills.values()[i] );
-			skill_value_labels[i].setText( Integer.toString( temp_int ) );
+			skill_value_labels[i].setText( "[ " + Integer.toString( temp_int ) + " ]" );
 		}
 	}
 	public void load_ActionNames( String text )
