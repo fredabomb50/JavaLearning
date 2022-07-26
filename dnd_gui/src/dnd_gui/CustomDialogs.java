@@ -45,6 +45,11 @@ public class CustomDialogs extends Sheet
 				Enter_Currency( owner );
 			} break;
 			
+			case GenericNumInput:
+			{
+				Enter_GenericNum( owner );
+			} break;
+			
 			default:
 			{
 				// do nothing; invalid call
@@ -153,7 +158,59 @@ public class CustomDialogs extends Sheet
 	}
 	
 	
-	
+	private void Enter_GenericNum( JFrame owner )
+	{
+		custom = new JDialog( owner, "Enter absolute value. (no negatives)", true );
+		custom.setBounds(100, 100, 365, 126);
+		custom.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE );
+		custom.getContentPane().setLayout(new MigLayout("", "[grow][][][]", "[][][]"));
+		
+		
+		txt_AddField = new JTextField();
+		txt_AddField.setHorizontalAlignment(SwingConstants.RIGHT);
+		custom.getContentPane().add(txt_AddField, "cell 0 0, growx");
+		txt_AddField.setColumns(10);
+		
+		JButton bttn_Confirm = new JButton("Confirm");
+		bttn_Confirm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				boolean is_valid = true;
+				try
+				{
+					stored_value = Integer.parseInt( txt_AddField.getText() );
+				}
+				catch (NumberFormatException exception)
+				{
+					is_valid = false;
+					stored_value = 0;
+				}
+				
+				if ( is_valid )
+				{
+					custom.setVisible(false);
+					custom.dispose();
+				}
+				else
+				{
+					txt_AddField.setText( "???" );
+				}
+			}
+		});
+		custom.getContentPane().add(bttn_Confirm, "cell 3 2, alignx center,aligny center");
+		
+		JButton bttn_Cancel = new JButton("Cancel");
+		bttn_Cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				custom.dispose();
+			}
+		});
+		custom.getContentPane().add(bttn_Cancel, "cell 0 2, alignx center,aligny center");
+		custom.setVisible(true);
+	}
 	
 	//======================GETTERS
 	public int get_value()

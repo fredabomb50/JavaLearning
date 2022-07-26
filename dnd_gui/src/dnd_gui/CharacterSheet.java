@@ -1084,17 +1084,11 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	
 	
 	// UPDATES
-	public void update_CurrentHealth( int new_val )
+	public void update_Health( int new_current, int new_max, int new_temp )
 	{
-		lbl_CurrentHealthVal.setText( Integer.toString( new_val ) );
-	}
-	public void update_MaxHealth( int new_val )
-	{
-		lbl_MaxHealthVal.setText( Integer.toString( new_val ) );
-	}
-	public void update_TempHealth( int new_val )
-	{
-		lbl_TempHealthVal.setText( Integer.toString( new_val ) );
+		lbl_CurrentHealthVal.setText( Integer.toString( new_current ) );
+		lbl_MaxHealthVal.setText( Integer.toString( new_max ) );
+		lbl_TempHealthVal.setText( Integer.toString( new_temp ) );
 	}
 	public void update_HitDie( E_Dice die, int new_val, int lvl )
 	{
@@ -1133,48 +1127,16 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 			}
 		}
 	}
-	public void update_Stat( E_Abilities skill, int new_val )
+	public void update_ArmorClass( int new_val )
 	{
-		switch ( skill )
-		{
-			case Dex:
-			{
-				
-			} break;
-			
-			case Str:
-			{
-				
-			} break;
-			
-			case Con:
-			{
-				
-			} break;
-			
-			case Wis:
-			{
-				
-			} break;
-			
-			case Int:
-			{
-				
-			} break;
-			
-			case Chr:
-			{
-				
-			} break;
-			
-			default:
-			{
-				// error catching
-			} break;
-		}
+		lbl_AC.setText( Integer.toString( new_val ) );
 	}
-	
+	public void update_Initiative( int new_val )
+	{
+		lbl_Initiative.setText( Integer.toString( new_val ) );
+	}
 
+	
 	// LOADERS
 	public void load_Abilities( HashMap<E_Abilities, int[]> stat_values, HashMap<E_Abilities, Boolean> save_prof )
 	{
@@ -1229,11 +1191,9 @@ public class CharacterSheet extends Sheet implements Sheet_Generics
 	}
 	public void load_Misc(int lvl, int xp, int prof, int initiative, int ac)
 	{		
-		SetLabelText( lbl_Level, lvl );
-		SetLabelText( lbl_XP, xp );
-		SetLabelText( lbl_AC, ac );
-		SetLabelText( lbl_Initiative, initiative );
-		SetLabelText( lbl_ProfBonus, prof );
+		update_XP( xp, lvl, prof );
+		update_ArmorClass( ac );
+		update_Initiative( initiative );
 		
 		lbl_HitDieValue.setText( Integer.toString( lvl ) + "/" + Integer.toString( lvl ) );
 	}

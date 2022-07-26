@@ -30,7 +30,7 @@ public class ControlPanel extends Sheet
 	
 	// GUI elements
 	private JFrame frame;
-	private final Action action = new Load();
+	private final Action action_Load = new Load();
 	
 	
 	public static void main(String[] args)
@@ -55,8 +55,8 @@ public class ControlPanel extends Sheet
 
 	public ControlPanel()
 	{
-		init_stats();
 		init_sheets();
+		init_stats( (Load) action_Load );
 		initialize();
 	}
 
@@ -80,11 +80,11 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String input = JOptionPane.showInputDialog( "Amount to heal: " );
-				int incoming_health;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+				int incoming_health = dialog.get_value();
 				try
 				{
-					incoming_health = Math.abs( Integer.parseInt( input ) );
+					incoming_health = Math.abs( incoming_health );
 					stat_values.update_Health( E_Stats.HealthCurrent, incoming_health );
 				}
 				catch (NumberFormatException e1)
@@ -93,7 +93,7 @@ public class ControlPanel extends Sheet
 					mouseClicked( e );
 				}
 
-				c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
 			}
 		});
 		panel_HealthControls.add(bttn_Heal, "cell 0 1,grow");
@@ -103,11 +103,11 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String input = JOptionPane.showInputDialog( "Amount to hurt: " );
-				int incoming_pain;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+				int incoming_pain = dialog.get_value();
 				try
 				{
-					incoming_pain = Math.abs( Integer.parseInt( input ) );
+					incoming_pain = Math.abs( incoming_pain );
 					stat_values.update_Health( E_Stats.HealthCurrent, -incoming_pain );
 				}
 				catch (NumberFormatException e1)
@@ -116,8 +116,7 @@ public class ControlPanel extends Sheet
 					mouseClicked( e );
 				}
 				
-				c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
-				c_Sheet.update_TempHealth( stat_values.get_TempHealth() );
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
 			}
 		});
 		panel_HealthControls.add(bttn_Hurt, "cell 1 1,grow");
@@ -127,11 +126,11 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String input = JOptionPane.showInputDialog( "Amount to add: " );
-				int incoming_bump;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+				int incoming_bump = dialog.get_value();
 				try
 				{
-					incoming_bump = Math.abs( Integer.parseInt( input ) );
+					incoming_bump = Math.abs( incoming_bump );
 					stat_values.update_Health( E_Stats.HealthMax, incoming_bump );
 				}
 				catch (NumberFormatException e1)
@@ -140,7 +139,7 @@ public class ControlPanel extends Sheet
 					mouseClicked( e );
 				}
 
-				c_Sheet.update_MaxHealth( stat_values.get_MaxHealth() );
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
 			}
 		});
 		panel_HealthControls.add(bttn_AddMaxHealth, "cell 2 1,grow");
@@ -150,12 +149,12 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String input = JOptionPane.showInputDialog( "Amount to add: " );
-				int incoming_temp;
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+				int incoming_temp = dialog.get_value();
 				try
 				{
-					incoming_temp = Math.abs( Integer.parseInt( input ) );
-					stat_values.update_Health( E_Stats.HealthMax, incoming_temp );
+					incoming_temp = Math.abs( incoming_temp );
+					stat_values.update_Health( E_Stats.HealthTemp, incoming_temp );
 				}
 				catch (NumberFormatException e1)
 				{
@@ -163,7 +162,7 @@ public class ControlPanel extends Sheet
 					mouseClicked( e );
 				}
 
-				c_Sheet.update_TempHealth( stat_values.get_TempHealth() );
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
 			}
 		});
 		panel_HealthControls.add(bttn_AddTempHealth, "cell 3 1,grow");
@@ -173,7 +172,7 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				if ( stat_values.get_HitdieCount() > 0 )
+				if ( stat_values.get_HitdieCount() > 0 && stat_values.get_CurrentHealth() < stat_values.get_MaxHealth() )
 				{
 					int max_roll = 0;
 					switch ( stat_values.hitdie_Type )
@@ -211,11 +210,11 @@ public class ControlPanel extends Sheet
 					
 					
 					int[] temp = stat_values.abilities.get( E_Abilities.Con );
-					String input = JOptionPane.showInputDialog( "Add dice roll (w/o con bonus): " );
-					int incoming_heal;
+					CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+					int incoming_heal = dialog.get_value();
 					try
 					{
-						incoming_heal = Math.abs( Integer.parseInt( input ) );
+						incoming_heal = Math.abs( incoming_heal );
 						incoming_heal = general_tools.ClampInt( incoming_heal, 1, max_roll );
 						stat_values.update_Health( E_Stats.HealthCurrent, incoming_heal + temp[1] );
 						stat_values.set_HitDieCount( -1 );
@@ -226,7 +225,7 @@ public class ControlPanel extends Sheet
 						mouseClicked( e );
 					}
 				}
-				c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
 				c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
 			}
 		});
@@ -237,6 +236,18 @@ public class ControlPanel extends Sheet
 		panel_GenericControls.setLayout(new MigLayout("", "[][][][][]", "[][][]"));
 		
 		JButton bttn_LongRest = new JButton("Long Rest");
+		bttn_LongRest.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				stat_values.set_HitDieCount( stat_values.get_Level() - 1 );
+				stat_values.update_Health( E_Stats.HealthCurrent, stat_values.get_MaxHealth() );
+				stat_values.set_TempHealth( 0 );
+				
+				c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
+				c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
+			}
+		});
 		panel_GenericControls.add(bttn_LongRest, "cell 0 1,grow");
 		
 		JButton bttn_AddXP = new JButton("Gain Xp");
@@ -244,14 +255,15 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				String input = JOptionPane.showInputDialog( "Amount to add: " );
+				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.GenericNumInput );
+				int incoming_temp = dialog.get_value();
 				int current_xp = stat_values.get_XP();
 				int current_lvl = stat_values.get_Level();
 				int current_prof = stat_values.get_ProfBonus();
-				int incoming_temp;
+				
 				try
 				{
-					incoming_temp = Math.abs( Integer.parseInt( input ) );
+					incoming_temp = Math.abs( incoming_temp );
 					current_xp = general_tools.ClampInt( current_xp + incoming_temp, 0, stat_values.xp_table[19][0] + 1 );
 
 					int index = 0;
@@ -304,6 +316,7 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
+				
 				CustomDialogs dialog = new CustomDialogs( frame, E_Dialog.SelectSkill );
 				E_Skills temp_Skill = dialog.get_skill();
 				
@@ -520,15 +533,16 @@ public class ControlPanel extends Sheet
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Load");
-		mntmNewMenuItem_2.setAction(action);
+		mntmNewMenuItem_2.setAction(action_Load);
 		mnNewMenu.add(mntmNewMenuItem_2);
 	}
 
 	
 	// NOTE (Luis): should ultimately use a json loading class to save and load player data
-	private static void init_stats()
+	private void init_stats( Load loader_instance )
 	{
-		// RUN A SUCCESSFUL BUILD FIRST, AND THEN START ADDING LOAD FUNCTIONS
+		ActionEvent e_blank_event = null;
+		loader_instance.actionPerformed( e_blank_event );
 	}
 	
 	
@@ -538,17 +552,7 @@ public class ControlPanel extends Sheet
 		c_Sheet = new CharacterSheet();
 		c_Sheet.ToggleVisibility(c_Sheet.frame, false);
 		c_Sheet.frame.setBounds(100, 100, 830, 750);
-		c_Sheet.update_CurrentHealth( stat_values.get_CurrentHealth() );
-		c_Sheet.update_MaxHealth( stat_values.get_MaxHealth() );
-		c_Sheet.update_TempHealth( stat_values.get_TempHealth() );
-		c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
-		c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
-		
-		//c_Sheet.load_Skills( stat_values.skills_Proficiency, stat_values.skills_Expertise );
-		
-		c_Sheet.load_Misc( stat_values.get_Level(), stat_values.get_XP(), stat_values.get_ProfBonus(), stat_values.get_Initiative(), stat_values.get_ArmorClass());
-		c_Sheet.load_Speeds( stat_values.speeds );
-		
+
 		// Details sheet: ? x ?
 		d_Sheet = new DetailsSheet();
 		d_Sheet.ToggleVisibility(d_Sheet.frame, false);
@@ -558,7 +562,6 @@ public class ControlPanel extends Sheet
 		s_Sheet = new SpellSheet();
 		s_Sheet.ToggleVisibility(s_Sheet.frame, false);
 		s_Sheet.frame.setBounds(100, 100, 750, 430);
-		s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.get_Level(), stat_values.spell_save, stat_values.spell_hit_bonus );
 		
 		
 		// notes sheet 0 x 0
@@ -571,7 +574,6 @@ public class ControlPanel extends Sheet
 		i_Sheet = new InventorySheet();
 		i_Sheet.ToggleVisibility(n_Sheet.frame, false);
 		i_Sheet.frame.setBounds(100, 500, 970, 360);
-		i_Sheet.update_Currency( stat_values.coins );
 	}
 	
 	
@@ -597,6 +599,11 @@ public class ControlPanel extends Sheet
 			c_Sheet.load_Abilities( stat_values.abilities, stat_values.save_prof );
 			c_Sheet.load_Skills( stat_values.skills_Proficiency, stat_values.skills_Expertise, stat_values.skills_Values );
 			c_Sheet.load_Speeds( stat_values.speeds );
+			c_Sheet.load_Misc( stat_values.get_Level(), stat_values.get_XP(), stat_values.get_ProfBonus(), stat_values.get_Initiative(), stat_values.get_ArmorClass() );
+			c_Sheet.update_Health( stat_values.get_CurrentHealth(), stat_values.get_MaxHealth(), stat_values.get_TempHealth() );
+			c_Sheet.update_HitDie( stat_values.hitdie_Type, stat_values.get_HitdieCount(), stat_values.get_Level() );
+
+			
 			c_Sheet.load_ActionNames( json_tools.load_cs_ActionNames() );
 			c_Sheet.load_ActionRanges( json_tools.load_cs_ActionRanges() );
 			c_Sheet.load_ActionHits( json_tools.load_cs_ActionHits() );
@@ -608,6 +615,7 @@ public class ControlPanel extends Sheet
 			c_Sheet.load_Disadvantages( json_tools.load_cs_Disadvantages() );
 			c_Sheet.load_Bonuses( json_tools.load_cs_Bonuses() );
 			c_Sheet.load_Proficiences( json_tools.load_cs_Proficiencies() );
+			
 			
 			
 			// INVENTORY
@@ -638,6 +646,7 @@ public class ControlPanel extends Sheet
 			
 			
 			// CASTING
+			s_Sheet.update_Sheet( stat_values.spell_slots_table, stat_values.get_Level() - 1, stat_values.spell_save, stat_values.spell_hit_bonus );
 			s_Sheet.load_Cantrips( json_tools.load_Cantrips() );
 			s_Sheet.load_1stLevel( json_tools.load_1stLevel() );
 			s_Sheet.load_2ndLevel( json_tools.load_2ndLevel() );
@@ -865,10 +874,16 @@ public class ControlPanel extends Sheet
 		public void set_Casting()
 		{
 			int prof = misc_Values.get( E_Stats.Prof );
-			spell_save = 8 + prof + get_AbilityMod( E_Abilities.Int );
-			spell_hit_bonus = prof + get_AbilityMod( E_Abilities.Int );
+			this.spell_save = 8 + prof + get_AbilityMod( E_Abilities.Int );
+			this.spell_hit_bonus = prof + get_AbilityMod( E_Abilities.Int );
 		}
 				
+		public void set_TempHealth( int new_val )
+		{
+			int temp = general_tools.ClampInt( new_val, 0, stat_values.get_MaxHealth() );
+			this.health_Values.replace( E_Stats.HealthTemp, temp );
+		}
+
 		public void update_Health( E_Stats health_stat, int new_val )
 		{
 			int temp_current = this.health_Values.get( E_Stats.HealthCurrent );
