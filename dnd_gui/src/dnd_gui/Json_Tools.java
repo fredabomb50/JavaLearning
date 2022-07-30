@@ -23,6 +23,7 @@ public class Json_Tools
 {	
 	// Pathing
 	private static final String path_SaveData = "save_data/";
+	private static final String path_Defaults = path_SaveData + "default.json";
 	private static final String path_CharacterStats = path_SaveData + "character-sheet/character_stats.json";
 	private static final String path_cs_Advantages = path_SaveData + "character-sheet/cs_Advantages.txt";
 	private static final String path_cs_Disadvantages = path_SaveData + "character-sheet/cs_Disadvantages.txt";
@@ -65,8 +66,10 @@ public class Json_Tools
 	
 	
 	// Json objects
+	private static Object def_obj = null;
 	private static Object stats_obj = null;
 	private static Object inv_obj = null;
+	private static JSONObject def_json = null;
 	private static JSONObject stats_json = null;
 	private static JSONObject inv_json = null;
 	
@@ -93,6 +96,17 @@ public class Json_Tools
 		catch  ( ParseException | IOException json_error )
 		{
 			json_logger( json_error, "Exception caught while constructing inventory json" );
+		}
+		
+		
+		try
+		{
+			def_obj = new JSONParser().parse(new FileReader( path_Defaults ));
+			def_json = (JSONObject) def_obj;
+		}
+		catch  ( ParseException | IOException json_error )
+		{
+			json_logger( json_error, "Exception caught while constructing defaults json" );
 		}
 	}
 	public void json_logger( Exception exception, String errMsg )
@@ -449,7 +463,7 @@ public class Json_Tools
 		
 		try
 		{			
-			Map temp_scores = (Map) inv_json.get("money") ;
+			Map temp_scores = (Map<E_Currency, Integer>) inv_json.get("money") ;
 	        itr1 = temp_scores.entrySet().iterator();
 	        while ( itr1.hasNext() )
 	        {    
@@ -461,7 +475,7 @@ public class Json_Tools
 		}
 		catch ( IllegalStateException | IllegalArgumentException json_error )
 		{
-			json_logger( json_error, "Exception caught while loading health values" );
+			json_logger( json_error, "Exception caught while loading money values" );
 			return null;
 		}
 		
@@ -582,6 +596,53 @@ public class Json_Tools
 	}
 	
 	
+	
+	
+	// always write to objects in longs ALT - add a conditional in convert method to check if value is a long
+	public void write_test( HashMap<E_Currency, Integer> coins )
+	{          
+		Iterator<Map.Entry> iterator = null;
+		int temp = 0;
+		E_Currency temp_coin = null;
+		
+		
+		try
+		{			
+			//Map temp_money = (Map) coins;
+			Map temp_money = (Map<E_Currency, Integer>) coins ;
+//			iterator = temp_money.entrySet().iterator();
+//	        while ( iterator.hasNext() )
+//	        {    
+//				Map.Entry pair = iterator.next();
+//				temp_coin = E_Currency.valueOf( pair.getKey().toString() );
+//				temp = coins.get( temp_coin );
+//				temp_money.replace( temp_coin , temp );    
+//	        }
+	        inv_json.replace( "money", temp_money );
+		}
+		catch ( IllegalStateException | IllegalArgumentException json_error )
+		{
+			json_logger( json_error, "Exception caught while loading health values" );
+		}
+
+		
+        PrintWriter writer = null;
+		try
+		{
+			writer = new PrintWriter( path_Inventory );
+			JSONObject.writeJSONString( (Map) inv_json, writer );
+			//writer.write( inv_json.toJSONString() );
+		}
+		catch ( IOException e)
+		{
+			e.printStackTrace();
+		}
+        
+		writer.flush();
+		writer.close();
+	}
+	
+	
 	class txt_loader
 	{
 	    public static String readFile( String path )
@@ -603,7 +664,7 @@ public class Json_Tools
 	
 	
 	class util
-	{		
+	{			
  		public static int IntFromString( String string )
 		{
 			return Integer.parseInt( string );

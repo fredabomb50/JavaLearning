@@ -1,0 +1,158 @@
+{
+    "money":
+    {
+        "Platinum": 0,
+        "Gold": 0,
+        "Electrum": 0,
+        "Silver": 0,
+        "Copper": 0,
+        "SoulCoins": 0,
+        "Inspiration": 0
+    },
+
+    "hitdie_type": 0,
+
+    "health":
+    {
+      "HealthCurrent": 0,
+      "HealthMax": 0,
+      "HealthTemp": 0
+    },
+  
+    "core":
+    {
+      "Level": 1,
+      "XP": 0,
+      "Prof": 2,
+      "ArmorClass": 0,
+      "Initiative": 0,
+      "HitDieCount": 1
+    },
+  
+    "abilities":
+    {
+        "Dex": 0,
+        "Str": 0,
+        "Con": 0,
+        "Wis": 0,
+        "Int": 0,
+        "Chr": 0
+    },
+  
+    "save_profs":
+    {
+        "Dex": false,
+        "Str": false,
+        "Con": false,
+        "Wis": false,
+        "Int": false,
+        "Chr": false
+    },
+  
+    "save_bonuses":
+    {
+        "Dex": 0,
+        "Str": 0,
+        "Con": 0,
+        "Wis": 0,
+        "Int": 0,
+        "Chr": 0
+    },
+  
+    "skill_values":
+    {
+     "Acrobatics": 0,
+     "AnimalHandling": 0,
+     "Arcana": 0,
+     "Athletics": 0,
+     "Deception": 0,
+     "History": 0,
+     "Insight": 0,
+     "Intimidation": 0,
+     "Investigation": 0,
+     "Medicine": 0,
+     "Nature": 0,
+     "Perception": 0,
+     "Performance": 0,
+     "Persuasion": 0,
+     "Religion": 0,
+     "SleightOfHand": 0,
+     "Stealth": 0,
+     "Survival": 0
+   },
+  
+    "skill_profs":
+    {
+      "Acrobatics": false,
+      "AnimalHandling": false,
+      "Arcana": false,
+      "Athletics": false,
+      "Deception": false,
+      "History": false,
+      "Insight": false,
+      "Intimidation": false,
+      "Investigation": false,
+      "Medicine": false,
+      "Nature": false,
+      "Perception": false,
+      "Performance": false,
+      "Persuasion": false,
+      "Religion": false,
+      "SleightOfHand": false,
+      "Stealth": false,
+      "Survival": false
+    },
+  
+    "skill_expertise":
+    {
+      "Acrobatics": false,
+      "AnimalHandling": false,
+      "Arcana": false,
+      "Athletics": false,
+      "Deception": false,
+      "History": false,
+      "Insight": false,
+      "Intimidation": false,
+      "Investigation": false,
+      "Medicine": false,
+      "Nature": false,
+      "Perception": false,
+      "Performance": false,
+      "Persuasion": false,
+      "Religion": false,
+      "SleightOfHand": false,
+      "Stealth": false,
+      "Survival": false
+    },
+  
+    "skill_bonuses":
+     {
+      "Acrobatics": 0,
+      "AnimalHandling": 0,
+      "Arcana": 0,
+      "Athletics": 0,
+      "Deception": 0,
+      "History": 0,
+      "Insight": 0,
+      "Intimidation": 0,
+      "Investigation": 0,
+      "Medicine": 0,
+      "Nature": 0,
+      "Perception": 0,
+      "Performance": 0,
+      "Persuasion": 0,
+      "Religion": 0,
+      "SleightOfHand": 0,
+      "Stealth": 0,
+      "Survival": 0
+    },
+  
+    "speeds":
+    {
+      "Walk": 30,
+      "Swim": 30,
+      "Fly": 30,
+      "Dig": 30,
+      "Climb": 30
+    }
+}

@@ -31,6 +31,7 @@ public class ControlPanel extends Sheet
 	// GUI elements
 	private JFrame frame;
 	private final Action action_Load = new Load();
+	private final Action action = new Save();
 	
 	
 	public static void main(String[] args)
@@ -240,7 +241,7 @@ public class ControlPanel extends Sheet
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
-				stat_values.set_HitDieCount( stat_values.get_Level() - 1 );
+				stat_values.set_HitDieCount( 999 );
 				stat_values.update_Health( E_Stats.HealthCurrent, stat_values.get_MaxHealth() );
 				stat_values.set_TempHealth( 0 );
 				
@@ -527,6 +528,7 @@ public class ControlPanel extends Sheet
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
+		mntmNewMenuItem.setAction(action);
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save as");
@@ -835,8 +837,8 @@ public class ControlPanel extends Sheet
 		public void set_HitDieCount( int new_val )
 		{
 			int temp = misc_Values.get( E_Stats.HitDieCount );
-			temp = general_tools.ClampInt(temp, 0, get_Level() );
-			misc_Values.replace( E_Stats.HitDieCount, new_val + temp );
+			temp = general_tools.ClampInt( new_val + temp, 0, this.get_Level() );
+			misc_Values.replace( E_Stats.HitDieCount, temp );
 		}
 		
 		public void set_ArmorClass( int new_val )
@@ -1046,6 +1048,22 @@ public class ControlPanel extends Sheet
 				skills_Expertise.put( element, false );
 				skills_Bonus.put( element, 0 );
 			}
+		}
+	}
+	
+
+	private class Save extends AbstractAction
+	{
+		private static final long serialVersionUID = 1L;
+		
+		public Save()
+		{
+			putValue(NAME, "Save");
+			putValue(SHORT_DESCRIPTION, "Json write test");
+		}
+		public void actionPerformed(ActionEvent e)
+		{
+			json_tools.write_test( stat_values.coins );
 		}
 	}
 }
