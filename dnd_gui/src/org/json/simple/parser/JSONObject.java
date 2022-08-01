@@ -45,7 +45,8 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
      * @param map
      * @param out
      */
-	public static void writeJSONString(Map map, Writer out) throws IOException {
+	public static void writeJSONString(Map map, Writer out) throws IOException
+	{
 		if(map == null){
 			out.write("null");
 			return;
@@ -69,6 +70,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 		}
 		out.write('}');
 	}
+
 
 	public void writeJSONString(Writer out) throws IOException{
 		writeJSONString(this, out);

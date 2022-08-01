@@ -1,1 +1,11 @@
-{"money":{"Silver":646,"Platinum":500,"Inspiration":10,"Electrum":50,"SoulCoins":100,"Gold":50,"Copper":0}}
+{
+		"money":{
+		"Silver":646
+,	"Platinum":999
+,	"Inspiration":10
+,	"Electrum":50
+,	"SoulCoins":0
+,	"Gold":50
+,	"Copper":0
+}
+}

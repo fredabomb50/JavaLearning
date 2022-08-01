@@ -8,7 +8,6 @@ import java.util.*;
 import org.json.simple.parser.*;
 
 
-
 /*
  * For maps of any kind, use the replace() method instead, as the player data class in control panel 
  * should not initialize with any null values.
@@ -597,27 +596,13 @@ public class Json_Tools
 	
 	
 	
-	
-	// always write to objects in longs ALT - add a conditional in convert method to check if value is a long
 	public void write_test( HashMap<E_Currency, Integer> coins )
 	{          
-		Iterator<Map.Entry> iterator = null;
-		int temp = 0;
-		E_Currency temp_coin = null;
-		
+		PrintWriter writer = null;
 		
 		try
 		{			
-			//Map temp_money = (Map) coins;
 			Map temp_money = (Map<E_Currency, Integer>) coins ;
-//			iterator = temp_money.entrySet().iterator();
-//	        while ( iterator.hasNext() )
-//	        {    
-//				Map.Entry pair = iterator.next();
-//				temp_coin = E_Currency.valueOf( pair.getKey().toString() );
-//				temp = coins.get( temp_coin );
-//				temp_money.replace( temp_coin , temp );    
-//	        }
 	        inv_json.replace( "money", temp_money );
 		}
 		catch ( IllegalStateException | IllegalArgumentException json_error )
@@ -626,11 +611,10 @@ public class Json_Tools
 		}
 
 		
-        PrintWriter writer = null;
 		try
 		{
 			writer = new PrintWriter( path_Inventory );
-			JSONObject.writeJSONString( (Map) inv_json, writer );
+			pretty_WriteJSON( (Map) inv_json, writer, 2 );
 			//writer.write( inv_json.toJSONString() );
 		}
 		catch ( IOException e)
@@ -640,6 +624,222 @@ public class Json_Tools
         
 		writer.flush();
 		writer.close();
+	}	
+	public static void pretty_WriteJSON( Map map, Writer out, int tab )
+	{
+		boolean first = true;
+		int tab_index = tab;
+		try
+		{
+			if(map == null)
+			{
+				out.write("null");
+				return;
+			}
+			
+			Iterator iter=map.entrySet().iterator();
+	        out.write( '{' );
+	        out.write( '\n' );
+	        out.write( '\t' );
+			while( iter.hasNext() )
+			{
+	            if( first )
+	            {
+	            	first = false;
+	            }
+	            else
+	            {
+	            	out.write( ',' );
+	            }
+				Map.Entry entry = (Map.Entry)iter.next();
+				while( tab > 0 )
+				{
+					out.write( '\t' );
+					tab--;
+				}
+				tab = 0;
+	            out.write( '\"' );
+	            out.write(escape( String.valueOf( entry.getKey() ) ) );
+	            out.write( '\"' );
+	            out.write( ':' );
+	            pretty_WriteCheck( entry.getValue(), out, tab );
+			}
+			out.write( '}' );
+		}
+		catch ( IOException e )
+		{
+			e.printStackTrace();
+		}
+	}
+	public static String escape(String s)
+	{
+		return JSONValue.escape(s);
+	}
+	public static void pretty_WriteCheck(Object value, Writer out, int tab) throws IOException
+	{
+		if(value == null)
+		{
+			out.write("null");
+            out.write('\n');
+			return;
+		}
+		
+		if(value instanceof String)
+		{		
+            out.write('\"');
+			out.write(escape((String)value));
+            out.write('\"');
+            out.write('\n');
+			return;
+		}
+		
+		if(value instanceof Double)
+		{
+			if(((Double)value).isInfinite() || ((Double)value).isNaN())
+			{
+				out.write("null");
+            	out.write('\n');
+			}
+			else
+			{
+				out.write(value.toString()); 
+	            out.write('\n');
+			}
+			return;
+		}
+		
+		if(value instanceof Float)
+		{
+			if(((Float)value).isInfinite() || ((Float)value).isNaN())
+			{
+				out.write("null");
+				out.write('\n');
+			}
+			else
+			{
+				out.write(value.toString());
+				out.write('\n');
+			}
+			return;
+		}		
+		
+		if(value instanceof Number)
+		{
+			out.write(value.toString());
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof Boolean)
+		{
+			out.write(value.toString());
+			out.write('\n');
+			return;
+		}
+		
+		if((value instanceof JSONStreamAware))
+		{
+			((JSONStreamAware)value).writeJSONString(out);
+			out.write('\n');
+			return;
+		}
+		
+		if((value instanceof JSONAware))
+		{
+			out.write(((JSONAware)value).toJSONString());
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof Map)
+		{
+			pretty_WriteJSON((Map)value, out, tab);
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof Collection)
+		{
+			//JSONArray.writeJSONString((Collection)value, out);
+			out.write( "null" );
+			out.write('\n');
+            return;
+		}
+		
+		if(value instanceof byte[])
+		{
+			//JSONArray.writeJSONString((byte[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof short[])
+		{
+			//JSONArray.writeJSONString((short[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof int[])
+		{
+			//JSONArray.writeJSONString((int[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof long[])
+		{
+			//JSONArray.writeJSONString((long[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof float[])
+		{
+			//JSONArray.writeJSONString((float[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof double[])
+		{
+			//JSONArray.writeJSONString((double[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof boolean[])
+		{
+			//JSONArray.writeJSONString((boolean[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof char[])
+		{
+			//JSONArray.writeJSONString((char[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		if(value instanceof Object[])
+		{
+			//JSONArray.writeJSONString((Object[])value, out);
+			out.write( "null" );
+			out.write('\n');
+			return;
+		}
+		
+		out.write(value.toString());
+		out.write('\n');
 	}
 	
 	
